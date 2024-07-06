@@ -9,10 +9,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    flex-direction: column;
+    text-align: center;
 }
 
 .container {
+    width: 90%;
     max-width: 800px;
     text-align: center;
     padding: 20px;
@@ -24,20 +27,20 @@ body {
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 2.5em;
     color: #BB86FC;
     cursor: pointer;
     margin-bottom: 20px;
 }
 
 p {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin: 20px 0;
 }
 
 .button {
     display: inline-block;
-    padding: 15px 25px;
+    padding: 10px 20px;
     margin: 10px;
     font-size: 1em;
     color: #E0E0E0;
@@ -148,4 +151,41 @@ p {
 
 .more-info p {
     font-size: 1.2em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    p, .button {
+        font-size: 1em;
+    }
+
+    .changelog h2, .details h2, .more-info h2 {
+        font-size: 1.2em;
+    }
+
+    .changelog ul li, .details p, .more-info p {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    p, .button {
+        font-size: 0.9em;
+    }
+
+    .changelog h2, .details h2, .more-info h2 {
+        font-size: 1em;
+    }
+
+    .changelog ul li, .details p, .more-info p {
+        font-size: 0.9em;
+    }
 }
