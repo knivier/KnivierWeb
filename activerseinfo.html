@@ -13,7 +13,7 @@
         share your games.</p>
     <a href="https://github.com/knivier/Activerse/wiki" class="button">Visit the Wiki</a>
     <a href="https://github.com/knivier/Activerse" class="button"> Project Page</a>
-    <a href="https://github.com/knivier/Activerse/releases/tag/v1.1.1" class="button">Download v1.1.1 Now!</a>
+    <a href="https://github.com/knivier/Activerse/releases/tag/v1.1.2-fixed" class="button">Download v1.1.2 Now!</a>
     <div class="more-info">
         <h2>Project Description</h2>
         <p>Activerse is a powerful and versatile game engine designed to empower developers and creators to bring their
@@ -27,7 +27,53 @@
 
     <div class="latest-version-changelog">
         <div class="latest-version">
-            <h2>v1.1.1: Readiness for Gravity & Format Changes (Latest)</h2>
+            <h2>v1.1.2: Optimizations, QOL Improvements & Bug Fixes (Latest)</h2>
+        </div>
+        <div class="changelog">
+            <h2>Changelog:</h2>
+            <ul>
+                <li><strong>Logging Changes:</strong>
+                    <ul>
+                        <li>New log session started is always included first</li>
+                        <li>Log parts are number tracked</li>
+                        <li>FPS is logged actively</li>
+                        <li>TargetFPS included with activeFPS</li>
+                        <li>MB/s instead of MB/sec for consistency</li>
+                        <li>Fixed bug where FPS logging only occurs when debug menu is open (now independent)</li>
+                    </ul>
+                </li>
+                <li><strong>Debug Menu:</strong>
+                    <ul>
+                        <li>MB/s instead of MB/sec for consistency</li>
+                    </ul>
+                </li>
+                <li><strong>Engine Changes:</strong>
+                    <ul>
+                        <li>Optimized World class for better RAM usage</li>
+                        <li>Optimized some of Actor class for better RAM usage</li>
+                        <li>Fixed calculation issues for FPS using GameLoop.java</li>
+                        <li>TargetFPS is now a locked FPS which the game cannot exceed</li>
+                        <li>Fixed collisions in Actor</li>
+                    </ul>
+                </li>
+                <li><strong>Other Changes:</strong>
+                    <ul>
+                        <li>Code formatting and optimized imports</li>
+                        <li>Changed some variables for clarity</li>
+                        <li>Fixed potential issues regarding variable limits (long to double casting)</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>Backwards compatibility has (once again) been insured and checked. We've released our research on RAM and CPU usage and efficiency which you can find <a href="https://github.com/user-attachments/files/16165118/Research.Notes.for.v1.1.2.Optimizations.pdf">by clicking here</a>.</p>
+        </div>
+
+    </div>
+
+    <a href="index.html" class="button">Back to Home</a>
+
+    <div class="latest-version-changelog">
+        <div class="latest-version">
+            <h2>v1.1.1: Readiness for Gravity & Format Changes</h2>
         </div>
         <div class="changelog">
             <h2>Changelog:</h2>
@@ -41,11 +87,9 @@
                 <li>Created independent setX and setY methods for independent calculation</li>
             </ul>
             <p>Backwards compatibility has (once again) been insured and checked. The velocity and height changes have
-            been incorporated, so you can now use the update() method to change gravity.</p>
+                been incorporated, so you can now use the update() method to change gravity.</p>
         </div>
     </div>
-    <a href="index.html" class="button">Back to Home</a>
-
 
     <!-- Previous Version v1.1.0 (No longer latest) -->
     <div class="latest-version-changelog">
