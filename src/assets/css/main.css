@@ -1943,10 +1943,10 @@ body.is-preload #footer {
 }
 
 .intro-section .image.main img {
+    animation: fadeInUp 1.2s ease-in;
     width: 100%;
     border-radius: 8px;
     transition: transform 0.5s ease;
-    animation: zoomIn 1.5s ease-in-out;
 }
 
 .intro-section .image.main img:hover {
