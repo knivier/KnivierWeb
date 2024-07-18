@@ -189,3 +189,13 @@ p {
         font-size: 0.9em;
     }
 }
+.logo {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo img {
+    max-width: 150px; /* Adjust size as needed */
+    height: auto;
+}
