@@ -281,7 +281,7 @@
 
 	$window.on('hashchange', function(event) {
 		// Empty hash?
-		if (location.hash == '' || location.hash == '#') {
+		if (location.hash === '' || location.hash === '#') {
 			// Prevent default.
 			event.preventDefault();
 			event.stopPropagation();
@@ -305,7 +305,7 @@
 	if ('scrollRestoration' in history)
 		history.scrollRestoration = 'manual';
 	else {
-		var oldScrollPos = 0,
+		let oldScrollPos = 0,
 			scrollPos = 0,
 			$htmlbody = $('html,body');
 
@@ -326,7 +326,7 @@
 	$main_articles.hide();
 
 	// Initial article.
-	if (location.hash != '' && location.hash != '#')
+	if (location.hash !== '' && location.hash !== '#')
 		$window.on('load', function() {
 			$main._show(location.hash.substr(1), true);
 		});
@@ -343,5 +343,4 @@
 			}
 		});
 	});
-
 })(jQuery);
