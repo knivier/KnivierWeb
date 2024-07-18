@@ -331,4 +331,17 @@
 			$main._show(location.hash.substr(1), true);
 		});
 
+	// Skills list expand/collapse.
+	document.querySelectorAll('.skills-list li').forEach(item => {
+		item.addEventListener('click', event => {
+			item.classList.toggle('open');
+			const details = item.querySelector('.details');
+			if (item.classList.contains('open')) {
+				details.style.maxHeight = details.scrollHeight + 'px';
+			} else {
+				details.style.maxHeight = '0';
+			}
+		});
+	});
+
 })(jQuery);
