@@ -1,7 +1,27 @@
-My website, not meant to be customized, taken from a templete and heavily modified :D
+# Knivier Web
+## A simple web portfolio that works
+Welcome to the `readme.md` of my portfolio website!
 
-this template was distributed for free, you can find the source by going to the footer and clicking 'CCS' tab.
+### Created via template, heavily modified (source: see footer)
+Not created via template:
+* All images
+* CSS modifications 
+* Most animations
+* Colour changes to all # sections
+* Dropdown "skill" section
+* Image animations (banners)
+* Different project sections 
+* Contact system (customized heavily)
+* All of `activerseinfo.html` and following JS & CSS
+* All of `actversions.html` and following JS & CSS
+* All of `trollgameinfo.html` and following JS & CSS
+*  Other things (referenced)
 
-Pages not under that distribution and were custom made by me:
-Activerse info page 
-troll game info page 
+These modifications make this website rights reserved under the creative commons license. You 
+must provide credit to the original author **and me** if you choose to replicate this website.
+
+A lot of the website is always being customized and worked on. Certain sections may be under construction. This
+website is NOT like my other projects where you're encouraged to download the src code and play around with it/add on (
+following license guidelines ofc). When changing things to this website, you are assuming full liability, I (Knivier) do not provide
+any support for this website.
+
