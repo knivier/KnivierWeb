@@ -18,14 +18,14 @@ header {
 }
 
 .page-body {
-    background-color: #1e1e1e; /* White background for the div */
-    padding: 20px; /* Padding inside the div */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    width: 80%; /* Adjust width as needed */
-    max-width: 600px; /* Maximum width */
-    text-align: center; /* Center the text inside */
-    margin: 100px auto 20px; /* Adjusted margin for space below fixed header */
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    margin: 100px auto 20px;
 }
 
 h1 {
@@ -73,7 +73,7 @@ h1 {
     background-color: rgba(0, 0, 0, 0.9);
     padding-top: 60px;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out; /* Smooth transition */
+    transition: opacity 0.5s ease-in-out;
 }
 
 #changelog.show {
@@ -89,7 +89,7 @@ h1 {
     width: 80%;
     color: #fff;
     border-radius: 10px;
-    animation: slideDown 0.5s ease-in-out; /* Slide down animation */
+    animation: slideDown 0.5s ease-in-out;
 }
 
 @keyframes slideDown {
@@ -108,17 +108,20 @@ h1 {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .close:hover,
 .close:focus {
     color: #fff;
+    transform: scale(1.2);
     text-decoration: none;
     cursor: pointer;
 }
 
+
 #back-to-home {
-    background-color: #045c54; /* Green color from Activerse theme */
+    background-color: #045c54;
     color: #E0E0E0;
     border: none;
     padding: 10px 20px;
@@ -129,7 +132,7 @@ h1 {
 }
 
 #back-to-home:hover {
-    background-color: #00cc00; /* Slightly darker green */
+    background-color: #00cc00;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -138,7 +141,6 @@ h1 {
     transform: scale(0.95);
 }
 
-/* Hide header when changelog is visible */
 #changelog.show ~ header {
     top: -100px;
 }
