@@ -3,13 +3,23 @@ document.querySelectorAll('.version').forEach(item => {
         const versionId = event.currentTarget.id;
         const changelogText = getChangelogText(versionId);
         document.getElementById('changelog-text').innerHTML = changelogText;
-        document.getElementById('changelog').style.display = 'block';
+        const changelogModal = document.getElementById('changelog');
+        changelogModal.style.display = 'block'; // Ensure the modal is displayed
+        changelogModal.classList.add('show');
     });
 });
 
 document.querySelector('.close').addEventListener('click', () => {
-    document.getElementById('changelog').style.display = 'none';
+    const changelogModal = document.getElementById('changelog');
+    changelogModal.classList.remove('show');
+    setTimeout(() => {
+        changelogModal.style.display = 'none'; // Reset display property after animation
+    }, 500); // Match the duration of the opacity transition
 });
+function goBackHome() {
+    window.location.href = 'activerseinfo.html';
+}
+
 
 function getChangelogText(versionId) {
     const changelogs = {
@@ -34,7 +44,7 @@ function getChangelogText(versionId) {
                 <li>Engine:</li>
                 <ul>
                     <li>Optimized World class for better RAM usage</li>
-                    <li>Optimized some of Actor class for better RAM usage</li>
+                    <li>Optimized some of the Actor class for better RAM usage</li>
                     <li>Fixed calculation issues for FPS by resolving using GameLoop.java to calculate FPS</li>
                     <li>TargetFPS is now a lock FPS which the game cannot exceed</li>
                     <li>Fixed collisions in Actor</li>
@@ -45,8 +55,6 @@ function getChangelogText(versionId) {
                     <li>Fixed potential issues regarding variable limits (long to double casting)</li>
                 </ul>
             </ul>
-            <p>These are a lot of QOL updates, but we've also ran research on the Engine after optimizations to see if memory leaks are present in the program and if CPU usage is consistent. The PDF is attached below with conclusions.</p>
-            <a href="Research Notes for v1.1.2 Optimizations.pdf" download>Download Research Notes for v1.1.2 Optimizations.pdf</a>
         `,
         'v1.1.1': `
             <h2>v1.1.1</h2>
@@ -58,10 +66,10 @@ function getChangelogText(versionId) {
                 <li>FPS is now logged alongside MPS</li>
                 <li>Added velocity methods</li>
                 <li>Added height changes</li>
-                <li>Velocity and height methods were incorporated to allow you to create your own gravity system using the update() method in subclasses of World.</li>
             </ul>
+              <p>Velocity and height methods were incorporated to allow you to create your own gravity system using the update() method in subclasses of World.</p>
             <p>As always, this version is backwards compatible with previous versions. We're keeping this streak as long as we can!</p>
-            <p>Full Changelog: v1.1.0...v1.1.1</p>
+            <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.1.0...v1.1.1">Full Changelog v1.1.0...v1.1.1</p>
         `,
         'v1.1.0': `
             <h2>v1.1.0</h2>
@@ -75,30 +83,29 @@ function getChangelogText(versionId) {
             </ul>
             <p>The Activerse.properties file is meant to be a simple place to change memory logging, turn off collision debugging, etc.</p>
             <p>These changes might affect the performance, so do note them down.</p>
-            <p>Full Changelog: v1.0.9...v1.1.0</p>
+            <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.9...v1.1.0">v1.0.9...v1.1.0</a></p>
         `,
         'v1.0.9': `
             <h2>v1.0.9</h2>
             <p>June 15, 2024</p>
             <p><strong>The changes:</strong></p>
             <ul>
-                <li>File write using JSON instead of YAML</li>
-                <li>New GameLoop.java which makes use of Activerse.Properties</li>
+                <li>New GameLoop.java which controls the game Hypersmooth system</li>
                 <li>GameLoop.java contains method for rendering to buffer and FPS locking</li>
                 <li>Introduced concept of activeFPS and TargetFPS</li>
+                <li>Added FPS monitoring into Debug menu</li>
             </ul>
-            <p>Full Changelog: v1.0.8-delta...v1.0.9</p>
+            <ap>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.8-delta...v1.0.9">v1.0.8-delta...v1.0.9</a></p>
         `,
         'v1.0.8-delta': `
             <h2>v1.0.8-delta</h2>
             <p>June 8, 2024</p>
             <p><strong>The changes:</strong></p>
             <ul>
-                <li>Switched from JavaFX to AWT/Swing</li>
-                <li>Refactored World to use Entity array instead of LinkedList</li>
                 <li>Optimized Entity and Actor classes for better performance</li>
+                <p>Added "end" button in Activerse game window</p>
             </ul>
-            <p>Full Changelog: v1.0.7...v1.0.8-delta</p>
+            <p>Full Changelog: Not available</p>
         `,
         'v1.0.7': `
             <h2>v1.0.7</h2>
@@ -108,20 +115,20 @@ function getChangelogText(versionId) {
                 <li>Debug Menu now has current sounds being played</li>
                 <li>It also has current keys being pressed</li>
                 <li>The file hierarchy system has been completely redone</li>
-                <li>Your old files will still most likely work, but updating to this new version will absolutely cause some issues. This is because all of the engine files are now in a package, and you will need to manually import those packages in each subclass.</li>
+                <p>Your old files will still most likely work, but updating to this new version will absolutely cause some issues. This is because all of the engine files are now in a package, and you will need to manually import those packages in each subclass.</p>
             </ul>
-            <p>Full Changelog: v1.0.6-delta...v1.0.7</p>
+            <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.6-delta...v1.0.7-delta">v1.0.6-delta...v1.0.7</a></p>
         `,
         'v1.0.6-delta': `
             <h2>v1.0.6-delta</h2>
             <p>May 8, 2024</p>
-            <p><strong>The changes:</strong></p>
+            <p><strong>Debug Mode:</strong></p>
             <ul>
                 <li>Introducing a new, powerful tool coming to Activerse: Debug mode</li>
                 <li>Debug mode provides information regarding your game, including actors and their location, collisions, and loaded image assets</li>
                 <li>Future debug features include audio files playing, keys currently being pressed, and specific Actor types</li>
             </ul>
-            <p>Full Changelog: v1.0.5-delta...v1.0.6-delta</p>
+            <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.5-delta...v1.0.6-delta">v1.0.5-delta...v1.0.6-delta</a></p>
         `,
         'v1.0.5-delta': `
             <h2>v1.0.5-delta</h2>
@@ -135,7 +142,7 @@ function getChangelogText(versionId) {
                 </ul>
                 <li>Backward compatibility maintained with previous versions</li>
             </ul>
-            <p>Full Changelog: v1.0.4-delta...v1.0.5-delta</p>
+            <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.4-delta...v1.0.5-delta"> v1.0.4-delta...v1.0.5-delta</a></p>
         `,
         'v1.0.4-delta': `
             <h2>v1.0.4-delta</h2>
@@ -148,7 +155,7 @@ function getChangelogText(versionId) {
                 </ul>
                 <li>Backward compatibility with v1.0.3 and v1.0.2</li>
             </ul>
-            <p>Full Changelog: v1.0.3-theta...v1.0.4-delta</p>
+            <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.3-theta...v1.0.4-delta"> v1.0.3-theta...v1.0.4-delta</a></p>
         `,
         'v1.0.3-theta': `
             <h2>v1.0.3-theta</h2>
@@ -157,15 +164,20 @@ function getChangelogText(versionId) {
             <ul>
                 <li>Important engine updates:</li>
                 <ul>
-                    <li>Introduced new logging system</li>
-                    <li>Updated to handle multiple levels of logging</li>
+                    <li>Added method getWorld()</li>
+                    <li>Added method setWorld(World world)</li>
+                    <li>Added method intersects(Actor other)</li>
+                    <li>Added method removeObject(Actor actor)</li>
+                    <li>Added method addObject(Actor actor, int x, int y)</li>
+                    <li>Added method setBackgroundImage(String imagePath)</li>
+                    <li>Added method getActors()</li>
                 </ul>
                 <li>Bug fixes:</li>
                 <ul>
                     <li>Fixed major issues related to the rendering engine</li>
                 </ul>
             </ul>
-            <p>Full Changelog: v1.0.2...v1.0.3-theta</p>
+            <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.2-beta...v1.0.3-theta">v1.0.2...v1.0.3-theta</a></p>
         `
     };
 
