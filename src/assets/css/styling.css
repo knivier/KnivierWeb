@@ -10,8 +10,14 @@ header {
     background-color: #282828;
     padding: 20px;
     text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: top 0.5s;
 }
-.page-body{
+
+.page-body {
     background-color: #1e1e1e; /* White background for the div */
     padding: 20px; /* Padding inside the div */
     border-radius: 10px; /* Rounded corners */
@@ -19,8 +25,9 @@ header {
     width: 80%; /* Adjust width as needed */
     max-width: 600px; /* Maximum width */
     text-align: center; /* Center the text inside */
-    margin: auto;
+    margin: 100px auto 20px; /* Adjusted margin for space below fixed header */
 }
+
 h1 {
     margin: 0;
     color: #50fa7b;
@@ -96,7 +103,6 @@ h1 {
     }
 }
 
-
 .close {
     color: #aaa;
     float: right;
@@ -110,6 +116,7 @@ h1 {
     text-decoration: none;
     cursor: pointer;
 }
+
 #back-to-home {
     background-color: #045c54; /* Green color from Activerse theme */
     color: #E0E0E0;
@@ -129,4 +136,9 @@ h1 {
 
 #back-to-home:active {
     transform: scale(0.95);
+}
+
+/* Hide header when changelog is visible */
+#changelog.show ~ header {
+    top: -100px;
 }
