@@ -23,6 +23,31 @@ function goBackHome() {
 
 function getChangelogText(versionId) {
     const changelogs = {
+        'v1.2.0':`
+            <h2>v1.2.0</h2>
+            <p>July 22, 2024</p>
+            <p><strong>The changes:</strong></p>
+            <ul>
+                <li>File changes include:</li>
+                <ul>
+                <li>Formatting to code</li>
+                <li>Updated license</li>
+                <li>Updated Readme</li>
+                <li>Removed base examples (MyWorld subclass etc)</li>
+                </ul>
+                <li>Other related changes:</li>
+                    <ul>
+                   <li>Updated header to match version</li>
+                   <li>Property file modifications</li>
+                   <li>Advanced implementation of dynamic lighting</li>
+                   <li>Added inbuilt class to World.java</li> 
+                   <li>Logging format changes to include system time</li>
+                   <li>Bug fixes to variables that could've caused data leaks via rounding errors</li>
+                    </ul>
+            </ul>
+            <p>This version is backwards compatible up to v1.0.3-theta (with file changes to structuring of course)</p>
+            <p>Steady implementation of dynamic lighting isn't really there, so some bugs may present and dynamic lighting may not work to the fullest potential</p>
+        `,
         'v1.1.2': `
             <h2>v1.1.2</h2>
             <p>July 12, 2024</p>
