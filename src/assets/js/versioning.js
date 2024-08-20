@@ -45,7 +45,7 @@ function getChangelogText(versionId) {
                    <li>Bug fixes to variables that could've caused data leaks via rounding errors</li>
                     </ul>
             </ul>
-            <p>This version is backwards compatible up to v1.0.3-theta (with file changes to structuring of course)</p>
+            <p>This version is backwards compatible up to v1.0.3-theta (with file changes to structuring)</p>
             <p>Steady implementation of dynamic lighting isn't really there, so some bugs may present and dynamic lighting may not work to the fullest potential</p>
         `,
         'v1.1.2': `
@@ -80,6 +80,8 @@ function getChangelogText(versionId) {
                     <li>Fixed potential issues regarding variable limits (long to double casting)</li>
                 </ul>
             </ul>
+            <p>This version is backwards compatible up to v1.0.3-theta (with file changes to structuring)</p>
+
         `,
         'v1.1.1': `
             <h2>v1.1.1</h2>
@@ -95,6 +97,7 @@ function getChangelogText(versionId) {
               <p>Velocity and height methods were incorporated to allow you to create your own gravity system using the update() method in subclasses of World.</p>
             <p>As always, this version is backwards compatible with previous versions. We're keeping this streak as long as we can!</p>
             <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.1.0...v1.1.1">Full Changelog v1.1.0...v1.1.1</p>
+            <p>This version is backwards compatible up to v1.0.3-theta (with file changes to structuring)</p>
         `,
         'v1.1.0': `
             <h2>v1.1.0</h2>
@@ -109,6 +112,7 @@ function getChangelogText(versionId) {
             <p>The Activerse.properties file is meant to be a simple place to change memory logging, turn off collision debugging, etc.</p>
             <p>These changes might affect the performance, so do note them down.</p>
             <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.9...v1.1.0">v1.0.9...v1.1.0</a></p>
+            <p>This version is backwards compatible up to v1.0.3-theta (with file changes to structuring)</p>
         `,
         'v1.0.9': `
             <h2>v1.0.9</h2>
@@ -120,7 +124,8 @@ function getChangelogText(versionId) {
                 <li>Introduced concept of activeFPS and TargetFPS</li>
                 <li>Added FPS monitoring into Debug menu</li>
             </ul>
-            <ap>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.8-delta...v1.0.9">v1.0.8-delta...v1.0.9</a></p>
+            <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.8-delta...v1.0.9">v1.0.8-delta...v1.0.9</a></p>
+            <p>This version is backwards compatible up to v1.0.3-theta (with file changes to structuring)</p>
         `,
         'v1.0.8-delta': `
             <h2>v1.0.8-delta</h2>
@@ -131,6 +136,7 @@ function getChangelogText(versionId) {
                 <p>Added "end" button in Activerse game window</p>
             </ul>
             <p>Full Changelog: Not available</p>
+            <p>This version is backwards compatible up to v1.0.3-theta (with file changes to structuring)</p>
         `,
         'v1.0.7': `
             <h2>v1.0.7</h2>
@@ -143,6 +149,7 @@ function getChangelogText(versionId) {
                 <p>Your old files will still most likely work, but updating to this new version will absolutely cause some issues. This is because all of the engine files are now in a package, and you will need to manually import those packages in each subclass.</p>
             </ul>
             <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.6-delta...v1.0.7-delta">v1.0.6-delta...v1.0.7</a></p>
+            <p>This version is backwards compatible up to v1.0.3-theta (with file changes to structuring)</p>
         `,
         'v1.0.6-delta': `
             <h2>v1.0.6-delta</h2>
@@ -154,6 +161,7 @@ function getChangelogText(versionId) {
                 <li>Future debug features include audio files playing, keys currently being pressed, and specific Actor types</li>
             </ul>
             <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.5-delta...v1.0.6-delta">v1.0.5-delta...v1.0.6-delta</a></p>
+            <p>This version is backwards compatible up to v1.0.3-theta</p>
         `,
         'v1.0.5-delta': `
             <h2>v1.0.5-delta</h2>
@@ -168,6 +176,7 @@ function getChangelogText(versionId) {
                 <li>Backward compatibility maintained with previous versions</li>
             </ul>
             <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.4-delta...v1.0.5-delta"> v1.0.4-delta...v1.0.5-delta</a></p>
+            <p>This version is backwards compatible up to v1.0.3-theta</p>
         `,
         'v1.0.4-delta': `
             <h2>v1.0.4-delta</h2>
@@ -181,6 +190,7 @@ function getChangelogText(versionId) {
                 <li>Backward compatibility with v1.0.3 and v1.0.2</li>
             </ul>
             <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.3-theta...v1.0.4-delta"> v1.0.3-theta...v1.0.4-delta</a></p>
+            <p>This version is backwards compatible up to v1.0.3-theta</p>
         `,
         'v1.0.3-theta': `
             <h2>v1.0.3-theta</h2>
