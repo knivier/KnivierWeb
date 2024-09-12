@@ -23,6 +23,32 @@ function goBackHome() {
 
 function getChangelogText(versionId) {
     const changelogs = {
+        'v1.2.1':`
+    <h2>v1.2.1 - Minor Grief Removed</h2>
+    <p>September 12, 2024</p>
+    <p><strong>The changes:</strong></p>
+    <ul>
+        <li>File changes include:</li>
+        <ul>
+            <li>🛠️ Enhanced error handling inside ActiverseEngine/Activerse.java.</li>
+            <li>Property file error handling improvements.</li>
+            <li>📊 Added heap usage monitoring methods for debugging.</li>
+            <li>Updated FPS timing to fix slight variance issues.</li>
+            <li>📝 High-detail documentation added in ActiverseEngine/GameLoop.java.</li>
+            <li>Code reformatting for consistency and readability.</li>
+            <li>📜 Added a licensing TLDR inside the ReadME.</li>
+        </ul>
+        <li>Other related changes:</li>
+        <ul>
+            <li>🖱️ Introduced advanced mouse detection with better modification capabilities (experimental).</li>
+            <li>💸 Added funding.yml for project support.</li>
+        </ul>
+    </ul>
+    <p>This version includes new features for enhanced debugging and error handling, along with a demo:</p>
+    <p><strong>🎮 Hopping Game Demo:</strong> Comes as an example showcasing the engine's new capabilities, including advanced mouse detection, performance tweaks, and error handling improvements.</p>
+    <p>Some features like advanced mouse detection are experimental and may require further testing.</p>
+`,
+
         'v1.2.0':`
             <h2>v1.2.0</h2>
             <p>July 22, 2024</p>
