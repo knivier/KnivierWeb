@@ -4,83 +4,275 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Activerse - Official</title>
-    <link href="src/assets/css/activerse-main-styling.css" rel="stylesheet">
     <link rel="icon" href="src/images/activerse-logo.png" type="image/x-icon">
     <link rel="shortcut icon" href="src/images/activerse-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #BB86FC;
+            --secondary-color: #03DAC6;
+            --background-color: #121212;
+            --surface-color: #1E1E1E;
+            --on-surface-color: #E0E0E0;
+            --button-color: #3700B3;
+            --button-hover-color: #6200EE;
+        }
+
+        body {
+            background: linear-gradient(120deg, var(--background-color), var(--surface-color), #2C2C2C);
+            background-size: 400% 400%;
+            animation: backgroundAnimation 15s ease infinite;
+            color: var(--on-surface-color);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            background-color: rgba(30, 30, 30, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .loader {
+            border: 4px solid var(--on-surface-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        h1:hover {
+            transform: scale(1.05);
+            color: var(--secondary-color);
+        }
+
+        p {
+            font-size: 1.1em;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 1em;
+            color: var(--on-surface-color);
+            text-decoration: none;
+            background-color: var(--button-color);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: all 0.5s;
+        }
+
+        .button:hover:before {
+            left: 100%;
+        }
+
+        .button:hover {
+            background-color: var(--button-hover-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .latest-version-changelog {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: rgba(51, 51, 51, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .latest-version-changelog:hover {
+            transform: translateY(-5px);
+            background-color: rgba(51, 51, 51, 0.7);
+        }
+
+        .changelog ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .changelog ul li {
+            margin: 15px 0;
+            background-color: rgba(42, 42, 42, 0.7);
+            padding: 15px 20px;
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .changelog ul li:hover {
+            transform: translateX(5px);
+            background-color: rgba(42, 42, 42, 0.9);
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: var(--primary-color);
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        footer:hover {
+            opacity: 1;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .changelog ul li {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-
+    <div id="loader" class="loader"></div>
     <h1 id="activerse-title">Activerse</h1>
     <div class="logo">
-        <img src="src/images/activerse-logo.png" alt="Activerse  ">
+        <img src="src/images/activerse-logo.png" alt="Activerse Logo">
     </div>
-    <p>Activerse is a dynamic Java-based game engine that brings your creative visions to life. Build, play, and
-        share your games.</p>
+    <p>Activerse is a dynamic Java-based game engine that brings your creative visions to life. Build, play, and share your games.</p>
     <a class="button" href="https://github.com/knivier/Activerse/wiki" target="_blank">Wiki</a>
     <a class="button" href="https://github.com/knivier/Activerse" target="_blank">GitHub</a>
     <a class="button" href="https://github.com/knivier/Activerse/releases/tag/v1.2.1" target="_blank">Download (v1.2.1)</a>
     <a class="button" href="actversions.html">Version Logs</a>
     <a class="button" href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">Java Doc Ref</a>
 
-
-    <div class="more-info">
+    <div class="more-info" data-aos="fade-up">
         <h2>Project Description</h2>
-        <p>Activerse is a powerful and versatile game engine designed to empower developers and creators to bring their
-            imaginative worlds to life. With its intuitive interface and robust features, Activerse streamlines the game
-            development process, offering seamless integration of physics, graphics, and sound. Whether you're a
-            seasoned developer or a novice, Activerse provides the tools and flexibility to create complex, interactive
-            experiences. Its modular architecture allows for easy customization and scalability, making it suitable for
-            a wide range of game genres. Dive into Activerse and start crafting unique gaming experiences that captivate
-            and engage players.</p>
+        <p>Activerse is a powerful and versatile game engine designed to empower developers and creators to bring their imaginative worlds to life. With its intuitive interface and robust features, Activerse streamlines the game development process, offering seamless integration of physics, graphics, and sound. Whether you're a seasoned developer or a novice, Activerse provides the tools and flexibility to create complex, interactive experiences. Its modular architecture allows for easy customization and scalability, making it suitable for a wide range of game genres. Dive into Activerse and start crafting unique gaming experiences that captivate and engage players.</p>
         <h2>Major License Announcement</h2>
-        <p>Activerse © 2024 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0 (Previous license GNU). This more
-            easily allows developers to share the code and adapt it as well, while attributing
-            the work correctly, and not using Activerse for commercial usage. When sharing your code, you must abide
-            under the same (CC BY-NC-SA 4.0) license while you're not setting additional terms.</p>
+        <p>Activerse © 2024 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0 (Previous license GNU). This more easily allows developers to share the code and adapt it as well, while attributing the work correctly, and not using Activerse for commercial usage. When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license while you're not setting additional terms.</p>
     </div>
 
-    <div class="latest-version-changelog">
+    <div class="latest-version-changelog" data-aos="fade-up">
         <div class="latest-version">
             <h2>v1.2.1: Removed Minor Grievances</h2>
         </div>
         <div class="changelog">
             <h2>Changelog:</h2>
-<ul>
-    <li>🛠️ Enhanced Error Handling</li>
-    <ul>
-        <li>Improved error handling inside ActiverseEngine/Activerse.java for a smoother experience.</li>
-        <li>Added property file error handling to catch and log issues efficiently.</li>
-    </ul>
-    <li>📊 Debugging & Performance Enhancements</li>
-    <ul>
-        <li>Heap Usage Monitoring: Added methods for heap usage tracking, helping debug memory usage and optimize performance for future builds.</li>
-        <li>FPS Timing Fixes: Updated FPS timing to address slight variance issues, resulting in more consistent performance.</li>
-    </ul>
-    <li>🖱️ Advanced Mouse Detection (Experimental)</li>
-    <ul>
-        <li>Introduced advanced mouse detection with better modification capabilities (untested and unverified).</li>
-    </ul>
-    <li>📝 Documentation Updates</li>
-    <ul>
-        <li>Detailed Docs: Added high-detail documentation within ActiverseEngine/GameLoop.java, providing better insights into game loop mechanics.</li>
-        <li>Code Reformat: Multiple files have undergone code formatting improvements for consistency and readability.</li>
-    </ul>
-    <li>📜 Licensing TLDR</li>
-    <ul>
-        <li>Added a concise TLDR of licensing terms directly in the ReadME for easy access and understanding.</li>
-    </ul>
-    <li>🎮 Hopping Game Demo Included</li>
-    <ul>
-        <li>This release comes with the Hopping Game demo as an example, showcasing the engine's new capabilities and providing a reference for developers. Try it out to see the advanced mouse detection, performance tweaks, and error handling in action!</li>
-    </ul>
-</ul>
-
-
-
-
+            <ul>
+                <li>🛠️ Enhanced Error Handling</li>
+                <ul>
+                    <li>Improved error handling inside ActiverseEngine/Activerse.java for a smoother experience.</li>
+                    <li>Added property file error handling to catch and log issues efficiently.</li>
+                </ul>
+                <li>📊 Debugging & Performance Enhancements</li>
+                <ul>
+                    <li>Heap Usage Monitoring: Added methods for heap usage tracking, helping debug memory usage and optimize performance for future builds.</li>
+                    <li>FPS Timing Fixes: Updated FPS timing to address slight variance issues, resulting in more consistent performance.</li>
+                </ul>
+                <li>🖱️ Advanced Mouse Detection (Experimental)</li>
+                <ul>
+                    <li>Introduced advanced mouse detection with better modification capabilities (untested and unverified).</li>
+                </ul>
+                <li>📝 Documentation Updates</li>
+                <ul>
+                    <li>Detailed Docs: Added high-detail documentation within ActiverseEngine/GameLoop.java, providing better insights into game loop mechanics.</li>
+                    <li>Code Reformat: Multiple files have undergone code formatting improvements for consistency and readability.</li>
+                </ul>
+                <li>📜 Licensing TLDR</li>
+                <ul>
+                    <li>Added a concise TLDR of licensing terms directly in the ReadME for easy access and understanding.</li>
+                </ul>
+                <li>🎮 Hopping Game Demo Included</li>
+                <ul>
+                    <li>This release comes with the Hopping Game demo as an example, showcasing the engine's new capabilities and providing a reference for developers. Try it out to see the advanced mouse detection, performance tweaks, and error handling in action!</li>
+                </ul>
+            </ul>
         </div>
-
     </div>
     <a class="button" href="actversions.html">View Version Logs</a>
     <a class="button" href="index.html">Back to Home</a>
@@ -90,12 +282,54 @@
             data-position="Right" data-x_margin="18" data-y_margin="18" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"></script>
 
     <br>
-    <footer>Activerse &copy; 2024 by Knivier/Agniva, Activerse and related website is licensed under CC BY-NC-SA 4.0 s</footer>
+    <footer>Activerse &copy; 2024 by Knivier/Agniva, Activerse and related website is licensed under CC BY-NC-SA 4.0</footer>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
 <script>
+    AOS.init();
+    
     document.getElementById('activerse-title').addEventListener('click', function () {
         window.location.href = 'activerseinfo.html';
+    });
+    
+    // Hide loader after content is fully loaded
+    window.onload = function() {
+        document.getElementById('loader').style.display = 'none';
+    };
+
+    // New animations
+    document.querySelectorAll('.button').forEach(button => {
+        button.addEventListener('mouseover', function() {
+            this.style.animation = 'pulse 0.5s infinite';
+        });
+        button.addEventListener('mouseout', function() {
+            this.style.animation = 'none';
+        });
+    });
+
+    document.querySelectorAll('.changelog ul li').forEach(item => {
+        item.addEventListener('mouseover', function() {
+            this.style.transform = 'translateX(10px) scale(1.05)';
+            this.style.transition = 'all 0.3s ease';
+        });
+        item.addEventListener('mouseout', function() {
+            this.style.transform = 'translateX(0) scale(1)';
+        });
+    });
+
+    // Random color change for the title
+    setInterval(() => {
+        const colors = ['#BB86FC', '#03DAC6', '#CF6679', '#01A299'];
+        document.getElementById('activerse-title').style.color = colors[Math.floor(Math.random() * colors.length)];
+    }, 3000);
+
+    // Parallax effect for the container
+    document.addEventListener('mousemove', (e) => {
+        const container = document.querySelector('.container');
+        const moveX = (e.clientX - window.innerWidth / 2) / 100;
+        const moveY = (e.clientY - window.innerHeight / 2) / 100;
+        container.style.transform = `translate(${moveX}px, ${moveY}px)`;
     });
 </script>
 </body>
