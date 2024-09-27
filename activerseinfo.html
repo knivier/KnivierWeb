@@ -36,6 +36,52 @@
             text-align: center;
         }
 
+
+        .release-banner {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+        color: #fff;
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 1em;
+        z-index: 1000;
+        border-radius: 25px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+    }
+
+    .release-banner::before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
+        background: #1E1E1E;
+        border-radius: 23px;
+        z-index: -1;
+    }
+
+    .release-banner .close {
+        margin-left: 10px;
+        cursor: pointer;
+        font-size: 1em;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+    }
+
+    .release-banner .close:hover {
+        opacity: 1;
+    }
+
+    body {
+        padding-top: 60px; /* Adjust this value if needed to prevent content from being hidden behind the banner */
+    }
+
+
         .container {
             width: 90%;
             max-width: 800px;
@@ -217,6 +263,34 @@
     </style>
 </head>
 <body>
+
+    <script>
+        function closeBanner(event) {
+            event.stopPropagation();
+            document.getElementById('release-banner').style.display = 'none';
+            document.body.style.paddingTop = '0';
+        }
+    
+        document.getElementById('release-banner').addEventListener('click', function(event) {
+            if (event.target !== this)
+                return;
+            window.location.href = '#latest-version-changelog';
+        });
+    </script>
+    
+
+    <div id="release-banner" class="release-banner">
+        v1.3.0 is out!
+        <span class="close" onclick="closeBanner(event)">×</span>
+    </div>
+
+
+
+
+
+
+
+
 <div class="container">
     <div id="loader" class="loader"></div>
     <h1 id="activerse-title">Activerse</h1>
