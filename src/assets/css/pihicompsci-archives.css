@@ -42,15 +42,38 @@ nav {
 }
 
 .nav-links a {
-    color: var(--text);
+    position: relative;
+    padding-bottom: 0.5rem; /* Adds some space for the arrow */
     text-decoration: none;
+    color: var(--text);
     font-weight: 500;
     transition: color 0.3s;
 }
 
 .nav-links a:hover {
-    color: var(--primary);
+    color: var(--primary); /* Changes color on hover */
 }
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--primary); /* Color of the arrow */
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.nav-links a:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(6px); /* Moves the arrow upwards when hovered */
+}
+
 
 .hero {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
