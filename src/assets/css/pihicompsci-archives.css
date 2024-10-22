@@ -126,6 +126,8 @@ body {
     transition: var(--transition);
 }
 
+
+
 /* Hero Section */
 .hero {
     position: relative;
