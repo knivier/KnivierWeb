@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiHi CompSci Archives</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="src/assets/css/pihicompsci-archives.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <img src="src/images/pihicompsci-logo.png" alt="PiHi CompSci Logo" style="height: 50px; margin-right: -300px;">
+            <h2 style="display: inline-block; vertical-align: middle;">PiHi CompSci</h2>
+            <div class="nav-links">
+                <p>Quick Nav:</p>
+                <a href="#about">About</a>
+                <a href="#leadership">Leadership</a>
+                <a href="#archives">Archives</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>PiHi CompSci Archives</h1>
+        <p>My archives of Pioneer's coding club; here, you can learn how to code or see
+            the history of coding club trapped through time, all available for free on this website! Due to privacy reasons, some information may be redacted. 
+            All slides are stored in Google Drives; this is the vast majority of what is available. 
+        </p>
+    </section>
+
+    <div class="container">
+        <section id="about" class="section">
+            <h2>About Our Club</h2>
+            <div class="leadership-card">
+                <p>The PiHi Computer Science Club is dedicated to fostering a passion for programming, problem-solving, and technology among high school students. We provide a collaborative environment where students can learn, create, and grow their technical skills through hands-on projects and peer learning.</p>
+            </div>
+        </section>
+
+        <section id="leadership" class="section">
+            <h2>Leadership</h2>
+            <div class="leadership-card">
+                <h3>2024-2026</h3>
+                <p>President: Agniva G</p>
+                <p>Mentor: Mr. Emch</p>
+                <p>Vice President(s): Tejas G, Shelley O</p>
+                <p>Operations Manager: Swarnim A</p>
+            </div>
+            <div class="leadership-card">
+                <h3>2023-2024</h3>
+                <p>President(s): Amy Y, Sophia W</p>
+                <p>Mentor: Mr. Emch</p>
+                <p>Vice President: Agniva G</p>
+            </div>
+        </section>
+
+        <section id="archives" class="section">
+            <h2>Year Archives</h2>
+            <div class="archive-grid">
+                <div class="archive-card">
+                    <h3>2024-2025</h3>
+                    <p>Current Year</p>
+                    <div class="archive-content">
+                        <h4>Highlights:</h4>
+                        <ul>
+                            <li>New initiatives and projects</li>
+                            <li>Upcoming events</li>
+                            <li>Current achievements</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="archive-card">
+                    <h3>2023-2024</h3>
+                    <p>Click to expand</p>
+                    <div class="archive-content">
+                        <h4>Highlights:</h4>
+                        <ul>
+                            <li>Key projects and initiatives</li>
+                            <li>Club achievements</li>
+                            <li>Special events</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="archive-card">
+                    <h3>2022-2023</h3>
+                    <p>Click to expand</p>
+                    <div class="archive-content">
+                        <h4>Highlights:</h4>
+                        <ul>
+                            <li>Foundation year activities: Coding club scrimmage, Python lessons, others n/A</li>
+                            <li>Club establishment - Raised $200 in bake sales </li>
+                            <li>All slides are stored in <a href="https://drive.google.com/drive/folders/1h-7fpfJKH1FTgEAoFKWILZ1fskkI3rcR?usp=sharing">the Google Drive</a>. Some information is redacted and not all content from the 2022:24 year </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer></footer>
+        <button id="homeButton" style="padding: 10px 20px; font-size: 14px; cursor: pointer; border-radius: 25px; background: linear-gradient(45deg, #6a0dad, #8a2be2); color: white; border: none; transition: background 0.3s ease;">
+            Home
+        </button>
+
+        <style>
+            #homeButton:hover {
+            background: linear-gradient(45deg, #8a2be2, #6a0dad);
+            }
+
+            #homeButton:active {
+            transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            // Add animation to the Home button
+            gsap.fromTo('#homeButton', 
+                { opacity: 0, y: 20 }, 
+                { opacity: 1, y: 0, duration: 1, delay: 1 }
+            );
+
+            // Navigate to index.html on button click
+            document.getElementById('homeButton').addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        </script>
+
+    </div>
+
+   
+<script>
+    // Initialize GSAP
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate hero section
+    gsap.to('.hero h1', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 0.5
+    });
+
+    gsap.to('.hero p', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 0.8
+    });
+
+    // Animate sections on scroll
+    gsap.utils.toArray('.section').forEach(section => {
+        gsap.to(section, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: section,
+                start: 'top 80%',
+            }
+        });
+    });
+
+    // Improved archive card click handlers
+    document.querySelectorAll('.archive-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            // Close all other cards first
+            document.querySelectorAll('.archive-card').forEach(otherCard => {
+                if (otherCard !== card) {
+                    otherCard.classList.remove('active');
+                }
+            });
+            
+            // Toggle the clicked card
+            card.classList.toggle('active');
+        });
+    });
+</script>
+</body>
+</html>
