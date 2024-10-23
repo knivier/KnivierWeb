@@ -6,7 +6,36 @@
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="src/assets/css/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .gradient-bg {
+            background: linear-gradient(270deg, #ff7e5f, #feb47b);
+            background-size: 400% 400%;
+            animation: gradientBackground 15s ease infinite;
+        }
+    </style>
 </head>
+
+<div id="pre-production-banner" class="bg-yellow-500 text-black text-center py-2 relative">
+    <span>Pre-Production Build</span>
+    <button id="close-banner" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-black hover:text-gray-700">
+        &times;
+    </button>
+</div>
+
+<script>
+    document.getElementById('close-banner').addEventListener('click', function() {
+        document.getElementById('pre-production-banner').style.display = 'none';
+    });
+</script>
+
+
 <body class="min-h-screen relative">
     <div id="particles-js" class="absolute inset-0 z-0"></div>
     <header class="min-h-screen flex items-center justify-center relative overflow-hidden z-10">
@@ -32,23 +61,23 @@
                 </div>
                 <div class="code-line">
                     <span class="line-number">2</span>
-                    <span class="code">  constructor() {</span>
+                    <span class="code">&nbsp;&nbsp;constructor() {</span>
                 </div>
                 <div class="code-line">
                     <span class="line-number">3</span>
-                    <span class="code">    this.name = "Agniva (Knivier)";</span>
+                    <span class="code">&nbsp;&nbsp;&nbsp;&nbsp;this.name = "Agniva (Knivier)";</span>
                 </div>
                 <div class="code-line">
                     <span class="line-number">4</span>
-                    <span class="code">    this.role = "High School Developer";</span>
+                    <span class="code">&nbsp;&nbsp;&nbsp;&nbsp;this.role = "High School Developer";</span>
                 </div>
                 <div class="code-line">
                     <span class="line-number">5</span>
-                    <span class="code">    this.languages = ["Java", "Python", "HTML/CSS"];</span>
+                    <span class="code">&nbsp;&nbsp;&nbsp;&nbsp;this.languages = ["Java", "Python", "HTML/CSS"];</span>
                 </div>
                 <div class="code-line">
                     <span class="line-number">6</span>
-                    <span class="code">  }</span>
+                    <span class="code">&nbsp;&nbsp;}</span>
                 </div>
                 <div class="code-line">
                     <span class="line-number">7</span>
