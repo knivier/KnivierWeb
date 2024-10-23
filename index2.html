@@ -1,0 +1,607 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Knivier - Creative Portfolio</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5F7FFF;
+            --secondary: #2A2A2A;
+            --accent: #FFD700;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--secondary) 0%, #000 100%);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        
+        /* Floating Elements */
+        .float-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin: 2rem 0;
+            width: calc(50% - 2rem);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: auto;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            left: -3rem;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            right: -3rem;
+        }
+
+        /* 3D Cards */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg);
+        }
+
+        /* Circular Progress */
+        .circular-progress {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .circular-progress svg {
+            transform: rotate(-90deg);
+        }
+
+        .circular-progress circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        /* Navigation Pills */
+        .nav-pills {
+            display: flex;
+            gap: 1rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            margin: 2rem 0;
+        }
+
+        .nav-pill {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-pill.active {
+            background: var(--primary);
+        }
+
+        /* Code Editor Section */
+        .code-editor {
+            background: #1E1E1E;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .code-line {
+            display: flex;
+            gap: 1rem;
+            padding: 0.25rem 0;
+        }
+
+        .line-number {
+            color: #666;
+            min-width: 2rem;
+            text-align: right;
+        }
+
+        /* Terminal Section */
+        .terminal {
+            background: #000;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .terminal-line {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+        }
+
+        .prompt {
+            color: var(--primary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            text-align: center;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Project Showcase */
+        .project-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .project-card {
+            position: relative;
+            padding: 2rem;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 0.1;
+        }
+
+        /* Skill Tree */
+        .skill-tree {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .skill-branch {
+            position: relative;
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+
+        .skill-branch::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .skill-node {
+            position: relative;
+            padding: 1rem;
+            margin-left: 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .skill-node::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 50%;
+            width: 1rem;
+            height: 2px;
+            background: var(--primary);
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body class="min-h-screen relative">
+    <div id="particles-js" class="absolute inset-0 z-0"></div>
+
+    <!-- Hero Section with 3D Elements -->
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden z-10">
+        <div class="float-element text-center z-10">
+            <h1 class="text-7xl font-bold mb-6">Knivier</h1>
+            <p class="text-2xl text-gray-300 mb-8">Coding // Tennis // Learning</p>
+            <div class="flex gap-4 justify-center">
+                <a href="https://github.com/knivier" class="glass px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300">My GitHub</a>
+                <a href="#contact" class="glass px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300">Contact Me</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6">
+        
+
+        <!-- Code Editor Experience -->
+        <section class="py-20">
+            <h2 class="text-4xl font-bold mb-12">My Coding Journey</h2>
+            <div class="code-editor mb-8">
+                <div class="code-line">
+                    <span class="line-number">1</span>
+                    <span class="code">class <span class="text-primary">Developer</span> {</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">2</span>
+                    <span class="code">  constructor() {</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">3</span>
+                    <span class="code">    this.name = "Agniva (Knivier)";</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">4</span>
+                    <span class="code">    this.role = "High School Developer";</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">5</span>
+                    <span class="code">    this.languages = ["Java", "Python", "HTML/CSS"];</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">6</span>
+                    <span class="code">  }</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">7</span>
+                    <span class="code">}</span>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- Terminal Experience -->
+        <section class="py-20">
+            <div class="terminal">
+                <div class="terminal-line">
+                    <span class="prompt">$</span>
+                    <span>whoami</span>
+                </div>
+                <div class="terminal-line">
+                    <span>Knivier aka Agniva; PHS Junior and aiming for fullstack</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">$</span>
+                    <span>cat achievements.txt</span>
+                </div>
+                <div class="terminal-line">
+                    <span>- 8th Place at EMU Competition</span>
+                </div>
+                <div class="terminal-line">
+                    <span>- Participated in MSU & SVSU Events</span>
+                </div>
+                <div class="terminal-line">
+                    <span>- Led High School Coding Club</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-20">
+            <h2 class="text-4xl font-bold mb-12 text-center">Quick Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card glass">
+                    <h3 class="text-5xl font-bold mb-2">4+</h3>
+                    <p>Years of Web Design</p>
+                </div>
+                <div class="stat-card glass">
+                    <h3 class="text-5xl font-bold mb-2">2+</h3>
+                    <p>Years of Java</p>
+                </div>
+                <div class="stat-card glass">
+                    <h3 class="text-5xl font-bold mb-2">12+</h3>
+                    <p>Projects Completed</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skill Tree -->
+        <section class="py-20">
+            <h2 class="text-4xl font-bold mb-12 text-center">Skill Tree</h2>
+            <div class="skill-tree">
+                <div class="skill-branch">
+                    <div class="skill-node">
+                        <h3 class="text-xl font-bold">Web Development</h3>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex justify-between">
+                                <span>HTML/CSS</span>
+                                <span>Advanced</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>JavaScript</span>
+                                <span>Learning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-branch">
+                    <div class="skill-node">
+                        <h3 class="text-xl font-bold">Java Development</h3>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex justify-between">
+                                <span>Core Java</span>
+                                <span>Intermediate</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Game Development</span>
+                                <span>Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-branch">
+                    <div class="skill-node">
+                        <h3 class="text-xl font-bold">Python</h3>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex justify-between">
+                                <span>Discord.py</span>
+                                <span>Intermediate</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>General Python</span>
+                                <span>Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Showcase -->
+        <section class="py-20" id="projects>
+            <h2 class="text-4xl font-bold mb-12 text-center">Featured Projects</h2>
+            <div class="project-showcase">
+                <div class="project-card glass">
+                    <h3 class="text-2xl font-bold mb-4">Activerse</h3>
+                    <p class="mb-4">A Java-based game engine meant to help people create games by simplifying the GUI experience.</p>
+                    <div class="flex gap-4">
+                        <span class="px-3 py-1 rounded-full bg-blue-500/20">Java</span>
+                        <span class="px-3 py-1 rounded-full bg-green-500/20">GUI</span>
+                        <span class="px-3 py-1 rounded-full bg-purple-500/20">Games</span>
+                    </div>
+                    <a href="activerseinfo.html" class="mt-6 inline-block text-primary hover:underline">View Project →</a>
+                </div>
+                <div class="project-card glass">
+                    <h3 class="text-2xl font-bold mb-4">Troll Game</h3>
+                    <p class="mb-4">A text-based adventure game with dynamic gameplay and randomization elements.</p>
+                    <div class="flex gap-4">
+                        <span class="px-3 py-1 rounded-full bg-blue-500/20">Java</span>
+                        <span class="px-3 py-1 rounded-full bg-yellow-500/20">Console</span>
+                        <span class="px-3 py-1 rounded-full bg-red-500/20">Game</span>
+                    </div>
+                    <a href="trollgameinfo.html" class="mt-6 inline-block text-primary hover:underline">View Project →</a>
+                </div>
+                <div class="project-card glass">
+                    <h3 class="text-2xl font-bold mb-4">Pal Bot</h3>
+                    <p class="mb-4">A customizable Discord bot template with extensive features.</p>
+                    <div class="flex gap-4">
+                        <span class="px-3 py-1 rounded-full bg-blue-500/20">Python</span>
+                        <span class="px-3 py-1 rounded-full bg-indigo-500/20">Discord</span>
+                        <span class="px-3 py-1 rounded-full bg-pink-500/20">Bot</span>
+                    </div>
+                    <a href="https://github.com/knivier/PalBot" class="mt-6 inline-block text-primary hover:underline">View Project →</a>
+                </div>
+                <div class="project-card glass">
+                    <h3 class="text-2xl font-bold mb-4">My Website</h3>
+                    <p class="mb-4">The link that connects all my projects together with updates everywhere. Complex, yet simple!</p>
+                    <div class="flex gap-4">
+                        <span class="px-3 py-1 rounded-full bg-indigo-500/20">HTML/CSS</span>
+                        <span class="px-3 py-1 rounded-full bg-gray-500/20">JS</span>
+                        <span class="px-3 py-1 rounded-full bg-green-500/20">Web</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Timeline -->
+        <section class="py-20">
+            <h2 class="text-4xl font-bold mb-12 text-center">Project Timelines</h2>
+            <div class="timeline">
+                <div class="timeline-item glass p-6 card-3d">
+                    <h3 class="text-xl font-bold mb-2"><a href="pihicompsci-archives.html">PiHi CompSci Archives</a></h3>
+                    <p>Archives for my High Schools coding club; a self mantained project.</p>
+                </div>
+                <div class="timeline-item glass p-6 card-3d">
+                    <h3 class="text-xl font-bold mb-2"><a href="activerseinfo.html">Activerse</h3>
+                    <p>A Java-based game engine for simplified GUI development; my latest project.</p>
+                </div>
+                <div class="timeline-item glass p-6 card-3d">
+                    <h3 class="text-xl font-bold mb-2">My Website</h3>
+                    <p>A complex HTML website meant to tie everything together; worked on always.</p>
+                </div>
+                <div class="timeline-item glass p-6 card-3d">
+                    <h3 class="text-xl font-bold mb-2"><a href="trollgameinfo.html">Troll Game</a> </h3>
+                    <p>Text-based adventure with dynamic gameplay; discontinued mid-2024.</p>
+                </div>
+                <div class="timeline-item glass p-6 card-3d">
+                    <h3 class="text-xl font-bold mb-2">Pal Bot</h3>
+                    <p>Customizable Discord bot template</p>
+                </div>
+                <div class="timeline-item glass p-6 card-3d">
+                    <h3 class="text-xl font-bold mb-2"><a href="https://eduspire.pages.dev/">EduSpire</a></h3>
+                    <p>Spartahack 8 project that was continued; a better D2L, now discontinued.</p>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-20" id="contact">
+            <h2 class="text-4xl font-bold mb-12 text-center">Let's Connect</h2>
+            <div class="glass p-8 max-w-2xl mx-auto">
+                <div class="text-center mb-8">
+                    <p class="text-xl">Find me on Discord as "knivier" or reach out via email:</p>
+                    <p class="text-primary text-xl mt-2">agnivag.16@gmail.com</p>
+                </div>
+                <div class="flex justify-center gap-8">
+                    <a href="https://www.reddit.com/user/_NessJL/" class="social-link hover:text-primary transition-colors">
+                        <i class="fab fa-reddit text-3xl"></i>
+                    </a>
+                    <a href="github.html" class="social-link hover:text-primary transition-colors">
+                        <i class="fab fa-github text-3xl"></i>
+                    </a>
+                    <a href="https://www.x.com/atomickniv" class="social-link hover:text-primary transition-colors">
+                        <i class="fab fa-twitter text-3xl"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@Knivier" class="social-link hover:text-primary transition-colors">
+                        <i class="fab fa-youtube text-3xl"></i>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8 text-gray-400">
+        <p>&copy; 2024 Knivier. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script>
+        // Particle.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#ffffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ffffff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s ease-out';
+            observer.observe(section);
+        });
+
+        // 3D Card Effect
+        document.querySelectorAll('.card-3d').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
