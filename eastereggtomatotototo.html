@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍅 The Magnificent Tomato</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .tomato {
+            font-size: 8rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: inline-block;
+            animation: bounce 2s infinite;
+            user-select: none;
+        }
+
+        .tomato:hover {
+            transform: scale(1.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            margin: 1rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+        }
+
+        .fact {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .secret-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .secret-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .particles {
+            position: fixed;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hidden-mode {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #1a1a1a;
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .matrix-text {
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tomato" id="tomato">🍅</div>
+        <h1 class="title">The Magnificent Tomato</h1>
+        <p class="fact" id="fact">I'm not just any tomato. I'm a fruit pretending to be a vegetable. Click me!</p>
+        <button class="secret-button" id="secretButton">Don't click this</button>
+    </div>
+
+    <div class="hidden-mode" id="hiddenMode">
+        <div class="matrix-text">TOMATO MATRIX ACTIVATED</div>
+        <div class="matrix-text">01010100 01001111 01001101 01000001 01010100 01001111</div>
+        <div class="matrix-text">Press ESC to return to reality</div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        const facts = [
+            "Did you know? I'm technically a berry! 🤯",
+            "I was once considered poisonous in Europe! Talk about bad PR...",
+            "Some people call me 'love apple' 💝",
+            "I'm 95% water but 100% awesome!",
+            "In Spain, they throw me at people during La Tomatina festival!",
+            "Keep clicking! There might be more secrets... 👀"
+        ];
+
+        const tomato = document.getElementById('tomato');
+        const factText = document.getElementById('fact');
+        const secretButton = document.getElementById('secretButton');
+        const hiddenMode = document.getElementById('hiddenMode');
+
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.width = Math.random() * 10 + 5 + 'px';
+            particle.style.height = particle.style.width;
+            document.body.appendChild(particle);
+
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = Math.random() * 5 + 2;
+            const dx = Math.cos(angle) * velocity;
+            const dy = Math.sin(angle) * velocity;
+
+            let opacity = 1;
+            function animate() {
+                const currentLeft = parseFloat(particle.style.left);
+                const currentTop = parseFloat(particle.style.top);
+                particle.style.left = currentLeft + dx + 'px';
+                particle.style.top = currentTop + dy + 'px';
+                opacity -= 0.02;
+                particle.style.opacity = opacity;
+
+                if (opacity > 0) {
+                    requestAnimationFrame(animate);
+                } else {
+                    particle.remove();
+                }
+            }
+            animate();
+        }
+
+        tomato.addEventListener('click', (e) => {
+            clickCount++;
+            factText.textContent = facts[clickCount % facts.length];
+            
+            for (let i = 0; i < 20; i++) {
+                createParticle(e.clientX, e.clientY);
+            }
+
+            if (clickCount > 0) {
+                tomato.style.fontSize = Math.min(8 + clickCount / 2, 12) + 'rem';
+            }
+
+            if (clickCount === 10) {
+                tomato.innerHTML = '🍅💫';
+                factText.textContent = "You've unlocked the SUPER TOMATO! Keep going...";
+            }
+        });
+
+        let secretClickCount = 0;
+        secretButton.addEventListener('click', () => {
+            secretClickCount++;
+            if (secretClickCount === 1) {
+                secretButton.textContent = "I warned you...";
+            } else if (secretClickCount === 2) {
+                secretButton.textContent = "Last chance...";
+            } else if (secretClickCount === 3) {
+                hiddenMode.style.display = "flex";
+                document.body.style.overflow = "hidden";
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hiddenMode.style.display = "none";
+                document.body.style.overflow = "auto";
+                secretButton.textContent = "Don't click this";
+                secretClickCount = 0;
+            }
+        });
+
+        // Easter egg: Konami code
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    document.body.style.background = 'linear-gradient(135deg, #ff6b6b, #ff8787, #ff6b6b)';
+                    tomato.innerHTML = '🍅👑';
+                    factText.textContent = "KONAMI CODE ACTIVATED! You've found the Royal Tomato!";
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+    </script>
+</div>
+</body>
+</html>
