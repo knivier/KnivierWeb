@@ -23,10 +23,38 @@ function goBackHome() {
 
 function getChangelogText(versionId) {
     const changelogs = {
+        'v1.3.1': `
+        <h2>v1.3.1 - ACEHS and Safety</h2>
+        <p>November 7, 2024</p> 
+        <p><strong>The changes:</strong></p>
+        <ul>
+        <li>🛡️ Lots of Null Safety</li>
+        <ul>
+            <li>Added extensive null safety checks to prevent unexpected issues.</li>
+        </ul>
+        <li>⚙️ Enhanced Concurrent Error Handling</li>
+        <ul>
+            <li>Implemented more specific handling systems to manage concurrent errors effectively.</li>
+        </ul>
+        <li>🔧 ACEHS (Activerse Concurrent Error Handling System)</li>
+        <ul>
+            <li>Our new system for managing concurrent errors with detailed error codes, all explained here in the README!</li>
+        </ul>
+        <li>☕ JDK20+ Lambda Compatibility</li>
+        <ul>
+            <li>Lambda expressions are now JDK20+ friendly, while the minimum suggested JDK version remains JDK23.</li>
+        </ul>
+        <li>⏱️ Tick Variable Update</li>
+        <ul>
+            <li>Changed the tick variable from int to long for greater flexibility.</li>
+        </ul>
+        </ul>
+        `,
+
         'v1.3.0': `
         <h2>v1.3.0 - A Bigger Than Expected Update! 🚀</h2>
         <p>September 27, 2024</p>
-        <p><strong>The changes:</strong></p>
+        <p><strong>The changes:</strong></p>>
         <ul>
             <li>📝 Added JavaDoc Documentation</li>
             <ul>
