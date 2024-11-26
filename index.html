@@ -3,7 +3,7 @@
 <head>
     <title>Knivier - Portfolio</title>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=1200, initial-scale=0.3, maximum-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="src/assets/css/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,9 +19,15 @@
             background-size: 400% 400%;
             animation: gradientBackground 15s ease infinite;
         }
+        /* Optional: Add a responsive scaling hint */
+        @media screen and (max-width: 1200px) {
+            body {
+                transform: scale(0.3);
+                transform-origin: top left;
+            }
+        }
     </style>
 </head>
-
 
 <script>
     document.getElementById('close-banner').addEventListener('click', function() {
