@@ -264,32 +264,12 @@
 </head>
 <body>
 
-    <script>
-        function closeBanner(event) {
-            event.stopPropagation();
-            document.getElementById('release-banner').style.display = 'none';
-            document.body.style.paddingTop = '0';
-        }
-    
-        document.getElementById('release-banner').addEventListener('click', function(event) {
-            if (event.target !== this)
-                return;
-            window.location.href = '#latest-version-changelog';
-        });
-    </script>
     
 
     <div id="release-banner" class="release-banner">
         v1.3.1 is out!
         <span class="close" onclick="closeBanner(event)">×</span>
     </div>
-
-
-
-
-
-
-
 
 <div class="container">
     <div id="loader" class="loader"></div>
@@ -300,15 +280,26 @@
     <p>Activerse is a dynamic Java-based game engine that brings your creative visions to life. Build, play, and share your games.</p>
     <a class="button" href="https://github.com/knivier/Activerse/wiki" target="_blank">Wiki</a>
     <a class="button" href="https://github.com/knivier/Activerse" target="_blank">GitHub</a>
-    <a class="button" href="https://github.com/knivier/Activerse/releases/tag/v1.3.0" target="_blank">Download (v1.3.0)</a>
+    <a class="button" href="https://github.com/knivier/Activerse/releases/tag/v1.3.1" target="_blank">Download (v1.3.1)</a>
     <a class="button" href="actversions.html">Version Logs</a>
-    <a class="button" href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">Java Ref</a>
+    <a class="button" href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">Docs</a>
 
     <div class="more-info" data-aos="fade-up">
-        <h2>Project Description</h2>
-        <p>Activerse is a powerful and versatile game engine designed to empower developers and creators to bring their imaginative worlds to life. With its intuitive interface and robust features, Activerse streamlines the game development process, offering seamless integration of physics, graphics, and sound. Whether you're a seasoned developer or a novice, Activerse provides the tools and flexibility to create complex, interactive experiences. Its modular architecture allows for easy customization and scalability, making it suitable for a wide range of game genres. Dive into Activerse and start crafting unique gaming experiences that captivate and engage players.</p>
-        <h2>Major License Announcement</h2>
-        <p>Activerse © 2024 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0 (Previous license GNU). This more easily allows developers to share the code and adapt it as well, while attributing the work correctly, and not using Activerse for commercial usage. When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license while you're not setting additional terms.</p>
+        <h2>What is Activerse</h2>
+        <p>Activerse is a powerful and versatile game engine 
+            designed to empower developers and creators to bring 
+            their imaginative worlds to life. 
+            Activerse helps streamlines the 2D game development process, 
+            offering seamless integration of physics, graphics, 
+            and sound. Whether you're a seasoned developer or a novice, 
+            Activerse provides the tools and flexibility to create complex,
+             interactive experiences. Its modular architecture allows 
+             for easy customization and scalability, making it suitable 
+             for a wide range of game genres. Dive into Activerse and 
+             start crafting unique gaming experiences that captivate 
+             and engage players.</p>
+        <h2>Licensing</h2>
+        <p>Activerse © 2024 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0. This more easily allows developers to share the code and adapt it as well, while attributing the work correctly, and not using Activerse for commercial usage. When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license while you're not setting additional terms.</p>
     </div>
 
     <div class="latest-version-changelog" data-aos="fade-up">
@@ -386,5 +377,20 @@
         container.style.transform = `translate(${moveX}px, ${moveY}px)`;
     });
 </script>
+</body>
+</html>
+    <script>
+        function closeBanner(event) {
+            event.stopPropagation();
+            document.getElementById('release-banner').style.display = 'none';
+            document.body.style.paddingTop = '0';
+        }
+    
+        document.getElementById('release-banner').addEventListener('click', function(event) {
+            if (event.target !== this)
+                return;
+            window.location.href = '#latest-version-changelog';
+        });
+    </script>
 </body>
 </html>
