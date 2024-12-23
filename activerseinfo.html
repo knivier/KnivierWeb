@@ -20,8 +20,7 @@
             --on-surface-color: #E0E0E0;
             --button-color: #3700B3;
             --button-hover-color: #6200EE;
-        }
-
+            }
         body {
             background: linear-gradient(120deg, var(--background-color), var(--surface-color), #2C2C2C);
             background-size: 400% 400%;
@@ -123,46 +122,6 @@
             line-height: 1.6;
         }
 
-        .button {
-            display: inline-block;
-            padding: 12px 24px;
-            margin: 10px;
-            font-size: 1em;
-            color: var(--on-surface-color);
-            text-decoration: none;
-            background-color: var(--button-color);
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: all 0.5s;
-        }
-
-        .button:hover:before {
-            left: 100%;
-        }
-
-        .button:hover {
-            background-color: var(--button-hover-color);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-
         .logo img {
             width: 100px;
             height: auto;
@@ -219,108 +178,131 @@
             opacity: 1;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes backgroundAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2.5em;
-            }
-
-            .button {
-                padding: 10px 20px;
-                font-size: 0.9em;
-            }
-
-            .changelog ul li {
-                padding: 12px;
-                font-size: 0.9em;
-            }
-        }
-
         .nav-pane {
-            background: rgba(30, 30, 30, 0.9);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px auto;
-            width: fit-content;
-            display: flex;
-            gap: 15px;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 300px;
+            background: rgba(30, 30, 30, 0.7);
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 80px 20px 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(187, 134, 252, 0.5) transparent;
+        }
+
+        .nav-pane.open {
+            transform: translateX(0);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-toggle {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            background: rgba(55, 0, 179, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: var(--on-surface-color);
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 101;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-toggle:hover {
+            background: rgba(98, 0, 238, 0.9);
+            transform: scale(1.05);
         }
 
         .nav-pane .button {
-            margin: 0;
-            font-size: 0.95em;
-            padding: 10px 20px;
-            white-space: nowrap;
+            display: block;
+            margin: 15px 0;
+            font-size: 1em;
+            color: var(--on-surface-color);
+            text-decoration: none;
+            background: rgba(55, 0, 179, 0.9);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 8px;
+            padding: 15px 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
         }
 
+        .nav-pane .button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+            );
+            transition: all 0.5s;
+        }
+
+        .nav-pane .button:hover {
+            background: rgba(98, 0, 238, 0.95);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-pane .button:hover:before {
+            left: 100%;
+        }
+
+        .nav-pane::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .nav-pane::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .nav-pane::-webkit-scrollbar-thumb {
+            background-color: rgba(187, 134, 252, 0.5);
+            border-radius: 3px;
+        }
 
         @media (max-width: 768px) {
             .nav-pane {
-                flex-direction: column;
-                width: 90%;
-                gap: 10px;
+            width: 85%;
+            padding-top: 70px;
+            }
+
+            .nav-toggle {
+            right: 15px;
+            top: 15px;
             }
 
             .nav-pane .button {
-                width: 100%;
-                text-align: center;
+            padding: 12px 16px;
+            font-size: 0.95em;
             }
         }
+
     </style>
 </head>
 
@@ -338,11 +320,6 @@
             <img src="src/images/activerse-logo.png" alt="Activerse Logo">
         </div>
         <p>Activerse is a dynamic Java-based game engine that brings your creative visions to life. Build, play, and share your games.</p>
-        <a class="button" href="https://github.com/knivier/Activerse/wiki" target="_blank">Wiki</a>
-        <a class="button" href="https://github.com/knivier/Activerse" target="_blank">GitHub</a>
-        <a class="button" href="https://github.com/knivier/Activerse/releases/tag/v1.3.1" target="_blank">Download (v1.3.1)</a>
-        <a class="button" href="actversions.html">Version Logs</a>
-        <a class="button" href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">Docs</a>
 
         <div class="more-info" data-aos="fade-up">
             <h2>What is Activerse</h2>
@@ -364,17 +341,22 @@
                     <li>JDK20+ Lambda Compatibility: Lambda expressions are now JDK20+ friendly, while the minimum suggested JDK version remains JDK23.</li>
                     <li>Tick Variable Update: Changed the tick variable from int to long for greater flexibility.</li>
                 </ul>
-
             </div>
         </div>
 
-        <a class="button" href="actversions.html">View Version Logs</a>
-        <a class="button" href="index.html">Back to Home</a>
-
-        <script data-cfasync="false" data-color="#5F7FFF" data-description="Support me on Buy me a coffee!" data-id="knivier" data-message="Support my work" data-name="BMC-Widget" data-position="Right" data-x_margin="18" data-y_margin="18" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"></script>
-
-        <br>
         <footer>Activerse &copy; 2024 by Knivier/Agniva, Activerse and related website is licensed under CC BY-NC-SA 4.0</footer>
+    </div>
+
+    <div class="nav-pane" id="nav-pane">
+        <a class="button" href="https://github.com/knivier/Activerse/wiki" target="_blank">Wiki</a>
+        <a class="button" href="https://github.com/knivier/Activerse" target="_blank">GitHub</a>
+        <a class="button" href="https://github.com/knivier/Activerse/releases/tag/v1.3.1" target="_blank">Download (v1.3.1)</a>
+        <a class="button" href="actversions.html">Version Logs</a>
+        <a class="button" href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">Docs</a>
+        <a class="button" href="index.html">Back to Home</a>
+    </div>
+    <div class="nav-toggle" id="nav-toggle">
+        <i class="fas fa-bars"></i>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
@@ -385,12 +367,10 @@
             window.location.href = 'activerseinfo.html';
         });
 
-        // Hide loader after content is fully loaded
         window.onload = function () {
             document.getElementById('loader').style.display = 'none';
         };
 
-        // New animations
         document.querySelectorAll('.button').forEach(button => {
             button.addEventListener('mouseover', function () {
                 this.style.animation = 'pulse 0.5s infinite';
@@ -410,13 +390,11 @@
             });
         });
 
-        // Random color change for the title
         setInterval(() => {
             const colors = ['#BB86FC', '#03DAC6', '#CF6679', '#01A299'];
             document.getElementById('activerse-title').style.color = colors[Math.floor(Math.random() * colors.length)];
         }, 3000);
 
-        // Parallax effect for the container
         document.addEventListener('mousemove', (e) => {
             const container = document.querySelector('.container');
             const moveX = (e.clientX - window.innerWidth / 2) / 100;
@@ -434,6 +412,13 @@
             if (event.target !== this)
                 return;
             window.location.href = '#latest-version-changelog';
+        });
+
+        const navToggle = document.getElementById('nav-toggle');
+        const navPane = document.getElementById('nav-pane');
+
+        navToggle.addEventListener('click', () => {
+            navPane.classList.toggle('open');
         });
     </script>
 </body>
