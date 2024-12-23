@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -7,6 +8,7 @@
     <link rel="icon" href="src/images/activerse-logo.png" type="image/x-icon">
     <link rel="shortcut icon" href="src/images/activerse-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
@@ -36,51 +38,49 @@
             text-align: center;
         }
 
-
         .release-banner {
-        position: fixed;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
-        color: #fff;
-        text-align: center;
-        padding: 10px 20px;
-        font-size: 1em;
-        z-index: 1000;
-        border-radius: 25px;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        cursor: pointer;
-    }
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+            color: #fff;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 1em;
+            z-index: 1000;
+            border-radius: 25px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
 
-    .release-banner::before {
-        content: "";
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        right: 2px;
-        bottom: 2px;
-        background: #1E1E1E;
-        border-radius: 23px;
-        z-index: -1;
-    }
+        .release-banner::before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: #1E1E1E;
+            border-radius: 23px;
+            z-index: -1;
+        }
 
-    .release-banner .close {
-        margin-left: 10px;
-        cursor: pointer;
-        font-size: 1em;
-        opacity: 0.7;
-        transition: opacity 0.3s;
-    }
+        .release-banner .close {
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
 
-    .release-banner .close:hover {
-        opacity: 1;
-    }
+        .release-banner .close:hover {
+            opacity: 1;
+        }
 
-    body {
-        padding-top: 60px; /* Adjust this value if needed to prevent content from being hidden behind the banner */
-    }
-
+        body {
+            padding-top: 60px;
+        }
 
         .container {
             width: 90%;
@@ -220,25 +220,53 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes backgroundAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         @media (max-width: 768px) {
@@ -260,137 +288,154 @@
                 font-size: 0.9em;
             }
         }
+
+        .nav-pane {
+            background: rgba(30, 30, 30, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: fit-content;
+            display: flex;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-pane .button {
+            margin: 0;
+            font-size: 0.95em;
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+
+
+        @media (max-width: 768px) {
+            .nav-pane {
+                flex-direction: column;
+                width: 90%;
+                gap: 10px;
+            }
+
+            .nav-pane .button {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
-<body>
 
-    
+<body>
 
     <div id="release-banner" class="release-banner">
         v1.3.1 is out!
         <span class="close" onclick="closeBanner(event)">×</span>
     </div>
 
-<div class="container">
-    <div id="loader" class="loader"></div>
-    <h1 id="activerse-title">Activerse</h1>
-    <div class="logo">
-        <img src="src/images/activerse-logo.png" alt="Activerse Logo">
-    </div>
-    <p>Activerse is a dynamic Java-based game engine that brings your creative visions to life. Build, play, and share your games.</p>
-    <a class="button" href="https://github.com/knivier/Activerse/wiki" target="_blank">Wiki</a>
-    <a class="button" href="https://github.com/knivier/Activerse" target="_blank">GitHub</a>
-    <a class="button" href="https://github.com/knivier/Activerse/releases/tag/v1.3.1" target="_blank">Download (v1.3.1)</a>
-    <a class="button" href="actversions.html">Version Logs</a>
-    <a class="button" href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">Docs</a>
-
-    <div class="more-info" data-aos="fade-up">
-        <h2>What is Activerse</h2>
-        <p>Activerse is a powerful and versatile game engine 
-            designed to empower developers and creators to bring 
-            their imaginative worlds to life. 
-            Activerse helps streamlines the 2D game development process, 
-            offering seamless integration of physics, graphics, 
-            and sound. Whether you're a seasoned developer or a novice, 
-            Activerse provides the tools and flexibility to create complex,
-             interactive experiences. Its modular architecture allows 
-             for easy customization and scalability, making it suitable 
-             for a wide range of game genres. Dive into Activerse and 
-             start crafting unique gaming experiences that captivate 
-             and engage players.</p>
-        <h2>Licensing</h2>
-        <p>Activerse © 2024 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0. This more easily allows developers to share the code and adapt it as well, while attributing the work correctly, and not using Activerse for commercial usage. When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license. You also cannot set any additional terms.</p>
-    </div>
-
-    <div class="latest-version-changelog" data-aos="fade-up">
-        <div class="latest-version">
-            <h2>v1.3.1: ACEHS and Null Safety</h2>
+    <div class="container">
+        <div id="loader" class="loader"></div>
+        <h1 id="activerse-title">Activerse</h1>
+        <div class="logo">
+            <img src="src/images/activerse-logo.png" alt="Activerse Logo">
         </div>
-        <div class="changelog">
-            <h2>Changelog:</h2>
-            <ul>
-                <li>Lots of Null Safety: Added extensive null safety checks to prevent unexpected issues.</li>
-                <li>Enhanced Concurrent Error Handling: Implemented more specific handling systems to manage concurrent errors effectively.</li>
-                <li>ACEHS (Activerse Concurrent Error Handling System): Our new system for managing concurrent errors with detailed error codes, all explained here in the README!</li>
-                <li>JDK20+ Lambda Compatibility: Lambda expressions are now JDK20+ friendly, while the minimum suggested JDK version remains JDK23.</li>
-                <li>Tick Variable Update: Changed the tick variable from int to long for greater flexibility.</li>
-            </ul>
+        <p>Activerse is a dynamic Java-based game engine that brings your creative visions to life. Build, play, and share your games.</p>
+        <a class="button" href="https://github.com/knivier/Activerse/wiki" target="_blank">Wiki</a>
+        <a class="button" href="https://github.com/knivier/Activerse" target="_blank">GitHub</a>
+        <a class="button" href="https://github.com/knivier/Activerse/releases/tag/v1.3.1" target="_blank">Download (v1.3.1)</a>
+        <a class="button" href="actversions.html">Version Logs</a>
+        <a class="button" href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">Docs</a>
 
+        <div class="more-info" data-aos="fade-up">
+            <h2>What is Activerse</h2>
+            <p>Activerse is a powerful and versatile game engine designed to empower developers and creators to bring their imaginative worlds to life. Activerse helps streamlines the 2D game development process, offering seamless integration of physics, graphics, and sound. Whether you're a seasoned developer or a novice, Activerse provides the tools and flexibility to create complex, interactive experiences. Its modular architecture allows for easy customization and scalability, making it suitable for a wide range of game genres. Dive into Activerse and start crafting unique gaming experiences that captivate and engage players.</p>
+            <h2>Licensing</h2>
+            <p>Activerse © 2024 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0. This more easily allows developers to share the code and adapt it as well, while attributing the work correctly, and not using Activerse for commercial usage. When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license. You also cannot set any additional terms.</p>
         </div>
+
+        <div class="latest-version-changelog" data-aos="fade-up">
+            <div class="latest-version">
+                <h2>v1.3.1: ACEHS and Null Safety</h2>
+            </div>
+            <div class="changelog">
+                <h2>Changelog:</h2>
+                <ul>
+                    <li>Lots of Null Safety: Added extensive null safety checks to prevent unexpected issues.</li>
+                    <li>Enhanced Concurrent Error Handling: Implemented more specific handling systems to manage concurrent errors effectively.</li>
+                    <li>ACEHS (Activerse Concurrent Error Handling System): Our new system for managing concurrent errors with detailed error codes, all explained here in the README!</li>
+                    <li>JDK20+ Lambda Compatibility: Lambda expressions are now JDK20+ friendly, while the minimum suggested JDK version remains JDK23.</li>
+                    <li>Tick Variable Update: Changed the tick variable from int to long for greater flexibility.</li>
+                </ul>
+
+            </div>
+        </div>
+
+        <a class="button" href="actversions.html">View Version Logs</a>
+        <a class="button" href="index.html">Back to Home</a>
+
+        <script data-cfasync="false" data-color="#5F7FFF" data-description="Support me on Buy me a coffee!" data-id="knivier" data-message="Support my work" data-name="BMC-Widget" data-position="Right" data-x_margin="18" data-y_margin="18" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"></script>
+
+        <br>
+        <footer>Activerse &copy; 2024 by Knivier/Agniva, Activerse and related website is licensed under CC BY-NC-SA 4.0</footer>
     </div>
-    
-    <a class="button" href="actversions.html">View Version Logs</a>
-    <a class="button" href="index.html">Back to Home</a>
 
-    <script data-cfasync="false" data-color="#5F7FFF" data-description="Support me on Buy me a coffee!"
-            data-id="knivier" data-message="Support my work" data-name="BMC-Widget"
-            data-position="Right" data-x_margin="18" data-y_margin="18" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"></script>
-
-    <br>
-    <footer>Activerse &copy; 2024 by Knivier/Agniva, Activerse and related website is licensed under CC BY-NC-SA 4.0</footer>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
-<script>
-    AOS.init();
-    
-    document.getElementById('activerse-title').addEventListener('click', function () {
-        window.location.href = 'activerseinfo.html';
-    });
-    
-    // Hide loader after content is fully loaded
-    window.onload = function() {
-        document.getElementById('loader').style.display = 'none';
-    };
-
-    // New animations
-    document.querySelectorAll('.button').forEach(button => {
-        button.addEventListener('mouseover', function() {
-            this.style.animation = 'pulse 0.5s infinite';
-        });
-        button.addEventListener('mouseout', function() {
-            this.style.animation = 'none';
-        });
-    });
-
-    document.querySelectorAll('.changelog ul li').forEach(item => {
-        item.addEventListener('mouseover', function() {
-            this.style.transform = 'translateX(10px) scale(1.05)';
-            this.style.transition = 'all 0.3s ease';
-        });
-        item.addEventListener('mouseout', function() {
-            this.style.transform = 'translateX(0) scale(1)';
-        });
-    });
-
-    // Random color change for the title
-    setInterval(() => {
-        const colors = ['#BB86FC', '#03DAC6', '#CF6679', '#01A299'];
-        document.getElementById('activerse-title').style.color = colors[Math.floor(Math.random() * colors.length)];
-    }, 3000);
-
-    // Parallax effect for the container
-    document.addEventListener('mousemove', (e) => {
-        const container = document.querySelector('.container');
-        const moveX = (e.clientX - window.innerWidth / 2) / 100;
-        const moveY = (e.clientY - window.innerHeight / 2) / 100;
-        container.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    });
-</script>
-</body>
-</html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
     <script>
+        AOS.init();
+
+        document.getElementById('activerse-title').addEventListener('click', function () {
+            window.location.href = 'activerseinfo.html';
+        });
+
+        // Hide loader after content is fully loaded
+        window.onload = function () {
+            document.getElementById('loader').style.display = 'none';
+        };
+
+        // New animations
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('mouseover', function () {
+                this.style.animation = 'pulse 0.5s infinite';
+            });
+            button.addEventListener('mouseout', function () {
+                this.style.animation = 'none';
+            });
+        });
+
+        document.querySelectorAll('.changelog ul li').forEach(item => {
+            item.addEventListener('mouseover', function () {
+                this.style.transform = 'translateX(10px) scale(1.05)';
+                this.style.transition = 'all 0.3s ease';
+            });
+            item.addEventListener('mouseout', function () {
+                this.style.transform = 'translateX(0) scale(1)';
+            });
+        });
+
+        // Random color change for the title
+        setInterval(() => {
+            const colors = ['#BB86FC', '#03DAC6', '#CF6679', '#01A299'];
+            document.getElementById('activerse-title').style.color = colors[Math.floor(Math.random() * colors.length)];
+        }, 3000);
+
+        // Parallax effect for the container
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.container');
+            const moveX = (e.clientX - window.innerWidth / 2) / 100;
+            const moveY = (e.clientY - window.innerHeight / 2) / 100;
+            container.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+
         function closeBanner(event) {
             event.stopPropagation();
             document.getElementById('release-banner').style.display = 'none';
             document.body.style.paddingTop = '0';
         }
-    
-        document.getElementById('release-banner').addEventListener('click', function(event) {
+
+        document.getElementById('release-banner').addEventListener('click', function (event) {
             if (event.target !== this)
                 return;
             window.location.href = '#latest-version-changelog';
         });
     </script>
 </body>
+
 </html>
