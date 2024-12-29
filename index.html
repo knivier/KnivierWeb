@@ -10,9 +10,9 @@
 
     <style>
         @keyframes gradientBackground {
-            0% { background-position: 0% 50%; }
+            0% { background-position: 0 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            100% { background-position: 0 50%; }
         }
         .gradient-bg {
             background: linear-gradient(270deg, #ff7e5f, #feb47b);
@@ -45,7 +45,7 @@
             <div class="flex gap-4 justify-center">
                 <a href="github.html" class="glass px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300">My GitHub</a>
                 <a href="#contact" class="glass px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300">Contact Me</a>
-                <a href="countdown.html" class="glass px-8 py-3 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300 bg-green-500 text-white border-2 border-red-500">Holiday Count</a>
+               <!-- <a href="countdown.html" class="glass px-8 py-3 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300 bg-green-500 text-white border-2 border-red-500">Holiday Count</a> -->
             </div>
         </div>
     </header>
@@ -187,6 +187,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="skill-branch">
+                    <div class="skill-node">
+                        <h3 class="text-xl font-bold">Platform Experience</h3>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex justify-between">
+                                <span>VS Code</span>
+                                <span>Intermediate (3 Years)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>GitHub & Git VCS</span>
+                                <span>Intermediate (2+ Years)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>IntelliJ Ultimate (IDE)</span>
+                                <span>Intermediate (2 Years)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Webstorm (IDE)</span>
+                                <span>Intermediate (2 Years)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Windows 10/11</span>
+                                <span>Advanced (4+ Years)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Ubuntu</span>
+                                <span>Beginner (~1 Year)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -238,6 +269,10 @@
             <h2 class="text-4xl font-bold mb-12 text-center">Project Timelines</h2>
             <div class="timeline">
                 <div class="timeline-item glass p-6 card-3d">
+                    <h3 class="text-xl font-bold mb-2"><a href="https://github.com/knivier/DockyMe">DockyMe</a></h3>
+                    <p>A small, scripted, and easily-runnable app that logs all USB devices connected to your system.</p>
+                </div>
+                <div class="timeline-item glass p-6 card-3d">
                     <h3 class="text-xl font-bold mb-2"><a href="https://pihicompsci.org">PiHi CompSci Website</a></h3>
                     <p>Archives for my High Schools coding club; a self mantained project.</p>
                 </div>
@@ -286,7 +321,7 @@
                     </a>
                     <a href="https://www.youtube.com/@Knivier" class="social-link hover:text-primary transition-colors">
                         <i class="fab fa-youtube text-3xl"></i>
-                </div>
+                </a></div>
             </div>
         </section>
     </main>
