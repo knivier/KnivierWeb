@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popcorn Kernel Framework</title>
+    <style>
+        .nav-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 1rem;
+            z-index: 2;
+        }
+
+        .nav-button {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: var(--accent);
+            color: var(--bg-darker);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                top: 10px;
+                right: 10px;
+                gap: 0.5rem;
+            }
+
+            .nav-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                height: auto;
+                padding: 2rem 1rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .terminal {
+                padding: 1rem;
+            }
+
+            .terminal-content {
+                font-size: 0.8rem;
+            }
+        }
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-darker: #000000;
+            --accent: #00ff9d;
+            --text: #e0e0e0;
+            --terminal-bg: rgba(0, 0, 0, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .carousel img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel img.active {
+            opacity: 0.3;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            width: 90%;
+            max-width: 1200px;
+            padding: 2rem;
+        }
+
+        .terminal {
+            background: var(--terminal-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            backdrop-filter: blur(4px);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f56;
+        }
+
+        .terminal-button:nth-child(2) {
+            background: #ffbd2e;
+        }
+
+        .terminal-button:nth-child(3) {
+            background: #27c93f;
+        }
+
+        .terminal-content {
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1em;
+            background: var(--accent);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <a href="https://github.com/knivier/popcorn" class="nav-button">GitHub Project</a>
+        <a href="aboutpopcorn.html" class="nav-button">About</a>
+        <a href="index.html" class="nav-button">Home</a>
+    </div>
+
+    <div class="hero">
+        <div class="carousel">
+            <img src="/api/placeholder/1920/1080" alt="Kernel code" class="active" />
+            <img src="/api/placeholder/1920/1080" alt="Terminal output" />
+            <img src="/api/placeholder/1920/1080" alt="System architecture" />
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="content">
+            <h1>Popcorn</h1>
+            <p>A simple yet intuitive kernel framework for operating system development</p>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button"></div>
+                    <div class="terminal-button"></div>
+                    <div class="terminal-button"></div>
+                </div>
+                <div class="terminal-content" id="terminal"></div>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center py-8 text-gray-400">
+        <p>&copy; 2025 Knivier. All rights reserved, see license</p>
+    </footer>
+    <script>
+        const messages = [
+            "Welcome to the Popcorn Kernel Framework Project",
+            "The first metal kernel implementation that is meant for you to build on",
+            "Using open source systems and libraries, Popcorn is the perfect starting point for your OS project",
+            "Popcorn is currently in beta, and we are working hard to bring you the best experience",
+            "Created by Knivier/Agniva under CC BY-NC-SA 4.0 license",
+            "You want a demo? Check out the GitHub repository for the latest release",
+            "Why are you still here? Go to about to learn more about Popcorn"
+        ];
+
+        let currentLine = 0;
+        let currentChar = 0;
+        const terminal = document.getElementById('terminal');
+        
+        function typeWriter() {
+            if (currentLine < messages.length) {
+                if (currentChar < messages[currentLine].length) {
+                    terminal.innerHTML = messages.slice(0, currentLine)
+                        .map(msg => `<div>${msg}</div>`)
+                        .join('') +
+                        `<div>${messages[currentLine].slice(0, currentChar + 1)}<span class="cursor"></span></div>`;
+                    currentChar++;
+                    setTimeout(typeWriter, 50);
+                } else {
+                    currentLine++;
+                    currentChar = 0;
+                    setTimeout(typeWriter, 500);
+                }
+            }
+        }
+
+        // Carousel animation
+        const images = document.querySelectorAll('.carousel img');
+        let currentImage = 0;
+
+        function nextImage() {
+            images[currentImage].classList.remove('active');
+            currentImage = (currentImage + 1) % images.length;
+            images[currentImage].classList.add('active');
+        }
+
+        // Start animations
+        typeWriter();
+        setInterval(nextImage, 5000);
+    </script>
+</body>
+</html>
