@@ -46,6 +46,12 @@
             transform: translateY(-2px);
         }
 
+        .back-button.minimized {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border-width: 1px;
+        }
+
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -143,6 +149,16 @@
             .back-button {
                 top: 1rem;
                 left: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .back-button.minimized {
+                padding: 0.16rem 0.32rem;
+                font-size: 0.64rem;
+                border-width: 0.8px;
+                width: 0.8rem;
+                height: 1.6rem;
+                text-align: center;
             }
         }
     </style>
@@ -220,6 +236,7 @@ typedef struct {<br>
                 <li>✦ No graphics requirements</li>
                 <li>✦ 1GB free space assuming WSL installed</li>
             </ul>
+            <br>
             <p>WSL is strongly recommended but this can run in Linux environments natively. It cannot run in Mac or Windows environments natively. Windows 11 and WSL 2.0 are strongly recommended.</p>
         </div>
         <div class="section">
@@ -250,6 +267,15 @@ typedef struct {<br>
         // Observe all sections
         document.querySelectorAll('.section').forEach(section => {
             observer.observe(section);
+        });
+        // Scroll event listener for back-button minimization
+        window.addEventListener('scroll', () => {
+            const backButton = document.querySelector('.back-button');
+            if (window.scrollY > 100) {
+                backButton.classList.add('minimized');
+            } else {
+                backButton.classList.remove('minimized');
+            }
         });
     </script>
 </body>
