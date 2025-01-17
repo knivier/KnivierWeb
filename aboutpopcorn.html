@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Popcorn Kernel Framework</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --accent: #00ff9d;
+            --text: #e0e0e0;
+            --secondary: #666;
+            --gradient: linear-gradient(135deg, rgba(0,255,157,0.1) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .section {
+            margin: 4rem 0;
+            padding: 2rem;
+            background: var(--gradient);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .section.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        code {
+            background: rgba(0, 255, 157, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 8rem 1.5rem 4rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="popcorn.html" class="back-button">Back to Popcorn</a>
+    
+    <div class="container">
+        <h1>About Popcorn</h1>
+
+        <div class="section">
+            <h2>What is Popcorn?</h2>
+            <p>Popcorn is a lightweight, modular kernel framework designed to make operating system development more accessible and intuitive. Built with a focus on simplicity and extensibility, it provides developers with a solid foundation for exploring system programming and OS concepts.</p>
+        </div>
+
+        <div class="section">
+            <h2>Key Features</h2>
+            <div class="features">
+                <div class="feature-item">
+                    <h3>Pop Modules</h3>
+                    <p>Extend kernel functionality through modular "pops" that can be easily integrated into the system.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Minimal Assembly</h3>
+                    <p>Written primarily in C with only essential assembly code, making it more approachable for beginners.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>WSL Support</h3>
+                    <p>Full support for Windows Subsystem for Linux, making development accessible across platforms.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Pop Module System</h2>
+            <p>The core of Popcorn's extensibility lies in its Pop Module system. Each "pop" is a self-contained module that can register itself with the kernel:</p>
+            <div class="code-block">
+                <code>
+typedef struct {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const char* name;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Module name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const char* message;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Display message<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void (*pop_function)();&nbsp;&nbsp;// Module functionality<br>
+} PopModule;
+                </code>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Building and Running</h2>
+            <p>Popcorn provides a streamlined build system with both automated and manual options:</p>
+            <ul style="list-style: none; margin-left: 1rem;">
+                <li>✦ Automated build using build.sh</li>
+                <li>✦ Manual assembly and compilation</li>
+                <li>✦ QEMU system emulation support</li>
+                <li>✦ Customizable memory and core allocation</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Technical Requirements</h2>
+            <p>To build and run Popcorn, you'll need:</p>
+            <ul style="list-style: none; margin-left: 1rem;">
+                <li>✦ NASM (Netwide Assembler)</li>
+                <li>✦ GCC (GNU Compiler Collection)</li>
+                <li>✦ LD (GNU Linker)</li>
+                <li>✦ QEMU for system emulation</li>
+                <li>✦ WSL (for Windows users)</li>
+            </ul>
+            <br>
+            <h2>Computer Prerequisites</h2>
+            <p>To work on Popcorn at a fluid level, you'll need:</p>
+            <ul style="list-style: none; margin-left: 1rem;">
+                <li>✦ 16GB RAM recommended (8GB RAM minimum)</li>
+                <li>✦ 8th Gen i5 or higher with at least 4 cores, recommended 6</li>
+                <li>✦ No graphics requirements</li>
+                <li>✦ 1GB free space assuming WSL installed</li>
+            </ul>
+            <p>WSL is strongly recommended but this can run in Linux environments natively. It cannot run in Mac or Windows environments natively. Windows 11 and WSL 2.0 are strongly recommended.</p>
+        </div>
+    </div>
+    <footer class="text-center py-8 text-gray-400">
+        <p>&copy; 2025 Knivier. All rights reserved, see license</p>
+    </footer>
+    <script>
+        // Intersection Observer for section animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
