@@ -34,7 +34,52 @@
         document.getElementById('pre-production-banner').style.display = 'none';
     });
 </script>
+<style>
+    #pre-production-banner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #ff7e5f;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        z-index: 1000;
+        transition: top 0.3s;
+    }
+    #close-banner {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const banner = document.getElementById('pre-production-banner');
+        const closeBtn = document.getElementById('close-banner');
 
+        closeBtn.addEventListener('click', function() {
+            banner.style.display = 'none';
+        });
+
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                banner.style.top = '-50px';
+            } else {
+                banner.style.top = '0';
+            }
+            lastScrollTop = scrollTop;
+        });
+    });
+</script>
+<div id="pre-production-banner">
+    Check out <a href="popcorn.html" class="underline font-bold">Popcorn</a> - a metal kernel framework
+    <span id="close-banner">&times;</span>
+</div>
 
 <body class="min-h-screen relative">
     <div id="particles-js" class="absolute inset-0 z-0"></div>
@@ -45,7 +90,6 @@
             <div class="flex gap-4 justify-center">
                 <a href="https://github.com/knivier" class="glass px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300">My GitHub</a>
                 <a href="#contact" class="glass px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300">Contact Me</a>
-                <a href="activerseinfo.html" class="glass px-8 py-3 rounded-full transition-all duration-300 border-2 border-transparent hover:animate-pulse hover:bg-right" style="background: linear-gradient(90deg, #ff6b6b, #4ecdc4); background-size: 200% 100%;">Activerse Page</a>
                 <!-- <a href="countdown.html" class="glass px-8 py-3 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300 bg-green-500 text-white border-2 border-red-500">Holiday Count</a> -->
             </div>
         </div>
