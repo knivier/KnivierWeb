@@ -17,3 +17,14 @@ The new website is (in my opinion) much more beautiful, faster and represents my
 - CL that shows who I am
 - Project history pane has hidden backlinks to all the projects
 - Front page shows "Contact Me" (brings to improved Contact Pane) and my GitHub (redirect: see github.html out of src 
+
+Update 2: 
+Hello all! This is the updated version of my website which includes a lot more information. This is pretty much the HQ of all my projects.
+
+How is this site categorized?
+Well...
+- Main Page: This is index.html and is the "root" for all my projects to stem out to. 
+- Activerse: This is for my 2D java game engine: Activerseinfo is the main "activerse" page, followed by actvisions which is a version log site
+- Popcorn: This include popcorn.html and aboutpopcorn.html, which are for my metal kernel framework projects.
+- Troll Game: This is on trollgameinfo.html and may be taken down and moved to a different website; troll game has been discontinued
+- Count down: This is for my schools holidays that are upcoming
