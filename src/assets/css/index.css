@@ -251,3 +251,40 @@ body {
     background: var(--primary);
     transform: translateY(-50%);
 }
+
+@keyframes gradientBackground {
+    0% { background-position: 0 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+.gradient-bg {
+    background: linear-gradient(270deg, #ff7e5f, #feb47b);
+    background-size: 400% 400%;
+    animation: gradientBackground 15s ease infinite;
+}
+/* Optional: Add a responsive scaling hint */
+@media screen and (max-width: 1200px) {
+    body {
+        transform: none;
+        transform-origin: initial;
+    }
+}
+#pre-production-banner {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background-color: #ff7e5f;
+color: white;
+text-align: center;
+padding: 10px 0;
+z-index: 1000;
+transition: top 0.3s;
+}
+#close-banner {
+position: absolute;
+right: 20px;
+top: 50%;
+transform: translateY(-50%);
+cursor: pointer;
+}
