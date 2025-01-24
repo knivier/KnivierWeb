@@ -40,12 +40,67 @@
 </head>
 
 <body>
-    <!--
     <div id="release-banner" class="release-banner">
-        vX.X.X is out!
+        v1.3.2 is in development. Thanks for your patience. 
         <span class="close" onclick="closeBanner(event)">×</span>
     </div>
--->
+    <div id="release-timer" class="release-timer drawIn">
+        ETA to release (EST): <span id="timer"></span>
+    </div>
+    <script>
+        const releaseDate = new Date('January 29, 2025 9:10:00').getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = releaseDate - now;
+
+            if (distance < 0) {
+                document.getElementById('timer').innerHTML = "awaiting release";
+                blurWebsite();
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            let timerString = '';
+            if (days > 0) timerString += days + 'd ';
+            if (hours > 0 || days > 0) timerString += hours + 'h ';
+            if (minutes > 0 || hours > 0 || days > 0) timerString += minutes + 'm ';
+            timerString += seconds + 's';
+
+            document.getElementById('timer').innerHTML = timerString;
+        }
+
+        function blurWebsite() {
+            document.querySelector('.container').style.filter = 'blur(5px)';
+            document.body.style.overflow = 'hidden';
+            const lockMessage = document.createElement('div');
+            lockMessage.style.position = 'fixed';
+            lockMessage.style.top = '50%';
+            lockMessage.style.left = '50%';
+            lockMessage.style.transform = 'translate(-50%, -50%)';
+            lockMessage.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            lockMessage.style.color = 'white';
+            lockMessage.style.padding = '20px';
+            lockMessage.style.borderRadius = '10px';
+            lockMessage.style.textAlign = 'center';
+            lockMessage.style.zIndex = '1000';
+            lockMessage.style.width = '80%';
+            lockMessage.style.maxWidth = '400px';
+            lockMessage.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+            lockMessage.style.filter = 'none';
+            lockMessage.innerHTML = `
+                <h1>Awaiting New Version</h1>
+                <a href="index.html" class="button" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #5a3e9b; color: white; text-decoration: none; border-radius: 5px;">Home</a>
+            `;
+            document.body.appendChild(lockMessage);
+        }
+
+        setInterval(updateTimer, 1000);
+    </script>
     <div class="container">
         <div id="loader" class="loader"></div>
         <h1 id="activerse-title">Activerse</h1>
