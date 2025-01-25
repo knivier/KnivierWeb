@@ -216,10 +216,15 @@
             document.body.style.paddingTop = '0';
         }
 
-        document.getElementById('release-banner').addEventListener('click', function (event) {
-            if (event.target !== this)
-                return;
-            window.location.href = '#latest-version-changelog';
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const releaseBanner = document.getElementById('release-banner');
+            if (releaseBanner) {
+                releaseBanner.addEventListener('click', function (event) {
+                    if (event.target !== this)
+                        return;
+                    window.location.href = '#latest-version-changelog';
+                });
+            }
         });
 
         const navToggle = document.getElementById('nav-toggle');
