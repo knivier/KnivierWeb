@@ -49,7 +49,6 @@
     </div>
     <script>
         const releaseDate = new Date('January 29, 2025 9:10:00').getTime();
-
         function updateTimer() {
             const now = new Date().getTime();
             const distance = releaseDate - now;
@@ -94,6 +93,7 @@
             lockMessage.style.filter = 'none';
             lockMessage.innerHTML = `
                 <h1>Awaiting New Version</h1>
+                <p>The new version of Activerse is currently in development and has encountered delays. There is no ETA at this time. Thank you for your patience.</p>
                 <a href="index.html" class="button" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #5a3e9b; color: white; text-decoration: none; border-radius: 5px;">Home</a>
             `;
             document.body.appendChild(lockMessage);
