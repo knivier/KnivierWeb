@@ -354,8 +354,33 @@ function getChangelogText(versionId) {
                 </ul>
             </ul>
             <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.2-beta...v1.0.3-theta">v1.0.2...v1.0.3-theta</a></p>
-        `
-    };
+        `,
+        'v1.0.2-beta': `
+            <h2>v1.0.2-beta</h2>
+            <p>June 12, 2024</p>
+            <p><strong>The changes:</strong></p>
+            <ul>
+                <li>Keyboard support was added</li>
+            </ul>
+            <p>These notes have been added well after the version was released. Prior version notes may have missing information. </p>
 
+        `,
+        'v1.0.1-alpha': `
+            <h2>v1.0.1-alpha</h2>
+            <p>June 11, 2024</p>
+            <p><strong>The changes:</strong></p>
+            <ul>
+                <li>Commenting and bug fixes</li>
+            </ul>
+            <p>These notes have been added well after the version was released. Prior version notes may have missing information. </p>
+        `,
+        'v1.0.0-alpha': `
+            <h2>v1.0.0-alpha</h2>
+            <p>June 11, 2024</p>
+            <p>This was the initial commit and was marked as an experimental project with severe instability. This has been verified. It's not recommended to use this version at all. </p>
+            <p>These notes have been added well after the version was released. Prior version notes may have missing information. </p>
+    };
+    `,
+    };
     return changelogs[versionId] || `<p>No details available for this version.</p>`;
 }
