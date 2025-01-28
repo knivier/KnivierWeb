@@ -379,7 +379,6 @@ function getChangelogText(versionId) {
             <p>June 11, 2024</p>
             <p>This was the initial commit and was marked as an experimental project with severe instability. This has been verified. It's not recommended to use this version at all. </p>
             <p>These notes have been added well after the version was released. Prior version notes may have missing information. </p>
-    };
     `,
     };
     return changelogs[versionId] || `<p>No details available for this version.</p>`;
