@@ -1,36 +1,40 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: black;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1e1e1e, #282828);
     color: #fff;
     margin: 0;
     padding: 0;
+    transition: background 0.5s ease-in-out;
 }
 
 header {
-    background-color: #282828;
+    background: linear-gradient(135deg, #282828, #1e1e1e);
     padding: 20px;
     text-align: center;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
-    transition: top 0.5s;
+    transition: top 0.5s, background 0.5s ease-in-out;
 }
 
 .page-body {
-    background-color: #1e1e1e;
+    background: rgba(30, 30, 30, 0.9);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     width: 80%;
     max-width: 600px;
     text-align: center;
     margin: 100px auto 20px;
+    transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
 }
 
 h1 {
     margin: 0;
     color: #50fa7b;
+    font-size: 2.5em;
+    transition: color 0.5s ease-in-out;
 }
 
 .version-history {
@@ -44,7 +48,7 @@ h1 {
 }
 
 .version-history li {
-    background-color: #282828;
+    background: rgba(40, 40, 40, 0.9);
     border: 1px solid #50fa7b;
     border-radius: 5px;
     margin: 10px auto;
@@ -52,15 +56,16 @@ h1 {
     text-align: center;
     width: 300px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .version-history li:hover {
-    background-color: #50fa7b;
+    background: #50fa7b;
     color: #1e1e1e;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* styles.css */
 #changelog {
     display: none;
     position: fixed;
@@ -82,7 +87,7 @@ h1 {
 }
 
 .changelog-content {
-    background-color: #282828;
+    background: rgba(40, 40, 40, 0.9);
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #50fa7b;
@@ -118,7 +123,6 @@ h1 {
     text-decoration: none;
     cursor: pointer;
 }
-
 
 #back-to-home {
     background-color: #045c54;

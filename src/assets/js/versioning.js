@@ -23,6 +23,27 @@ function goBackHome() {
 
 function getChangelogText(versionId) {
     const changelogs = {
+        'v1.3.2': `
+        <h2>v1.3.2 - Half year update | Breakout included</h2>
+        <p>January 29, 2025</p>
+        <p><strong>The changes:</strong></p>
+        <ul>
+        <li>🎮 Breakout Game Demo</li>
+        <li>All comments are updated; Javadocs are NOT</li>
+        <li>Volume controls for sounds implemented using setVolume() [accepting float 0 and 1 values] and getVolume()</li>
+        <li>GameLoop error for run() 7A.IO reported</li>
+        <li>Updated World ticks are now shown in debug menu</li>
+        <li>Log dumps are now better formatted and include system tick monitoring, heap memory usages and garbage times</li>
+        <li>Default FPS implementation is 60fps</li>
+        <li>World can now be paused and resumed</li>
+        <li>A breakout game is now implemented!</li>
+        </ul>
+        <p>The breakout game was taken from Activerse Examples and shown as a "Demo" game. This will not be provided in the official NSI install. 
+            Many unspoken updates were made on this game; check GitHub release info for more on that.
+        </p>
+        <p>This version is backwards compatible with up to v1.0.7 (with some minor porting). </p>
+        `,
+
         'v1.3.1': `
         <h2>v1.3.1 - ACEHS and Safety</h2>
         <p>November 7, 2024</p> 
@@ -49,6 +70,9 @@ function getChangelogText(versionId) {
             <li>Changed the tick variable from int to long for greater flexibility.</li>
         </ul>
         </ul>
+        <p>This update includes significant enhancements to error handling, null safety, and concurrent error management.</p>
+        <p>This version is backwards compatible with up to v1.0.7 (with some minor porting). </p>
+
         `,
 
         'v1.3.0': `
@@ -110,6 +134,8 @@ function getChangelogText(versionId) {
             </ul>
         </ul>
         <p>This update includes significant enhancements to documentation, mouse handling, and pathfinding, as well as critical bug fixes.</p>
+        <p>This version is backwards compatible with up to v1.0.7 (with some minor porting). </p>
+
     `,
         'v1.2.1':`
     <h2>v1.2.1 - Minor Grief Removed</h2>
@@ -135,6 +161,7 @@ function getChangelogText(versionId) {
     <p>This version includes new features for enhanced debugging and error handling, along with a demo:</p>
     <p><strong>🎮 Hopping Game Demo:</strong> Comes as an example showcasing the engine's new capabilities, including advanced mouse detection, performance tweaks, and error handling improvements.</p>
     <p>Some features like advanced mouse detection are experimental and may require further testing.</p>
+    <p>This version is backwards compatible with up to v1.0.7 (with some minor porting). </p>
 `,
 
         'v1.2.0':`
@@ -327,8 +354,32 @@ function getChangelogText(versionId) {
                 </ul>
             </ul>
             <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/v1.0.2-beta...v1.0.3-theta">v1.0.2...v1.0.3-theta</a></p>
-        `
-    };
+        `,
+        'v1.0.2-beta': `
+            <h2>v1.0.2-beta</h2>
+            <p>June 12, 2024</p>
+            <p><strong>The changes:</strong></p>
+            <ul>
+                <li>Keyboard support was added</li>
+            </ul>
+            <p>These notes have been added well after the version was released. Prior version notes may have missing information. </p>
 
+        `,
+        'v1.0.1-alpha': `
+            <h2>v1.0.1-alpha</h2>
+            <p>June 11, 2024</p>
+            <p><strong>The changes:</strong></p>
+            <ul>
+                <li>Commenting and bug fixes</li>
+            </ul>
+            <p>These notes have been added well after the version was released. Prior version notes may have missing information. </p>
+        `,
+        'v1.0.0-alpha': `
+            <h2>v1.0.0-alpha</h2>
+            <p>June 11, 2024</p>
+            <p>This was the initial commit and was marked as an experimental project with severe instability. This has been verified. It's not recommended to use this version at all. </p>
+            <p>These notes have been added well after the version was released. Prior version notes may have missing information. </p>
+    `,
+    };
     return changelogs[versionId] || `<p>No details available for this version.</p>`;
 }
