@@ -22,65 +22,6 @@ body {
     min-height: 100vh;
     flex-direction: column;
     text-align: center;
-    position: relative; /* Added for sparkles */
-    overflow: hidden; /* Added to contain sparkles */
-
-    .sparkle {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        background: var(--primary-color);
-        border-radius: 50%;
-        animation: sparkle 1s infinite;
-    }
-}
-
-@keyframes backgroundAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-@keyframes sparkle {
-    0% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-}
-
-.sparkle {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    animation: sparkle 1s infinite;
-}
-
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
 }
 
 .release-banner {
