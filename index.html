@@ -4,9 +4,11 @@
     <title>Knivier - Portfolio</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet"></noscript>
     <link href="src/assets/css/index.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
     <link rel="icon" type="image/png" href="src/images/pfp.png">
 </head>
 <script>
@@ -31,7 +33,7 @@
     });
 </script>
 <div id="pre-production-banner">
-    Check out <a href="popcorn.html" class="underline font-bold">Popcorn</a> - a metal kernel framework
+    Check out <a href="https://github.com/knivier/WizViz" class="underline font-bold">WizViz</a>, winner of Spartahack X's best game
     <span id="close-banner">&times;</span>
 </div>
 
@@ -270,38 +272,41 @@
         <section class="py-20">
             <h2 class="text-4xl font-bold mb-12 text-center">Project Timelines</h2>
             <div class="timeline">
-                <div class="timeline-item glass p-6 card-3d">
-                    <h3 class="text-xl font-bold mb-2"><a href="popcorn.html">Popcorn Kernel Framework</a></h3>
-                    <p>A simple yet intuitive kernel framework for operating system development.</p>
-                </div>
-                <div class="timeline-item glass p-6 card-3d">
-                    <h3 class="text-xl font-bold mb-2"><a href="https://github.com/knivier/DockyMe">DockyMe</a></h3>
-                    <p>A small, scripted, and easily-runnable app that logs all USB devices connected to your system.</p>
-                </div>
-                <div class="timeline-item glass p-6 card-3d">
-                    <h3 class="text-xl font-bold mb-2"><a href="https://pihicompsci.org">PiHi CompSci Website</a></h3>
-                    <p>Archives for my High Schools coding club; a self mantained project.</p>
-                </div>
-                <div class="timeline-item glass p-6 card-3d">
-                    <h3 class="text-xl font-bold mb-2"><a href="activerseinfo.html">Activerse </a></h3>
-                    <p>A Java-based game engine for simplified GUI development; my latest project.</p>
-                </div>
-                <div class="timeline-item glass p-6 card-3d">
-                    <h3 class="text-xl font-bold mb-2">My Website</h3>
-                    <p>A complex HTML website meant to tie everything together; worked on always.</p>
-                </div>
-                <div class="timeline-item glass p-6 card-3d">
-                    <h3 class="text-xl font-bold mb-2"><a href="trollgameinfo.html">Troll Game</a> </h3>
-                    <p>Text-based adventure with dynamic gameplay; discontinued mid-2024.</p>
-                </div>
-                <div class="timeline-item glass p-6 card-3d">
-                    <h3 class="text-xl font-bold mb-2"><a href="https://github.com/knivier/PalBot" target="_blank">Pal Bot</a></h3>
-                    <p>Customizable Discord bot template</p>
-                </div>
-                <div class="timeline-item glass p-6 card-3d">
-                    <h3 class="text-xl font-bold mb-2"><a href="https://eduspire.pages.dev/" target="_blank">EduSpire</a></h3>
-                    <p>Spartahack 8 project that was continued; a better D2L, now discontinued.</p>
-                </div>
+            <div class="timeline-item glass p-6 card-3d">
+                <h3 class="text-xl font-bold mb-2"><a href="https://github.com/knivier/WizViz" target="_blank" class="underline hover:text-primary" title="Visit WizViz now!">WizViz</a></h3>
+                <p>Winner of Spartahack X's best game; a computer-vision based wizard game using Mediapipe, OpenCV and PyGame. </p>
+            </div>
+            <div class="timeline-item glass p-6 card-3d">
+                <h3 class="text-xl font-bold mb-2"><a href="popcorn.html" class="underline hover:text-primary" title="Visit Popcorn Kernel Framework now!">Popcorn Kernel Framework</a></h3>
+                <p>A simple yet intuitive kernel framework for operating system development.</p>
+            </div>
+            <div class="timeline-item glass p-6 card-3d">
+                <h3 class="text-xl font-bold mb-2"><a href="https://github.com/knivier/DockyMe" class="underline hover:text-primary" title="Visit DockyMe now!">DockyMe</a></h3>
+                <p>A small, scripted, and easily-runnable app that logs all USB devices connected to your system.</p>
+            </div>
+            <div class="timeline-item glass p-6 card-3d">
+                <h3 class="text-xl font-bold mb-2"><a href="https://pihicompsci.org" class="underline hover:text-primary" title="Visit PiHi CompSci Website now!">PiHi CompSci Website</a></h3>
+                <p>Archives for my High Schools coding club; a self mantained project.</p>
+            </div>
+            <div class="timeline-item glass p-6 card-3d">
+                <h3 class="text-xl font-bold mb-2"><a href="activerseinfo.html" class="underline hover:text-primary" title="Visit Activerse now!">Activerse</a></h3>
+                <p>A Java-based game engine for simplified GUI development; my latest project.</p>
+            </div>
+            <div class="timeline-item glass p-6 card-3d">
+                <h3 class="text-xl font-bold mb-2">My Website</h3>
+                <p>A complex HTML website meant to tie everything together; worked on always.</p>
+            </div>
+            <div class="timeline-item glass p-6 card-3d">
+                <h3 class="text-xl font-bold mb-2"><a href="trollgameinfo.html" class="underline hover:text-primary" title="Visit Troll Game now!">Troll Game</a></h3>
+                <p>Text-based adventure with dynamic gameplay; discontinued mid-2024.</p>
+            </div>
+            <div class="timeline-item glass p-6 card-3d">
+                <h3 class="text-xl font-bold mb-2"><a href="https://github.com/knivier/PalBot" target="_blank" class="underline hover:text-primary" title="Visit Pal Bot now!">Pal Bot</a></h3>
+                <p>Customizable Discord bot template</p>
+            </div>
+            <div class="timeline-item glass p-6 card-3d">
+                <h3 class="text-xl font-bold mb-2"><a href="https://eduspire.pages.dev/" target="_blank" class="underline hover:text-primary" title="Visit EduSpire now!">EduSpire</a></h3>
+                <p>Spartahack 8 project which is a better D2L. </p>
             </div>
             </div>
         </section>
