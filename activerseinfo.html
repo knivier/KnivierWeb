@@ -1,247 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-</div>
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activerse - Official</title>
-    <link rel="icon" href="src/images/activerse-logo.png" type="image/x-icon">
-    <link rel="shortcut icon" href="src/images/activerse-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-        .drawIn {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.2em;
-            text-align: center;
-            background: linear-gradient(270deg, #5a3e9b, #818181);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientFlow 5s ease infinite;
-        }
-
-        @keyframes gradientFlow {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="src/assets/css/activerse-main-styling.css">
+    <link rel="stylesheet" href="src\assets\css\activerse.css">
 </head>
-
 <body>
-    <div id="relea
-    se-banner" class="release-banner">
-        v1.3.2 has released!
-    </div>
-    <div id="release-timer" class="release-timer drawIn">
-        ETA to next announcements (EST): <span id="timer"></span>
-    </div>
+    <div class="animated-bg"></div>
+    <nav class="nav" style="position: relative;">
+        <div class="nav-timer" style="
+            background: linear-gradient(135deg, #8a4ee0, #026e68);
+            padding: 0.4rem 0.8rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            margin-right: auto;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+            color: #fff;
+            flex-wrap: wrap;
+        ">
+            <span style="font-weight: 500; text-align: center; width: 100%;">
+                <span id="timer" style="font-weight: 700;">Loading...</span>
+            </span>
+        </div>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="https://github.com/knivier/Activerse/releases/tag/v1.3.2" target="_blank">
+            <i class="fas fa-download"></i> Download
+        </a>
+        <a href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">
+            <i class="fas fa-file-code"></i> Docs
+        </a>
+        <a href="#versions"><i class="fas fa-history"></i> Versions</a>
+        <a href="https://github.com/knivier/Activerse/wiki" target="_blank">
+            <i class="fas fa-book"></i> Wiki
+        </a>
+    </nav>
     <script>
-        const releaseDate = new Date('February 06, 2025 16:00:00').getTime();
-        function updateTimer() {
-            const now = new Date().getTime();
-            const distance = releaseDate - now;
-
-            if (distance < 0) {
-                document.getElementById('timer').innerHTML = "awaiting announcement, site locked";
-                blurWebsite();
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            let timerString = '';
-            if (days > 0) timerString += days + 'd ';
-            if (hours > 0 || days > 0) timerString += hours + 'h ';
-            if (minutes > 0 || hours > 0 || days > 0) timerString += minutes + 'm ';
-            timerString += seconds + 's';
-
-            document.getElementById('timer').innerHTML = timerString;
+      // Countdown Timer
+      const timerElement = document.getElementById('timer');
+      // Since "2/31/25" is non-standard, we'll use an adjusted date (Mar 3, 2025) for the timer target.
+      const targetDate = new Date('2025-03-03T00:00:00');
+      
+      function updateTimer() {
+        const now = new Date();
+        const diff = targetDate - now;
+        if(diff <= 0) {
+          timerElement.textContent = "00d 00h 00m 00s";
+          // Lock website scrolling
+          document.body.style.overflow = 'hidden';
+          // Create and display overlay message
+          const overlay = document.createElement('div');
+          overlay.style.position = 'fixed';
+          overlay.style.top = '0';
+          overlay.style.left = '0';
+          overlay.style.width = '100%';
+          overlay.style.height = '100%';
+          overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+          overlay.style.color = '#E0E0E0';
+          overlay.style.display = 'flex';
+          overlay.style.alignItems = 'center';
+          overlay.style.justifyContent = 'center';
+          overlay.style.fontSize = '1.5rem';
+          overlay.style.zIndex = '2000';
+          overlay.style.textAlign = 'center';
+          overlay.style.padding = '1rem';
+          overlay.textContent = "Activerse is being updated with relevant information for v1.3.3 and is taking longer than usual. Thank you for your patience.";
+          document.body.appendChild(overlay);
+          clearInterval(timerInterval);
+          return;
         }
-
-        function blurWebsite() {
-            document.querySelector('.container').style.filter = 'blur(5px)';
-            document.body.style.overflow = 'hidden';
-            const lockMessage = document.createElement('div');
-            lockMessage.style.position = 'fixed';
-            lockMessage.style.top = '50%';
-            lockMessage.style.left = '50%';
-            lockMessage.style.transform = 'translate(-50%, -50%)';
-            lockMessage.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-            lockMessage.style.color = 'white';
-            lockMessage.style.padding = '20px';
-            lockMessage.style.borderRadius = '10px';
-            lockMessage.style.textAlign = 'center';
-            lockMessage.style.zIndex = '1000';
-            lockMessage.style.width = '80%';
-            lockMessage.style.maxWidth = '400px';
-            lockMessage.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
-            lockMessage.style.filter = 'none';
-            lockMessage.innerHTML = `
-                <h1>Announcements updating</h1>
-                <p>We're currently updating this section automatically to have v1.3.3 information. This is not a verison release!</p>
-                <a href="index.html" class="button" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #5a3e9b; color: white; text-decoration: none; border-radius: 5px;">Home</a>
-            `;
-            document.body.appendChild(lockMessage);
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        
+        if (days > 1) {
+          timerElement.textContent = `${days}d ${hours}h`;
+        } else {
+          timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
-
-        setInterval(updateTimer, 1000);
+      }
+      const timerInterval = setInterval(updateTimer, 1000);
+      updateTimer();
     </script>
+    </script>
+
     <div class="container">
-        <div id="loader" class="loader"></div>
-        <h1 id="activerse-title">Activerse</h1>
-        <div class="logo">
-            <img src="src/images/activerse-logo.png" alt="Activerse Logo">
-        </div>
-        <p class="drawIn">Create what you want, how you want, with all the modification you want with the tools you use. Start with Activerse today.</p>
-
-        <div class="more-info" data-aos="fade-up">
-            <h2>What is Activerse</h2>
-            <p>Activerse is a powerful and versatile game engine designed to empower developers and creators to bring their imaginative worlds to life. Activerse helps streamlines the 2D game development process, offering seamless integration of physics, graphics, and sound. Whether you're a seasoned developer or a novice, Activerse provides the tools and flexibility to create complex, interactive experiences. Its modular architecture allows for easy customization and scalability, making it suitable for a wide range of game genres. Dive into Activerse and start crafting unique gaming experiences that captivate and engage players.</p>
-            <h2>Licensing</h2>
-            <p>Activerse © 2024 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0. This more easily allows developers to share the code and adapt it as well, while attributing the work correctly, and not using Activerse for commercial usage. When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license. You also cannot set any additional terms.</p>
-        </div>
-
-        <div class="latest-version-changelog" data-aos="fade-up">
-            <div class="latest-version">
-            <h2>v1.3.2: Breakout Game & the half year update!</h2>
+        <section class="hero">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="src/images/activerse-logo.png" alt="Activerse Logo" class="spin-on-hover">
+                </div>
+                <h1>Activerse</h1>
+                <p class="tagline">Create what you want, how you want, with all the modification you want.</p>
             </div>
-            <div class="changelog">
-            <h2>Changelog:</h2>
-            <ul>
-                <li class="animated-list">All comments are updated;  <span class="tooltip">Javadocs are NOT updated<span class="tooltiptext">Javadocs are documentation comments in the source code that describe the classes and methods will be updated in v1.3.3. </span></span></li>
-                <li class="animated-list">Volume controls for sounds implementated using setVolume() [accepting float 0 and 1 values] and getVolume()</li>
-                <li class="animated-list">GameLoop error for run() 7A.IO reported</li>
-                <li class="animated-list">Updated World ticks are now shown in debug menu</li>
-                <li class="animated-list">Log dumps are now better formatted and include system tick monitoring, heap memory usages and garbage times</li>
-                <li class="animated-list">Default FPS implementation is 60fps</li>
-                <li class="animated-list">World can now be paused and resumed</li>
-                <li class="animated-list">A breakout game is now implementated!</li>
-                <p>The breakout game was taken from Activerse Examplers and shown as a "Demo" game. This will not be provided in the official NSI install. 
-                Many unspoken updates were made on this game; check GitHub release info for more on that.
-                </p>
-            </ul>
-            <p>This version is backwards compatible with up to v1.0.7 (<span class="tooltip">with minor porting<span class="tooltiptext">Minor porting in Activerse is the process of making your game compatible with minor tweaks; this may be through file hierarchy changes or small modifications.</span></span>). </p>
+            <div class="content-card">
+                <h2>Licensing</h2>
+                <p>Activerse © 2024 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0.</p>
+                <p><br>When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license.</p>
             </div>
+        </section>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
         </div>
-    
-        <footer class="text-center py-8 text-gray-400">
-            <p>&copy; 2025 Knivier. All rights reserved, see license</p>
-        </footer>    </div>
-
-    <div class="nav-pane" id="nav-pane">
-        <a class="button" href="index.html">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </a>
-        <a class="button" href="https://github.com/knivier/Activerse/releases/tag/v1.3.2" target="_blank">
-            <i class="fas fa-download"></i>
-            <span>Download (v1.3.2)</span>
-        </a>
-        <a class="button" href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">
-            <i class="fas fa-file-code"></i>
-            <span>Docs</span>
-        </a>
-        <a class="button" href="actversions.html">
-            <i class="fas fa-history"></i>
-            <span>Version Logs</span>
-        </a>
-        <a class="button" href="https://github.com/knivier/Activerse/wiki" target="_blank">
-            <i class="fas fa-book"></i>
-            <span>Wiki</span>
-        </a>
-        <a class="button" href="https://github.com/knivier/Activerse" target="_blank">
-            <i class="fab fa-github"></i>
-            <span>GitHub</span>
-        </a>
-        
-    </div>
-    <div class="nav-toggle" id="nav-toggle">
-        <i class="fas fa-bars"></i>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
-    <script>
-        AOS.init();
-
-        document.getElementById('activerse-title').addEventListener('click', function () {
-            window.location.href = 'activerseinfo.html';
-        });
-
-        window.onload = function () {
-            document.getElementById('loader').style.display = 'none';
-        };
-
-        document.querySelectorAll('.button').forEach(button => {
-            button.addEventListener('mouseover', function () {
-                this.style.animation = 'pulse 0.5s infinite';
-            });
-            button.addEventListener('mouseout', function () {
-                this.style.animation = 'none';
-            });
-        });
-
-        document.querySelectorAll('.changelog ul li').forEach(item => {
-            item.addEventListener('mouseover', function () {
-                this.style.transform = 'translateX(10px) scale(1.05)';
-                this.style.transition = 'all 0.3s ease';
-            });
-            item.addEventListener('mouseout', function () {
-                this.style.transform = 'translateX(0) scale(1)';
-            });
-        });
-
-        setInterval(() => {
-            const colors = ['#BB86FC', '#03DAC6', '#CF6679', '#01A299'];
-            document.getElementById('activerse-title').style.color = colors[Math.floor(Math.random() * colors.length)];
-        }, 3000);
-
-        document.addEventListener('mousemove', (e) => {
-            const container = document.querySelector('.container');
-            const moveX = (e.clientX - window.innerWidth / 2) / 100;
-            const moveY = (e.clientY - window.innerHeight / 2) / 100;
-            container.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        });
-
-        function closeBanner(event) {
-            event.stopPropagation();
-            document.getElementById('release-banner').style.display = 'none';
-            document.body.style.paddingTop = '0';
-        } 
-        
-
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const releaseBanner = document.getElementById('release-banner');
-            if (releaseBanner) {
-                releaseBanner.addEventListener('click', function (event) {
-                    if (event.target !== this)
-                        return;
-                    window.location.href = '#latest-version-changelog';
-                });
+        <script>
+            window.addEventListener('scroll', () => {
+            const indicator = document.querySelector('.scroll-indicator');
+            if (window.scrollY > 100) {
+                indicator.style.opacity = '0';
             }
+            });
+        </script>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <h2>What is Activerse?</h2>
+                <p>Activerse is a powerful and versatile game engine designed to empower developers and creators to bring their imaginative worlds to life. It streamlines the 2D game development process, offering seamless integration of physics, graphics, and sound.</p>
+                <p><br>Whether you're a seasoned developer or a novice, Activerse provides the tools and flexibility to create complex, interactive experiences. Its modular architecture allows for easy customization and scalability, making it suitable for a wide range of game genres.</p>
+                <p><br>Activerse is a tool made by developers, for the developer.</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Latest Version: v1.3.2</h2>
+                <p class="tagline">Breakout Game & Half Year Update</p>
+                <div class="changelog">
+                    <div class="changelog-item">All comments are updated (Javadocs pending)</div>
+                    <div class="changelog-item">Volume controls implemented with setVolume() [0-1 float values] and getVolume()</div>
+                    <div class="changelog-item">GameLoop error for run() 7A.IO reported and fixed</div>
+                    <div class="changelog-item">Updated World ticks now shown in debug menu</div>
+                    <div class="changelog-item">Improved log dumps with system tick monitoring</div>
+                    <div class="changelog-item">Default FPS implementation is 60fps</div>
+                    <div class="changelog-item">World can now be paused and resumed</div>
+                    <div class="changelog-item">New breakout game implementation!</div>
+                    <div class="changelog-item">The breakout game was taken from Activerse Examplers</div>
+                    <div class="changelog-item">Backwards compatible with up to v1.0.7</div>
+                </div>
+            </div>
+            <div class="content-card" style="grid-column: span 2;">
+                <h2>Activerse - Features Advertisement</h2>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 1rem;">
+                    <iframe src="https://www.youtube.com/embed/A4hs59UA2bE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="http://knivier.com/activerseinfo">Activerse</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="http://knivier.com">Knivier</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>    
+    </footer>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
 
-        const navToggle = document.getElementById('nav-toggle');
-        const navPane = document.getElementById('nav-pane');
+        // Animate content cards on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                }
+            });
+        }, { threshold: 0.1 });
 
-        navToggle.addEventListener('click', () => {
-            navPane.classList.toggle('open');
+        document.querySelectorAll('.content-card').forEach(card => {
+            card.style.opacity = '0';
+            observer.observe(card);
         });
+
+        // Add hover effect to logo
+        const logo = document.querySelector('.logo img');
+        logo.addEventListener('mouseover', () => {
+            logo.style.animation = 'spin 1s ease-in-out';
+        });
+        logo.addEventListener('animationend', () => {
+            logo.style.animation = 'float 6s ease-in-out infinite';
+        });
+
+        // Add this to your existing style section:
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(30px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .nav a:hover {
+                transform: translateY(-2px);
+                text-shadow: 0 0 8px var(--primary);
+            }
+            .changelog-item {
+                animation: slideIn 0.3s ease-out forwards;
+            }
+            @keyframes slideIn {
+                from { transform: translateX(-20px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
-
 </html>
