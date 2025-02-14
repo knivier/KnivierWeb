@@ -8,7 +8,28 @@
     <link rel="stylesheet" href="src\assets\css\activerse.css">
     <link rel="icon" href="src/images/activerse-logo.png" type="image/png">
 </head>
+
 <body>
+    <style>
+        /* Custom Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000000;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #8a4ee0, #026e68);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #6a3bbd, #025a54);
+        }
+    </style>
     <div style="
         background: linear-gradient(135deg, #ff7e5f, #feb47b);
         padding: 0.5rem 1rem;
@@ -112,6 +133,7 @@
                     <img src="src/images/activerse-logo.png" alt="Activerse Logo" class="spin-on-hover">
                 </div>
                 <h1>Activerse</h1>
+                <h2 class="animated-title">by Knivier</h2>
                 <p class="tagline">Create what you want, how you want, with all the modification you want.</p>
             </div>
             <div class="content-card">
@@ -156,6 +178,7 @@
                     <div class="changelog-item">Backwards compatible with up to v1.0.7</div>
                 </div>
             </div>
+            
             <div class="content-card" style="grid-column: span 2;">
                 <h2>Activerse - Features Advertisement</h2>
                 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 1rem;">
@@ -213,33 +236,37 @@
         // Add hover effect to logo
         const logo = document.querySelector('.logo img');
         logo.addEventListener('mouseover', () => {
-            logo.style.animation = 'spin 1s ease-in-out';
+            logo.style.animation = 'rotate180 .55s ease-in-out forwards';
         });
-        logo.addEventListener('animationend', () => {
-            logo.style.animation = 'float 6s ease-in-out infinite';
+        logo.addEventListener('mouseout', () => {
+            logo.style.animation = 'rotateBack .55s ease-in-out forwards';
         });
 
         // Add this to your existing style section:
         const style = document.createElement('style');
         style.textContent = `
             @keyframes fadeInUp {
-                from { opacity: 0; transform: translateY(30px); }
-                to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
             }
-            @keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
+            @keyframes rotate180 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(180deg); }
+            }
+            @keyframes rotateBack {
+            from { transform: rotate(180deg); }
+            to { transform: rotate(0deg); }
             }
             .nav a:hover {
-                transform: translateY(-2px);
-                text-shadow: 0 0 8px var(--primary);
+            transform: translateY(-2px);
+            text-shadow: 0 0 8px var(--primary);
             }
             .changelog-item {
-                animation: slideIn 0.3s ease-out forwards;
+            animation: slideIn 0.3s ease-out forwards;
             }
             @keyframes slideIn {
-                from { transform: translateX(-20px); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
             }
         `;
         document.head.appendChild(style);
