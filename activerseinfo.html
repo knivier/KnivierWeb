@@ -76,7 +76,7 @@
             <i class="fas fa-book"></i> Wiki
         </a>
     </nav>
-    <script>
+    <!-- <script>
       // Countdown Timer
       const timerElement = document.getElementById('timer');
       // Since "2/31/25" is non-standard, we'll use an adjusted date (Mar 3, 2025) for the timer target.
@@ -123,8 +123,7 @@
       }
       const timerInterval = setInterval(updateTimer, 1000);
       updateTimer();
-    </script>
-    </script>
+    </script> -->
 
     <div class="container">
         <section class="hero">
@@ -184,7 +183,58 @@
                 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 1rem;">
                     <iframe src="https://www.youtube.com/embed/A4hs59UA2bE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
                 </div>
-                </div>
+            </div>
+
+            <div class="content-card announcement-card" id="announcement-card" style="display: none;">
+                <h2>Announcement</h2>
+                <p><strong>knivier</strong> <a href="https://twitter.com/AtomicKniv" target="_blank">@AtomicKniv</a> 2/15/2025</p>
+                <p>Activerse v1.3.** will be the LTS version of Activerse.</p>
+                <p>There will not be an Activerse 1.4 for at minimum six months.</p>
+                <p>This does NOT mean Activerse will be deprecated; I will still work on many versions continuing v1.3's legacy. I just need time for new features.</p>
+                <p><strong>knivier</strong> <a href="https://twitter.com/AtomicKniv" target="_blank">@AtomicKniv</a></p>
+                <p>Until then, v1.3** and further will continue to be the most stable and long term supported version. I am working on a guarantee to see how long I will support v1.3 series, but it's possible it will receive updates for an uncertain amount of time, even after v1.4 release!</p>
+            </div>
+            <button id="toggle-announcement" style="
+                background: linear-gradient(135deg, #8a4ee0, #026e68);
+                color: #fff;
+                padding: 0.5rem 1rem;
+                border: none;
+                border-radius: 9999px;
+                cursor: pointer;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+                transition: transform 0.2s;
+                margin-top: 1rem;
+            ">Show Announcements</button>
+            <script>
+                document.getElementById('toggle-announcement').addEventListener('click', function() {
+                    const announcementCard = document.getElementById('announcement-card');
+                    if (announcementCard.style.display === 'none') {
+                        announcementCard.style.display = 'block';
+                        this.textContent = 'Hide Announcements';
+                    } else {
+                        announcementCard.style.display = 'none';
+                        this.textContent = 'Show Announcements';
+                    }
+                });
+            </script>
+            <style>
+                .announcement-card {
+                    border: 2px solid #ff0000;
+                    background-color: #fff3f3;
+                    color: #ff0000;
+                    animation: fadeInUp 0.6s ease forwards;
+                }
+                .announcement-card h2 {
+                    color: #ff0000;
+                }
+                .announcement-card p {
+                    margin: 0.5rem 0;
+                }
+                .announcement-card p span {
+                    font-size: 0.85rem;
+                    color: #555;
+                }
+            </style>
             </div>
         </div>
     </div>
