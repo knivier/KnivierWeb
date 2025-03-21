@@ -564,13 +564,16 @@ function updateCountdown() {
     
     // Calculate total hours left for progress bar
     const totalHoursLeft = days * 24 + hours + minutes / 60 + seconds / 3600;
-    
-    // Reference start date for progress calculation (30 days before target)
-    const startDate = new Date(targetDate);
-    startDate.setDate(startDate.getDate() - 30);
-    const totalDuration = targetDate - startDate.getTime();
-    const elapsedTime = now - startDate.getTime();
-    const progressPercentage = Math.min(100, Math.max(0, (elapsedTime / totalDuration) * 100));
+
+    // Calculate progress percentage based on 8 hours
+    let progressPercentage = 0;
+    if (totalHoursLeft <= 8 && totalHoursLeft > 0) {
+        progressPercentage = Math.min(100, Math.max(0, ((8 - totalHoursLeft) / 8) * 100));
+    } else if (totalHoursLeft <= 0) {
+        progressPercentage = 100; // Fill the bar when countdown is complete
+    } else {
+        progressPercentage = 0; // Show nothing if more than 8 hours left
+    }
     
     // Only apply pulse animation and urgent styling at exactly 1 hour or less
     if (totalHoursLeft <= 1 && distance > 0) {
