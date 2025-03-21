@@ -5,318 +5,834 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring Break Countdown</title>
     <style>
-        :root {
-            --bg-dark: #0f0f1a;
-            --accent-blue: #3498db;
-            --countdown-bg: rgba(30, 30, 50, 0.7);
-            --text-light: #e6e6f3;
-            --warning-red: #e74c3c;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
-        body, html {
-            height: 100%;
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--bg-dark);
+        body {
+            background-color: #0f111a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
-            cursor: default;
         }
 
-        #background-canvas {
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .title {
+            font-size: 5.5rem;
+            font-weight: 700;
+            letter-spacing: 8px;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 40px rgba(0, 128, 255, 0.3);
+            animation: pulse 5s infinite;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(26, 29, 45, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, background-color 0.5s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .countdown-value {
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .countdown-label {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ms-item {
+            width: 160px;
+            height: 160px;
+        }
+
+        .ms-item .countdown-value {
+            font-size: 3.5rem;
+        }
+
+        .urgent {
+            background: linear-gradient(145deg, rgba(78, 29, 29, 0.9), rgba(120, 30, 30, 0.9)) !important;
+            box-shadow: 0 15px 25px rgba(120, 30, 30, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 100, 100, 0.2);
+        }
+
+        .pulse-animation {
+            animation: pulse-urgent 1s infinite alternate;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: rgba(26, 29, 45, 0.5);
+            border-radius: 5px;
+            margin: 40px 0;
+            overflow: hidden;
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #4a90e2, #50e3c2, #b8e986);
+            border-radius: 5px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(80, 227, 194, 0.5);
+        }
+
+        .current-time {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+
+        .seconds-small {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .sync-indicator {
+            width: 40px;
+            height: 6px;
+            background-color: rgba(26, 29, 45, 0.7);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-left: 10px;
+        }
+
+        .sync-progress {
+            height: 100%;
+            width: 0%;
+            background-color: #50e3c2;
+            animation: sync 2s infinite;
+            box-shadow: 0 0 5px rgba(80, 227, 194, 0.5);
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .countdown-item:hover .glow {
+            opacity: 1;
+        }
+
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-        }
-
-        .countdown-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            backdrop-filter: blur(10px);
-            background: rgba(15, 15, 26, 0.6);
-        }
-
-        .countdown-title {
-            color: var(--text-light);
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            font-weight: 200;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-
-        .countdown {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .countdown-segments {
-            display: flex;
-            gap: 20px;
-        }
-
-        .countdown-item {
-            background: var(--countdown-bg);
-            color: var(--text-light);
-            padding: 25px 35px;
-            border-radius: 15px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
+            background: linear-gradient(45deg, #0f111a, #16213e);
             overflow: hidden;
         }
 
-        .countdown-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        .countdown-item h2 {
-            font-size: 4rem;
-            font-weight: 100;
-            margin-bottom: 10px;
-            letter-spacing: 3px;
-        }
-
-        .countdown-item p {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            opacity: 0.6;
-        }
-
-        #milliseconds {
-            font-size: 1.5rem;
-            opacity: 0.5;
-            margin-top: 10px;
-        }
-
-        .progress-container {
+        .aurora {
+            position: absolute;
             width: 100%;
-            background: rgba(30, 30, 50, 0.5);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 20px;
+            height: 200%;
+            top: -100%;
+            left: 0;
+            background: linear-gradient(90deg, 
+                rgba(62, 35, 255, 0) 0%, 
+                rgba(62, 35, 255, 0.1) 20%, 
+                rgba(62, 35, 255, 0) 40%, 
+                rgba(35, 213, 255, 0) 50%, 
+                rgba(35, 213, 255, 0.1) 70%, 
+                rgba(35, 213, 255, 0) 100%);
+            animation: aurora-move 20s infinite linear;
+            transform-origin: center bottom;
+            opacity: 0.5;
         }
 
-        .progress-bar {
-            height: 10px;
-            background: linear-gradient(to right, #3498db, #2ecc71);
-            width: 0%;
-            transition: width 0.5s ease;
+        .aurora:nth-child(2) {
+            background: linear-gradient(90deg, 
+                rgba(139, 0, 255, 0) 0%, 
+                rgba(139, 0, 255, 0.1) 20%, 
+                rgba(139, 0, 255, 0) 40%, 
+                rgba(0, 255, 185, 0) 50%, 
+                rgba(0, 255, 185, 0.1) 70%, 
+                rgba(0, 255, 185, 0) 100%);
+            animation-delay: -5s;
+            animation-duration: 25s;
         }
 
-        .warning {
-            background: rgba(231, 76, 60, 0.3) !important;
-            animation: pulse 1.5s infinite alternate;
+        .aurora:nth-child(3) {
+            background: linear-gradient(90deg, 
+                rgba(0, 142, 255, 0) 0%, 
+                rgba(0, 142, 255, 0.1) 20%, 
+                rgba(0, 142, 255, 0) 40%, 
+                rgba(227, 32, 206, 0) 50%, 
+                rgba(227, 32, 206, 0.1) 70%, 
+                rgba(227, 32, 206, 0) 100%);
+            animation-delay: -10s;
+            animation-duration: 30s;
+        }
+
+        .stars {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
         }
 
         @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
+            0% { opacity: 0.9; text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(0, 128, 255, 0.2); }
+            50% { opacity: 1; text-shadow: 0 0 25px rgba(255, 255, 255, 0.5), 0 0 50px rgba(0, 128, 255, 0.4); }
+            100% { opacity: 0.9; text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(0, 128, 255, 0.2); }
+        }
+
+        @keyframes pulse-urgent {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        @keyframes sync {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 0%; }
+        }
+
+        @keyframes aurora-move {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(50%) rotate(180deg); }
+        }
+
+        @keyframes starTwinkle {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
         }
 
         @media (max-width: 768px) {
-            .countdown-segments {
-                flex-direction: column;
-                align-items: center;
+            .title {
+                font-size: 3.5rem;
+                margin-bottom: 40px;
+                letter-spacing: 4px;
             }
-            .countdown-title {
-                font-size: 2rem;
+
+            .countdown {
+                gap: 15px;
             }
+
             .countdown-item {
-                width: 80%;
-                text-align: center;
+                width: 130px;
+                height: 130px;
+            }
+
+            .countdown-value {
+                font-size: 3.5rem;
+            }
+
+            .countdown-label {
+                font-size: 0.9rem;
+            }
+
+            .ms-item .countdown-value {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .countdown {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .countdown-item {
+                width: 100%;
+                height: 110px;
+            }
+
+            .countdown-value {
+                font-size: 3.2rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .title {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+                margin-bottom: 30px;
+            }
+
+            .countdown-item {
+                height: 100px;
+            }
+
+            .countdown-value {
+                font-size: 2.8rem;
+            }
+
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+
+            .ms-item .countdown-value {
+                font-size: 2.3rem;
+            }
+
+            .current-time {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <canvas id="background-canvas"></canvas>
-    <div class="countdown-container">
-        <h1 class="countdown-title" id="event-title">Spring Break</h1>
+    <div class="background">
+        <div class="aurora"></div>
+        <div class="aurora"></div>
+        <div class="aurora"></div>
+        <div class="stars" id="stars"></div>
+    </div>
+    
+    <div class="particles-container" id="particles-container"></div>
+    
+    <div class="container">
+        <h1 class="title">SPRING BREAK</h1>
+        
         <div class="countdown">
-            <div class="countdown-segments">
-                <div class="countdown-item" id="days-container">
-                    <h2 id="days">00</h2>
-                    <p>Days</p>
-                </div>
-                <div class="countdown-item" id="hours-container">
-                    <h2 id="hours">00</h2>
-                    <p>Hours</p>
-                </div>
-                <div class="countdown-item" id="minutes-container">
-                    <h2 id="minutes">00</h2>
-                    <p>Minutes</p>
-                </div>
-                <div class="countdown-item" id="seconds-container">
-                    <h2 id="seconds">00</h2>
-                    <p>Seconds</p>
-                </div>
+            <div class="countdown-item" id="days-container">
+                <div class="glow"></div>
+                <div id="days" class="countdown-value">00</div>
+                <div class="countdown-label">DAYS</div>
             </div>
-            <div class="countdown-item">
-                <h2 id="milliseconds">000</h2>
-                <p>Milliseconds</p>
+            
+            <div class="countdown-item" id="hours-container">
+                <div class="glow"></div>
+                <div id="hours" class="countdown-value">00</div>
+                <div class="countdown-label">HOURS</div>
             </div>
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
+            
+            <div class="countdown-item" id="minutes-container">
+                <div class="glow"></div>
+                <div id="minutes" class="countdown-value">00</div>
+                <div class="countdown-label">MINUTES</div>
+            </div>
+            
+            <div class="countdown-item" id="seconds-container">
+                <div class="glow"></div>
+                <div id="seconds" class="countdown-value">00</div>
+                <div class="countdown-label">SECONDS</div>
+            </div>
+            
+            <div class="countdown-item ms-item" id="milliseconds-container">
+                <div class="glow"></div>
+                <div id="milliseconds" class="countdown-value">000</div>
+                <div class="countdown-label">MS</div>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="current-time" id="current-time">
+            <span id="time-display">00:00</span>
+            <span class="seconds-small" id="seconds-display">00</span>
+            <div class="sync-indicator">
+                <div class="sync-progress"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // EASILY CONFIGURABLE EVENT DETAILS
-        const EVENT_CONFIG = {
-            name: "Spring Break",
-            date: {
-                month: 3,   // November (0-indexed)
-                day: 21,
-                year: 2025,
-                hours: 14,
-                minutes: 52,
-                seconds: 5
-            }
-        };
+        // Set the target date - March 21, 2025 at 14:52:00
+const targetDate = new Date(2025, 2, 21, 14, 52, 0).getTime();
 
-        // Particle Background (same as previous implementation)
-        const canvas = document.getElementById('background-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+// DOM Elements
+const daysEl = document.getElementById('days');
+const hoursEl = document.getElementById('hours');
+const minutesEl = document.getElementById('minutes');
+const secondsEl = document.getElementById('seconds');
+const millisecondsEl = document.getElementById('milliseconds');
+const progressBar = document.getElementById('progress-bar');
+const timeDisplay = document.getElementById('time-display');
+const secondsDisplay = document.getElementById('seconds-display');
 
-        class Particle {
-            constructor() {
-                this.reset();
-            }
+const daysContainer = document.getElementById('days-container');
+const hoursContainer = document.getElementById('hours-container');
+const minutesContainer = document.getElementById('minutes-container');
+const secondsContainer = document.getElementById('seconds-container');
+const millisecondsContainer = document.getElementById('milliseconds-container');
 
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.radius = Math.random() * 3;
-                this.speedX = (Math.random() - 0.5) * 1.5;
-                this.speedY = (Math.random() - 0.5) * 1.5;
-                this.color = `rgba(52, 152, 219, ${Math.random() * 0.7})`;
-                this.opacity = 0;
-                this.growthRate = Math.random() * 0.02 + 0.01;
-            }
+// Create stars in the background
+function createStars() {
+    const starsContainer = document.getElementById('stars');
+    const starCount = 200;
+    
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random size between 1 and 3px
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        
+        // Random position
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        
+        // Random opacity
+        star.style.opacity = Math.random() * 0.7 + 0.3;
+        
+        // Add twinkling animation with random delay
+        const duration = Math.random() * 3 + 2;
+        star.style.animation = `starTwinkle ${duration}s infinite ease-in-out`;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        
+        // Add to container
+        starsContainer.appendChild(star);
+    }
+}
 
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+// Create background particles
+function createParticles() {
+    const container = document.getElementById('particles-container');
+    const particleCount = 100;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 1 and 3px
+        const size = Math.random() * 2 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random opacity
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        // Add to container
+        container.appendChild(particle);
+        
+        // Animate the particle
+        animateParticle(particle);
+    }
+}
 
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-
-                this.opacity = Math.min(this.opacity + this.growthRate, 1);
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(52, 152, 219, ${this.opacity * 0.5})`;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = 'rgba(52, 152, 219, 0.5)';
-                ctx.fill();
-                ctx.closePath();
-            }
-        }
-
-        const particles = Array.from({length: 300}, () => new Particle());
-
-        function animateBackground() {
-            ctx.fillStyle = 'rgba(15, 15, 26, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            requestAnimationFrame(animateBackground);
-        }
-
-        animateBackground();
-
-        // Create target date from configuration
-        const targetDate = new Date(
-            EVENT_CONFIG.date.year, 
-            EVENT_CONFIG.date.month - 1, 
-            EVENT_CONFIG.date.day, 
-            EVENT_CONFIG.date.hours, 
-            EVENT_CONFIG.date.minutes, 
-            EVENT_CONFIG.date.seconds
-        );
-
-        // Update event title
-        document.getElementById('event-title').textContent = EVENT_CONFIG.name;
-
-        // Countdown Logic
-        function updateCountdown() {
-            const now = new Date();
-            const difference = targetDate - now;
-
-            if (difference < 0) {
-                document.querySelector('.countdown-container').classList.add('celebration-mode');
-                document.body.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4)';
-                return;
-            }
-
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-            const milliseconds = Math.floor((difference % 1000));
-
-            // Formatted milliseconds (2 decimal places)
-            const formattedMilliseconds = Math.floor(milliseconds / 10).toString().padStart(2, '0');
-
-            // Update timer
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            document.getElementById('milliseconds').textContent = formattedMilliseconds;
-
-            // Progress bar for last 24 hours
-            const hoursContainer = document.getElementById('hours-container');
-            const progressBar = document.getElementById('progress-bar');
+// Animate a single particle
+function animateParticle(particle) {
+    // Random duration between 10 and 30 seconds
+    const duration = Math.random() * 20000 + 10000;
+    
+    // Random vertical movement
+    const startY = parseFloat(particle.style.top);
+    const endY = startY - 20 - Math.random() * 10;
+    
+    // Animation with subtle horizontal drift
+    particle.style.transition = `top ${duration}ms linear, left ${duration}ms ease-in-out, opacity ${duration / 4}ms linear`;
+    
+    setTimeout(() => {
+        // Move upward with slight horizontal drift
+        particle.style.top = `${endY}%`;
+        particle.style.left = `${parseFloat(particle.style.left) + (Math.random() * 10 - 5)}%`;
+        
+        // Fade out near the end
+        setTimeout(() => {
+            particle.style.opacity = '0';
+        }, duration * 0.75);
+        
+        // Reset when animation completes
+        setTimeout(() => {
+            particle.style.transition = 'none';
+            particle.style.top = `${Math.random() * 100 + 10}%`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
             
-            if (days === 0 && hours < 24) {
-                hoursContainer.classList.add('warning');
-                const progressPercentage = ((24 - hours) / 24) * 100;
-                progressBar.style.width = `${progressPercentage}%`;
-            } else {
-                hoursContainer.classList.remove('warning');
-                progressBar.style.width = '0%';
-            }
+            // Restart animation
+            animateParticle(particle);
+        }, duration);
+    }, 100);
+}
+
+// Update the countdown
+function updateCountdown() {
+    const now = Date.now();
+    const distance = targetDate - now;
+    
+    // Time calculations
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const milliseconds = Math.floor((distance % 1000) / 10);
+    
+    // Update the countdown elements
+    daysEl.textContent = days.toString().padStart(2, '0');
+    hoursEl.textContent = hours.toString().padStart(2, '0');
+    minutesEl.textContent = minutes.toString().padStart(2, '0');
+    secondsEl.textContent = seconds.toString().padStart(2, '0');
+    millisecondsEl.textContent = milliseconds.toString().padStart(2, '0');
+    
+    // Calculate total hours left for progress bar
+    const totalHoursLeft = days * 24 + hours + minutes / 60 + seconds / 3600;
+    
+    // Reference start date for progress calculation (30 days before target)
+    const startDate = new Date(targetDate);
+    startDate.setDate(startDate.getDate() - 30);
+    const totalDuration = targetDate - startDate.getTime();
+    const elapsedTime = now - startDate.getTime();
+    const progressPercentage = Math.min(100, Math.max(0, (elapsedTime / totalDuration) * 100));
+    
+    // Only apply pulse animation and urgent styling at exactly 1 hour or less
+    if (totalHoursLeft <= 1 && distance > 0) {
+        // Apply urgent styling
+        daysContainer.classList.add('urgent');
+        hoursContainer.classList.add('urgent');
+        minutesContainer.classList.add('urgent');
+        secondsContainer.classList.add('urgent');
+        millisecondsContainer.classList.add('urgent');
+        
+        // Add pulse animation
+        daysContainer.classList.add('pulse-animation');
+        hoursContainer.classList.add('pulse-animation');
+        minutesContainer.classList.add('pulse-animation');
+        secondsContainer.classList.add('pulse-animation');
+        millisecondsContainer.classList.add('pulse-animation');
+    } else if (distance > 0) {
+        // Remove urgent styling if more than 1 hour
+        daysContainer.classList.remove('urgent');
+        hoursContainer.classList.remove('urgent');
+        minutesContainer.classList.remove('urgent');
+        secondsContainer.classList.remove('urgent');
+        millisecondsContainer.classList.remove('urgent');
+        
+        // Remove pulse animation
+        daysContainer.classList.remove('pulse-animation');
+        hoursContainer.classList.remove('pulse-animation');
+        minutesContainer.classList.remove('pulse-animation');
+        secondsContainer.classList.remove('pulse-animation');
+        millisecondsContainer.classList.remove('pulse-animation');
+    }
+    
+    // Update progress bar
+    progressBar.style.width = `${progressPercentage}%`;
+    
+    // Check if countdown is over
+    if (distance <= 0) {
+        // Display zeros
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        millisecondsEl.textContent = '00';
+        
+        // Set progress bar to 100%
+        progressBar.style.width = '100%';
+        
+        // Add urgent class to all countdown items
+        daysContainer.classList.add('urgent');
+        hoursContainer.classList.add('urgent');
+        minutesContainer.classList.add('urgent');
+        secondsContainer.classList.add('urgent');
+        millisecondsContainer.classList.add('urgent');
+        
+        // Create intense celebration effect
+        startMassiveFireworksCelebration();
+        
+        return;
+    }
+    
+    // Update current time
+    const currentTime = new Date();
+    const hours24 = currentTime.getHours().toString().padStart(2, '0');
+    const mins = currentTime.getMinutes().toString().padStart(2, '0');
+    const secs = currentTime.getSeconds().toString().padStart(2, '0');
+    
+    timeDisplay.textContent = `${hours24}:${mins}`;
+    secondsDisplay.textContent = secs;
+    
+    // Continue countdown
+    requestAnimationFrame(updateCountdown);
+}
+
+// Create massive celebration animation when countdown ends
+function startMassiveFireworksCelebration() {
+    // Create fireworks frequently
+    setInterval(() => {
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                createFirework();
+            }, i * 200);
         }
+    }, 400);
+    
+    // Add special effects
+    document.body.style.overflow = 'hidden';
+    
+    // Add celebratory title animation
+    const title = document.querySelector('.title');
+    title.style.animation = 'none';
+    title.style.color = '#ffdd00';
+    title.style.textShadow = '0 0 20px rgba(255, 221, 0, 0.8), 0 0 40px rgba(255, 150, 0, 0.5)';
+    title.textContent = "SPRING BREAK!!";
+    
+    // Add background color transitions
+    const background = document.querySelector('.background');
+    background.style.animation = 'backgroundShift 5s infinite alternate';
+    document.head.insertAdjacentHTML('beforeend', `
+        <style>
+            @keyframes backgroundShift {
+                0% { background: linear-gradient(45deg, #16213e, #0f111a); }
+                50% { background: linear-gradient(45deg, #1e0f2d, #150f1a); }
+                100% { background: linear-gradient(45deg, #2d140f, #1a0f0f); }
+            }
+        </style>
+    `);
+}
 
-        // Resize canvas on window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+function createFirework() {
+    const container = document.getElementById('particles-container');
+    
+    // Create multiple fireworks at different positions
+    const fireworkCount = 3;
+    
+    for (let f = 0; f < fireworkCount; f++) {
+        // Create firework origin point
+        const originX = Math.random() * window.innerWidth;
+        const originY = window.innerHeight - Math.random() * 400;
+        
+        // Create explosion
+        for (let i = 0; i < 80; i++) {
+            setTimeout(() => {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random colors
+                const colors = [
+                    '#ff0000', '#ff6b6b', '#ffbb00', '#00ff00', 
+                    '#00ffff', '#0088ff', '#8800ff', '#ff00ff',
+                    '#ffdd00', '#ff5500', '#00ffaa', '#aaaaff'
+                ];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 8px ${color}`;
+                
+                // Size between 2 and 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Start at origin position
+                particle.style.left = `${originX}px`;
+                particle.style.top = `${originY}px`;
+                
+                // Random direction and distance
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 200 + 50;
+                const duration = Math.random() * 1500 + 1000;
+                
+                // Add to container
+                container.appendChild(particle);
+                
+                // Animate outward
+                setTimeout(() => {
+                    particle.style.transition = `left ${duration}ms cubic-bezier(0.1, 0.8, 0.2, 1), top ${duration}ms cubic-bezier(0.1, 0.8, 0.2, 1), opacity ${duration}ms ease-in`;
+                    particle.style.left = `${originX + Math.cos(angle) * distance}px`;
+                    particle.style.top = `${originY + Math.sin(angle) * distance - distance/2}px`;
+                    particle.style.opacity = '0';
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        particle.remove();
+                    }, duration);
+                }, 10);
+            }, Math.random() * 200);
+        }
+    }
+}
 
-        // Update countdown immediately and then every 10ms for milliseconds
-        updateCountdown();
-        setInterval(updateCountdown, 10);
+// Create shooting stars occasionally
+function createShootingStar() {
+    const container = document.getElementById('particles-container');
+    const star = document.createElement('div');
+    
+    star.style.position = 'absolute';
+    star.style.width = '2px';
+    star.style.height = '2px';
+    star.style.backgroundColor = 'white';
+    star.style.borderRadius = '50%';
+    star.style.boxShadow = '0 0 20px 2px white';
+    star.style.opacity = '0';
+    
+    // Random start position (top-left to top-right)
+    const startX = Math.random() * window.innerWidth;
+    const startY = Math.random() * (window.innerHeight / 3);
+    
+    star.style.left = `${startX}px`;
+    star.style.top = `${startY}px`;
+    
+    // End position (move diagonally down)
+    const endX = startX + (Math.random() * 300 - 150);
+    const endY = startY + (Math.random() * 300 + 100);
+    
+    // Add to container
+    container.appendChild(star);
+    
+    // Animate
+    setTimeout(() => {
+        star.style.transition = 'transform 1s linear, opacity 1s ease-in-out';
+        star.style.opacity = '1';
+        star.style.transform = `translate(${endX - startX}px, ${endY - startY}px)`;
+        
+        // Trail effect
+        const trail = document.createElement('div');
+        trail.style.position = 'absolute';
+        trail.style.width = '100px';
+        trail.style.height = '1px';
+        trail.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+        trail.style.transformOrigin = 'left center';
+        trail.style.opacity = '0';
+        
+        const angle = Math.atan2(endY - startY, endX - startX);
+        trail.style.left = `${startX}px`;
+        trail.style.top = `${startY}px`;
+        trail.style.transform = `rotate(${angle}rad)`;
+        
+        container.appendChild(trail);
+        
+        setTimeout(() => {
+            trail.style.transition = 'opacity 0.3s ease-in';
+            trail.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                trail.style.opacity = '0';
+                
+                setTimeout(() => {
+                    trail.remove();
+                }, 300);
+            }, 300);
+        }, 50);
+        
+        setTimeout(() => {
+            star.style.opacity = '0';
+            
+            setTimeout(() => {
+                star.remove();
+            }, 1000);
+        }, 1000);
+    }, 100);
+}
+
+// Shooting stars generator
+function startShootingStars() {
+    // Create shooting stars at random intervals
+    setInterval(() => {
+        if (Math.random() < 0.3) {
+            createShootingStar();
+        }
+    }, 2000);
+}
+
+// Initialize everything
+function init() {
+    createStars();
+    createParticles();
+    startShootingStars();
+    updateCountdown();
+}
+
+// Start everything when the page loads
+window.addEventListener('load', init);
+        // Create stars on load
+        createStars();
     </script>
-</body>
-</html>
+    

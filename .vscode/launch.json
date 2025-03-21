@@ -1,0 +1,14 @@
+{
+    // Configurations for launching Brave browser
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Brave Browser",
+            "type": "pwa-chrome",
+            "request": "launch",
+            "url": "file://${workspaceFolder}/countdown.html", // Path to countdown.html
+            "webRoot": "${workspaceFolder}",
+            "runtimeExecutable": "C:\\Users\\agniv\\AppData\\Local\\BraveSoftware\\Brave-Browser\\Application\\brave.exe" // Path to Brave browser executable
+        }
+    ]
+}
