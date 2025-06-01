@@ -30,10 +30,9 @@
             background: linear-gradient(135deg, #6a3bbd, #025a54);
         }
     </style>
-    <!-- <div style="
+    <div style="
         background: linear-gradient(135deg, #ff7e5f, #feb47b);
         padding: 0.5rem 1rem;
-        border-radius: 9999px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -43,8 +42,8 @@
         color: #fff;
         text-align: center;
     ">
-        Pre-Production Website
-    </div> -->
+        The First Year Update is coming on June 11<sup>th</sup>, 2025! Learn more below.
+    </div> 
     <div class="animated-bg"></div>
     <nav class="nav" style="position: relative;">
         <div class="nav-timer" style="
@@ -64,23 +63,23 @@
                 <span id="timer" style="font-weight: 700;">Loading...</span>
             </span>
         </div>
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="index.html"><i class="fas fa-home"></i>Home</a>
         <a href="https://github.com/knivier/Activerse/releases/tag/v1.3.2" target="_blank">
-            <i class="fas fa-download"></i> Download
+            <i class="fas fa-download"></i>Download
         </a>
         <a href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">
-            <i class="fas fa-file-code"></i> Docs
+            <i class="fas fa-file-code"></i>Docs
         </a>
-        <a href="actversions.html"><i class="fas fa-history"></i> Versions</a>
+        <a href="actversions.html"><i class="fas fa-history"></i>Versions</a>
         <a href="https://github.com/knivier/Activerse/wiki" target="_blank">
-            <i class="fas fa-book"></i> Wiki
+            <i class="fas fa-book"></i>Wiki
         </a>
     </nav>
-    <!-- <script>
+
+    <script>
       // Countdown Timer
       const timerElement = document.getElementById('timer');
-      // Since "2/31/25" is non-standard, we'll use an adjusted date (Mar 3, 2025) for the timer target.
-      const targetDate = new Date('2025-03-03T00:00:00');
+      const targetDate = new Date('2025-06-11T12:30:00');
       
       function updateTimer() {
         const now = new Date();
@@ -105,7 +104,7 @@
           overlay.style.zIndex = '2000';
           overlay.style.textAlign = 'center';
           overlay.style.padding = '1rem';
-          overlay.textContent = "Activerse is being updated with relevant information for v1.3.3 and is taking longer than usual. Thank you for your patience.";
+          overlay.textContent = "Activerse v1.4.0 content is being updated on this site. Please check back later.";
           document.body.appendChild(overlay);
           clearInterval(timerInterval);
           return;
@@ -116,14 +115,14 @@
         const seconds = Math.floor((diff / 1000) % 60);
         
         if (days > 1) {
-          timerElement.textContent = `${days}d ${hours}h`;
+          timerElement.textContent = `${days}d ${hours}h to v1.4.0`;
         } else {
-          timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+          timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s to v1.4.0`;
         }
       }
       const timerInterval = setInterval(updateTimer, 1000);
       updateTimer();
-    </script> -->
+    </script> 
 
     <div class="container">
         <section class="hero">
@@ -137,7 +136,7 @@
             </div>
             <div class="content-card">
                 <h2>Licensing</h2>
-                <p>Activerse © 2024 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0.</p>
+                <p>Activerse © 2025 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0.</p>
                 <p><br>When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license.</p>
             </div>
         </section>
@@ -162,30 +161,36 @@
             </div>
 
             <div class="content-card">
-                <h2>Latest Version: v1.3.2</h2>
-                <p class="tagline">Breakout Game & Half Year Update</p>
+                <h2>Upcoming Version: v1.4.0</h2>
+                <p class="tagline">The First Year Update.</p>
+                <p class="tagline">Learn what's coming to Activerse in v1.4.0 on June 11<sup>th</sup>, 2025</p>
                 <div class="changelog">
-                    <div class="changelog-item">All comments are updated (Javadocs pending)</div>
-                    <div class="changelog-item">Volume controls implemented with setVolume() [0-1 float values] and getVolume()</div>
-                    <div class="changelog-item">GameLoop error for run() 7A.IO reported and fixed</div>
-                    <div class="changelog-item">Updated World ticks now shown in debug menu</div>
-                    <div class="changelog-item">Improved log dumps with system tick monitoring</div>
-                    <div class="changelog-item">Default FPS implementation is 60fps</div>
-                    <div class="changelog-item">World can now be paused and resumed</div>
-                    <div class="changelog-item">New breakout game implementation!</div>
-                    <div class="changelog-item">The breakout game was taken from Activerse Examplers</div>
-                    <div class="changelog-item">Backwards compatible with up to v1.0.7</div>
+                    <div class="changelog-item">Random World Generation class helper w/Perlin Noise world generation tools</div>
+                    <div class="changelog-item">Physics Helper tools</div>
+                    <div class="changelog-item">Significantly more advanced dynamic lighting</div>
+                    <div class="changelog-item">Advanced multithreading comuptation support in game loop</div>
+                    <div class="changelog-item">More accurate FPS tracking</div>
+                    <div class="changelog-item">Debug menu fixes for better stability and formatting</div>
+                    <div class="changelog-item">Introduced static actor systems that don't update debugs</div>
+                    <div class="changelog-item">Activerse GUI Centered + Locked</div>
+                    <div class="changelog-item">Significantly more advanced collision detectment</div>
+                    <div class="changelog-item">Removed examples on Activerse, posting them as binaries instead</div>
+                    <div class="changelog-item">Item subclass added</div>
+                    <div class="changelog-item">Inventory system added with items stored for Actors usage on Actors/Worlds</div>
+                    <div class="changelog-item">All classes have UTD JavaDocs correctly formatted </div>
+                    <div class="changelog-item">Project-wide refactoring</div>
+                    
                 </div>
             </div>
             
             <div class="content-card" style="grid-column: span 2;">
-                <h2>Activerse - Features Advertisement</h2>
+                <h2>Activerse - v1.3.2 Features Video</h2>
                 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 1rem;">
                     <iframe src="https://www.youtube.com/embed/A4hs59UA2bE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
                 </div>
             </div>
 
-            <div class="content-card announcement-card" id="announcement-card" style="display: none;">
+            <!-- <div class="content-card announcement-card" id="announcement-card" style="display: none;">
                 <h2>Announcement</h2>
                 <p><strong>knivier</strong> <a href="https://twitter.com/AtomicKniv" target="_blank">@AtomicKniv</a> 2/15/2025</p>
                 <p>Activerse v1.3.** will be the LTS version of Activerse.</p>
@@ -204,7 +209,8 @@
                 box-shadow: 0 4px 8px rgba(0,0,0,0.15);
                 transition: transform 0.2s;
                 margin-top: 1rem;
-            ">Show Announcements</button>
+            ">Show Announcements</button> -->
+<!--             
             <script>
                 document.getElementById('toggle-announcement').addEventListener('click', function() {
                     const announcementCard = document.getElementById('announcement-card');
@@ -216,7 +222,8 @@
                         this.textContent = 'Show Announcements';
                     }
                 });
-            </script>
+            </script> -->
+
             <style>
                 .announcement-card {
                     border: 2px solid #ff0000;

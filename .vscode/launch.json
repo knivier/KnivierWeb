@@ -6,7 +6,7 @@
             "name": "Brave Browser",
             "type": "pwa-chrome",
             "request": "launch",
-            "url": "file://${workspaceFolder}/countdown.html", // Path to countdown.html
+            "url": "file://${workspaceFolder}/index.html", // Opens any HTML file in the workspace folder
             "webRoot": "${workspaceFolder}",
             "runtimeExecutable": "C:\\Users\\agniv\\AppData\\Local\\BraveSoftware\\Brave-Browser\\Application\\brave.exe" // Path to Brave browser executable
         }
