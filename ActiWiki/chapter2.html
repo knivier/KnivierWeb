@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Activerse Wiki - Chapter X</title>
+  <link rel="icon" type="image/png" href="cp-actilogo.png" />
+    <link rel="stylesheet" href="wiki-styling.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">Activerse Wiki</div>
+    <div class="nav-links">
+      <a href="wiki.html">Chapter 0</a>
+      <a href="chapter1.html">Chapter 1</a>
+      <a href="chapter2.html" class="active">Chapter 2</a>
+      <a href="chapter3.html">Chapter 3</a>
+      <!-- <a href="chapter4.html">Chapter 4</a>
+      <a href="chapter5.html">Chapter 5</a> -->
+    </div>
+  </nav>
+<!-- Main Content -->
+<main>
+    <h1>Chapter 2: Debugging</h1>
+    <h2>Built in Debugging!</h2>
+    <h3>Debug Information</h3>
+    <p>
+        The easiest way to debug in Activerse is by enabling the debug button in <code>activerse.properties</code> (by default it should be disabled. 
+        Once this is enabled, whenever you start a new instance of Activerse (by running Main as seen in Chapter 1), 
+        a "debug" button will appear.
+    </p>
+
+    <div class="image-container">
+        <img src="debug-button.png" alt="Debug button in Activerse" />
+        <div class="caption">Figure 1: The debug button in Activerse.</div>
+    </div>
+
+    <p>
+        When you click this button, the following information should show up:
+    </p>
+    <ul>
+        <li>Current FPS w/target FPS</li>
+        <li>Memory Per Second (MPS or in v1.1.0, MUPS)</li>
+        <li>Any <i>non-static</i> actors w/collision state &amp; location</li>
+        <li>Loaded images</li>
+        <li>Current playing sounds</li>
+        <li>Current keys pressed</li>
+    </ul>
+    <p>
+        You can use this information to debug anything in the program that may be causing issues. The debug menu will not show error messages if you have syntax errors; these should be caught at compile time or run time (depending on the error) and will display on the terminal you run the program in.
+    </p>
+    <div class="image-container">
+        <img src="debug-info.png" alt="Debug information in Activerse" />
+        <div class="caption">Figure 2: Debug information displayed in Activerse.</div>
+    </div>
+
+    <h2>Using different debug information</h2>
+
+    <h3>Using FPS</h3>
+    <p>
+        If you have many objects loaded into the screen, lots of audio playing, loops or other situations where you think frames may be dropping, you can check the current FPS in-game via the debug menu.
+        You can see my FPS is low because I have hundreds of images loaded in. 
+    </p>
+
+    <h3>Using MPS</h3>
+    <p>
+        Introduced in v1.1, MPS or Memory Per Second shows you the state of RAM being used every second in megabytes. If you wish, via the <code>activerse.properties</code> file, you may enable the logging feature which will write the MPS with the time before it.
+    </p>
+    <p>
+        You may see negative numbers sometimes in MPS and this is due to the JVM automatic garbage collector, helping manage your memory.
+    </p>
+    <p>
+        Your MPS can be used with FPS to diagnose memory leaks in the program, unstable or inefficient code, and other things related.
+    </p>
+
+    <h3>Using loaded Actors w/Collision States</h3>
+    <p>
+        You can check if your actor has indeed loaded into the world via the loaded actor information, which shows the actor's location (pixel-wise) and if they are colliding with another actor or not. This can be useful in game sense when your actors may not be performing the actions you wish.
+    </p>
+
+    <h3>Using loaded images &amp; video</h3>
+    <p>
+        This information is really only useful when you don't see your image or hear your audio and want to make sure the file has been loaded in and playing.
+        If you have multiple of the same image loaded, it will shown [imagename].png x [number of times loaded].
+    </p>
+    <p><em>Note: As of v1.4.0, static Actors (ex World tiles) are no longer shown on the debug menu to prevent overfilling of the debug menu. </em></p>
+
+    <h3>Using current keys pressed</h3>
+    <p>
+        This information is only useful if you're tinkering with the <code>KeyboardInfo.java</code> class inside the ActiverseEngine package (not recommended). If you're pressing a key and it's not being detected, something has gone wrong inside that class.
+    </p>
+
+    <h2>Logging</h2>
+    <h3>How can I enable logging?</h3>
+    <p>
+        Your logging file should look like this by default.
+    </p>
+    <div class="image-container">
+        <img src="properties.png" alt="Default activerse.properties file" />
+        <div class="caption">Figure 2: Default activerse.properties file.</div>
+    </div>
+    <p>
+        To enable logging, just change the <code>false</code> value beside logging to <code>true</code>.
+    </p>
+
+    <h3>What information is displayed?</h3>
+    <p>
+        When you start, <code>logs.log</code> should look like this (v1.3.x Logging Reform):
+    </p>
+    <div class="image-container">
+        <img src="ex-logs.png" alt="Sample logs.log output" />
+        <div class="caption">Figure 3: Sample logs.log output.</div>
+    </div>
+    <p>
+        Lot's of information is logged for your convinience. As shown above, during each new log session, the session info will be denoted followed by the actual logs. The format is as shown below:
+    </p>
+    <pre style="background:#222; padding:1rem; border-radius:8px; overflow-x:auto; color:#61dafb;">
+(LOG ENTRIES IN SESSION) | (TIME HH/MM/SS) | MPS (x MB/s) | Heap: (x MB) | Non-Heap: (x MB) | GC Time: (x ms) | FPS: (x) targeting (y) | Sys Time (x long) | Interval (x)
+    </pre>
+    <p>
+        The information shown here is calculated the same way as the debug menu, but is logged to a file for your convinience. We also have a lot more information here 
+        that cannot be found in debug menu; however, the logs do NOT show loaded images, sounds, or actor collision states.
+    </p>
+    <p>It is NOT recommended for you to share your logs file with people you don't know. 
+        While Activerse doesn't log any sensitive information, there are plans for Activerse to log system-specific information in the future.
+    </p>
+</main>
+</body>
+</html>

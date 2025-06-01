@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Activerse Wiki — Chapter 0</title>
+<link rel="icon" type="image/png" href="cp-actilogo.png" />
+<style>
+  /* Reset */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #ddd;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Sidebar nav */
+  nav {
+    position: sticky;
+    top: 0;
+    background: #1f1f1f;
+    width: 240px;
+    height: 100vh;
+    padding: 2rem 1rem;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #82c7ff;
+    text-align: center;
+    letter-spacing: 2px;
+    user-select: none;
+  }
+
+  nav a {
+    color: #aaa;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    display: block;
+    user-select: none;
+  }
+  nav a:hover, nav a.active {
+    background: #82c7ff;
+    color: #121212;
+    box-shadow: 0 0 8px #82c7ff;
+  }
+
+  /* Main content */
+  main {
+    flex: 1;
+    padding: 3rem 4rem;
+    overflow-y: auto;
+    max-width: 900px;
+  }
+
+  main h1 {
+    font-size: 2.6rem;
+    margin-bottom: 1.2rem;
+    color: #82c7ff;
+    text-shadow: 0 0 10px #82c7ffaa;
+  }
+
+  main h2 {
+    font-size: 1.9rem;
+    margin-top: 2.8rem;
+    margin-bottom: 1rem;
+    color: #a1d1ff;
+    border-bottom: 2px solid #82c7ff55;
+    padding-bottom: 0.3rem;
+  }
+
+  main p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #ddd;
+  }
+
+  /* Animations */
+  main > * {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeInUp 0.8s forwards;
+  }
+  main > *:nth-child(1) { animation-delay: 0.2s; }
+  main > *:nth-child(2) { animation-delay: 0.4s; }
+  main > *:nth-child(3) { animation-delay: 0.6s; }
+  main > *:nth-child(4) { animation-delay: 0.8s; }
+  main > *:nth-child(5) { animation-delay: 1.0s; }
+  main > *:nth-child(6) { animation-delay: 1.2s; }
+  main > *:nth-child(7) { animation-delay: 1.4s; }
+  main > *:nth-child(8) { animation-delay: 1.6s; }
+  main > *:nth-child(9) { animation-delay: 1.8s; }
+  main > *:nth-child(10) { animation-delay: 2.0s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+    }
+    nav {
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 1rem;
+      box-shadow: none;
+    }
+    nav h2 {
+      display: none;
+    }
+    nav a {
+      margin-bottom: 0;
+      font-size: 1rem;
+      padding: 0.4rem 0.6rem;
+    }
+    main {
+      padding: 2rem 1.5rem;
+      max-width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>Activerse Wiki</h2>
+  <a href="wiki.html" class="active">Chapter 0</a>
+    <a href="chapter1.html" >Chapter 1</a>
+  <a href="chapter2.html">Chapter 2</a>
+  <a href="chapter3.html">Chapter 3</a>
+  <!-- <a href="chapter4">Chapter 4</a>
+  <a href="chapter5">Chapter 5</a> -->
+</nav>
+
+<main>
+  <section id="chapter0">
+    <h1>Chapter 0: Welcome to the Wiki!</h1>
+    
+    <h2>Basic Information</h2>
+    <h3>What is Activerse?</h3>
+    <p>
+      Activerse is a hybrid Java game library and engine that started as a simple library but is evolving into a highly customizable and continuously evolving engine.
+      In Activerse, actors are objects within your game world that inherit methods from the main Actor class. You can manipulate and interact with these actors using methods provided by the World, Actor, and Activerse class.
+      The purpose of Activerse isn't to be the best game engine or API, its goal is to provide the utmost customizable APIs so you can modify the engine or your code to your liking.
+      The TLDR: We give you the tools, but you can modify those tools and build whatever you want.
+      If you aren't that advanced with Java, the basic tools given to you are all you need to make a capable beginners game!
+    </p>
+
+    <h3>How Easy is it to Create Things?</h3>
+    <p>
+      The ease of creating in Activerse depends on your project's complexity. While Activerse shares similarities with the Greenfoot game maker,
+      it diverges significantly with advanced built-in methods and categorization.
+      For simpler tasks, Activerse is beginner-friendly but can get tedious fast.
+      However, creating more complex simulations or games requires a deeper understanding of programming concepts.
+      If you're interested in diving into the game engine's inner workings, it's a journey beyond beginner programming.
+      For students in high school, we recommend having taken AP-CSA or a similar course that delves into Java.
+    </p>
+
+    <h3>Is Activerse the Best Engine?</h3>
+    <p>
+      Activerse isn't positioned as the leading library or game engine by any means.
+      Its goal is to offer a simpler, highly customizable editor for users.
+      While similar projects exist, Activerse sets itself apart through its more unique and customizable codebase.
+      The purpose of Activerse isn't just to create a good game, it's also to help others understand how to tweak certain aspects of code to get a better result.
+    </p>
+
+    <h3>Does Activerse have AI-generated content?</h3>
+    <p>
+      In Activerse, AI is primarily used for comments, change-logs, and occasionally as a tool for inspiration or troubleshooting.
+      However, the core mechanics and implementation are predominantly the result of human creativity and effort,
+      therefore most of the game has been coded by me (Knivier).
+    </p>
+
+    <h3>How can I Contribute?</h3>
+    <p>
+      I'd absolutely love contributions to my work, and there are many ways to do so in this project.
+      The best way to help create projects is to fork this repository and create your own game (of course, following license guidelines and citing code).
+      Helping grow the games built on the engine is the best way to contribute.
+      Alternatively, if you find bugs, or want to have features added, use the GitHub "issue" feature for this project and explain what you want to see.
+      Finally, if you wish to financially support this project, you can fund under the Activerse "sponsor" section (contained via funding.yml).
+    </p>
+
+    <h3>How can I get started?</h3>
+    <p>
+      To get started, all you need to do is follow the Wiki tutorials!
+      You've made it through Chapter 0 which is this home page!
+      Go onto the next section and good luck coding!
+    </p>
+
+    <h3>I want more resources!</h3>
+    <p>
+      For more deeply informational resources, below is the Activerse Developers Insider Release 1, attributed with v1.0.8-delta.
+      This guide is mainly AI paraphrased and generated, but fact checked and is the best guide for those that want to delve deeply into the mechanics of the game and how it works.
+      <a href="ActiverseInsiderv1.pdf" target="_blank" style="color:#82c7ff; text-decoration: underline;">ActiverseInsiderv1.pdf</a>
+    </p>
+    <p>
+      An entirely different resource could be you seeing what the engine is truly capable of.
+      Games are always being created and tested under the engine.
+      As of v1.3.3, example games are released in the main section.
+      More example games are always being released to show you the true capability of Activerse.
+    </p>
+
+    <h3>Please Remember:</h3>
+    <p>
+      The code is always updating!<br />
+      It will never be the utmost perfect code for a game engine and/or library, so always open up an issue via GitHub if you ever see one.
+      The code is constantly updating, and backward compatibility may be impacted as a result.
+      Always check release version notes regarding backward compatibility issues.
+    </p>
+
+    <h3>Always update Activerse to the latest version</h3>
+    <p>
+      To avoid massive bugs and overall headaches, always make sure to update Activerse to the latest version via GitHub version releases.
+      If you're on a version that isn't backward compatible with the next version, updating your code is always better than missing out on bug fixes,
+      new features and possible security vulnerability fixes.
+    </p>
+
+    <h3>Use an IDE that works for you!</h3>
+    <p>
+      An extremely advanced IDE like IntelliJ can be a hassle for beginners.
+      Similarly, Visual Studio Code can be cumbersome to those who are much more advanced with code.
+      We recommend starting out with BlueJ to visualize the code hierarchy, but moving up once you're comfortable!
+      This project is primarily composed on IntelliJ, however sub projects are generally coded in VS Code.
+    </p>
+
+    <h3>You're always able to post suggestions</h3>
+    <p>
+      Via GitHub, you can open up an issue for something you want to see!
+      Always be detailed in the issue area, and make sure to have high quality advice!
+    </p>
+  </section>
+</main>
+
+<script>
+  // Highlight active nav link based on scroll position
+  const sections = document.querySelectorAll('main section');
+  const navLinks = document.querySelectorAll('nav a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 80;
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').substring(1) === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Smooth scroll behavior for nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      const href = link.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+      }
+      // else, let the browser navigate to the other page
+    });
+  });
+</script>
+
+</body>
+</html>

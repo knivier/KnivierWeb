@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Activerse Wiki - Chapter X</title>
+  <link rel="icon" type="image/png" href="cp-actilogo.png" />
+    <link rel="stylesheet" href="wiki-styling.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">Activerse Wiki</div>
+    <div class="nav-links">
+      <a href="wiki.html">Chapter 0</a>
+      <a href="chapter1.html">Chapter 1</a>
+      <a href="chapter2.html">Chapter 2</a>
+      <a href="chapter3.html" class="active">Chapter 3</a>
+      <!-- <a href="chapter4.html">Chapter 4</a>
+      <a href="chapter5.html">Chapter 5</a> -->
+    </div>
+  </nav>
+
+<!-- Main Content -->
+<main>
+    <h1>Chapter 3: Error Handling in Activerse</h1>
+
+    <p>
+        In this chapter, you'll learn how Activerse handles errors, the different types of errors in Java, and how the Activerse Concurrent Error Handling System (ACEHS) works to make debugging easier and more efficient.
+    </p>
+
+    <h2>The Basics of Errors</h2>
+    <p>
+        Let's first review the different types of errors in Java:
+    </p>
+    <ul>
+        <li>
+            <strong>Compilation Error</strong><br>
+            <em>When:</em> During compilation.<br>
+            <em>What:</em> Code doesn't follow syntax rules of the programming language (e.g., missing semicolon, undefined variables). This can also be called syntax erroring.<br>
+            <em>Fix:</em> Correct the syntax as indicated by the compiler's error messages.
+        </li>
+        <li>
+            <strong>Runtime Error</strong><br>
+            <em>When:</em> During program execution.<br>
+            <em>What:</em> Code crashes due to invalid operations (e.g., division by zero, file not found).<br>
+            <em>Fix:</em> Debug and handle exceptions or invalid inputs.
+        </li>
+        <li>
+            <strong>Logic Error</strong><br>
+            <em>When:</em> Code runs successfully but produces incorrect results.<br>
+            <em>What:</em> Algorithm or logic flaw (e.g., wrong formula, incorrect loop condition).<br>
+            <em>Fix:</em> Analyze and revise the code logic to meet the desired outcome.
+        </li>
+    </ul>
+
+    <h2>How does Activerse handle errors?</h2>
+    <p>
+        Activerse uses its custom error handling protocol to report what's happening. This is more efficient than classic Java stack traces because it can help localize errors and prevent the code from crashing on a simple error. This error protocol is known as <strong>ACEHS</strong>.
+    </p>
+
+    <h3>ACEHS: Activerse Concurrent Error Handling System</h3>
+    <p>
+        The ultimate goal of ACEHS is:
+    </p>
+    <ul>
+        <li>To catch identified or unidentified exceptions</li>
+        <li>To report those exceptions while the session is still active</li>
+        <li>To allow buildups of the ACEHS implementation</li>
+    </ul>
+
+    <h4>Denotations</h4>
+    <p>
+        <strong>File name extensions:</strong>
+    </p>
+    <ul>
+        <li>1A - Activerse.java</li>
+        <li>2A - ActiverseImage.java</li>
+        <li>3A - ActiverseMouseInfo.java</li>
+        <li>4A - ActiverseSound.java</li>
+        <li>5A - Actor.java</li>
+        <li>6A - CollisionManager.java</li>
+        <li>7A - GameLoop.java</li>
+        <li>8A - KeyBoardInfo.java</li>
+        <li>9A - MemoryTracker.java</li>
+        <li>10A - World.java</li>
+        <li>PROP.IN.OUT.IO - Activerse.properties error</li>
+    </ul>
+    <p>
+        <strong>Keywords that may be helpful:</strong>
+    </p>
+    <ul>
+        <li><strong>IO</strong> - A central breakdown; typically a result of multiple errors caught by ACEHS that cause an IO error</li>
+        <li><strong>IN</strong> - An input breakdown</li>
+        <li><strong>OUT</strong> - An output breakdown</li>
+        <li><strong>LN</strong> - Error line reporting</li>
+        <li><strong>DEV</strong> - Contact Dev's; this is not a good error</li>
+        <li><strong>CONNTO</strong> - A connecting line of code that connects class to class and may cause errors in each</li>
+    </ul>
+
+    <h2>Example Error</h2>
+    <p>
+        Let's take an error (without the provided stack trace) and debug it:
+    </p>
+    <pre style="background:#222; padding:1rem; border-radius:8px; overflow-x:auto; color:#61dafb;">
+<code>
+5A.OUT-CONNTO-2A.OUT:(LN: paint(Graphics g) - ACEHS Error thrown; image is null. Please check the image path and try again.
+</code>
+    </pre>
+    <p>
+        This error comes from the <code>Actor.java</code> engine class inside the <code>paint()</code> method. The most important part is seeing the error message before anything else. ACEHS is reporting the image has been identified as null (blank, unpresent, etc) and is asking us to check the image path once again. Make sure you check the image paths and use reference paths as well.
+    </p>
+    <p>
+        <strong>5A.OUT</strong> shows the error is coming from the class 5A (Actor), but this error may correlate with the class (<strong>CONNTO</strong>) 2A (ActiverseImage.java). If you've already debugged via the method above, the next thing is to check these files and debug properly. <strong>LN:</strong> points to the method (<code>paint()</code>) where the error was reported.
+    </p>
+
+    <h2>Final Notes</h2>
+    <p>
+        ACEHS helps you quickly identify and resolve errors in Activerse projects. Always read the error message, check the referenced files and methods, and use the denotations to trace the source of the problem.
+    </p>
+</main>
+</body>
+</html>
