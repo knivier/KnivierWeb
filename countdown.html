@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Summer Break Countdown</title>
-    <link rel="icon" type="image/png" href="src/images/pfp.png">
+    <link href="src/images/pfp.png" rel="icon" type="image/png">
     <style>
         * {
             margin: 0;
@@ -217,38 +217,38 @@
             height: 200%;
             top: -100%;
             left: 0;
-            background: linear-gradient(90deg, 
-                rgba(62, 35, 255, 0) 0%, 
-                rgba(62, 35, 255, 0.1) 20%, 
-                rgba(62, 35, 255, 0) 40%, 
-                rgba(35, 213, 255, 0) 50%, 
-                rgba(35, 213, 255, 0.1) 70%, 
-                rgba(35, 213, 255, 0) 100%);
+            background: linear-gradient(90deg,
+            rgba(62, 35, 255, 0) 0%,
+            rgba(62, 35, 255, 0.1) 20%,
+            rgba(62, 35, 255, 0) 40%,
+            rgba(35, 213, 255, 0) 50%,
+            rgba(35, 213, 255, 0.1) 70%,
+            rgba(35, 213, 255, 0) 100%);
             animation: aurora-move 20s infinite linear;
             transform-origin: center bottom;
             opacity: 0.5;
         }
 
         .aurora:nth-child(2) {
-            background: linear-gradient(90deg, 
-                rgba(139, 0, 255, 0) 0%, 
-                rgba(139, 0, 255, 0.1) 20%, 
-                rgba(139, 0, 255, 0) 40%, 
-                rgba(0, 255, 185, 0) 50%, 
-                rgba(0, 255, 185, 0.1) 70%, 
-                rgba(0, 255, 185, 0) 100%);
+            background: linear-gradient(90deg,
+            rgba(139, 0, 255, 0) 0%,
+            rgba(139, 0, 255, 0.1) 20%,
+            rgba(139, 0, 255, 0) 40%,
+            rgba(0, 255, 185, 0) 50%,
+            rgba(0, 255, 185, 0.1) 70%,
+            rgba(0, 255, 185, 0) 100%);
             animation-delay: -5s;
             animation-duration: 25s;
         }
 
         .aurora:nth-child(3) {
-            background: linear-gradient(90deg, 
-                rgba(0, 142, 255, 0) 0%, 
-                rgba(0, 142, 255, 0.1) 20%, 
-                rgba(0, 142, 255, 0) 40%, 
-                rgba(227, 32, 206, 0) 50%, 
-                rgba(227, 32, 206, 0.1) 70%, 
-                rgba(227, 32, 206, 0) 100%);
+            background: linear-gradient(90deg,
+            rgba(0, 142, 255, 0) 0%,
+            rgba(0, 142, 255, 0.1) 20%,
+            rgba(0, 142, 255, 0) 40%,
+            rgba(227, 32, 206, 0) 50%,
+            rgba(227, 32, 206, 0.1) 70%,
+            rgba(227, 32, 206, 0) 100%);
             animation-delay: -10s;
             animation-duration: 30s;
         }
@@ -268,31 +268,60 @@
         }
 
         @keyframes pulse {
-            0% { opacity: 0.9; text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(0, 128, 255, 0.2); }
-            50% { opacity: 1; text-shadow: 0 0 25px rgba(255, 255, 255, 0.5), 0 0 50px rgba(0, 128, 255, 0.4); }
-            100% { opacity: 0.9; text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(0, 128, 255, 0.2); }
+            0% {
+                opacity: 0.9;
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(0, 128, 255, 0.2);
+            }
+            50% {
+                opacity: 1;
+                text-shadow: 0 0 25px rgba(255, 255, 255, 0.5), 0 0 50px rgba(0, 128, 255, 0.4);
+            }
+            100% {
+                opacity: 0.9;
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(0, 128, 255, 0.2);
+            }
         }
 
         @keyframes pulse-urgent {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
         }
 
         @keyframes sync {
-            0% { width: 0%; }
-            50% { width: 100%; }
-            100% { width: 0%; }
+            0% {
+                width: 0%;
+            }
+            50% {
+                width: 100%;
+            }
+            100% {
+                width: 0%;
+            }
         }
 
         @keyframes aurora-move {
-            0% { transform: translateX(-50%) rotate(0deg); }
-            100% { transform: translateX(50%) rotate(180deg); }
+            0% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            100% {
+                transform: translateX(50%) rotate(180deg);
+            }
         }
 
         @keyframes starTwinkle {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
+            0% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.3;
+            }
         }
 
         @media (max-width: 768px) {
@@ -371,301 +400,301 @@
     </style>
 </head>
 <body>
-    <div class="background">
-        <div class="aurora"></div>
-        <div class="aurora"></div>
-        <div class="aurora"></div>
-        <div class="stars" id="stars"></div>
-    </div>
-    
-    <div class="particles-container" id="particles-container"></div>
-    
-    <div class="container">
-        <h1 class="title">SUMMER BREAK</h1>
-        
-        <div class="countdown">
-            <div class="countdown-item" id="days-container">
-                <div class="glow"></div>
-                <div id="days" class="countdown-value">00</div>
-                <div class="countdown-label">DAYS</div>
-            </div>
-            
-            <div class="countdown-item" id="hours-container">
-                <div class="glow"></div>
-                <div id="hours" class="countdown-value">00</div>
-                <div class="countdown-label">HOURS</div>
-            </div>
-            
-            <div class="countdown-item" id="minutes-container">
-                <div class="glow"></div>
-                <div id="minutes" class="countdown-value">00</div>
-                <div class="countdown-label">MINUTES</div>
-            </div>
-            
-            <div class="countdown-item" id="seconds-container">
-                <div class="glow"></div>
-                <div id="seconds" class="countdown-value">00</div>
-                <div class="countdown-label">SECONDS</div>
-            </div>
-            
-            <div class="countdown-item ms-item" id="milliseconds-container">
-                <div class="glow"></div>
-                <div id="milliseconds" class="countdown-value">000</div>
-                <div class="countdown-label">MS</div>
-            </div>
+<div class="background">
+    <div class="aurora"></div>
+    <div class="aurora"></div>
+    <div class="aurora"></div>
+    <div class="stars" id="stars"></div>
+</div>
+
+<div class="particles-container" id="particles-container"></div>
+
+<div class="container">
+    <h1 class="title">SUMMER BREAK</h1>
+
+    <div class="countdown">
+        <div class="countdown-item" id="days-container">
+            <div class="glow"></div>
+            <div class="countdown-value" id="days">00</div>
+            <div class="countdown-label">DAYS</div>
         </div>
-        
-        <div class="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
+
+        <div class="countdown-item" id="hours-container">
+            <div class="glow"></div>
+            <div class="countdown-value" id="hours">00</div>
+            <div class="countdown-label">HOURS</div>
         </div>
-        
-        <div class="current-time" id="current-time">
-            <span id="time-display">00:00</span>
-            <span class="seconds-small" id="seconds-display">00</span>
-            <div class="sync-indicator">
-                <div class="sync-progress"></div>
-            </div>
+
+        <div class="countdown-item" id="minutes-container">
+            <div class="glow"></div>
+            <div class="countdown-value" id="minutes">00</div>
+            <div class="countdown-label">MINUTES</div>
+        </div>
+
+        <div class="countdown-item" id="seconds-container">
+            <div class="glow"></div>
+            <div class="countdown-value" id="seconds">00</div>
+            <div class="countdown-label">SECONDS</div>
+        </div>
+
+        <div class="countdown-item ms-item" id="milliseconds-container">
+            <div class="glow"></div>
+            <div class="countdown-value" id="milliseconds">000</div>
+            <div class="countdown-label">MS</div>
         </div>
     </div>
 
-    <script>
-        // Set the target date - March 21, 2025 at 14:52:00
-        // Target time
-const targetDate = new Date(2025, 5, 11, 9, 50, 0).getTime();
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
 
-// DOM Elements
-const daysEl = document.getElementById('days');
-const hoursEl = document.getElementById('hours');
-const minutesEl = document.getElementById('minutes');
-const secondsEl = document.getElementById('seconds');
-const millisecondsEl = document.getElementById('milliseconds');
-const progressBar = document.getElementById('progress-bar');
-const timeDisplay = document.getElementById('time-display');
-const secondsDisplay = document.getElementById('seconds-display');
+    <div class="current-time" id="current-time">
+        <span id="time-display">00:00</span>
+        <span class="seconds-small" id="seconds-display">00</span>
+        <div class="sync-indicator">
+            <div class="sync-progress"></div>
+        </div>
+    </div>
+</div>
 
-const daysContainer = document.getElementById('days-container');
-const hoursContainer = document.getElementById('hours-container');
-const minutesContainer = document.getElementById('minutes-container');
-const secondsContainer = document.getElementById('seconds-container');
-const millisecondsContainer = document.getElementById('milliseconds-container');
+<script>
+    // Set the target date - March 21, 2025 at 14:52:00
+    // Target time
+    const targetDate = new Date(2025, 5, 11, 9, 50, 0).getTime();
 
-// Create stars in the background
-function createStars() {
-    const starsContainer = document.getElementById('stars');
-    const starCount = 200;
-    
-    for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        
-        // Random size between 1 and 3px
-        const size = Math.random() * 2 + 1;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        
-        // Random position
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 100}%`;
-        
-        // Random opacity
-        star.style.opacity = Math.random() * 0.7 + 0.3;
-        
-        // Add twinkling animation with random delay
-        const duration = Math.random() * 3 + 2;
-        star.style.animation = `starTwinkle ${duration}s infinite ease-in-out`;
-        star.style.animationDelay = `${Math.random() * 5}s`;
-        
-        // Add to container
-        starsContainer.appendChild(star);
+    // DOM Elements
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const millisecondsEl = document.getElementById('milliseconds');
+    const progressBar = document.getElementById('progress-bar');
+    const timeDisplay = document.getElementById('time-display');
+    const secondsDisplay = document.getElementById('seconds-display');
+
+    const daysContainer = document.getElementById('days-container');
+    const hoursContainer = document.getElementById('hours-container');
+    const minutesContainer = document.getElementById('minutes-container');
+    const secondsContainer = document.getElementById('seconds-container');
+    const millisecondsContainer = document.getElementById('milliseconds-container');
+
+    // Create stars in the background
+    function createStars() {
+        const starsContainer = document.getElementById('stars');
+        const starCount = 200;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+
+            // Random size between 1 and 3px
+            const size = Math.random() * 2 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+
+            // Random position
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+
+            // Random opacity
+            star.style.opacity = Math.random() * 0.7 + 0.3;
+
+            // Add twinkling animation with random delay
+            const duration = Math.random() * 3 + 2;
+            star.style.animation = `starTwinkle ${duration}s infinite ease-in-out`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+
+            // Add to container
+            starsContainer.appendChild(star);
+        }
     }
-}
 
-// Create background particles
-function createParticles() {
-    const container = document.getElementById('particles-container');
-    const particleCount = 100;
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Random size between 1 and 3px
-        const size = Math.random() * 2 + 1;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // Random position
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        
-        // Random opacity
-        particle.style.opacity = Math.random() * 0.5 + 0.1;
-        
-        // Add to container
-        container.appendChild(particle);
-        
-        // Animate the particle
-        animateParticle(particle);
-    }
-}
+    // Create background particles
+    function createParticles() {
+        const container = document.getElementById('particles-container');
+        const particleCount = 100;
 
-// Animate a single particle
-function animateParticle(particle) {
-    // Random duration between 10 and 30 seconds
-    const duration = Math.random() * 20000 + 10000;
-    
-    // Random vertical movement
-    const startY = parseFloat(particle.style.top);
-    const endY = startY - 20 - Math.random() * 10;
-    
-    // Animation with subtle horizontal drift
-    particle.style.transition = `top ${duration}ms linear, left ${duration}ms ease-in-out, opacity ${duration / 4}ms linear`;
-    
-    setTimeout(() => {
-        // Move upward with slight horizontal drift
-        particle.style.top = `${endY}%`;
-        particle.style.left = `${parseFloat(particle.style.left) + (Math.random() * 10 - 5)}%`;
-        
-        // Fade out near the end
-        setTimeout(() => {
-            particle.style.opacity = '0';
-        }, duration * 0.75);
-        
-        // Reset when animation completes
-        setTimeout(() => {
-            particle.style.transition = 'none';
-            particle.style.top = `${Math.random() * 100 + 10}%`;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            // Random size between 1 and 3px
+            const size = Math.random() * 2 + 1;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            // Random position
             particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+
+            // Random opacity
             particle.style.opacity = Math.random() * 0.5 + 0.1;
-            
-            // Restart animation
+
+            // Add to container
+            container.appendChild(particle);
+
+            // Animate the particle
             animateParticle(particle);
-        }, duration);
-    }, 100);
-}
-
-// Update the countdown
-function updateCountdown() {
-    const now = Date.now();
-    const distance = targetDate - now;
-    
-    // Time calculations
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    const milliseconds = Math.floor((distance % 1000) / 10);
-    
-    // Update the countdown elements
-    daysEl.textContent = days.toString().padStart(2, '0');
-    hoursEl.textContent = hours.toString().padStart(2, '0');
-    minutesEl.textContent = minutes.toString().padStart(2, '0');
-    secondsEl.textContent = seconds.toString().padStart(2, '0');
-    millisecondsEl.textContent = milliseconds.toString().padStart(2, '0');
-    
-    // Calculate total hours left for progress bar
-    const totalHoursLeft = days * 24 + hours + minutes / 60 + seconds / 3600;
-
-    // Calculate progress percentage based on 8 hours
-    let progressPercentage = 0;
-    if (totalHoursLeft <= 8 && totalHoursLeft > 0) {
-        progressPercentage = Math.min(100, Math.max(0, ((8 - totalHoursLeft) / 8) * 100));
-    } else if (totalHoursLeft <= 0) {
-        progressPercentage = 100; // Fill the bar when countdown is complete
-    } else {
-        progressPercentage = 0; // Show nothing if more than 8 hours left
+        }
     }
-    
-    // Only apply pulse animation and urgent styling at exactly 1 hour or less
-    if (totalHoursLeft <= 1 && distance > 0) {
-        // Apply urgent styling
-        daysContainer.classList.add('urgent');
-        hoursContainer.classList.add('urgent');
-        minutesContainer.classList.add('urgent');
-        secondsContainer.classList.add('urgent');
-        millisecondsContainer.classList.add('urgent');
-        
-        // Add pulse animation
-        daysContainer.classList.add('pulse-animation');
-        hoursContainer.classList.add('pulse-animation');
-        minutesContainer.classList.add('pulse-animation');
-        secondsContainer.classList.add('pulse-animation');
-        millisecondsContainer.classList.add('pulse-animation');
-    } else if (distance > 0) {
-        // Remove urgent styling if more than 1 hour
-        daysContainer.classList.remove('urgent');
-        hoursContainer.classList.remove('urgent');
-        minutesContainer.classList.remove('urgent');
-        secondsContainer.classList.remove('urgent');
-        millisecondsContainer.classList.remove('urgent');
-        
-        // Remove pulse animation
-        daysContainer.classList.remove('pulse-animation');
-        hoursContainer.classList.remove('pulse-animation');
-        minutesContainer.classList.remove('pulse-animation');
-        secondsContainer.classList.remove('pulse-animation');
-        millisecondsContainer.classList.remove('pulse-animation');
-    }
-    
-    // Update progress bar
-    progressBar.style.width = `${progressPercentage}%`;
-    
-    // Check if countdown is over
-    if (distance <= 0) {
-        // Display zeros
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
-        millisecondsEl.textContent = '00';
-        
-        // Set progress bar to 100%
-        progressBar.style.width = '100%';
-        
-        // Add urgent class to all countdown items
-        daysContainer.classList.add('urgent');
-        hoursContainer.classList.add('urgent');
-        minutesContainer.classList.add('urgent');
-        secondsContainer.classList.add('urgent');
-        millisecondsContainer.classList.add('urgent');
-        
-        // Create intense celebration effect
-        startMassiveFireworksCelebration();
-        
-        return;
-    }
-    
-    // Update current time
-    const currentTime = new Date();
-    const hours24 = currentTime.getHours().toString().padStart(2, '0');
-    const mins = currentTime.getMinutes().toString().padStart(2, '0');
-    const secs = currentTime.getSeconds().toString().padStart(2, '0');
-    
-    timeDisplay.textContent = `${hours24}:${mins}`;
-    secondsDisplay.textContent = secs;
-    
-    // Continue countdown
-    requestAnimationFrame(updateCountdown);
-}
 
-// Create massive celebration animation when countdown ends
-function startMassiveFireworksCelebration() {
-    // Create fireworks less frequently to reduce lag
-    const fireworkInterval = setInterval(() => {
-        createFirework();
-    }, 20);
-    
-    // Add celebratory title animation
-    const title = document.querySelector('.title');
-    title.style.animation = 'none';
-    title.style.color = '#ffdd00';
-    title.style.textShadow = '0 0 20px rgba(255, 221, 0, 0.8), 0 0 40px rgba(255, 150, 0, 0.5)';
-    title.textContent = "Summer Break!!";
-    
-    // Add background color transitions
-    const background = document.querySelector('.background');
-    background.style.animation = 'backgroundShift 5s infinite alternate';
-    document.head.insertAdjacentHTML('beforeend', `
+    // Animate a single particle
+    function animateParticle(particle) {
+        // Random duration between 10 and 30 seconds
+        const duration = Math.random() * 20000 + 10000;
+
+        // Random vertical movement
+        const startY = parseFloat(particle.style.top);
+        const endY = startY - 20 - Math.random() * 10;
+
+        // Animation with subtle horizontal drift
+        particle.style.transition = `top ${duration}ms linear, left ${duration}ms ease-in-out, opacity ${duration / 4}ms linear`;
+
+        setTimeout(() => {
+            // Move upward with slight horizontal drift
+            particle.style.top = `${endY}%`;
+            particle.style.left = `${parseFloat(particle.style.left) + (Math.random() * 10 - 5)}%`;
+
+            // Fade out near the end
+            setTimeout(() => {
+                particle.style.opacity = '0';
+            }, duration * 0.75);
+
+            // Reset when animation completes
+            setTimeout(() => {
+                particle.style.transition = 'none';
+                particle.style.top = `${Math.random() * 100 + 10}%`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+
+                // Restart animation
+                animateParticle(particle);
+            }, duration);
+        }, 100);
+    }
+
+    // Update the countdown
+    function updateCountdown() {
+        const now = Date.now();
+        const distance = targetDate - now;
+
+        // Time calculations
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const milliseconds = Math.floor((distance % 1000) / 10);
+
+        // Update the countdown elements
+        daysEl.textContent = days.toString().padStart(2, '0');
+        hoursEl.textContent = hours.toString().padStart(2, '0');
+        minutesEl.textContent = minutes.toString().padStart(2, '0');
+        secondsEl.textContent = seconds.toString().padStart(2, '0');
+        millisecondsEl.textContent = milliseconds.toString().padStart(2, '0');
+
+        // Calculate total hours left for progress bar
+        const totalHoursLeft = days * 24 + hours + minutes / 60 + seconds / 3600;
+
+        // Calculate progress percentage based on 8 hours
+        let progressPercentage = 0;
+        if (totalHoursLeft <= 8 && totalHoursLeft > 0) {
+            progressPercentage = Math.min(100, Math.max(0, ((8 - totalHoursLeft) / 8) * 100));
+        } else if (totalHoursLeft <= 0) {
+            progressPercentage = 100; // Fill the bar when countdown is complete
+        } else {
+            progressPercentage = 0; // Show nothing if more than 8 hours left
+        }
+
+        // Only apply pulse animation and urgent styling at exactly 1 hour or less
+        if (totalHoursLeft <= 1 && distance > 0) {
+            // Apply urgent styling
+            daysContainer.classList.add('urgent');
+            hoursContainer.classList.add('urgent');
+            minutesContainer.classList.add('urgent');
+            secondsContainer.classList.add('urgent');
+            millisecondsContainer.classList.add('urgent');
+
+            // Add pulse animation
+            daysContainer.classList.add('pulse-animation');
+            hoursContainer.classList.add('pulse-animation');
+            minutesContainer.classList.add('pulse-animation');
+            secondsContainer.classList.add('pulse-animation');
+            millisecondsContainer.classList.add('pulse-animation');
+        } else if (distance > 0) {
+            // Remove urgent styling if more than 1 hour
+            daysContainer.classList.remove('urgent');
+            hoursContainer.classList.remove('urgent');
+            minutesContainer.classList.remove('urgent');
+            secondsContainer.classList.remove('urgent');
+            millisecondsContainer.classList.remove('urgent');
+
+            // Remove pulse animation
+            daysContainer.classList.remove('pulse-animation');
+            hoursContainer.classList.remove('pulse-animation');
+            minutesContainer.classList.remove('pulse-animation');
+            secondsContainer.classList.remove('pulse-animation');
+            millisecondsContainer.classList.remove('pulse-animation');
+        }
+
+        // Update progress bar
+        progressBar.style.width = `${progressPercentage}%`;
+
+        // Check if countdown is over
+        if (distance <= 0) {
+            // Display zeros
+            daysEl.textContent = '00';
+            hoursEl.textContent = '00';
+            minutesEl.textContent = '00';
+            secondsEl.textContent = '00';
+            millisecondsEl.textContent = '00';
+
+            // Set progress bar to 100%
+            progressBar.style.width = '100%';
+
+            // Add urgent class to all countdown items
+            daysContainer.classList.add('urgent');
+            hoursContainer.classList.add('urgent');
+            minutesContainer.classList.add('urgent');
+            secondsContainer.classList.add('urgent');
+            millisecondsContainer.classList.add('urgent');
+
+            // Create intense celebration effect
+            startMassiveFireworksCelebration();
+
+            return;
+        }
+
+        // Update current time
+        const currentTime = new Date();
+        const hours24 = currentTime.getHours().toString().padStart(2, '0');
+        const mins = currentTime.getMinutes().toString().padStart(2, '0');
+        const secs = currentTime.getSeconds().toString().padStart(2, '0');
+
+        timeDisplay.textContent = `${hours24}:${mins}`;
+        secondsDisplay.textContent = secs;
+
+        // Continue countdown
+        requestAnimationFrame(updateCountdown);
+    }
+
+    // Create massive celebration animation when countdown ends
+    function startMassiveFireworksCelebration() {
+        // Create fireworks less frequently to reduce lag
+        const fireworkInterval = setInterval(() => {
+            createFirework();
+        }, 20);
+
+        // Add celebratory title animation
+        const title = document.querySelector('.title');
+        title.style.animation = 'none';
+        title.style.color = '#ffdd00';
+        title.style.textShadow = '0 0 20px rgba(255, 221, 0, 0.8), 0 0 40px rgba(255, 150, 0, 0.5)';
+        title.textContent = "Summer Break!!";
+
+        // Add background color transitions
+        const background = document.querySelector('.background');
+        background.style.animation = 'backgroundShift 5s infinite alternate';
+        document.head.insertAdjacentHTML('beforeend', `
         <style>
             @keyframes backgroundShift {
                 0% { background: linear-gradient(45deg, #16213e, #0f111a); }
@@ -674,148 +703,148 @@ function startMassiveFireworksCelebration() {
             }
         </style>
     `);
-}
-
-function createFirework() {
-    const container = document.getElementById('particles-container');
-    
-    // Limit the number of particles per firework
-    const particleCount = 40;
-    const originX = Math.random() * window.innerWidth;
-    const originY = window.innerHeight - Math.random() * 400;
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Random colors
-        const colors = ['#ff0000', '#ff6b6b', '#ffbb00', '#00ff00', '#00ffff', '#0088ff', '#8800ff', '#ff00ff'];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
-        particle.style.backgroundColor = color;
-        particle.style.boxShadow = `0 0 8px ${color}`;
-        
-        // Size between 2 and 4px
-        const size = Math.random() * 2 + 2;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // Start at origin position
-        particle.style.left = `${originX}px`;
-        particle.style.top = `${originY}px`;
-        
-        // Random direction and distance
-        const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * 150 + 50;
-        
-        // Add to container
-        container.appendChild(particle);
-        
-        // Animate outward using CSS transitions
-        setTimeout(() => {
-            particle.style.transition = `transform 1s ease-out, opacity 1s ease-in`;
-            particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-            particle.style.opacity = '0';
-            
-            // Remove after animation
-            setTimeout(() => particle.remove(), 1000);
-        }, 10);
     }
-}
 
-// Create shooting stars occasionally
-function createShootingStar() {
-    const container = document.getElementById('particles-container');
-    const star = document.createElement('div');
-    
-    star.style.position = 'absolute';
-    star.style.width = '2px';
-    star.style.height = '2px';
-    star.style.backgroundColor = 'white';
-    star.style.borderRadius = '50%';
-    star.style.boxShadow = '0 0 20px 2px white';
-    star.style.opacity = '0';
-    
-    // Random start position (top-left to top-right)
-    const startX = Math.random() * window.innerWidth;
-    const startY = Math.random() * (window.innerHeight / 3);
-    
-    star.style.left = `${startX}px`;
-    star.style.top = `${startY}px`;
-    
-    // End position (move diagonally down)
-    const endX = startX + (Math.random() * 300 - 150);
-    const endY = startY + (Math.random() * 300 + 100);
-    
-    // Add to container
-    container.appendChild(star);
-    
-    // Animate
-    setTimeout(() => {
-        star.style.transition = 'transform 1s linear, opacity 1s ease-in-out';
-        star.style.opacity = '1';
-        star.style.transform = `translate(${endX - startX}px, ${endY - startY}px)`;
-        
-        // Trail effect
-        const trail = document.createElement('div');
-        trail.style.position = 'absolute';
-        trail.style.width = '100px';
-        trail.style.height = '1px';
-        trail.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
-        trail.style.transformOrigin = 'left center';
-        trail.style.opacity = '0';
-        
-        const angle = Math.atan2(endY - startY, endX - startX);
-        trail.style.left = `${startX}px`;
-        trail.style.top = `${startY}px`;
-        trail.style.transform = `rotate(${angle}rad)`;
-        
-        container.appendChild(trail);
-        
-        setTimeout(() => {
-            trail.style.transition = 'opacity 0.3s ease-in';
-            trail.style.opacity = '0.7';
-            
-            setTimeout(() => {
-                trail.style.opacity = '0';
-                
-                setTimeout(() => {
-                    trail.remove();
-                }, 300);
-            }, 300);
-        }, 50);
-        
-        setTimeout(() => {
-            star.style.opacity = '0';
-            
-            setTimeout(() => {
-                star.remove();
-            }, 1000);
-        }, 1000);
-    }, 100);
-}
+    function createFirework() {
+        const container = document.getElementById('particles-container');
 
-// Shooting stars generator
-function startShootingStars() {
-    // Create shooting stars at random intervals
-    setInterval(() => {
-        if (Math.random() < 0.3) {
-            createShootingStar();
+        // Limit the number of particles per firework
+        const particleCount = 40;
+        const originX = Math.random() * window.innerWidth;
+        const originY = window.innerHeight - Math.random() * 400;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            // Random colors
+            const colors = ['#ff0000', '#ff6b6b', '#ffbb00', '#00ff00', '#00ffff', '#0088ff', '#8800ff', '#ff00ff'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            particle.style.backgroundColor = color;
+            particle.style.boxShadow = `0 0 8px ${color}`;
+
+            // Size between 2 and 4px
+            const size = Math.random() * 2 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            // Start at origin position
+            particle.style.left = `${originX}px`;
+            particle.style.top = `${originY}px`;
+
+            // Random direction and distance
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 150 + 50;
+
+            // Add to container
+            container.appendChild(particle);
+
+            // Animate outward using CSS transitions
+            setTimeout(() => {
+                particle.style.transition = `transform 1s ease-out, opacity 1s ease-in`;
+                particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+                particle.style.opacity = '0';
+
+                // Remove after animation
+                setTimeout(() => particle.remove(), 1000);
+            }, 10);
         }
-    }, 2000);
-}
+    }
 
-// Initialize everything
-function init() {
-    createStars();
-    createParticles();
-    startShootingStars();
-    updateCountdown();
-}
+    // Create shooting stars occasionally
+    function createShootingStar() {
+        const container = document.getElementById('particles-container');
+        const star = document.createElement('div');
 
-// Start everything when the page loads
-window.addEventListener('load', init);
-        // Create stars on load
+        star.style.position = 'absolute';
+        star.style.width = '2px';
+        star.style.height = '2px';
+        star.style.backgroundColor = 'white';
+        star.style.borderRadius = '50%';
+        star.style.boxShadow = '0 0 20px 2px white';
+        star.style.opacity = '0';
+
+        // Random start position (top-left to top-right)
+        const startX = Math.random() * window.innerWidth;
+        const startY = Math.random() * (window.innerHeight / 3);
+
+        star.style.left = `${startX}px`;
+        star.style.top = `${startY}px`;
+
+        // End position (move diagonally down)
+        const endX = startX + (Math.random() * 300 - 150);
+        const endY = startY + (Math.random() * 300 + 100);
+
+        // Add to container
+        container.appendChild(star);
+
+        // Animate
+        setTimeout(() => {
+            star.style.transition = 'transform 1s linear, opacity 1s ease-in-out';
+            star.style.opacity = '1';
+            star.style.transform = `translate(${endX - startX}px, ${endY - startY}px)`;
+
+            // Trail effect
+            const trail = document.createElement('div');
+            trail.style.position = 'absolute';
+            trail.style.width = '100px';
+            trail.style.height = '1px';
+            trail.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+            trail.style.transformOrigin = 'left center';
+            trail.style.opacity = '0';
+
+            const angle = Math.atan2(endY - startY, endX - startX);
+            trail.style.left = `${startX}px`;
+            trail.style.top = `${startY}px`;
+            trail.style.transform = `rotate(${angle}rad)`;
+
+            container.appendChild(trail);
+
+            setTimeout(() => {
+                trail.style.transition = 'opacity 0.3s ease-in';
+                trail.style.opacity = '0.7';
+
+                setTimeout(() => {
+                    trail.style.opacity = '0';
+
+                    setTimeout(() => {
+                        trail.remove();
+                    }, 300);
+                }, 300);
+            }, 50);
+
+            setTimeout(() => {
+                star.style.opacity = '0';
+
+                setTimeout(() => {
+                    star.remove();
+                }, 1000);
+            }, 1000);
+        }, 100);
+    }
+
+    // Shooting stars generator
+    function startShootingStars() {
+        // Create shooting stars at random intervals
+        setInterval(() => {
+            if (Math.random() < 0.3) {
+                createShootingStar();
+            }
+        }, 2000);
+    }
+
+    // Initialize everything
+    function init() {
         createStars();
-    </script>
+        createParticles();
+        startShootingStars();
+        updateCountdown();
+    }
+
+    // Start everything when the page loads
+    window.addEventListener('load', init);
+    // Create stars on load
+    createStars();
+</script>
     

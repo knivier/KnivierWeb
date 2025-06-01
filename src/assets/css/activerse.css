@@ -40,11 +40,11 @@ body {
     width: 200%;
     height: 200%;
     background: linear-gradient(
-        45deg,
-        transparent 0%,
-        rgba(187, 134, 252, 0.03) 30%,
-        rgba(3, 218, 198, 0.03) 70%,
-        transparent 100%
+            45deg,
+            transparent 0%,
+            rgba(187, 134, 252, 0.03) 30%,
+            rgba(3, 218, 198, 0.03) 70%,
+            transparent 100%
     );
     animation: wave 15s linear infinite;
 }
@@ -55,18 +55,22 @@ body {
     width: 200%;
     height: 200%;
     background: linear-gradient(
-        -45deg,
-        transparent 0%,
-        rgba(187, 134, 252, 0.02) 40%,
-        rgba(3, 218, 198, 0.02) 60%,
-        transparent 100%
+            -45deg,
+            transparent 0%,
+            rgba(187, 134, 252, 0.02) 40%,
+            rgba(3, 218, 198, 0.02) 60%,
+            transparent 100%
     );
     animation: wave 20s linear infinite reverse;
 }
 
 @keyframes wave {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
 
 .nav {
@@ -246,7 +250,7 @@ h2 {
 
 .changelog-item {
     padding: 1rem;
-    background: rgba(187,134,252,0.1);
+    background: rgba(187, 134, 252, 0.1);
     border-radius: 0.8rem;
     transition: all 0.3s;
     margin-bottom: 0.8rem;
@@ -254,7 +258,7 @@ h2 {
 
 .changelog-item:hover {
     transform: translateX(5px);
-    background: rgba(187,134,252,0.15);
+    background: rgba(187, 134, 252, 0.15);
 }
 
 footer {
@@ -266,23 +270,43 @@ footer {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
 }
 
 @keyframes shadow {
-    0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(0.8); }
-    50% { opacity: 0.5; transform: translateX(-50%) scale(1.2); }
+    0%, 100% {
+        opacity: 0.3;
+        transform: translateX(-50%) scale(0.8);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateX(-50%) scale(1.2);
+    }
 }
 
 @keyframes glow {
-    from { text-shadow: 0 0 20px rgba(187,134,252,0.5); }
-    to { text-shadow: 0 0 30px rgba(187,134,252,0.8); }
+    from {
+        text-shadow: 0 0 20px rgba(187, 134, 252, 0.5);
+    }
+    to {
+        text-shadow: 0 0 30px rgba(187, 134, 252, 0.8);
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 768px) {
@@ -290,7 +314,7 @@ footer {
         grid-template-columns: 1fr;
         min-height: auto;
     }
-    
+
     .content-grid {
         grid-template-columns: 1fr;
     }
@@ -305,10 +329,14 @@ footer {
         padding: 0.5rem 0.8rem;
         font-size: 0.9rem;
     }
-    
+
     @keyframes gradientMove {
-        0% { background-position: 200% 0; }
-        100% { background-position: 0 0; }
+        0% {
+            background-position: 200% 0;
+        }
+        100% {
+            background-position: 0 0;
+        }
     }
 
     .nav::after {
@@ -319,9 +347,9 @@ footer {
         width: 100%;
         height: 2px;
         background: linear-gradient(90deg,
-            var(--primary) 0%,
-            var(--secondary) 50%,
-            var(--accent) 100%);
+        var(--primary) 0%,
+        var(--secondary) 50%,
+        var(--accent) 100%);
         background-size: 200% 100%;
         animation: gradientMove 3s linear infinite;
     }
@@ -334,6 +362,7 @@ footer {
         padding: 2rem;
     }
 }
+
 .scroll-indicator {
     position: absolute;
     bottom: 2rem;
@@ -345,17 +374,21 @@ footer {
     animation: fadeInOut 2s ease-in-out infinite;
     opacity: 1;
     transition: opacity 0.3s;
-    }
+}
 
-    .scroll-arrow {
+.scroll-arrow {
     width: 20px;
     height: 20px;
     border-right: 3px solid var(--primary);
     border-bottom: 3px solid var(--primary);
     transform: rotate(45deg);
-    }
+}
 
-    @keyframes fadeInOut {
-    0%, 100% { transform: translate(-50%, 0); }
-    50% { transform: translate(-50%, 10px); }
+@keyframes fadeInOut {
+    0%, 100% {
+        transform: translate(-50%, 0);
     }
+    50% {
+        transform: translate(-50%, 10px);
+    }
+}

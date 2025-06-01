@@ -16,6 +16,7 @@ document.querySelector('.close').addEventListener('click', () => {
         changelogModal.style.display = 'none'; // Reset display property after animation
     }, 500); // Match the duration of the opacity transition
 });
+
 function goBackHome() {
     window.location.href = 'activerseinfo.html';
 }
@@ -137,7 +138,7 @@ function getChangelogText(versionId) {
         <p>This version is backwards compatible with up to v1.0.7 (with some minor porting). </p>
 
     `,
-        'v1.2.1':`
+        'v1.2.1': `
     <h2>v1.2.1 - Minor Grief Removed</h2>
     <p>September 12, 2024</p>
     <p><strong>The changes:</strong></p>
@@ -164,7 +165,7 @@ function getChangelogText(versionId) {
     <p>This version is backwards compatible with up to v1.0.7 (with some minor porting). </p>
 `,
 
-        'v1.2.0':`
+        'v1.2.0': `
             <h2>v1.2.0</h2>
             <p>July 22, 2024</p>
             <p><strong>The changes:</strong></p>

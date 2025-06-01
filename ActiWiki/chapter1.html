@@ -1,52 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ActiWiki - Chapter 1</title>
-  <link rel="stylesheet" href="wiki-styling.css">
-  <link rel="icon" type="image/png" href="cp-actilogo.png" />
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>ActiWiki - Chapter 1</title>
+    <link href="wiki-styling.css" rel="stylesheet">
+    <link href="cp-actilogo.png" rel="icon" type="image/png"/>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav>
+<!-- Navbar -->
+<nav>
     <div class="logo">Activerse Wiki</div>
     <div class="nav-links">
-      <a href="wiki.html">Chapter 0</a>
-      <a href="chapter1.html" class="active">Chapter 1</a>
-      <a href="chapter2.html">Chapter 2</a>
-      <a href="chapter3.html">Chapter 3</a>
-      <!-- <a href="chapter4.html">Chapter 4</a>
-      <a href="chapter5.html">Chapter 5</a> -->
+        <a href="wiki.html">Chapter 0</a>
+        <a class="active" href="chapter1.html">Chapter 1</a>
+        <a href="chapter2.html">Chapter 2</a>
+        <a href="chapter3.html">Chapter 3</a>
+        <!-- <a href="chapter4.html">Chapter 4</a>
+        <a href="chapter5.html">Chapter 5</a> -->
     </div>
-  </nav>
-  <!-- Main Content -->
-  <main>    
+</nav>
+<!-- Main Content -->
+<main>
     <h1>Chapter 1: Setting up a basic "game"</h1>
 
     <h2>Creating the player</h2>
 
     <h3>The basics of the Player Class</h3>
     <p>
-      Any actors you create should always be a subclass of Actor, so start with instantiating the Player class as a subclass of Actor. Make sure you have a constructor for the class because we're creating an object! The constructor should have nothing more than setting an image to the player object. Remember, we're adding attributes to Player, nothing more!
+        Any actors you create should always be a subclass of Actor, so start with instantiating the Player class as a
+        subclass of Actor. Make sure you have a constructor for the class because we're creating an object! The
+        constructor should have nothing more than setting an image to the player object. Remember, we're adding
+        attributes to Player, nothing more!
     </p>
     <p>
-      To add an image to the player, replace <code>//filetype.png//</code> with the image file you're putting to the actor. Make sure to size it to the player (ex, 50px player should have a 50x50 image). All you need to do is add the file to the folder containing all of the code as well!
+        To add an image to the player, replace <code>//filetype.png//</code> with the image file you're putting to the
+        actor. Make sure to size it to the player (ex, 50px player should have a 50x50 image). All you need to do is add
+        the file to the folder containing all of the code as well!
     </p>
 
     <h3>Game loops</h3>
     <p>
-      The <code>act()</code> method (inherited from Actor) is the game loop. Each time Main is run, the game loop runs at an extremely high rate. This is why it's important to have conditionals, delays, and smart approaches to code so you don't end up crashing your computer! Switching pictures via animations or playing audio through the game loop can cause extreme lag. For now, we've put our custom <code>movementViaKey()</code> method that we'll move on to next. This won't lag/crash the game because there are conditionals that need to be met to have a repeating action (Ex. Key Press).
+        The <code>act()</code> method (inherited from Actor) is the game loop. Each time Main is run, the game loop runs
+        at an extremely high rate. This is why it's important to have conditionals, delays, and smart approaches to code
+        so you don't end up crashing your computer! Switching pictures via animations or playing audio through the game
+        loop can cause extreme lag. For now, we've put our custom <code>movementViaKey()</code> method that we'll move
+        on to next. This won't lag/crash the game because there are conditionals that need to be met to have a repeating
+        action (Ex. Key Press).
     </p>
 
     <h3>Implementing player game controls</h3>
     <p>
-      Finally, we have our <code>movementViaKey()</code> method which checks what keys are pressed and does an action as a result. Our key method (pun intended) is the <code>keyIsDown(char x)</code> method. Input a character (Ex. X) and perform a result using a conditional.
+        Finally, we have our <code>movementViaKey()</code> method which checks what keys are pressed and does an action
+        as a result. Our key method (pun intended) is the <code>keyIsDown(char x)</code> method. Input a character (Ex.
+        X) and perform a result using a conditional.
     </p>
 
     <h3>Player movement</h3>
     <p>
-      Inside the conditionals, we can add movement using the <code>move(int x)</code> or <code>turn(double y)</code> methods. Using a positive movement integer like <code>move(2)</code> moves the character at the rate of 2, in the direction it's facing. Having a negative integer in <code>move</code> causes you to go the opposite direction of what you're facing. Finally, a positive turn (double, not integer!) makes you turn right. Having a negative turn makes you turn left.
+        Inside the conditionals, we can add movement using the <code>move(int x)</code> or <code>turn(double y)</code>
+        methods. Using a positive movement integer like <code>move(2)</code> moves the character at the rate of 2, in
+        the direction it's facing. Having a negative integer in <code>move</code> causes you to go the opposite
+        direction of what you're facing. Finally, a positive turn (double, not integer!) makes you turn right. Having a
+        negative turn makes you turn left.
     </p>
 
     <h3>Demo Code</h3>
@@ -94,8 +110,9 @@ public class Player extends Actor {
 
     <h3>Creating a new World</h3>
     <p>
-      To create a new world, you're creating a subclass of World.<br>
-      We'll use MyWorld in this scenario. First, create the subclass. Next, create the constructor and make sure it matches (or match) to the Main.java code.
+        To create a new world, you're creating a subclass of World.<br>
+        We'll use MyWorld in this scenario. First, create the subclass. Next, create the constructor and make sure it
+        matches (or match) to the Main.java code.
     </p>
     <pre style="background:#222; padding:1rem; border-radius:8px; overflow-x:auto; color:#61dafb;">
 <code>
@@ -106,10 +123,13 @@ public static void main(String[] args) {
 </code>
     </pre>
     <p>
-      After that, you want to make sure you're having the correct size for your world. I recommend starting with a 400x400 grid and seeing how much you want to modify from there. The final code in the call to super is the cellSize or pixel size. To start, you should always have 1.
+        After that, you want to make sure you're having the correct size for your world. I recommend starting with a
+        400x400 grid and seeing how much you want to modify from there. The final code in the call to super is the
+        cellSize or pixel size. To start, you should always have 1.
     </p>
     <p>
-      You can create a new Background image via <code>setBackgroundImage()</code>, and finally add your desired actor object using <code>addObject(actor, locationX, locationY);</code>.
+        You can create a new Background image via <code>setBackgroundImage()</code>, and finally add your desired actor
+        object using <code>addObject(actor, locationX, locationY);</code>.
     </p>
     <pre style="background:#222; padding:1rem; border-radius:8px; overflow-x:auto; color:#61dafb;">
 <code>
@@ -124,8 +144,10 @@ public class MyWorld extends World {  // Making a subclass of World named MyWorl
 </code>
     </pre>
     <p>
-      That's all there is to creating and adding a controllable actor! You can always add on more features to your actor from here and make a more interactive game overall. If you find any bugs or suggestions on improving the code, please open up an Issue via Github. Thanks!
+        That's all there is to creating and adding a controllable actor! You can always add on more features to your
+        actor from here and make a more interactive game overall. If you find any bugs or suggestions on improving the
+        code, please open up an Issue via Github. Thanks!
     </p>
-  </main>
+</main>
 </body>
 </html>
