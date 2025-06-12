@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Navigation - Help Directory</title>
+    <link rel="stylesheet" href="src/assets/css/help.css">
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <button class="back-button" onclick="goBack()">← Home</button>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Portfolio Navigation</h1>
+            <p>Explore all sections of my site, with ease!</p>
+            
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search for pages, projects, or content..." id="searchInput">
+            </div>
+        </div>
+
+        <!-- <div class="stats-section">
+            <h2>Site Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <span>Total Pages</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span>Main Projects</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span>Interactive Tools</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1</span>
+                    <span>Wiki System</span>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="navigation-grid">
+            <div class="nav-section" data-category="main">
+                <div class="section-header">
+                    <div class="section-icon">🏠</div>
+                    <div class="section-title">Main Portfolio</div>
+                </div>
+                <div class="section-description">
+                    The core portfolio pages showcasing who I am, my skills, and professional information.
+                </div>
+                <ul class="page-list">
+                    <li class="page-item">
+                        <a href="index.html" class="page-link">Home Page</a>
+                        <div class="page-description">Main landing page with introduction and overview</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section" data-category="projects">
+                <div class="section-header">
+                    <div class="section-icon">🚀</div>
+                    <div class="section-title">Projects & Tools</div>
+                </div>
+                <div class="section-description">
+                    Interactive projects and tools I've developed, including entertainment and utility applications.
+                </div>
+                <ul class="page-list">
+                    <li class="page-item">
+                        <a href="popcorn.html" class="page-link">Popcorn Project</a>
+                        <div class="page-description">A modular kernel framework meant to be built upon.</div>
+                    </li>
+                    <li class="page-item">
+                        <a href="aboutpopcorn.html" class="page-link">About Popcorn</a>
+                        <div class="page-description">Details regarding the Popcorn project.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section" data-category="activerse">
+                <div class="section-header">
+                    <div class="section-icon">🌟</div>
+                    <div class="section-title">Activerse</div>
+                </div>
+                <div class="section-description">
+                    A comprehensive 2D game engine with plenty of tools and features for game development.
+                </div>
+                <ul class="page-list">
+                    <li class="page-item">
+                        <a href="activerseinfo.html" class="page-link">Activerse Home</a>
+                        <div class="page-description">Main information page</div>
+                    </li>
+                    <li class="page-item">
+                        <a href="actversions.html" class="page-link">Version Management</a>
+                        <div class="page-description">Version tracking and management interface</div>
+                    </li>
+                </ul>
+                <ul class="page-list">
+                    <li class="page-item">
+                        <a href="ActiWiki/wiki.html" class="page-link">Wiki Home</a>
+                        <div class="page-description">The official and most UTD wiki for Activerse</div>
+                    </li>
+            </div>
+
+            <!-- <div class="nav-section" data-category="wiki">
+                
+            </div> -->
+
+            <!-- <div class="nav-section" data-category="technical">
+                <div class="section-header">
+                    <div class="section-icon">⚙️</div>
+                    <div class="section-title">Technical Resources</div>
+                </div>
+                <div class="section-description">
+                    Behind-the-scenes technical resources including stylesheets, scripts, and development tools.
+                </div>
+                <ul class="page-list">
+                    <li class="page-item">
+                        <a href="#" class="page-link" onclick="showTechnicalDetails()">CSS Stylesheets</a>
+                        <div class="page-description">Custom styling for each section (7 files)</div>
+                    </li>
+                    <li class="page-item">
+                        <a href="#" class="page-link" onclick="showTechnicalDetails()">JavaScript Files</a>
+                        <div class="page-description">Interactive functionality and scripts (3 files)</div>
+                    </li>
+                    <li class="page-item">
+                        <a href="#" class="page-link" onclick="showTechnicalDetails()">Font Resources</a>
+                        <div class="page-description">FontAwesome icon fonts and web fonts (12 files)</div>
+                    </li>
+                </ul>
+            </div>
+             -->
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const navSections = document.querySelectorAll('.nav-section');
+        const pageItems = document.querySelectorAll('.page-item');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                // Show all sections and items
+                navSections.forEach(section => {
+                    section.style.display = 'block';
+                    section.style.opacity = '1';
+                });
+                pageItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                return;
+            }
+
+            navSections.forEach(section => {
+                let hasMatch = false;
+                const sectionTitle = section.querySelector('.section-title').textContent.toLowerCase();
+                const sectionDesc = section.querySelector('.section-description').textContent.toLowerCase();
+                
+                // Check if section title or description matches
+                if (sectionTitle.includes(searchTerm) || sectionDesc.includes(searchTerm)) {
+                    hasMatch = true;
+                }
+
+                // Check page items within this section
+                const items = section.querySelectorAll('.page-item');
+                items.forEach(item => {
+                    const pageLink = item.querySelector('.page-link').textContent.toLowerCase();
+                    const pageDesc = item.querySelector('.page-description').textContent.toLowerCase();
+                    
+                    if (pageLink.includes(searchTerm) || pageDesc.includes(searchTerm)) {
+                        hasMatch = true;
+                        item.style.display = 'block';
+                        item.style.background = 'rgba(139, 92, 246, 0.3)';
+                        setTimeout(() => {
+                            item.style.background = 'rgba(26, 26, 46, 0.6)';
+                        }, 2000);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Show/hide section based on matches
+                if (hasMatch) {
+                    section.style.display = 'block';
+                    section.style.opacity = '1';
+                    if (sectionTitle.includes(searchTerm) || sectionDesc.includes(searchTerm)) {
+                        section.style.background = 'rgba(139, 92, 246, 0.2)';
+                        setTimeout(() => {
+                            section.style.background = 'rgba(15, 15, 35, 0.8)';
+                        }, 2000);
+                    }
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+
+        // Smooth scroll and highlight effects
+        document.querySelectorAll('.page-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    return;
+                }
+                
+                // Add a subtle loading effect
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+
+        // Enhanced hover effects
+        document.querySelectorAll('.nav-section').forEach(section => {
+            section.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            section.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Back button functionality
+        function goBack() {
+            if (document.referrer && document.referrer.includes(window.location.hostname)) {
+                window.history.back();
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function showTechnicalDetails() {
+            alert('Technical resources are part of the site infrastructure. These files provide styling, interactivity, and typography for the portfolio.');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+                searchInput.blur();
+            }
+            if (e.key === '/' && e.target !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+
+        // Add some dynamic interactivity to stats
+        document.querySelectorAll('.stat-item').forEach((item, index) => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(1.1) rotate(5deg)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 300);
+            });
+        });
+
+        // Initialize page with entrance animations
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+            
+            // Stagger the navigation section animations
+            const sections = document.querySelectorAll('.nav-section');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
