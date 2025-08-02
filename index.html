@@ -9,44 +9,74 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="src/images/pfp.png" rel="icon" type="image/png">
+    <!-- Add to <head> -->
+<meta name="description" content="Knivier (Agniva) - High school Computer Engineering enthusiast specializing in embedded systems, OS development, and low-level programming.">
+<meta name="keywords" content="Computer Engineering, Embedded Systems, OS Development, Java, Rust, C Programming">
+<meta name="author" content="Agniva (Knivier)">
+
+<!-- Open Graph for social sharing -->
+<meta property="og:title" content="Knivier Portfolio - Computer Engineering Enthusiast">
+<meta property="og:description" content="High school developer specializing in embedded systems and OS development">
+<meta property="og:image" content="https://yourdomain.com/src/images/pfp.png">
+<meta property="og:url" content="https://yourdomain.com">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Knivier Portfolio">
+<meta name="twitter:description" content="Computer Engineering enthusiast and embedded systems developer">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Agniva (Knivier)",
+  "jobTitle": "Computer Engineering Student",
+  "url": "https://knivier.com",
+  "sameAs": ["https://github.com/knivier"]
+}
+</script>
 </head>
 
-<body class="relative">
-<div class="custom-cursor"></div>
-<div id="pre-production-banner">
+<body class="relative" data-cursor="custom">
+<!-- Skip Navigation for Accessibility -->
+<a href="#main-content" class="skip-nav">Skip to main content</a>
+
+<div class="custom-cursor" aria-hidden="true"></div>
+<div id="pre-production-banner" role="banner" aria-live="polite">
     The Knivier Portfolio is currently in beta for the lively update! Bugs are expected as I polish this.
-    <span id="close-banner">&times;</span>
+    <button id="close-banner" aria-label="Close banner" type="button">&times;</button>
 </div>
-<div class="absolute inset-0 z-0" id="particles-js"></div>
-<header class="min-h-screen flex items-center justify-center relative overflow-hidden z-10">
+<div class="absolute inset-0 z-0" id="particles-js" aria-hidden="true"></div>
+<header class="min-h-screen flex items-center justify-center relative overflow-hidden z-10" role="banner">
     <div class="float-element text-center z-10">
-        <h1 class="text-7xl font-bold mb-6 typing-text">Knivier</h1>
-        <p class="text-2xl text-gray-300 mb-8 fade-in-up">CE-Enthusiast // Embedded Systems // OS Development</p>
-        <div class="flex gap-4 justify-center flex-wrap">
-            <a class="glass px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 animate-slide-in"
-               href="https://github.com/knivier">My
+        <h1 class="text-7xl font-bold mb-6 typing-text" id="main-title">Knivier</h1>
+        <p class="text-2xl text-gray-300 mb-8 fade-in-up" role="doc-subtitle">CE-Enthusiast // Embedded Systems // OS Development</p>
+        <nav aria-label="Main navigation" class="flex gap-4 justify-center flex-wrap">
+            <a class="glass px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 animate-slide-in focus:outline-none focus:ring-3 focus:ring-accent"
+               href="https://github.com/knivier" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile (opens in new tab)">My
                 GitHub</a>
-            <a class="glass px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 animate-slide-in"
-               href="#contact" style="animation-delay: 0.1s">Contact
+            <a class="glass px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 animate-slide-in focus:outline-none focus:ring-3 focus:ring-accent"
+               href="#contact" style="animation-delay: 0.1s" aria-label="Go to contact section">Contact
                 Me</a>
-            <a class="glass px-8 py-3 rounded-full hover:bg-accent hover:text-gray-900 transition-all duration-300 hover:scale-105 bg-primary text-white animate-slide-in"
-               href="help.html" style="animation-delay: 0.2s">
+            <a class="glass px-8 py-3 rounded-full hover:bg-accent hover:text-gray-900 transition-all duration-300 hover:scale-105 bg-primary text-white animate-slide-in focus:outline-none focus:ring-3 focus:ring-accent"
+               href="help.html" style="animation-delay: 0.2s" aria-label="Go to help page">
                 Help Page</a>
-        </div>
+        </nav>
     </div>
 </header>
 
-<main class="container mx-auto px-6">
+<main class="container mx-auto px-6" id="main-content" role="main">
 
     <!-- About Me Section -->
-    <section class="py-20 fade-in-up">
-        <h2 class="text-4xl font-bold mb-12 text-center">About Me</h2>
+    <section class="py-20 fade-in-up" id="about" aria-labelledby="about-heading">
+        <h2 class="text-4xl font-bold mb-12 text-center" id="about-heading">About Me</h2>
         <div class="max-w-4xl mx-auto">
             <div class="glass p-8 rounded-2xl mb-8 hover-lift">
                 <div class="flex flex-col lg:flex-row items-center gap-8">
                     <div class="lg:w-1/3">
-                        <div class="w-48 h-48 mx-auto rounded-full overflow-hidden border-4 border-primary hover:scale-105 transition-transform duration-300">
-                            <img src="src/images/pfp.png" alt="Knivier Profile" class="w-full h-full object-cover">
+                        <div class="w-48 h-48 mx-auto rounded-full overflow-hidden border-4 border-primary hover:scale-105 transition-transform duration-300" role="img" aria-label="Knivier's profile photo">
+                            <img src="src/images/pfp.png" alt="Knivier (Agniva) - Computer Engineering enthusiast and developer" class="w-full h-full object-cover" loading="eager">
                         </div>
                     </div>
                     <div class="lg:w-2/3">
@@ -77,9 +107,9 @@
     </section>
 
     <!-- Code Editor Experience -->
-    <section class="py-20">
-        <h2 class="text-4xl font-bold mb-12">My Coding Journey</h2>
-        <div class="code-editor mb-8">
+    <section class="py-20" id="coding-journey" aria-labelledby="coding-heading">
+        <h2 class="text-4xl font-bold mb-12" id="coding-heading">My Coding Journey</h2>
+        <div class="code-editor mb-8" role="img" aria-label="Code snippet showing my developer information in Java">
             <div class="code-line">
                 <span class="line-number">1</span>
                 <span class="code">class <span class="text-primary">Developer</span> {</span>
@@ -116,8 +146,8 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="py-20">
-        <h2 class="text-4xl font-bold mb-12 text-center">Quick Stats</h2>
+    <section class="py-20" id="stats" aria-labelledby="stats-heading">
+        <h2 class="text-4xl font-bold mb-12 text-center" id="stats-heading">Quick Stats</h2>
         <div class="stats-grid stagger-animation">
             <div class="stat-card glass hover-lift">
                 <h3 class="text-5xl font-bold mb-2 text-primary counter" data-target="5">0</h3>
@@ -139,8 +169,8 @@
     </section>
 
     <!-- Skill Tree -->
-    <section class="py-20">
-        <h2 class="text-4xl font-bold mb-12 text-center">Skill Tree</h2>
+    <section class="py-20" id="skills" aria-labelledby="skills-heading">
+        <h2 class="text-4xl font-bold mb-12 text-center" id="skills-heading">Skill Tree</h2>
         <div class="skill-tree">
             <div class="skill-branch">
                 <div class="skill-node">
@@ -222,8 +252,8 @@
     </section>
 
     <!-- Project Showcase -->
-    <section class="py-20" id="projects">
-        <h2 class="text-4xl font-bold mb-12 text-center">Featured Personal Projects</h2>
+    <section class="py-20" id="projects" aria-labelledby="projects-heading">
+        <h2 class="text-4xl font-bold mb-12 text-center" id="projects-heading">Featured Personal Projects</h2>
         <div class="project-showcase stagger-animation">
             <div class="project-card glass hover-lift">
                 <h3 class="text-2xl font-bold mb-4">Activerse</h3>
@@ -287,8 +317,8 @@
     </section>
 
     <!-- Project Timeline -->
-    <section class="py-20">
-        <h2 class="text-4xl font-bold mb-12 text-center">Project Timelines</h2>
+    <section class="py-20" id="timeline" aria-labelledby="timeline-heading">
+        <h2 class="text-4xl font-bold mb-12 text-center" id="timeline-heading">Project Timeline</h2>
         <div class="timeline">
             <div class="timeline-item glass p-6 card-3d hover-lift">
                 <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivinstitute/fenrirwatch"
@@ -365,27 +395,36 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="pt-20 pb-10" id="contact">
-        <h2 class="text-4xl font-bold mb-12 text-center">Let's Connect</h2>
+    <section class="pt-20 pb-10" id="contact" aria-labelledby="contact-heading">
+        <h2 class="text-4xl font-bold mb-12 text-center" id="contact-heading">Let's Connect</h2>
         <div class="glass p-8 max-w-2xl mx-auto">
             <div class="text-center mb-8">
                 <p class="text-xl">Find me on Discord as "knivier" or reach out via email:</p>
                 <p class="text-primary text-xl mt-2">agnivag.16@gmail.com</p>
                 <p class="text-xl">Or you can just connect with me! </p>
             </div>
-            <div class="flex justify-center gap-8">
-                <a class="social-link hover:text-primary transition-colors" href="https://www.reddit.com/user/_NessJL/">
-                    <i class="fab fa-reddit text-3xl"></i>
+            <nav aria-label="Social media links" class="flex justify-center gap-8">
+                <a class="social-link hover:text-primary transition-colors focus:outline-none focus:ring-3 focus:ring-accent" 
+                   href="https://www.reddit.com/user/_NessJL/" target="_blank" rel="noopener noreferrer" 
+                   aria-label="Visit my Reddit profile (opens in new tab)">
+                    <i class="fab fa-reddit text-3xl" aria-hidden="true"></i>
                 </a>
-                <a class="social-link hover:text-primary transition-colors" href="https://github.com/knivier">
-                    <i class="fab fa-github text-3xl"></i>
+                <a class="social-link hover:text-primary transition-colors focus:outline-none focus:ring-3 focus:ring-accent" 
+                   href="https://github.com/knivier" target="_blank" rel="noopener noreferrer" 
+                   aria-label="Visit my GitHub profile (opens in new tab)">
+                    <i class="fab fa-github text-3xl" aria-hidden="true"></i>
                 </a>
-                <a class="social-link hover:text-primary transition-colors" href="https://www.x.com/atomickniv">
-                    <i class="fab fa-twitter text-3xl"></i>
+                <a class="social-link hover:text-primary transition-colors focus:outline-none focus:ring-3 focus:ring-accent" 
+                   href="https://www.x.com/atomickniv" target="_blank" rel="noopener noreferrer" 
+                   aria-label="Visit my X (Twitter) profile (opens in new tab)">
+                    <i class="fab fa-twitter text-3xl" aria-hidden="true"></i>
                 </a>
-                <a class="social-link hover:text-primary transition-colors" href="https://www.youtube.com/@Knivier">
-                    <i class="fab fa-youtube text-3xl"></i>
-                </a></div>
+                <a class="social-link hover:text-primary transition-colors focus:outline-none focus:ring-3 focus:ring-accent" 
+                   href="https://www.youtube.com/@Knivier" target="_blank" rel="noopener noreferrer" 
+                   aria-label="Visit my YouTube channel (opens in new tab)">
+                    <i class="fab fa-youtube text-3xl" aria-hidden="true"></i>
+                </a>
+            </nav></div>
         </div>
     </section>
 </main>
@@ -397,8 +436,21 @@
     <p>&copy; 2025 Knivier. All rights reserved, see license</p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-<script src="src/assets/js/index.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script defer src="src/assets/js/index.js"></script>
+
+<!-- Performance Monitoring -->
+<script>
+if ('PerformanceObserver' in window) {
+  new PerformanceObserver((list) => {
+    for (const entry of list.getEntries()) {
+      if (entry.entryType === 'largest-contentful-paint') {
+        console.log('LCP:', entry.startTime + 'ms');
+      }
+    }
+  }).observe({ entryTypes: ['largest-contentful-paint'] });
+}
+</script>
 </body>
 </html>

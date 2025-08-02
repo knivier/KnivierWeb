@@ -1,42 +1,60 @@
-// Particle.js Configuration
-particlesJS('particles-js', {
-    particles: {
-        number: {value: 120, density: {enable: true, value_area: 800}},
-        color: {value: ['#6366F1', '#F59E0B', '#8B5CF6']},
-        shape: {type: 'circle'},
-        opacity: {value: 0.6, random: true, anim: {enable: true, speed: 1, opacity_min: 0.1}},
-        size: {value: 3, random: true, anim: {enable: true, speed: 2, size_min: 0.3}},
-        line_linked: {
-            enable: true,
-            distance: 150,
-            color: '#6366F1',
-            opacity: 0.3,
-            width: 1
-        },
-        move: {
-            enable: true,
-            speed: 1.5,
-            direction: 'none',
-            random: true,
-            straight: false,
-            out_mode: 'out',
-            bounce: false,
-        }
-    },
-    interactivity: {
-        detect_on: 'canvas',
-        events: {
-            onhover: {enable: true, mode: 'grab'},
-            onclick: {enable: true, mode: 'push'},
-            resize: true
-        },
-        modes: {
-            grab: {distance: 200, line_linked: {opacity: 0.8}},
-            push: {particles_nb: 4}
-        }
-    },
-    retina_detect: true
+// Global error handling
+window.addEventListener('error', (e) => {
+    console.warn('Portfolio error:', e.error);
 });
+
+window.addEventListener('unhandledrejection', (e) => {
+    console.warn('Unhandled promise rejection:', e.reason);
+});
+
+// Particle.js Configuration with error handling
+try {
+    particlesJS('particles-js', {
+        particles: {
+            number: {value: 120, density: {enable: true, value_area: 800}},
+            color: {value: ['#6366F1', '#F59E0B', '#8B5CF6']},
+            shape: {type: 'circle'},
+            opacity: {value: 0.6, random: true, anim: {enable: true, speed: 1, opacity_min: 0.1}},
+            size: {value: 3, random: true, anim: {enable: true, speed: 2, size_min: 0.3}},
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: '#6366F1',
+                opacity: 0.3,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 1.5,
+                direction: 'none',
+                random: true,
+                straight: false,
+                out_mode: 'out',
+                bounce: false,
+            }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: {enable: true, mode: 'grab'},
+                onclick: {enable: true, mode: 'push'},
+                resize: true
+            },
+            modes: {
+                grab: {distance: 200, line_linked: {opacity: 0.8}},
+                push: {particles_nb: 4}
+            }
+        },
+        retina_detect: true
+    });
+} catch (error) {
+    console.warn('Particles.js failed to load:', error);
+    // Fallback: hide particles container
+    const particlesContainer = document.getElementById('particles-js');
+    if (particlesContainer) {
+        particlesContainer.style.display = 'none';
+    }
+}
 
 // Enhanced Scroll Animations
 const observerOptions = {
@@ -156,21 +174,31 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Custom Cursor
+// Custom Cursor with improved accessibility
 let cursor = null;
 let isHovering = false;
 
 function initCustomCursor() {
-    if (window.innerWidth <= 768) return; // Skip on mobile
+    // Skip on mobile, touch devices, or if user prefers reduced motion
+    if (window.innerWidth <= 768 || 
+        'ontouchstart' in window || 
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+        window.matchMedia('(pointer: coarse)').matches) {
+        return;
+    }
     
     cursor = document.querySelector('.custom-cursor');
     if (!cursor) return;
     
-    // Track mouse movement
+    // Track mouse movement with throttling for performance
+    let mouseMoveTimeout;
     document.addEventListener('mousemove', (e) => {
-        if (cursor) {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        if (cursor && !mouseMoveTimeout) {
+            mouseMoveTimeout = setTimeout(() => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                mouseMoveTimeout = null;
+            }, 16); 
         }
     });
     
@@ -202,44 +230,59 @@ function initCustomCursor() {
     });
     
     // Handle window resize
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-        if (window.innerWidth <= 768) {
-            document.body.style.cursor = 'auto';
-            if (cursor) cursor.style.display = 'none';
-        } else {
-            document.body.style.cursor = 'none';
-            if (cursor) cursor.style.display = 'block';
-        }
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (window.innerWidth <= 768 || 'ontouchstart' in window) {
+                document.body.style.cursor = 'auto';
+                if (cursor) cursor.style.display = 'none';
+            } else {
+                document.body.style.cursor = 'none';
+                if (cursor) cursor.style.display = 'block';
+            }
+        }, 250);
     });
 }
 
 // Enhanced DOM Ready Functions
-document.addEventListener('DOMContentLoaded', function () {
-    // Initialize custom cursor
-    initCustomCursor();
-    const banner = document.getElementById('pre-production-banner');
-    const closeBtn = document.getElementById('close-banner');
-
-    // Enhanced banner close with smooth animation
-    closeBtn.addEventListener('click', function () {
-        banner.classList.add('hidden');
-        setTimeout(() => {
-            banner.style.display = 'none';
-        }, 400);
-    });
-
-    // Smart banner hide/show on scroll
-    let lastScrollTop = 0;
-    let scrollTimeout;
-    
-    window.addEventListener('scroll', function () {
-        clearTimeout(scrollTimeout);
+document.addEventListener('DOMContentLoaded', async function () {
+    try {
+        // Initialize custom cursor
+        initCustomCursor();
         
-        scrollTimeout = setTimeout(() => {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const banner = document.getElementById('pre-production-banner');
+        const closeBtn = document.getElementById('close-banner');
+
+        if (banner && closeBtn) {
+            // Enhanced banner close with smooth animation and accessibility
+            closeBtn.addEventListener('click', function () {
+                banner.classList.add('hidden');
+                banner.setAttribute('aria-hidden', 'true');
+                setTimeout(() => {
+                    banner.style.display = 'none';
+                }, 400);
+            });
+
+            // Keyboard support for banner close
+            closeBtn.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    closeBtn.click();
+                }
+            });
+        }
+
+        // Smart banner hide/show on scroll with performance optimization
+        let lastScrollTop = 0;
+        let scrollTimeout;
+        let ticking = false;
+        
+        function updateBannerOnScroll() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const scrollDifference = Math.abs(scrollTop - lastScrollTop);
             
-            if (scrollDifference > 10) {
+            if (scrollDifference > 10 && banner) {
                 if (scrollTop > lastScrollTop && scrollTop > 100) {
                     banner.style.transform = 'translateY(-100%)';
                 } else {
@@ -247,44 +290,78 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 lastScrollTop = scrollTop;
             }
-        }, 10);
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                requestAnimationFrame(updateBannerOnScroll);
+                ticking = true;
             }
         });
-    });
 
-    // Add hover sound effect (optional - requires audio files)
-    document.querySelectorAll('.glass, .project-card, .stat-card').forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            element.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        // Enhanced smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    // Add focus for keyboard users
+                    target.setAttribute('tabindex', '-1');
+                    target.focus();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Remove tabindex after focus
+                    setTimeout(() => {
+                        target.removeAttribute('tabindex');
+                    }, 1000);
+                }
+            });
         });
-    });
 
-    // Initialize typing animation after a delay
-    setTimeout(() => {
-        const typingElement = document.querySelector('.typing-text');
-        if (typingElement && window.innerWidth > 768) {
-            typingElement.style.animation = 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite';
+        // Enhanced hover effects with performance optimization
+        const interactiveElements = document.querySelectorAll('.glass, .project-card, .stat-card');
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                element.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        });
+
+        // Initialize typing animation with better detection
+        setTimeout(() => {
+            const typingElement = document.querySelector('.typing-text');
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            if (typingElement && window.innerWidth > 768 && !prefersReducedMotion) {
+                typingElement.style.animation = 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite';
+            }
+        }, 500);
+
+        // Comprehensive accessibility and performance optimization
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        
+        function handleReducedMotion(mediaQuery) {
+            if (mediaQuery.matches) {
+                document.documentElement.style.setProperty('--transition-fast', '0.001s');
+                document.documentElement.style.setProperty('--transition-normal', '0.001s');
+                document.documentElement.style.setProperty('--transition-slow', '0.001s');
+                
+                // Disable particle animations
+                const particlesContainer = document.getElementById('particles-js');
+                if (particlesContainer) {
+                    particlesContainer.style.display = 'none';
+                }
+            }
         }
-    }, 500);
+        
+        prefersReducedMotion.addListener(handleReducedMotion);
+        handleReducedMotion(prefersReducedMotion);
 
-    // Performance optimization for animations
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (prefersReducedMotion.matches) {
-        document.querySelectorAll('*').forEach(element => {
-            element.style.animationDuration = '0.001s';
-            element.style.transitionDuration = '0.001s';
-        });
+    } catch (error) {
+        console.warn('Error during DOM initialization:', error);
     }
 });
