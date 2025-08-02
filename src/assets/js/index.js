@@ -68,6 +68,14 @@ const observer = new IntersectionObserver((entries) => {
 function animateCounters(container) {
     const counters = container.querySelectorAll('.counter');
     counters.forEach(counter => {
+        // Check if counter has already been animated
+        if (counter.dataset.animated === 'true') {
+            return;
+        }
+        
+        // Mark as animated to prevent re-animation
+        counter.dataset.animated = 'true';
+        
         const target = parseInt(counter.getAttribute('data-target'));
         const increment = target / 50;
         let current = 0;
@@ -138,7 +146,7 @@ document.querySelectorAll('.card-3d').forEach(card => {
     });
 });
 
-// Parallax Effect for Background
+// Parallax Effect for Background 
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const parallax = document.querySelector('#particles-js');
@@ -148,8 +156,67 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Custom Cursor
+let cursor = null;
+let isHovering = false;
+
+function initCustomCursor() {
+    if (window.innerWidth <= 768) return; // Skip on mobile
+    
+    cursor = document.querySelector('.custom-cursor');
+    if (!cursor) return;
+    
+    // Track mouse movement
+    document.addEventListener('mousemove', (e) => {
+        if (cursor) {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        }
+    });
+    
+    // Handle clickable elements
+    const clickableElements = document.querySelectorAll('a, button, .glass, .project-card, .stat-card, .timeline-item, [role="button"], input, textarea, select');
+    
+    clickableElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            if (cursor && !isHovering) {
+                cursor.classList.add('hover');
+                isHovering = true;
+            }
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            if (cursor && isHovering) {
+                cursor.classList.remove('hover');
+                isHovering = false;
+            }
+        });
+        
+        element.addEventListener('mousedown', () => {
+            if (cursor) cursor.classList.add('click');
+        });
+        
+        element.addEventListener('mouseup', () => {
+            if (cursor) cursor.classList.remove('click');
+        });
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768) {
+            document.body.style.cursor = 'auto';
+            if (cursor) cursor.style.display = 'none';
+        } else {
+            document.body.style.cursor = 'none';
+            if (cursor) cursor.style.display = 'block';
+        }
+    });
+}
+
 // Enhanced DOM Ready Functions
 document.addEventListener('DOMContentLoaded', function () {
+    // Initialize custom cursor
+    initCustomCursor();
     const banner = document.getElementById('pre-production-banner');
     const closeBtn = document.getElementById('close-banner');
 
