@@ -7,34 +7,71 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="src/assets/css/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="src/images/pfp.png" rel="icon" type="image/png">
 </head>
+
+<body class="min-h-screen relative">
 <div id="pre-production-banner">
     Check out <a class="underline font-bold" href="https://skycell.tech">SkyCell</a>, winner of the Apex Hackathon!
     <span id="close-banner">&times;</span>
 </div>
-
-<body class="min-h-screen relative">
 <div class="absolute inset-0 z-0" id="particles-js"></div>
 <header class="min-h-screen flex items-center justify-center relative overflow-hidden z-10">
     <div class="float-element text-center z-10">
-        <h1 class="text-7xl font-bold mb-6">Knivier</h1>
-        <p class="text-2xl text-gray-300 mb-8">CE-Enthusiast // Learner</p>
-        <div class="flex gap-4 justify-center">
-            <a class="glass px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300"
+        <h1 class="text-7xl font-bold mb-6 typing-text">Knivier</h1>
+        <p class="text-2xl text-gray-300 mb-8 fade-in-up">CE-Enthusiast // Learner</p>
+        <div class="flex gap-4 justify-center flex-wrap">
+            <a class="glass px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 animate-slide-in"
                href="https://github.com/knivier">My
                 GitHub</a>
-            <a class="glass px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300"
-               href="#contact">Contact
+            <a class="glass px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 animate-slide-in"
+               href="#contact" style="animation-delay: 0.1s">Contact
                 Me</a>
-            <a class="glass px-8 py-3 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300 bg-green-500 text-white border-2 border-red-500"
-               href="help.html">
+            <a class="glass px-8 py-3 rounded-full hover:bg-accent hover:text-gray-900 transition-all duration-300 hover:scale-105 bg-primary text-white animate-slide-in"
+               href="help.html" style="animation-delay: 0.2s">
                 Help Page</a>
         </div>
     </div>
 </header>
 
 <main class="container mx-auto px-6">
+
+    <!-- About Me Section -->
+    <section class="py-20 fade-in-up">
+        <h2 class="text-4xl font-bold mb-12 text-center">About Me</h2>
+        <div class="max-w-4xl mx-auto">
+            <div class="glass p-8 rounded-2xl mb-8 hover-lift">
+                <div class="flex flex-col lg:flex-row items-center gap-8">
+                    <div class="lg:w-1/3">
+                        <div class="w-48 h-48 mx-auto rounded-full overflow-hidden border-4 border-primary hover:scale-105 transition-transform duration-300">
+                            <img src="src/images/pfp.png" alt="Knivier Profile" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="lg:w-2/3">
+                        <h3 class="text-2xl font-bold mb-4 text-primary">Hi, I'm Agniva (Knivier)!</h3>
+                        <p class="text-lg mb-4 leading-relaxed">
+                            I'm a passionate high school developer who loves creating innovative solutions through code. 
+                            My journey in computer science spans over 5 years, during which I've explored various domains 
+                            from web development to game engines, always driven by curiosity and the desire to learn.
+                        </p>
+                        <p class="text-lg mb-6 leading-relaxed">
+                            I specialize in <span class="text-accent font-semibold">Java development</span>, 
+                            <span class="text-accent font-semibold">web technologies</span>, and 
+                            <span class="text-accent font-semibold">system programming</span>. 
+                            When I'm not coding, you'll find me participating in hackathons, contributing to open source, 
+                            or working on my latest project idea.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-4 py-2 rounded-full bg-primary/20 text-primary border border-primary/30">Problem Solver</span>
+                            <span class="px-4 py-2 rounded-full bg-accent/20 text-accent border border-accent/30">Creative Thinker</span>
+                            <span class="px-4 py-2 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">Team Player</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Code Editor Experience -->
     <section class="py-20">
@@ -69,8 +106,8 @@
                 <span class="code">&nbsp;&nbsp;}</span>
             </div>
             <div class="code-line">
-                <span class="line-number">7</span>
-                <span class="code">8</span>
+                <span class="line-number">8</span>
+                <span class="code">}</span>
             </div>
         </div>
     </section>
@@ -96,21 +133,21 @@
     <!-- Stats Section -->
     <section class="py-20">
         <h2 class="text-4xl font-bold mb-12 text-center">Quick Stats</h2>
-        <div class="stats-grid">
-            <div class="stat-card glass">
-                <h3 class="text-5xl font-bold mb-2">5+</h3>
+        <div class="stats-grid stagger-animation">
+            <div class="stat-card glass hover-lift">
+                <h3 class="text-5xl font-bold mb-2 text-primary counter" data-target="5">0</h3>
                 <p>Years of Web Design</p>
             </div>
-            <div class="stat-card glass">
-                <h3 class="text-5xl font-bold mb-2">3+</h3>
+            <div class="stat-card glass hover-lift">
+                <h3 class="text-5xl font-bold mb-2 text-accent counter" data-target="3">0</h3>
                 <p>Years of Java</p>
             </div>
-            <div class="stat-card glass">
-                <h3 class="text-5xl font-bold mb-2">3+</h3>
-                <p title="4 Years of Windows, 2 Year of Linux">Years of Terminal Experience</p>
+            <div class="stat-card glass hover-lift">
+                <h3 class="text-5xl font-bold mb-2 text-purple-400 counter" data-target="3">0</h3>
+                <p title="4 Years of Windows, 2 Year of Linux">Years of CLI Experience</p>
             </div>
-            <div class="stat-card glass">
-                <h3 class="text-5xl font-bold mb-2">12+</h3>
+            <div class="stat-card glass hover-lift">
+                <h3 class="text-5xl font-bold mb-2 text-green-400 counter" data-target="12">0</h3>
                 <p title="Inclusive to alternate Spamely and main account projects">Projects Completed</p>
             </div>
         </div>
@@ -142,6 +179,10 @@
                         <div class="flex justify-between">
                             <span>Java</span>
                             <span>Proficient</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Rust</span>
+                            <span>Learning</span>
                         </div>
                         <div class="flex justify-between">
                             <span>C</span>
@@ -206,43 +247,43 @@
     <!-- Project Showcase -->
     <section class="py-20" id="projects">
         <h2 class="text-4xl font-bold mb-12 text-center">Featured Personal Projects</h2>
-        <div class="project-showcase">
-            <div class="project-card glass">
+        <div class="project-showcase stagger-animation">
+            <div class="project-card glass hover-lift">
                 <h3 class="text-2xl font-bold mb-4">Activerse</h3>
                 <p class="mb-4">A Java-based game engine meant to help people create games by simplifying the GUI
                     experience.</p>
-                <div class="flex gap-4">
-                    <span class="px-3 py-1 rounded-full bg-blue-500/20">Java</span>
-                    <span class="px-3 py-1 rounded-full bg-green-500/20">GUI</span>
-                    <span class="px-3 py-1 rounded-full bg-purple-500/20">Games</span>
+                <div class="flex gap-3 flex-wrap">
+                    <span class="px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">Java</span>
+                    <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 border border-green-500/30">GUI</span>
+                    <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">Game Development</span>
                 </div>
             </div>
-            <div class="project-card glass">
+            <div class="project-card glass hover-lift">
                 <h3 class="text-2xl font-bold mb-4">Popcorn</h3>
                 <p class="mb-4">A simple yet intuitive kernel framework for operating system development.</p>
-                <div class="flex gap-4">
-                    <span class="px-3 py-1 rounded-full bg-blue-500/20">Java</span>
-                    <span class="px-3 py-1 rounded-full bg-yellow-500/20">Console</span>
-                    <span class="px-3 py-1 rounded-full bg-red-500/20">Game</span>
+                <div class="flex gap-3 flex-wrap">
+                    <span class="px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">C</span>
+                    <span class="px-3 py-1 rounded-full bg-red-500/20 text-red-400 border border-red-500/30">Assembly</span>
+                    <span class="px-3 py-1 rounded-full bg-accent/20 text-accent border border-accent/30">OS Development</span>
                 </div>
             </div>
-            <div class="project-card glass">
+            <div class="project-card glass hover-lift">
                 <h3 class="text-2xl font-bold mb-4">Pal Bot</h3>
                 <p class="mb-4">A customizable Discord bot template with extensive features.</p>
-                <div class="flex gap-4">
-                    <span class="px-3 py-1 rounded-full bg-blue-500/20">Python</span>
-                    <span class="px-3 py-1 rounded-full bg-indigo-500/20">Discord</span>
-                    <span class="px-3 py-1 rounded-full bg-pink-500/20">Bot</span>
+                <div class="flex gap-3 flex-wrap">
+                    <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">Python</span>
+                    <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">Discord</span>
+                    <span class="px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 border border-pink-500/30">Bot</span>
                 </div>
             </div>
-            <div class="project-card glass">
+            <div class="project-card glass hover-lift">
                 <h3 class="text-2xl font-bold mb-4">My Website</h3>
                 <p class="mb-4">The link that connects all my projects together with updates everywhere. Complex, yet
                     simple!</p>
-                <div class="flex gap-4">
-                    <span class="px-3 py-1 rounded-full bg-indigo-500/20">HTML/CSS</span>
-                    <span class="px-3 py-1 rounded-full bg-gray-500/20">JS</span>
-                    <span class="px-3 py-1 rounded-full bg-green-500/20">Web</span>
+                <div class="flex gap-3 flex-wrap">
+                    <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">HTML/CSS</span>
+                    <span class="px-3 py-1 rounded-full bg-gray-500/20 text-gray-400 border border-gray-500/30">JS</span>
+                    <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 border border-green-500/30">Web</span>
                 </div>
             </div>
         </div>
@@ -253,61 +294,61 @@
         <h2 class="text-4xl font-bold mb-12 text-center">Project Timelines</h2>
         <div class="timeline">
             
-            <div class="timeline-item glass p-6 card-3d">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary" href="https://github.com/knivier/SkyCell"
+            <div class="timeline-item glass p-6 card-3d hover-lift">
+                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivier/SkyCell"
                                                       target="_blank" title="Visit the Skycell project now!">SkyCell</a>
                 </h3>
                 <p>A disaster-relief communications-based project which won first place at the Apex Hackathon in Boston!</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary" href="https://github.com/knivier/WizViz"
+            <div class="timeline-item glass p-6 card-3d hover-lift">
+                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivier/WizViz"
                                                       target="_blank" title="Visit WizViz now!">WizViz</a>
                 </h3>
                 <p>Winner of Spartahack X's best game; a computer-vision based wizard game using Mediapipe, OpenCV and
                     PyGame. </p>
             </div>
-            <div class="timeline-item glass p-6 card-3d">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary" href="popcorn.html"
+            <div class="timeline-item glass p-6 card-3d hover-lift">
+                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="popcorn.html"
                                                       title="Visit Popcorn Kernel Framework now!">Popcorn Kernel
                     Framework</a></h3>
                 <p>A simple yet intuitive kernel framework for operating system development.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary"
+            <div class="timeline-item glass p-6 card-3d hover-lift">
+                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300"
                                                       href="https://github.com/knivier/DockyMe" title="Visit DockyMe now!">DockyMe</a>
                 </h3>
                 <p>A small, scripted, and easily-runnable app that logs all USB devices connected to your system.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary"
+            <div class="timeline-item glass p-6 card-3d hover-lift">
+                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300"
                                                       href="https://pihicompsci.org"
                                                       title="Visit PiHi CompSci Website now!">PiHi CompSci Website</a>
                 </h3>
                 <p>My high school coding club's website that I remade from scratch.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary" href="activerseinfo.html"
+            <div class="timeline-item glass p-6 card-3d hover-lift">
+                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="activerseinfo.html"
                                                       title="Visit Activerse now!">Activerse</a></h3>
                 <p>A Java-based game engine for simplified GUI development; my latest project.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d">
+            <div class="timeline-item glass p-6 card-3d hover-lift">
                 <h3 class="text-xl font-bold mb-2">My Website</h3>
                 <p>A complex HTML website meant to tie everything together; worked on always.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary"
+            <div class="timeline-item glass p-6 card-3d hover-lift">
+                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300"
                                                       href="https://github.com/knivier/trollgame"
                                                       title="Visit Troll Game now!">Troll Game</a></h3>
                 <p>Text-based adventure with dynamic gameplay; discontinued mid-2024.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary" href="https://github.com/knivier/PalBot"
+            <div class="timeline-item glass p-6 card-3d hover-lift">
+                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivier/PalBot"
                                                       target="_blank" title="Visit Pal Bot now!">Pal
                     Bot</a></h3>
                 <p>Customizable Discord bot template</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary" href="https://eduspire.pages.dev/"
+            <div class="timeline-item glass p-6 card-3d hover-lift">
+                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://eduspire.pages.dev/"
                                                       target="_blank" title="Visit EduSpire now!">EduSpire</a>
                 </h3>
                 <p>Spartahack 8 project which was a better D2L. </p>
