@@ -16,15 +16,23 @@
         <h2>What is Popcorn?</h2>
         <p>Popcorn is a lightweight, modular kernel framework designed to make operating system development more
             accessible and intuitive. Built with a focus on simplicity and extensibility, it provides developers with a
-            solid foundation for exploring system programming and OS concepts.</p>
+            solid foundation for exploring system programming and OS concepts. Currently in version 0.5, Popcorn features a modern console system and modular architecture that allows easy extension through "pop" modules.</p>
     </div>
 
     <div class="section">
         <h2>Key Features</h2>
         <div class="features">
             <div class="feature-item">
+                <h3>Console System</h3>
+                <p>Complete VGA text mode abstraction layer with cursor management, color styling, screen scrolling, and status bar support.</p>
+            </div>
+            <div class="feature-item">
                 <h3>Pop Modules</h3>
-                <p>Extend kernel functionality through modular "pops" that can be easily integrated into the system.</p>
+                <p>Extend kernel functionality through modular "pops" that can be easily integrated into the system without modifying core code.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Utilities Framework</h3>
+                <p>Shared helper functions across modules to reduce code duplication and ensure consistent behavior.</p>
             </div>
             <div class="feature-item">
                 <h3>Minimal Assembly</h3>
@@ -35,34 +43,67 @@
                 <h3>WSL Support</h3>
                 <p>Full support for Windows Subsystem for Linux, making development accessible across platforms.</p>
             </div>
+            <div class="feature-item">
+                <h3>Keyboard Input</h3>
+                <p>Interrupt-driven keyboard handling with proper IDT setup and backspace support.</p>
+            </div>
         </div>
     </div>
 
     <div class="section">
         <h2>Pop Module System</h2>
         <p>The core of Popcorn's extensibility lies in its Pop Module system. Each "pop" is a self-contained module that
-            can register itself with the kernel:</p>
+            can register itself with the kernel and uses the console system for consistent behavior:</p>
         <div class="code-block">
             <code>
                 typedef struct {<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;const char* name;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Module
                 name<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;const char* message;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Display message<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;void (*pop_function)();&nbsp;&nbsp;// Module functionality<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;void (*pop_function)(unsigned int start_pos);&nbsp;&nbsp;// Module functionality<br>
                 } PopModule;
             </code>
+        </div>
+        <p>All pop modules must save and restore console state (cursor position and color) to prevent interference with user input. The system maintains a registry of modules and executes them in registration order.</p>
+    </div>
+
+    <div class="section">
+        <h2>Current Pop Modules</h2>
+        <div class="features">
+            <div class="feature-item">
+                <h3>Spinner Pop</h3>
+                <p>Animated loading indicator displaying "Running... |/-\" with rotating animation in the top-right corner.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Uptime Pop</h3>
+                <p>Real-time system tick counter showing "Ticks: XXXXXX" in the top-left corner.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Filesystem Pop</h3>
+                <p>In-memory filesystem with commands: create, write, read, delete, mkdir, go, back, listsys.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Halt Pop</h3>
+                <p>Visual halt screen with green screen effect, rainbow colors, and fade to black animations.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Shimjapii Pop</h3>
+                <p>Example pop module for developers, displaying in the bottom right corner.</p>
+            </div>
         </div>
     </div>
 
     <div class="section">
         <h2>Building and Running</h2>
-        <p>Popcorn provides a streamlined build system with both automated and manual options:</p>
+        <p>Popcorn provides multiple build system options for different environments:</p>
         <ul style="list-style: none; margin-left: 1rem;">
-            <li>✦ Automated build using build.sh</li>
-            <li>✦ Manual assembly and compilation</li>
+            <li>✦ Interactive build using build.sh (Unix/WSL recommended)</li>
+            <li>✦ PowerShell build script (build.ps1) for Windows users</li>
+            <li>✦ Simple build script (trymake.sh) for debugging</li>
             <li>✦ QEMU system emulation support</li>
             <li>✦ Customizable memory and core allocation</li>
         </ul>
+        <p><strong>Note:</strong> All build systems are provided AS-IS without warranties. Use at your own risk. Versions below v1.0 are considered trial versions.</p>
     </div>
 
     <div class="section">
@@ -73,7 +114,7 @@
             <li>✦ GCC (GNU Compiler Collection)</li>
             <li>✦ LD (GNU Linker)</li>
             <li>✦ QEMU for system emulation</li>
-            <li>✦ WSL (for Windows users)</li>
+            <li>✦ WSL (for Windows users, strongly recommended)</li>
         </ul>
         <br>
         <h2>Computer Prerequisites</h2>
@@ -89,11 +130,16 @@
             environments natively. Windows 11 and WSL 2.0 are strongly recommended.</p>
     </div>
     <div class="section">
-        <h2>Limitations</h2>
-        <p>To be fair, Popcorn is really simple right now and has little functionality.
-            However, I'm planning on building upon it over the next couple months to get a working ISO and having more
-            kernel functionality later.
-            Check the GitHub for the latest features regardless!</p>
+        <h2>Current Status & Limitations</h2>
+        <p>Popcorn is currently in version 0.5 and marked as unstable with all versions being pre-releases. The project includes:</p>
+        <ul style="list-style: none; margin-left: 1rem;">
+            <li>✦ Modern console system with VGA text mode management</li>
+            <li>✦ Modular pop system with 5 current modules</li>
+            <li>✦ Keyboard input handling with interrupt support</li>
+            <li>✦ Shared utilities framework</li>
+        </ul>
+        <p><strong>Work in Progress:</strong> The project is actively being developed with plans for a working ISO file, more kernel functionality, and additional pop modules. Future versions will include more features and improvements to the kernel framework.</p>
+        <p><strong>Contributions:</strong> Special thanks to Swarnim A for the Intel book reference that made keyboard inputs possible for this kernel.</p>
     </div>
 </div>
 
