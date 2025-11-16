@@ -174,83 +174,9 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Custom Cursor with improved accessibility
-let cursor = null;
-let isHovering = false;
-
-function initCustomCursor() {
-    // Skip on mobile, touch devices, or if user prefers reduced motion
-    if (window.innerWidth <= 768 || 
-        'ontouchstart' in window || 
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-        window.matchMedia('(pointer: coarse)').matches) {
-        return;
-    }
-    
-    cursor = document.querySelector('.custom-cursor');
-    if (!cursor) return;
-    
-    // Track mouse movement with throttling for performance
-    let mouseMoveTimeout;
-    document.addEventListener('mousemove', (e) => {
-        if (cursor && !mouseMoveTimeout) {
-            mouseMoveTimeout = setTimeout(() => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                mouseMoveTimeout = null;
-            }, 16); 
-        }
-    });
-    
-    // Handle clickable elements
-    const clickableElements = document.querySelectorAll('a, button, .glass, .project-card, .stat-card, .timeline-item, [role="button"], input, textarea, select');
-    
-    clickableElements.forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            if (cursor && !isHovering) {
-                cursor.classList.add('hover');
-                isHovering = true;
-            }
-        });
-        
-        element.addEventListener('mouseleave', () => {
-            if (cursor && isHovering) {
-                cursor.classList.remove('hover');
-                isHovering = false;
-            }
-        });
-        
-        element.addEventListener('mousedown', () => {
-            if (cursor) cursor.classList.add('click');
-        });
-        
-        element.addEventListener('mouseup', () => {
-            if (cursor) cursor.classList.remove('click');
-        });
-    });
-    
-    // Handle window resize
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            if (window.innerWidth <= 768 || 'ontouchstart' in window) {
-                document.body.style.cursor = 'auto';
-                if (cursor) cursor.style.display = 'none';
-            } else {
-                document.body.style.cursor = 'none';
-                if (cursor) cursor.style.display = 'block';
-            }
-        }, 250);
-    });
-}
-
 // Enhanced DOM Ready Functions
 document.addEventListener('DOMContentLoaded', async function () {
     try {
-        // Initialize custom cursor
-        initCustomCursor();
-        
         const banner = document.getElementById('pre-production-banner');
         const closeBtn = document.getElementById('close-banner');
 
