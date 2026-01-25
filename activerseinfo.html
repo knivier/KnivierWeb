@@ -5,62 +5,16 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Activerse by Knivier</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="src\assets\css\activerse.css" rel="stylesheet">
+    <link href="src/assets/css/activerse.css" rel="stylesheet">
     <link href="src/images/activerse-logo.png" rel="icon" type="image/png">
 </head>
 
 <body>
-<style>
-    /* Custom Scrollbar Styles */
-    ::-webkit-scrollbar {
-        width: 12px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #000000;
-        border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #8a4ee0, #026e68);
-        border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, #6a3bbd, #025a54);
-    }
-</style>
-<!-- <div style="
-        background: linear-gradient(135deg, #ff7e5f, #feb47b);
-        padding: 0.5rem 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-        font-size: 1rem;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        color: #fff;
-        text-align: center;
-    ">
-    The First Year Update is coming on June 11<sup>th</sup>, 2025! Learn more below.
-</div> -->
 <div class="animated-bg"></div>
-<nav class="nav" style="position: relative;">
-    <div class="nav-timer" style="
-            background: linear-gradient(135deg, #8a4ee0, #026e68);
-            padding: 0.4rem 0.8rem;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            margin-right: auto;
-            font-size: 0.85rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            transition: transform 0.2s;
-            color: #fff;
-            flex-wrap: wrap;
-        ">
-            <span style="font-weight: 500; text-align: center; width: 100%;">
-                <span id="timer" style="font-weight: 700;">Load Complete</span>
+<nav class="nav">
+    <div class="nav-timer">
+            <span class="nav-timer-text">
+                <span id="timer">Load Complete</span>
             </span>
     </div>
     <a href="index.html"><i class="fas fa-home"></i>Home</a>
@@ -75,56 +29,6 @@
         <i class="fas fa-book"></i>Wiki
     </a>
 </nav>
-<!-- 
-<script>
-    // Countdown Timer
-    const timerElement = document.getElementById('timer');
-    const targetDate = new Date('2025-06-11T12:30:00');
-
-    function updateTimer() {
-        const now = new Date();
-        const diff = targetDate - now;
-        if (diff <= 0) {
-            timerElement.textContent = "00d 00h 00m 00s";
-            // Lock website scrolling
-            document.body.style.overflow = 'hidden';
-            // Create and display overlay message
-            const overlay = document.createElement('div');
-            overlay.style.position = 'fixed';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-            overlay.style.color = '#E0E0E0';
-            overlay.style.display = 'flex';
-            overlay.style.alignItems = 'center';
-            overlay.style.justifyContent = 'center';
-            overlay.style.fontSize = '1.5rem';
-            overlay.style.zIndex = '2000';
-            overlay.style.textAlign = 'center';
-            overlay.style.padding = '1rem';
-            overlay.textContent = "Activerse v1.4.0 content is being updated on this site. Please check back later.";
-            document.body.appendChild(overlay);
-            clearInterval(timerInterval);
-            return;
-        }
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        if (days > 1) {
-            timerElement.textContent = `${days}d ${hours}h to v1.4.0`;
-        } else {
-            timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s to v1.4.0`;
-        }
-    }
-
-    const timerInterval = setInterval(updateTimer, 1000);
-    updateTimer();
-</script> -->
-
 <div class="container">
     <section class="hero">
         <div class="logo-section">
@@ -137,7 +41,7 @@
         </div>
         <div class="content-card">
             <h2>Licensing</h2>
-            <p>Activerse © 2025 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0.</p>
+            <p>Activerse © 2026 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0.</p>
             <p><br>When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license.</p>
         </div>
     </section>
@@ -196,94 +100,34 @@
             </div>
         </div>
 
-        <div class="content-card" style="grid-column: span 2;">
+        <div class="content-card full-span">
             <h2>Activerse - v1.3.2 Features Video</h2>
-            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 1rem;">
+            <div class="video-wrapper">
                 <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
                         frameborder="0"
-                        src="https://www.youtube.com/embed/A4hs59UA2bE"
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                        src="https://www.youtube.com/embed/A4hs59UA2bE"></iframe>
             </div>
         </div>
-
-        <!-- <div class="content-card announcement-card" id="announcement-card" style="display: none;">
-            <h2>Announcement</h2>
-            <p><strong>knivier</strong> <a href="https://twitter.com/AtomicKniv" target="_blank">@AtomicKniv</a> 2/15/2025</p>
-            <p>Activerse v1.3.** will be the LTS version of Activerse.</p>
-            <p>There will not be an Activerse 1.4 for at minimum six months.</p>
-            <p>This does NOT mean Activerse will be deprecated; I will still work on many versions continuing v1.3's legacy. I just need time for new features.</p>
-            <p><strong>knivier</strong> <a href="https://twitter.com/AtomicKniv" target="_blank">@AtomicKniv</a></p>
-            <p>Until then, v1.3** and further will continue to be the most stable and long term supported version. I am working on a guarantee to see how long I will support v1.3 series, but it's possible it will receive updates for an uncertain amount of time, even after v1.4 release!</p>
-        </div>
-        <button id="toggle-announcement" style="
-            background: linear-gradient(135deg, #8a4ee0, #026e68);
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 9999px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            transition: transform 0.2s;
-            margin-top: 1rem;
-        ">Show Announcements</button> -->
-        <!--
-                    <script>
-                        document.getElementById('toggle-announcement').addEventListener('click', function() {
-                            const announcementCard = document.getElementById('announcement-card');
-                            if (announcementCard.style.display === 'none') {
-                                announcementCard.style.display = 'block';
-                                this.textContent = 'Hide Announcements';
-                            } else {
-                                announcementCard.style.display = 'none';
-                                this.textContent = 'Show Announcements';
-                            }
-                        });
-                    </script> -->
-
-        <style>
-            .announcement-card {
-                border: 2px solid #ff0000;
-                background-color: #fff3f3;
-                color: #ff0000;
-                animation: fadeInUp 0.6s ease forwards;
-            }
-
-            .announcement-card h2 {
-                color: #ff0000;
-            }
-
-            .announcement-card p {
-                margin: 0.5rem 0;
-            }
-
-            .announcement-card p span {
-                font-size: 0.85rem;
-                color: #555;
-            }
-        </style>
     </div>
-</div>
 </div>
 
 <footer>
     <p>
-        <a href="http://knivier.com/activerseinfo" property="dct:title" rel="cc:attributionURL"
-           style="color: inherit; text-decoration: none;">Activerse</a> by
-        <a href="http://knivier.com" property="cc:attributionName" rel="cc:attributionURL dct:creator"
-           style="color: inherit; text-decoration: none;">Knivier</a> is licensed under
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" rel="license noopener noreferrer"
-           style="display:inline-block; color: inherit; text-decoration: none;" target="_blank">
+        <a href="http://knivier.com/activerseinfo" property="dct:title" rel="cc:attributionURL">Activerse</a> by
+        <a href="http://knivier.com" property="cc:attributionName" rel="cc:attributionURL dct:creator">Knivier</a> is licensed under
+        <a class="license-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" rel="license noopener noreferrer"
+           target="_blank">
             CC BY-NC-SA 4.0
-            <img alt=""
-                 src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;">
-            <img alt=""
-                 src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;">
-            <img alt=""
-                 src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;">
-            <img alt=""
-                 src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;">
+            <img alt="" class="license-badge"
+                 src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1">
+            <img alt="" class="license-badge"
+                 src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1">
+            <img alt="" class="license-badge"
+                 src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1">
+            <img alt="" class="license-badge"
+                 src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1">
         </a>
-    </p></p>
+    </p>
 </footer>
 <script>
     // Smooth scrolling
@@ -325,34 +169,6 @@
         logo.style.animation = 'rotateBack .55s ease-in-out forwards';
     });
 
-    // Add this to your existing style section:
-    const style = document.createElement('style');
-    style.textContent = `
-            @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-            }
-            @keyframes rotate180 {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(180deg); }
-            }
-            @keyframes rotateBack {
-            from { transform: rotate(180deg); }
-            to { transform: rotate(0deg); }
-            }
-            .nav a:hover {
-            transform: translateY(-2px);
-            text-shadow: 0 0 8px var(--primary);
-            }
-            .changelog-item {
-            animation: slideIn 0.3s ease-out forwards;
-            }
-            @keyframes slideIn {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-            }
-        `;
-    document.head.appendChild(style);
 </script>
 </body>
 </html>
