@@ -24,6 +24,57 @@ function goBackHome() {
 
 function getChangelogText(versionId) {
     const changelogs = {
+        'v1.4.0': `
+        <h2>v1.4.0 - First Year Update</h2>
+        <p>June 23, 2025</p>
+        <p><strong>The First Year Update</strong></p>
+        
+        <h3>New Features</h3>
+        <ul>
+            <li><strong>Random World Generation:</strong> Introduced Perlin Noise-powered procedural world generation via a new helper class. This enables developers to create complex, organic-looking worlds programmatically with customizable parameters for terrain, biomes, and environmental features.</li>
+            <li><strong>Physics Helper Tools:</strong> Added comprehensive utilities to simplify physics-related interactions and simulations. These tools streamline common physics operations, making it easier to implement realistic movement, collisions, and force-based interactions.</li>
+            <li><strong>Dynamic Lighting Overhaul:</strong> The lighting engine has been significantly enhanced for improved realism and performance. New features include more accurate light propagation, shadow casting, and optimized rendering that maintains smooth frame rates even with complex lighting setups.</li>
+            <li><strong>Multithreading Support:</strong> Game loop now supports advanced multithreaded computation for smoother performance. This allows computationally intensive operations to run in parallel, reducing frame time and improving overall responsiveness.</li>
+            <li><strong>Collision Detection Revamp:</strong> New system enables more accurate and responsive collisions. The updated collision detection uses optimized algorithms for better performance and supports more complex collision shapes and interactions.</li>
+        </ul>
+        
+        <h3>Systems & Utilities</h3>
+        <ul>
+            <li><strong>Timer Helper Class:</strong> Simplifies management of time-based actions and delays. Provides an intuitive API for scheduling events, creating delays, and managing timed behaviors within the game loop.</li>
+            <li><strong>File Utility (Time Class):</strong> New class for easier property file read/write operations. Streamlines configuration management and data persistence with a clean, type-safe interface.</li>
+            <li><strong>Item System:</strong> Item subclass introduced, supports storage and usage in Actor/World systems. Provides a foundation for item-based gameplay mechanics with extensible properties and behaviors.</li>
+            <li><strong>Inventory System:</strong> Fully integrated inventory per Actor with item management capabilities. Supports adding, removing, querying, and organizing items with efficient data structures.</li>
+            <li><strong>ActorVector Helper Class:</strong> A custom vector math utility optimized for Actor-based operations. Provides high-performance vector calculations specifically tailored for game entity transformations and physics.</li>
+            <li><strong>Audio Interface Update:</strong> Expanded with new functionality and cleaner integration. Enhanced audio management with better control over playback, volume, and audio resource handling.</li>
+            <li><strong>Static Actor System:</strong> Actors marked static now skip debug updates for performance optimization. This allows for better performance when working with large numbers of non-interactive or decorative actors.</li>
+        </ul>
+        
+        <h3>Debug & Tooling</h3>
+        <ul>
+            <li><strong>Debug Menu Fixes:</strong> Improved stability, formatting, and usability of the debug UI. Enhanced error reporting, better visual organization, and more informative diagnostic information.</li>
+            <li><strong>Accurate FPS Tracker:</strong> Enhanced frame rate tracking for better diagnostics. Provides more precise measurements and additional metrics for performance analysis.</li>
+        </ul>
+        
+        <h3>Development & Refactor</h3>
+        <ul>
+            <li><strong>Project-Wide Refactoring:</strong> General codebase cleanup and architecture improvements. Improved code organization, better separation of concerns, and enhanced maintainability throughout the project.</li>
+            <li><strong>JavaDocs Updated:</strong> All classes now include up-to-date and properly formatted JavaDocs. Comprehensive documentation with examples, parameter descriptions, and usage guidelines.</li>
+            <li><strong>Example Code Externalized:</strong> Example projects removed from main repo; distributed as separate binaries. This reduces repository size and allows examples to be updated independently.</li>
+        </ul>
+        
+        <h3>UI/UX</h3>
+        <ul>
+            <li><strong>GUI Centering:</strong> Main Activerse GUI is now centered and screen-locked for consistent user experience. Ensures the interface remains accessible and properly positioned across different screen sizes and resolutions.</li>
+        </ul>
+        
+        <h3>General</h3>
+        <ul>
+            <li><strong>Performance Improvements:</strong> Numerous backend enhancements lead to smoother gameplay and better memory usage. Optimized algorithms, reduced allocations, and improved caching strategies throughout the engine.</li>
+            <li><strong>Stability Boosts:</strong> Addressed several bugs and edge cases for increased robustness. Fixed memory leaks, resolved race conditions, and improved error handling across the codebase.</li>
+        </ul>
+        
+        <p>This version is backwards compatible with up to v1.0.7 (with some minor porting).</p>
+        `,
         'v1.3.2': `
         <h2>v1.3.2 - Half year update | Breakout included</h2>
         <p>January 29, 2025</p>
@@ -42,7 +93,7 @@ function getChangelogText(versionId) {
         <p>The breakout game was taken from Activerse Examples and shown as a "Demo" game. This will not be provided in the official NSI install. 
             Many unspoken updates were made on this game; check GitHub release info for more on that.
         </p>
-        <p>This version is backwards compatible with up to v1.0.7 (with some minor porting). </p>
+        <p>This version is backwards compatible with down to 1.1.* series. </p>
         `,
 
         'v1.3.1': `

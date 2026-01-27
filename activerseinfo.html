@@ -4,171 +4,621 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Activerse by Knivier</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="src/assets/css/activerse.css" rel="stylesheet">
     <link href="src/images/activerse-logo.png" rel="icon" type="image/png">
 </head>
 
 <body>
-<div class="animated-bg"></div>
-<nav class="nav">
-    <div class="nav-timer">
-            <span class="nav-timer-text">
-                <span id="timer">Load Complete</span>
-            </span>
+    <!-- WebGL Shader Background -->
+    <canvas id="shader-canvas" class="shader-canvas"></canvas>
+    
+    <!-- Animated gradient background (morphs with scroll) -->
+    <div class="animated-bg" id="morphing-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
     </div>
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="https://github.com/knivier/Activerse/releases/tag/v1.4.0" target="_blank">
-        <i class="fas fa-download"></i>Download
-    </a>
-    <a href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html">
-        <i class="fas fa-file-code"></i>Docs
-    </a>
-    <a href="actversions.html"><i class="fas fa-history"></i>Versions</a>
-    <a href="ActiWiki/wiki.html" target="_blank">
-        <i class="fas fa-book"></i>Wiki
-    </a>
-</nav>
-<div class="container">
-    <section class="hero">
-        <div class="logo-section">
-            <div class="logo">
-                <img alt="Activerse Logo" class="spin-on-hover" src="src/images/activerse-logo.png">
+    
+    <!-- Cursor Trail -->
+    <div class="cursor-trail" id="cursor-trail"></div>
+
+    <!-- Glassmorphic Navigation -->
+    <nav class="nav glass-surface" role="navigation">
+        <div class="nav-container">
+            <div class="nav-timer glass-surface-elevated">
+                <span class="nav-timer-text">
+                    <span id="timer">v1.4.1 in build</span>
+                </span>
             </div>
-            <h1>Activerse</h1>
-            <h2 class="animated-title">by Knivier</h2>
-            <p class="tagline">Create what you want, how you want, with all the modification you want.</p>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="https://github.com/knivier/Activerse/releases/tag/v1.4.0" target="_blank" class="nav-link">
+                    <i class="fas fa-download"></i>
+                    <span>Download</span>
+                </a>
+                <a href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html" class="nav-link">
+                    <i class="fas fa-file-code"></i>
+                    <span>Docs</span>
+                </a>
+                <a href="actversions.html" class="nav-link">
+                    <i class="fas fa-history"></i>
+                    <span>Versions</span>
+                </a>
+                <a href="ActiWiki/wiki.html" target="_blank" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Wiki</span>
+                </a>
+            </div>
         </div>
-        <div class="content-card">
-            <h2>Licensing</h2>
-            <p>Activerse © 2026 by Knivier / Agniva is licensed under CC BY-NC-SA 4.0.</p>
-            <p><br>When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license.</p>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="logo-section">
+                    <div class="logo-container">
+                        <div class="logo-glow"></div>
+                        <div class="logo glass-surface-elevated">
+                            <img alt="Activerse Logo" class="logo-image" src="src/images/activerse-logo.png">
+                        </div>
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="title-gradient">Activerse</span>
+                    </h1>
+                    <h2 class="hero-subtitle animated-title">by Knivier</h2>
+                    <p class="tagline">Create what you want, how you want, with all the modification you want.</p>
+                </div>
+                <div class="hero-card glass-surface-elevated">
+                    <div class="card-header">
+                        <i class="fas fa-balance-scale"></i>
+                        <h2>Licensing</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Activerse © 2026 by Knivier / Agniva is licensed under <strong>CC BY-NC-SA 4.0</strong>.</p>
+                        <p class="mt-2">When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+            <div class="scroll-text">Scroll</div>
         </div>
-    </section>
-    <div class="scroll-indicator">
-        <div class="scroll-arrow"></div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- What is Activerse Card -->
+            <div class="content-card glass-surface-elevated card-animate">
+                <div class="card-header">
+                    <i class="fas fa-gamepad"></i>
+                    <h2>What is Activerse?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Activerse is a powerful and versatile game framework designed to empower developers and creators to bring their imaginative worlds to life. It streamlines the 2D game development process, offering seamless integration of physics, graphics, and sound.</p>
+                    <p class="mt-3">Whether you're a seasoned developer or a novice, Activerse provides the tools and flexibility to create complex, interactive experiences. Its modular architecture allows for easy customization and scalability, making it suitable for a wide range of game genres.</p>
+                    <p class="mt-3 highlight-text">Activerse is a tool made by developers, for the developer.</p>
+                    <p class="mt-3">Activerse now provides you not just with game tools, but also logic tools as of the v1.4.* series. We want you to focus entirely on your game design; we understand the struggle of dealing with 3rd party libraries and so we took the liberty of dealing with that ourselves. Now, you can focus on your game design and let Activerse handle the rest.</p>
+                </div>
+            </div>
+
+            <!-- Latest Version Card -->
+            <div class="content-card glass-surface-elevated card-animate">
+                <div class="card-header">
+                    <i class="fas fa-rocket"></i>
+                    <h2>Latest Version: v1.4.0</h2>
+                </div>
+                <div class="card-content">
+                    <p class="tagline version-tagline">The First Year Update</p>
+                    <p class="changelog-intro">On behalf of the development team for Activerse v1.4.0 (Knivier), I'd like to thank contributors and users of Activerse. I've learned so much developing this game engine and I'm happy to bring the biggest update to it yet. I hope you enjoy 😄</p>
+                    
+                    <div class="changelog">
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">New Features</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Random World Generation:</strong> Introduced Perlin Noise-powered procedural world generation via a new helper class. This enables developers to create complex, organic-looking worlds programmatically with customizable parameters for terrain, biomes, and environmental features.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Physics Helper Tools:</strong> Added comprehensive utilities to simplify physics-related interactions and simulations. These tools streamline common physics operations, making it easier to implement realistic movement, collisions, and force-based interactions.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Dynamic Lighting Overhaul:</strong> The lighting engine has been significantly enhanced for improved realism and performance. New features include more accurate light propagation, shadow casting, and optimized rendering that maintains smooth frame rates even with complex lighting setups.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Multithreading Support:</strong> Game loop now supports advanced multithreaded computation for smoother performance. This allows computationally intensive operations to run in parallel, reducing frame time and improving overall responsiveness.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Collision Detection Revamp:</strong> New system enables more accurate and responsive collisions. The updated collision detection uses optimized algorithms for better performance and supports more complex collision shapes and interactions.</span>
+                            </div>
+                        </div>
+
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">Systems & Utilities</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Timer Helper Class:</strong> Simplifies management of time-based actions and delays. Provides an intuitive API for scheduling events, creating delays, and managing timed behaviors within the game loop.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>File Utility (Time Class):</strong> New class for easier property file read/write operations. Streamlines configuration management and data persistence with a clean, type-safe interface.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Item System:</strong> Item subclass introduced, supports storage and usage in Actor/World systems. Provides a foundation for item-based gameplay mechanics with extensible properties and behaviors.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Inventory System:</strong> Fully integrated inventory per Actor with item management capabilities. Supports adding, removing, querying, and organizing items with efficient data structures.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>ActorVector Helper Class:</strong> A custom vector math utility optimized for Actor-based operations. Provides high-performance vector calculations specifically tailored for game entity transformations and physics.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Audio Interface Update:</strong> Expanded with new functionality and cleaner integration. Enhanced audio management with better control over playback, volume, and audio resource handling.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Static Actor System:</strong> Actors marked static now skip debug updates for performance optimization. This allows for better performance when working with large numbers of non-interactive or decorative actors.</span>
+                            </div>
+                        </div>
+
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">Debug & Tooling</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Debug Menu Fixes:</strong> Improved stability, formatting, and usability of the debug UI. Enhanced error reporting, better visual organization, and more informative diagnostic information.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Accurate FPS Tracker:</strong> Enhanced frame rate tracking for better diagnostics. Provides more precise measurements and additional metrics for performance analysis.</span>
+                            </div>
+                        </div>
+
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">Development & Refactor</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Project-Wide Refactoring:</strong> General codebase cleanup and architecture improvements. Improved code organization, better separation of concerns, and enhanced maintainability throughout the project.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>JavaDocs Updated:</strong> All classes now include up-to-date and properly formatted JavaDocs. Comprehensive documentation with examples, parameter descriptions, and usage guidelines.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Example Code Externalized:</strong> Example projects removed from main repo; distributed as separate binaries. This reduces repository size and allows examples to be updated independently.</span>
+                            </div>
+                        </div>
+
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">UI/UX</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>GUI Centering:</strong> Main Activerse GUI is now centered and screen-locked for consistent user experience. Ensures the interface remains accessible and properly positioned across different screen sizes and resolutions.</span>
+                            </div>
+                        </div>
+
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">General</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Performance Improvements:</strong> Numerous backend enhancements lead to smoother gameplay and better memory usage. Optimized algorithms, reduced allocations, and improved caching strategies throughout the engine.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Stability Boosts:</strong> Addressed several bugs and edge cases for increased robustness. Fixed memory leaks, resolved race conditions, and improved error handling across the codebase.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Card -->
+            <div class="content-card full-span glass-surface-elevated card-animate">
+                <div class="card-header">
+                    <i class="fas fa-video"></i>
+                    <h2>Activerse - v1.4.0&1 Features Video</h2>
+                </div>
+                <div class="card-content">
+                    <div class="video-wrapper glass-surface">
+                        <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                frameborder="0"
+                                loading="lazy"
+                                title="Activerse v1.4.0&1 Features Video"
+                                src="https://www.youtube.com/embed/nBTVTVYTgto"
+                                width="100%"
+                                height="100%"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="glass-surface">
+        <div class="footer-content">
+            <p>
+                <a href="http://knivier.com/activerseinfo" property="dct:title" rel="cc:attributionURL">Activerse</a> by
+                <a href="http://knivier.com" property="cc:attributionName" rel="cc:attributionURL dct:creator">Knivier</a> is licensed under
+                <a class="license-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" rel="license noopener noreferrer" target="_blank">
+                    CC BY-NC-SA 4.0
+                    <img alt="" class="license-badge" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1">
+                    <img alt="" class="license-badge" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1">
+                    <img alt="" class="license-badge" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1">
+                    <img alt="" class="license-badge" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1">
+                </a>
+            </p>
+        </div>
+    </footer>
+
     <script>
+        // Smooth scrolling
+        const anchors = document.querySelectorAll('a[href^="#"]');
+        if (anchors.length > 0) {
+            anchors.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Intersection Observer for card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card-animate').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(card);
+        });
+
+        // Logo hover animation
+        const logo = document.querySelector('.logo-image');
+        if (logo) {
+            logo.addEventListener('mouseenter', () => {
+                logo.style.transform = 'rotate(360deg) scale(1.1)';
+            });
+            logo.addEventListener('mouseleave', () => {
+                logo.style.transform = 'rotate(0deg) scale(1)';
+            });
+        }
+
+        // Scroll indicator fade
         window.addEventListener('scroll', () => {
             const indicator = document.querySelector('.scroll-indicator');
             if (window.scrollY > 100) {
                 indicator.style.opacity = '0';
+                indicator.style.pointerEvents = 'none';
+            } else {
+                indicator.style.opacity = '1';
+                indicator.style.pointerEvents = 'auto';
             }
         });
-    </script>
 
-    <div class="content-grid">
-        <div class="content-card">
-            <h2>What is Activerse?</h2>
-            <p>Activerse is a powerful and versatile game engine designed to empower developers and creators to bring
-                their imaginative worlds to life. It streamlines the 2D game development process, offering seamless
-                integration of physics, graphics, and sound.</p>
-            <p><br>Whether you're a seasoned developer or a novice, Activerse provides the tools and flexibility to
-                create complex, interactive experiences. Its modular architecture allows for easy customization and
-                scalability, making it suitable for a wide range of game genres.</p>
-            <p><br>Activerse is a tool made by developers, for the developer.</p>
-        </div>
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+            }
+        });
 
-        <div class="content-card">
-            <h2>Latest Version: v1.4.0</h2>
-            <p class="tagline">The First Year Update.</p>
-            <div class="changelog">
-                <div class="changelog-item">Random World Generation class helper w/Perlin Noise world generation tools
-                </div>
-                <div class="changelog-item">Physics Helper tools</div>
-                <div class="changelog-item">Significantly more advanced dynamic lighting</div>
-                <div class="changelog-item">Advanced multithreading computation support in game loop</div>
-                <div class="changelog-item">More accurate FPS tracking</div>
-                <div class="changelog-item">Debug menu fixes for better stability and formatting</div>
-                <div class="changelog-item">Introduced static actor systems that don't update debugs</div>
-                <div class="changelog-item">Activerse GUI Centered + Locked</div>
-                <div class="changelog-item">Significantly more advanced collision detectment</div>
-                <div class="changelog-item">Removed examples on Activerse, posting them as binaries instead</div>
-                <div class="changelog-item">Item subclass added</div>
-                <div class="changelog-item">Helper Timer class for managing time based actions</div>
-                <div class="changelog-item">File Util time class for managing file read/writes to property files</div>
-                <div class="changelog-item">Custom ActorVector helper class for helping with Actor-based Vector
-                    operations
-                </div>
-                <div class="changelog-item">Inventory system added with items stored for Actors usage on Actors/Worlds
-                </div>
-                <div class="changelog-item">Updated Audio interface for more functionality</div>
-                <div class="changelog-item">All classes have UTD JavaDocs correctly formatted</div>
-                <div class="changelog-item">Project-wide refactoring</div>
-                <div class="changelog-item">Improved performance and stability</div>
+        // Add ripple effect to interactive elements
+        document.querySelectorAll('.nav-link, .content-card').forEach(element => {
+            element.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
 
-            </div>
-        </div>
+        // ========== WebGL Shader Effects ==========
+        const canvas = document.getElementById('shader-canvas');
+        if (!canvas) return;
+        
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        
+        if (gl) {
+            // Vertex shader source
+            const vertexShaderSource = `
+                attribute vec2 a_position;
+                void main() {
+                    gl_Position = vec4(a_position, 0.0, 1.0);
+                }
+            `;
+            
+            // Fragment shader source - animated noise/distortion effect
+            const fragmentShaderSource = `
+                precision mediump float;
+                uniform float u_time;
+                uniform vec2 u_resolution;
+                uniform float u_scroll;
+                
+                vec3 palette(float t) {
+                    vec3 a = vec3(0.808, 0.737, 1.0);
+                    vec3 b = vec3(0.318, 0.216, 0.545);
+                    vec3 c = vec3(0.933, 0.722, 0.784);
+                    vec3 d = vec3(0.0, 0.0, 0.0);
+                    return a + b * cos(6.28318 * (c * t + d));
+                }
+                
+                float noise(vec2 p) {
+                    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+                }
+                
+                void main() {
+                    vec2 uv = (gl_FragCoord.xy / u_resolution.xy) * 2.0 - 1.0;
+                    uv.x *= u_resolution.x / u_resolution.y;
+                    
+                    float scrollFactor = u_scroll * 0.5;
+                    float time = u_time * 0.3 + scrollFactor;
+                    
+                    vec2 p = uv * 2.0;
+                    p += vec2(sin(time * 0.5), cos(time * 0.3)) * 0.5;
+                    
+                    float d = length(p);
+                    float angle = atan(p.y, p.x);
+                    
+                    float n = noise(p * 3.0 + time * 0.1);
+                    d += n * 0.3;
+                    
+                    vec3 col = palette(d + time * 0.2 + angle);
+                    col *= 0.3 + 0.7 * (0.5 + 0.5 * sin(angle * 3.0 + time));
+                    col *= smoothstep(1.5, 0.0, d);
+                    
+                    gl_FragColor = vec4(col, 0.15);
+                }
+            `;
+            
+            function createShader(gl, type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.error('Shader compile error:', gl.getShaderInfoLog(shader));
+                    gl.deleteShader(shader);
+                    return null;
+                }
+                return shader;
+            }
+            
+            function createProgram(gl, vertexShader, fragmentShader) {
+                const program = gl.createProgram();
+                gl.attachShader(program, vertexShader);
+                gl.attachShader(program, fragmentShader);
+                gl.linkProgram(program);
+                if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                    console.error('Program link error:', gl.getProgramInfoLog(program));
+                    gl.deleteProgram(program);
+                    return null;
+                }
+                return program;
+            }
+            
+            const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+            const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+            const program = createProgram(gl, vertexShader, fragmentShader);
+            
+            if (program) {
+                const positionLocation = gl.getAttribLocation(program, 'a_position');
+                const timeLocation = gl.getUniformLocation(program, 'u_time');
+                const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+                const scrollLocation = gl.getUniformLocation(program, 'u_scroll');
+                
+                const positionBuffer = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                const positions = [
+                    -1, -1,
+                     1, -1,
+                    -1,  1,
+                    -1,  1,
+                     1, -1,
+                     1,  1,
+                ];
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+                
+                function resizeCanvas() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    gl.viewport(0, 0, canvas.width, canvas.height);
+                }
+                
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+                
+                let startTime = Date.now();
+                let scrollProgress = 0;
+                
+                function render() {
+                    const currentTime = (Date.now() - startTime) / 1000;
+                    
+                    gl.useProgram(program);
+                    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                    gl.enableVertexAttribArray(positionLocation);
+                    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+                    
+                    gl.uniform1f(timeLocation, currentTime);
+                    gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+                    gl.uniform1f(scrollLocation, scrollProgress);
+                    
+                    gl.drawArrays(gl.TRIANGLES, 0, 6);
+                    
+                    requestAnimationFrame(render);
+                }
+                
+                // Update scroll progress for shader
+                window.addEventListener('scroll', () => {
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    scrollProgress = Math.min(window.scrollY / maxScroll, 1.0);
+                });
+                
+                render();
+            }
+        } else {
+            // Fallback: hide canvas if WebGL not supported
+            canvas.style.display = 'none';
+        }
 
-        <div class="content-card full-span">
-            <h2>Activerse - v1.3.2 Features Video</h2>
-            <div class="video-wrapper">
-                <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-                        frameborder="0"
-                        src="https://www.youtube.com/embed/A4hs59UA2bE"></iframe>
-            </div>
-        </div>
-    </div>
-</div>
+        // ========== Cursor Trail Effect ==========
+        const cursorTrail = document.getElementById('cursor-trail');
+        const trailParticles = [];
+        const maxParticles = 15;
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        class TrailParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 8 + 4;
+                this.life = 1.0;
+                this.decay = Math.random() * 0.02 + 0.015;
+                this.element = document.createElement('div');
+                this.element.className = 'trail-particle';
+                this.element.style.cssText = `
+                    position: fixed;
+                    pointer-events: none;
+                    width: ${this.size}px;
+                    height: ${this.size}px;
+                    border-radius: 50%;
+                    background: radial-gradient(circle, rgba(208, 188, 255, 0.6) 0%, rgba(208, 188, 255, 0) 70%);
+                    left: ${x}px;
+                    top: ${y}px;
+                    transform: translate(-50%, -50%);
+                    z-index: 9998;
+                    mix-blend-mode: screen;
+                    transition: opacity 0.1s ease;
+                `;
+                document.body.appendChild(this.element);
+            }
+            
+            update() {
+                this.life -= this.decay;
+                this.element.style.opacity = this.life;
+                this.element.style.transform = `translate(-50%, -50%) scale(${this.life})`;
+                
+                if (this.life <= 0) {
+                    this.element.remove();
+                    return false;
+                }
+                return true;
+            }
+        }
+        
+        function updateCursorTrail() {
+            // Update main cursor trail
+            cursorTrail.style.left = mouseX + 'px';
+            cursorTrail.style.top = mouseY + 'px';
+            cursorTrail.style.opacity = '1';
+            
+            // Add new particle
+            if (trailParticles.length < maxParticles) {
+                trailParticles.push(new TrailParticle(mouseX, mouseY));
+            }
+            
+            // Update and remove dead particles
+            for (let i = trailParticles.length - 1; i >= 0; i--) {
+                if (!trailParticles[i].update()) {
+                    trailParticles.splice(i, 1);
+                }
+            }
+            
+            requestAnimationFrame(updateCursorTrail);
+        }
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        document.addEventListener('mouseleave', () => {
+            cursorTrail.style.opacity = '0';
+        });
+        
+        updateCursorTrail();
 
-<footer>
-    <p>
-        <a href="http://knivier.com/activerseinfo" property="dct:title" rel="cc:attributionURL">Activerse</a> by
-        <a href="http://knivier.com" property="cc:attributionName" rel="cc:attributionURL dct:creator">Knivier</a> is licensed under
-        <a class="license-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" rel="license noopener noreferrer"
-           target="_blank">
-            CC BY-NC-SA 4.0
-            <img alt="" class="license-badge"
-                 src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1">
-            <img alt="" class="license-badge"
-                 src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1">
-            <img alt="" class="license-badge"
-                 src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1">
-            <img alt="" class="license-badge"
-                 src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1">
-        </a>
-    </p>
-</footer>
-<script>
-    // Smooth scrolling
-    const anchors = document.querySelectorAll('a[href^="#"]');
-    if (anchors.length > 0) {
-        anchors.forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+        // ========== Scroll-based Background Morphing ==========
+        const morphingBg = document.getElementById('morphing-bg');
+        const orbs = morphingBg.querySelectorAll('.gradient-orb');
+        
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollProgress = Math.min(scrollY / maxScroll, 1.0);
+            
+            // Morph background colors and positions based on scroll
+            const hueShift = scrollProgress * 60; // Shift through colors
+            const blurAmount = 60 + scrollProgress * 40; // Increase blur as you scroll
+            const opacity = 0.6 - scrollProgress * 0.3; // Fade out slightly
+            
+            morphingBg.style.filter = `hue-rotate(${hueShift}deg) blur(${blurAmount}px)`;
+            morphingBg.style.opacity = opacity;
+            
+            // Morph orb positions and sizes
+            orbs.forEach((orb, index) => {
+                const offset = scrollProgress * 100 * (index + 1);
+                const scale = 1 + scrollProgress * 0.3;
+                
+                if (index === 0) {
+                    orb.style.transform = `translate(${-200 + offset}px, ${-200 + offset * 0.5}px) scale(${scale})`;
+                } else if (index === 1) {
+                    orb.style.transform = `translate(${150 - offset}px, ${150 - offset * 0.7}px) scale(${scale})`;
+                } else {
+                    orb.style.transform = `translate(${offset * 0.3}px, ${-offset * 0.3}px) scale(${scale})`;
                 }
             });
         });
-    }
-
-    // Animate content cards on scroll
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-            }
-        });
-    }, {threshold: 0.1});
-
-    document.querySelectorAll('.content-card').forEach(card => {
-        card.style.opacity = '0';
-        observer.observe(card);
-    });
-
-    // Add hover effect to logo
-    const logo = document.querySelector('.logo img');
-    logo.addEventListener('mouseover', () => {
-        logo.style.animation = 'rotate180 .55s ease-in-out forwards';
-    });
-    logo.addEventListener('mouseout', () => {
-        logo.style.animation = 'rotateBack .55s ease-in-out forwards';
-    });
-
-</script>
+    </script>
 </body>
 </html>
