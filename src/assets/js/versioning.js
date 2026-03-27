@@ -24,6 +24,42 @@ function goBackHome() {
 
 function getChangelogText(versionId) {
     const changelogs = {
+        'v1.4.1': `
+        <h2>v1.4.1 - Systems and Stability Update</h2>
+        <p>March 27, 2026</p>
+        <p><strong>Major systems, utility, input, and documentation updates</strong></p>
+        
+        <h3>Core Systems</h3>
+        <ul>
+            <li><strong>World Switching Fixes:</strong> Resolved world transition issues for more reliable switching across runtime states.</li>
+            <li><strong>Shaper Utility Integration:</strong> Added support for using shapes instead of images through the Shaper util.</li>
+            <li><strong>Universal Error Handling System:</strong> Introduced unified error handling for consistent reporting and safer execution flow.</li>
+            <li><strong>Camera System for Infinite Worlds:</strong> Added a camera system designed for large and effectively infinite world traversal.</li>
+            <li><strong>Particle System:</strong> Added a reusable particle system for richer visual effects.</li>
+        </ul>
+
+        <h3>Utilities</h3>
+        <ul>
+            <li><strong>Integrated Math Utils:</strong> Added shared math utility helpers for common calculations.</li>
+            <li><strong>Config Puller:</strong> Created a centralized config puller for configuration loading and retrieval.</li>
+            <li><strong>ColourUtils Added:</strong> Added utility methods for color operations and transformations.</li>
+            <li><strong>Vector Calculations:</strong> Expanded vector calculation helpers for engine and gameplay use cases.</li>
+            <li><strong>Memory Updates:</strong> Implemented memupdates and memory volatility updates for improved runtime behavior.</li>
+        </ul>
+
+        <h3>UI and Input</h3>
+        <ul>
+            <li><strong>UIBar Update:</strong> Added UIBar and moved it into Utils for improved organization and reuse.</li>
+            <li><strong>Universal Text Bar System:</strong> Added a universal text bar system for consistent text UI handling.</li>
+            <li><strong>Input Handling Enhancements:</strong> Added component reference support in ActiverseMouseInfo for accurate mouse positioning, implemented shift key tracking in KeyboardInfo, and updated World to use the new shift key state management.</li>
+        </ul>
+
+        <h3>Stability and Docs</h3>
+        <ul>
+            <li><strong>Stability Changes:</strong> Applied broad stability improvements across engine systems.</li>
+            <li><strong>Documentation Updates:</strong> Updated documentation across the entire system to match current architecture and APIs.</li>
+        </ul>
+        `,
         'v1.4.0': `
         <h2>v1.4.0 - First Year Update</h2>
         <p>June 23, 2025</p>

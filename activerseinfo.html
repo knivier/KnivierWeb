@@ -32,7 +32,7 @@
         <div class="nav-container">
             <div class="nav-timer glass-surface-elevated">
                 <span class="nav-timer-text">
-                    <span id="timer">v1.4.1 in build</span>
+                    <span id="timer">v1.4.1 completed!</span>
                 </span>
             </div>
             <div class="nav-links">
@@ -116,114 +116,86 @@
             <div class="content-card glass-surface-elevated card-animate">
                 <div class="card-header">
                     <i class="fas fa-rocket"></i>
-                    <h2>Latest Version: v1.4.0</h2>
+                    <h2>Latest Version: v1.4.1</h2>
                 </div>
                 <div class="card-content">
-                    <p class="tagline version-tagline">The First Year Update</p>
-                    <p class="changelog-intro">On behalf of the development team for Activerse v1.4.0 (Knivier), I'd like to thank contributors and users of Activerse. I've learned so much developing this game engine and I'm happy to bring the biggest update to it yet. I hope you enjoy 😄</p>
+                    <p class="tagline version-tagline">Overhauls</p>
+                    <p class="changelog-intro">With over 23000 lines of code changed and so many more utils for your heart to enjoy.    </p>
                     
                     <div class="changelog">
                         <div class="changelog-section">
-                            <h3 class="changelog-section-title">New Features</h3>
+                            <h3 class="changelog-section-title">Core Systems</h3>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Random World Generation:</strong> Introduced Perlin Noise-powered procedural world generation via a new helper class. This enables developers to create complex, organic-looking worlds programmatically with customizable parameters for terrain, biomes, and environmental features.</span>
+                                <span><strong>World Switching Fixes:</strong> Resolved issues in world transition flow for more reliable switching across scenes and runtime states.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Physics Helper Tools:</strong> Added comprehensive utilities to simplify physics-related interactions and simulations. These tools streamline common physics operations, making it easier to implement realistic movement, collisions, and force-based interactions.</span>
+                                <span><strong>Shaper Utility Integration:</strong> Added support for using shapes in place of images through Shaper utilities.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Dynamic Lighting Overhaul:</strong> The lighting engine has been significantly enhanced for improved realism and performance. New features include more accurate light propagation, shadow casting, and optimized rendering that maintains smooth frame rates even with complex lighting setups.</span>
+                                <span><strong>Universal Error Handling System:</strong> Introduced a unified error handling pipeline for consistent reporting and safer runtime behavior.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Multithreading Support:</strong> Game loop now supports advanced multithreaded computation for smoother performance. This allows computationally intensive operations to run in parallel, reducing frame time and improving overall responsiveness.</span>
+                                <span><strong>Camera System for Infinite Worlds:</strong> Added camera handling designed for large and effectively infinite world traversal.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Collision Detection Revamp:</strong> New system enables more accurate and responsive collisions. The updated collision detection uses optimized algorithms for better performance and supports more complex collision shapes and interactions.</span>
-                            </div>
-                        </div>
-
-                        <div class="changelog-section">
-                            <h3 class="changelog-section-title">Systems & Utilities</h3>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Timer Helper Class:</strong> Simplifies management of time-based actions and delays. Provides an intuitive API for scheduling events, creating delays, and managing timed behaviors within the game loop.</span>
-                            </div>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>File Utility (Time Class):</strong> New class for easier property file read/write operations. Streamlines configuration management and data persistence with a clean, type-safe interface.</span>
-                            </div>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Item System:</strong> Item subclass introduced, supports storage and usage in Actor/World systems. Provides a foundation for item-based gameplay mechanics with extensible properties and behaviors.</span>
-                            </div>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Inventory System:</strong> Fully integrated inventory per Actor with item management capabilities. Supports adding, removing, querying, and organizing items with efficient data structures.</span>
-                            </div>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>ActorVector Helper Class:</strong> A custom vector math utility optimized for Actor-based operations. Provides high-performance vector calculations specifically tailored for game entity transformations and physics.</span>
-                            </div>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Audio Interface Update:</strong> Expanded with new functionality and cleaner integration. Enhanced audio management with better control over playback, volume, and audio resource handling.</span>
-                            </div>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Static Actor System:</strong> Actors marked static now skip debug updates for performance optimization. This allows for better performance when working with large numbers of non-interactive or decorative actors.</span>
+                                <span><strong>Particle System:</strong> Implemented a particle system for richer visual effects and reusable emitter workflows.</span>
                             </div>
                         </div>
 
                         <div class="changelog-section">
-                            <h3 class="changelog-section-title">Debug & Tooling</h3>
+                            <h3 class="changelog-section-title">Utilities</h3>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Debug Menu Fixes:</strong> Improved stability, formatting, and usability of the debug UI. Enhanced error reporting, better visual organization, and more informative diagnostic information.</span>
+                                <span><strong>Integrated Math Utils:</strong> Added shared math helpers for common engine and gameplay calculations.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Accurate FPS Tracker:</strong> Enhanced frame rate tracking for better diagnostics. Provides more precise measurements and additional metrics for performance analysis.</span>
-                            </div>
-                        </div>
-
-                        <div class="changelog-section">
-                            <h3 class="changelog-section-title">Development & Refactor</h3>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Project-Wide Refactoring:</strong> General codebase cleanup and architecture improvements. Improved code organization, better separation of concerns, and enhanced maintainability throughout the project.</span>
+                                <span><strong>Config Puller:</strong> Created a config puller utility to centralize configuration loading and retrieval.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>JavaDocs Updated:</strong> All classes now include up-to-date and properly formatted JavaDocs. Comprehensive documentation with examples, parameter descriptions, and usage guidelines.</span>
+                                <span><strong>ColourUtils Added:</strong> Added color utility helpers for transformation, formatting, and color-related operations.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Example Code Externalized:</strong> Example projects removed from main repo; distributed as separate binaries. This reduces repository size and allows examples to be updated independently.</span>
+                                <span><strong>Vector Calculations:</strong> Expanded vector calculation support with additional reusable vector math helpers.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Memory Updates:</strong> Implemented memupdates and memory volatility updates for improved runtime memory behavior.</span>
                             </div>
                         </div>
 
                         <div class="changelog-section">
-                            <h3 class="changelog-section-title">UI/UX</h3>
+                            <h3 class="changelog-section-title">UI & Input</h3>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>GUI Centering:</strong> Main Activerse GUI is now centered and screen-locked for consistent user experience. Ensures the interface remains accessible and properly positioned across different screen sizes and resolutions.</span>
+                                <span><strong>UIBar Added:</strong> Added UIBar and moved it into Utils for cleaner organization and easier reuse.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Universal Text Bar System:</strong> Added a unified text bar system for consistent text UI behavior.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Mouse and Keyboard Handling Enhancements:</strong> Added component reference support in ActiverseMouseInfo for accurate mouse positioning, implemented shift key tracking in KeyboardInfo, and updated World to use the new shift key state management.</span>
                             </div>
                         </div>
 
                         <div class="changelog-section">
-                            <h3 class="changelog-section-title">General</h3>
+                            <h3 class="changelog-section-title">Stability & Docs</h3>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Performance Improvements:</strong> Numerous backend enhancements lead to smoother gameplay and better memory usage. Optimized algorithms, reduced allocations, and improved caching strategies throughout the engine.</span>
+                                <span><strong>Stability Changes:</strong> Applied general stability improvements across the engine and supporting systems.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Stability Boosts:</strong> Addressed several bugs and edge cases for increased robustness. Fixed memory leaks, resolved race conditions, and improved error handling across the codebase.</span>
+                                <span><strong>Documentation Updates:</strong> Updated documentation across the entire system to reflect the latest architecture and APIs.</span>
                             </div>
                         </div>
                     </div>
