@@ -4,6 +4,7 @@
  */
 window.POPCORN_SOURCE_CATALOG = {
     meta: {
+        /* Keep version aligned with src/assets/data/popcorn-site-config.js */
         version: "0.5",
         scope: "src/core + src/pops (23 C/asm units; headers live under src/includes and are not listed here).",
         docNote: "For boot/runtime flow, see the operation map page.",

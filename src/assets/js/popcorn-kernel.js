@@ -169,18 +169,6 @@
         }
     }
 
-    const shellEl = document.getElementById("site-shell");
-    if (shellEl) {
-        window.addEventListener(
-            "scroll",
-            function () {
-                if (window.scrollY > 80) shellEl.classList.add("site-shell--compact");
-                else shellEl.classList.remove("site-shell--compact");
-            },
-            { passive: true }
-        );
-    }
-
     async function initMermaid() {
         if (typeof mermaid === "undefined") return;
         mermaid.initialize({

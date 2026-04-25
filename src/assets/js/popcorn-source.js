@@ -17,7 +17,6 @@
     const detailBody = document.getElementById("src-detail-body");
     const graphRoot = document.getElementById("src-graph-root");
     const idxTbody = document.getElementById("src-index-tbody");
-    const shellEl = document.getElementById("site-shell");
 
     const fileById = {};
     catalog.files.forEach(function (f) {
@@ -283,15 +282,4 @@
 
     var first = catalog.files[0];
     if (first) selectFile(first.id);
-
-    if (shellEl) {
-        window.addEventListener(
-            "scroll",
-            function () {
-                if (window.scrollY > 80) shellEl.classList.add("site-shell--compact");
-                else shellEl.classList.remove("site-shell--compact");
-            },
-            { passive: true }
-        );
-    }
 })();

@@ -10,25 +10,14 @@
     <title>About Popcorn Kernel Framework</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="src/assets/css/aboutpopcorn.css" rel="stylesheet">
+    <script defer src="src/assets/data/popcorn-site-config.js"></script>
+    <script defer src="src/assets/js/popcorn-shell.js"></script>
 </head>
 <body class="about-popcorn-page">
-<header class="site-shell" id="site-shell" role="banner">
+<header class="site-shell" data-popcorn-page="about" id="site-shell" role="banner">
     <div class="site-shell__inner">
-        <nav aria-label="You are here" class="site-breadcrumb">
-            <a href="index.html">Portfolio</a>
-            <span class="crumb-sep">/</span>
-            <a href="popcorn.html">Popcorn</a>
-            <span class="crumb-sep">/</span>
-            <span class="crumb--here">About</span>
-        </nav>
-        <nav aria-label="Popcorn pages" class="site-nav-pills">
-            <a class="nav-pill" href="popcorn.html">Popcorn</a>
-            <a class="nav-pill nav-pill--accent" href="aboutpopcorn.html">About</a>
-            <a class="nav-pill" href="popcorn-kernel.html">Operation map</a>
-            <a class="nav-pill" href="popcorn-source.html">Source</a>
-            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/popcorn" rel="noopener noreferrer" target="_blank">Repository</a>
-            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/Popcorn/blob/main/roadmap.md" rel="noopener noreferrer" target="_blank">Roadmap</a>
-        </nav>
+        <nav class="site-breadcrumb"></nav>
+        <nav class="site-nav-pills"></nav>
     </div>
 </header>
 
@@ -39,8 +28,8 @@
     <div class="map-callout">
         <p>Interactive hierarchy, boot chain, and Mermaid flow diagrams derived from the v0.5 tree—same names as <code>core/</code> and <code>pops/</code>. The <strong>source catalog</strong> lists every file with a connection graph.</p>
         <div class="map-callout-links">
-            <a href="popcorn-kernel.html">Operation map</a>
-            <a href="popcorn-source.html">Source catalog</a>
+            <a data-popcorn-page-href="kernel" href="popcorn-kernel.html">Operation map</a>
+            <a data-popcorn-page-href="source" href="popcorn-source.html">Source catalog</a>
         </div>
     </div>
 
@@ -215,16 +204,6 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll(".section").forEach((section) => observer.observe(section));
-
-    const shellEl = document.getElementById("site-shell");
-    window.addEventListener(
-        "scroll",
-        () => {
-            if (window.scrollY > 80) shellEl.classList.add("site-shell--compact");
-            else shellEl.classList.remove("site-shell--compact");
-        },
-        { passive: true }
-    );
 </script>
 </body>
 </html>

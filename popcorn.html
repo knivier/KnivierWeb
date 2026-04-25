@@ -10,23 +10,14 @@
     <title>Popcorn Kernel Framework</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="src/assets/css/popcorn.css" rel="stylesheet">
+    <script defer src="src/assets/data/popcorn-site-config.js"></script>
+    <script defer src="src/assets/js/popcorn-shell.js"></script>
 </head>
 <body class="popcorn-landing">
-<header class="site-shell" id="site-shell" role="banner">
+<header class="site-shell" data-popcorn-page="landing" id="site-shell" role="banner">
     <div class="site-shell__inner">
-        <nav aria-label="You are here" class="site-breadcrumb">
-            <a href="index.html">Portfolio</a>
-            <span class="crumb-sep">/</span>
-            <span class="crumb--here">Popcorn</span>
-        </nav>
-        <nav aria-label="Popcorn pages" class="site-nav-pills">
-            <a class="nav-pill nav-pill--accent" href="popcorn.html">Popcorn</a>
-            <a class="nav-pill" href="aboutpopcorn.html">About</a>
-            <a class="nav-pill" href="popcorn-kernel.html">Operation map</a>
-            <a class="nav-pill" href="popcorn-source.html">Source</a>
-            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/popcorn" rel="noopener noreferrer" target="_blank">Repository</a>
-            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/Popcorn/blob/main/roadmap.md" rel="noopener noreferrer" target="_blank">Roadmap</a>
-        </nav>
+        <nav class="site-breadcrumb"></nav>
+        <nav class="site-nav-pills"></nav>
     </div>
 </header>
 
@@ -54,7 +45,7 @@
                 <span class="spec-chip">Runs in QEMU</span>
             </div>
             <p>Popcorn is a <strong>learning kernel</strong>: a small operating-system core you can boot in an emulator, read line by line, and change without fighting a huge codebase. When it starts, it prepares memory, a system clock, and basic multitasking, then opens a simple <strong>text console</strong> where you type commands—while a background clock keeps ticking so the kernel can switch between tasks.</p>
-            <p class="hero-lead-more">If you already know OS terms, see the <a href="popcorn-kernel.html">operation map</a> for boot flow and interrupts, or the <a href="popcorn-source.html">source catalog</a> for every <code class="font-mono">core/</code> and <code class="font-mono">pops/</code> file and how they link.</p>
+            <p class="hero-lead-more">If you already know OS terms, see the <a data-popcorn-page-href="kernel" href="popcorn-kernel.html">operation map</a> for boot flow and interrupts, or the <a data-popcorn-page-href="source" href="popcorn-source.html">source catalog</a> for every <code class="font-mono">core/</code> and <code class="font-mono">pops/</code> file and how they link.</p>
         </div>
 
         <div class="terminal" role="region" aria-label="Demo terminal">
@@ -218,12 +209,6 @@
     tabBuild.addEventListener("keydown", function (e) {
         if (e.key === "ArrowLeft") { e.preventDefault(); tabShell.focus(); setTab("shell"); }
     });
-
-    const shellEl = document.getElementById("site-shell");
-    window.addEventListener("scroll", function () {
-        if (window.scrollY > 80) shellEl.classList.add("site-shell--compact");
-        else shellEl.classList.remove("site-shell--compact");
-    }, { passive: true });
 
     restartAnimation();
 })();

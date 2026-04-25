@@ -10,25 +10,14 @@
     <title>Popcorn — Source catalog (v0.5)</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="src/assets/css/popcorn-source.css" rel="stylesheet">
+    <script defer src="src/assets/data/popcorn-site-config.js"></script>
+    <script defer src="src/assets/js/popcorn-shell.js"></script>
 </head>
 <body class="source-catalog-page">
-<header class="site-shell" id="site-shell" role="banner">
+<header class="site-shell" data-popcorn-page="source" id="site-shell" role="banner">
     <div class="site-shell__inner">
-        <nav aria-label="You are here" class="site-breadcrumb">
-            <a href="index.html">Portfolio</a>
-            <span class="crumb-sep">/</span>
-            <a href="popcorn.html">Popcorn</a>
-            <span class="crumb-sep">/</span>
-            <span class="crumb--here">Source catalog</span>
-        </nav>
-        <nav aria-label="Popcorn pages" class="site-nav-pills">
-            <a class="nav-pill" href="popcorn.html">Popcorn</a>
-            <a class="nav-pill" href="aboutpopcorn.html">About</a>
-            <a class="nav-pill" href="popcorn-kernel.html">Operation map</a>
-            <a class="nav-pill nav-pill--accent" href="popcorn-source.html">Source</a>
-            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/popcorn" rel="noopener noreferrer" target="_blank">Repository</a>
-            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/Popcorn/blob/main/roadmap.md" rel="noopener noreferrer" target="_blank">Roadmap</a>
-        </nav>
+        <nav class="site-breadcrumb"></nav>
+        <nav class="site-nav-pills"></nav>
     </div>
 </header>
 
@@ -91,7 +80,7 @@
 </main>
 
 <footer class="footer-popcorn">
-    <p>Catalog data is versioned in-repo. For boot order and runtime flow, see <a href="popcorn-kernel.html">Operation map</a>. &copy; 2026 Knivier.</p>
+    <p>Catalog data is versioned in-repo. For boot order and runtime flow, see <a data-popcorn-page-href="kernel" href="popcorn-kernel.html">Operation map</a>. &copy; 2026 Knivier.</p>
 </footer>
 
 <script src="src/assets/data/popcorn-source-catalog.js"></script>
