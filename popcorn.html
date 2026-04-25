@@ -2,82 +2,231 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Popcorn 0.5 — a small learn-by-reading OS kernel for 64-bit PCs: boot it in QEMU, use the text console, and explore how startup and scheduling work." name="description">
+    <meta content="Popcorn Kernel" property="og:title">
+    <meta content="A small learn-by-reading OS kernel: boot in QEMU, use the text console, then dive into the operation map for full technical detail." property="og:description">
+    <meta content="website" property="og:type">
     <title>Popcorn Kernel Framework</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="src/assets/css/popcorn.css" rel="stylesheet">
 </head>
-<body>
-<div class="nav-buttons">
-    <a class="nav-button" href="index.html">Home</a>
-    <a class="nav-button" href="aboutpopcorn.html">About</a>
-    <a class="nav-button" href="https://github.com/knivier/popcorn">Repository</a>
-    <a class="nav-button" href="https://github.com/knivier/Popcorn/blob/main/roadmap.md">Roadmap</a>
-</div>
+<body class="popcorn-landing">
+<header class="site-shell" id="site-shell" role="banner">
+    <div class="site-shell__inner">
+        <nav aria-label="You are here" class="site-breadcrumb">
+            <a href="index.html">Portfolio</a>
+            <span class="crumb-sep">/</span>
+            <span class="crumb--here">Popcorn</span>
+        </nav>
+        <nav aria-label="Popcorn pages" class="site-nav-pills">
+            <a class="nav-pill nav-pill--accent" href="popcorn.html">Popcorn</a>
+            <a class="nav-pill" href="aboutpopcorn.html">About</a>
+            <a class="nav-pill" href="popcorn-kernel.html">Operation map</a>
+            <a class="nav-pill" href="popcorn-source.html">Source</a>
+            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/popcorn" rel="noopener noreferrer" target="_blank">Repository</a>
+            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/Popcorn/blob/main/roadmap.md" rel="noopener noreferrer" target="_blank">Roadmap</a>
+        </nav>
+    </div>
+</header>
 
+<main class="popcorn-main">
 <div class="hero">
-    <div class="carousel">
-        <img alt="Kernel code" class="active" src="/api/placeholder/1920/1080"/>
-        <img alt="Terminal output" src="/api/placeholder/1920/1080"/>
-        <img alt="System architecture" src="/api/placeholder/1920/1080"/>
+    <div aria-hidden="true" class="hero-canvas">
+        <div class="hero-canvas__layer hero-canvas__layer--1"></div>
+        <div class="hero-canvas__layer hero-canvas__layer--2"></div>
+        <div class="hero-canvas__layer hero-canvas__layer--3"></div>
+        <div class="hero-canvas__grid"></div>
     </div>
     <div class="hero-overlay"></div>
     <div class="content">
-        <h1>Popcorn</h1>
-        <p>A simple yet intuitive kernel framework for operating system development</p>
-
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-button"></div>
-                <div class="terminal-button"></div>
-                <div class="terminal-button"></div>
+        <div class="hero-lead">
+            <div class="hero-title-row">
+                <h1>Popcorn</h1>
+                <span class="version-pill">v0.5 · pre-1.0</span>
             </div>
-            <div class="terminal-content" id="terminal"></div>
+            <div class="spec-chips" aria-label="What this project is">
+                <span class="spec-chip">64-bit PC (x86-64)</span>
+                <span class="spec-chip">Boots from a GRUB disk image</span>
+                <span class="spec-chip">Mostly C, a little assembly</span>
+                <span class="spec-chip">Classic text-mode screen</span>
+                <span class="spec-chip">Timers, keyboard, multitasking</span>
+                <span class="spec-chip">Runs in QEMU</span>
+            </div>
+            <p>Popcorn is a <strong>learning kernel</strong>: a small operating-system core you can boot in an emulator, read line by line, and change without fighting a huge codebase. When it starts, it prepares memory, a system clock, and basic multitasking, then opens a simple <strong>text console</strong> where you type commands—while a background clock keeps ticking so the kernel can switch between tasks.</p>
+            <p class="hero-lead-more">If you already know OS terms, see the <a href="popcorn-kernel.html">operation map</a> for boot flow and interrupts, or the <a href="popcorn-source.html">source catalog</a> for every <code class="font-mono">core/</code> and <code class="font-mono">pops/</code> file and how they link.</p>
+        </div>
+
+        <div class="terminal" role="region" aria-label="Demo terminal">
+            <div class="terminal-top">
+                <div aria-hidden="true" class="terminal-header">
+                    <div class="terminal-button"></div>
+                    <div class="terminal-button"></div>
+                    <div class="terminal-button"></div>
+                </div>
+                <div class="terminal-tabs" role="tablist">
+                    <button aria-controls="terminal-panel" aria-selected="true" class="terminal-tab" data-tab="shell" id="tab-shell" role="tab" type="button">Shell</button>
+                    <button aria-controls="terminal-panel" aria-selected="false" class="terminal-tab" data-tab="build" id="tab-build" role="tab" type="button">Host / build</button>
+                </div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-content font-mono" id="terminal-panel" role="tabpanel" aria-labelledby="tab-shell"></div>
+            </div>
         </div>
     </div>
 </div>
-<footer class="text-center py-8 text-gray-400">
-    <p>&copy; 2025 Knivier. All rights reserved, see license</p>
+</main>
+
+<footer class="footer-popcorn">
+    <p>&copy; 2026 Knivier. Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener noreferrer" target="_blank">CC BY-NC-SA 4.0</a>.</p>
 </footer>
 <script>
-    const messages = [
-        "Welcome to the Popcorn Metal Kernel Framework Project",
-        "The first implementation meant for you to build on",
-        "x64 architecture, modular design, and much more = modernization and ease of use"
+(function () {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const charDelay = reducedMotion ? 0 : 42;
+    const linePause = reducedMotion ? 0 : 380;
+
+    const shellSequence = [
+        { kind: "shell", cmd: "help" },
+        { kind: "out", text: "built-ins: help clear halt hang stop uptime …  |  FS: write read rm mkdir go back listsys …  |  introspection: sysinfo mem cpu timer tasks syscalls  |  dol … (Dolphin)" },
+        { kind: "shell", cmd: "sysinfo" },
+        { kind: "out", text: "boot: Multiboot2 tags  |  loader: from mmap/cmdline tags  |  RAM totals from memory map walk (see multiboot2.c)" },
+        { kind: "shell", cmd: "uname -a" },
+        { kind: "out", text: "Popcorn 0.5 x86_64 ring0  VGA 80x25  PIT+PIC  int0x80 syscall gate  pops=9" },
+        { kind: "shell", cmd: "timer" },
+        { kind: "out", text: "PIT IRQ0 -> timer_interrupt_handler -> tick_handler -> scheduler_tick (post-boot wire-up)" },
     ];
 
-    let currentLine = 0;
-    let currentChar = 0;
-    const terminal = document.getElementById('terminal');
+    const buildSequence = [
+        { kind: "build", cmd: "./build.sh" },
+        { kind: "out", text: "host: produces 64-bit ELF kernel + ISO layout (xorriso / grub-mkrescue toolchain-dependent)" },
+        { kind: "out", text: "… link.ld: ENTRY(start)  LOAD @ 0x100000  .multiboot + PT_LOAD …" },
+        { kind: "build", cmd: "qemu-system-x86_64 -cdrom build/popcorn.iso -m 512M" },
+        { kind: "out", text: "guest: GRUB -> multiboot2 -> jump to kernel.asm:start -> long mode -> kmain()" },
+        { kind: "build", cmd: "python3 buildmon.py   # optional Fedora-oriented monitor" },
+        { kind: "out", text: "host-only: not executed inside the guest; only the linked ELF matters in QEMU." },
+    ];
 
-    function typeWriter() {
-        if (currentLine < messages.length) {
-            if (currentChar < messages[currentLine].length) {
-                terminal.innerHTML = messages.slice(0, currentLine)
-                        .map(msg => `<div>${msg}</div>`)
-                        .join('') +
-                    `<div>${messages[currentLine].slice(0, currentChar + 1)}<span class="cursor"></span></div>`;
-                currentChar++;
-                setTimeout(typeWriter, 50);
+    const terminalEl = document.getElementById("terminal-panel");
+    const tabShell = document.getElementById("tab-shell");
+    const tabBuild = document.getElementById("tab-build");
+    let activeTab = "shell";
+    let animToken = 0;
+
+    function esc(s) {
+        return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function renderShellLine(cmd, partial) {
+        const c = partial != null ? partial : cmd;
+        return '<div class="line"><span class="prompt">popcorn&gt;</span> <span class="cmd">' + esc(c) + (partial != null ? '<span class="cursor"></span>' : "") + "</span></div>";
+    }
+
+    function renderBuildLine(cmd, partial) {
+        const c = partial != null ? partial : cmd;
+        return '<div class="line"><span class="prompt">$</span> <span class="cmd">' + esc(c) + (partial != null ? '<span class="cursor"></span>' : "") + "</span></div>";
+    }
+
+    function renderOut(text) {
+        return '<div class="line out">' + esc(text) + "</div>";
+    }
+
+    function sleep(ms) {
+        return new Promise(function (r) { setTimeout(r, ms); });
+    }
+
+    async function playSequence(seq, myToken, tabKey) {
+        let html = "";
+        for (let i = 0; i < seq.length; i++) {
+            if (animToken !== myToken) return;
+            const step = seq[i];
+            if (step.kind === "shell") {
+                if (reducedMotion) {
+                    html += renderShellLine(step.cmd, null);
+                } else {
+                    for (let n = 1; n <= step.cmd.length; n++) {
+                        if (animToken !== myToken) return;
+                        terminalEl.innerHTML = html + renderShellLine(step.cmd, step.cmd.slice(0, n));
+                        await sleep(charDelay);
+                    }
+                    html += renderShellLine(step.cmd, null);
+                }
+                terminalEl.innerHTML = html;
+                await sleep(linePause);
+            } else if (step.kind === "build") {
+                if (reducedMotion) {
+                    html += renderBuildLine(step.cmd, null);
+                } else {
+                    for (let n = 1; n <= step.cmd.length; n++) {
+                        if (animToken !== myToken) return;
+                        terminalEl.innerHTML = html + renderBuildLine(step.cmd, step.cmd.slice(0, n));
+                        await sleep(charDelay);
+                    }
+                    html += renderBuildLine(step.cmd, null);
+                }
+                terminalEl.innerHTML = html;
+                await sleep(linePause);
+            } else if (step.kind === "out") {
+                if (reducedMotion) {
+                    html += renderOut(step.text);
+                } else {
+                    const line = step.text;
+                    let acc = "";
+                    for (let n = 1; n <= line.length; n++) {
+                        if (animToken !== myToken) return;
+                        acc = line.slice(0, n);
+                        terminalEl.innerHTML = html + '<div class="line out">' + esc(acc) + '<span class="cursor"></span></div>';
+                        await sleep(Math.max(8, charDelay - 24));
+                    }
+                    html += renderOut(step.text);
+                }
+                terminalEl.innerHTML = html;
+                await sleep(linePause);
+            }
+        }
+        if (animToken === myToken) {
+            if (tabKey === "build") {
+                terminalEl.innerHTML = html + '<div class="line"><span class="prompt">$</span> <span class="cursor"></span></div>';
             } else {
-                currentLine++;
-                currentChar = 0;
-                setTimeout(typeWriter, 500);
+                terminalEl.innerHTML = html + '<div class="line"><span class="prompt">popcorn&gt;</span> <span class="cursor"></span></div>';
             }
         }
     }
 
-    // Carousel animation
-    const images = document.querySelectorAll('.carousel img');
-    let currentImage = 0;
-
-    function nextImage() {
-        images[currentImage].classList.remove('active');
-        currentImage = (currentImage + 1) % images.length;
-        images[currentImage].classList.add('active');
+    async function restartAnimation() {
+        animToken++;
+        const myToken = animToken;
+        const tabKey = activeTab;
+        terminalEl.innerHTML = "";
+        const seq = tabKey === "shell" ? shellSequence : buildSequence;
+        await playSequence(seq, myToken, tabKey);
     }
 
-    // Start animations
-    typeWriter();
-    setInterval(nextImage, 5000);
+    function setTab(tab) {
+        activeTab = tab;
+        tabShell.setAttribute("aria-selected", tab === "shell");
+        tabBuild.setAttribute("aria-selected", tab === "build");
+        restartAnimation();
+    }
+
+    tabShell.addEventListener("click", function () { setTab("shell"); });
+    tabBuild.addEventListener("click", function () { setTab("build"); });
+
+    tabShell.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight") { e.preventDefault(); tabBuild.focus(); setTab("build"); }
+    });
+    tabBuild.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft") { e.preventDefault(); tabShell.focus(); setTab("shell"); }
+    });
+
+    const shellEl = document.getElementById("site-shell");
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 80) shellEl.classList.add("site-shell--compact");
+        else shellEl.classList.remove("site-shell--compact");
+    }, { passive: true });
+
+    restartAnimation();
+})();
 </script>
 </body>
 </html>

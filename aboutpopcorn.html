@@ -3,20 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Popcorn 0.5 about: VGA console, pops, PIC/IDT, PIT, scheduler, syscalls, build matrix — aligned with the in-tree implementation." name="description">
+    <meta content="About Popcorn Kernel" property="og:title">
+    <meta content="Constraints-first overview of the x86-64 Multiboot2 kernel, pops, and host build loop." property="og:description">
+    <meta content="website" property="og:type">
     <title>About Popcorn Kernel Framework</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="src/assets/css/aboutpopcorn.css" rel="stylesheet">
 </head>
-<body>
-<a class="back-button" href="popcorn.html">Back to Popcorn</a>
+<body class="about-popcorn-page">
+<header class="site-shell" id="site-shell" role="banner">
+    <div class="site-shell__inner">
+        <nav aria-label="You are here" class="site-breadcrumb">
+            <a href="index.html">Portfolio</a>
+            <span class="crumb-sep">/</span>
+            <a href="popcorn.html">Popcorn</a>
+            <span class="crumb-sep">/</span>
+            <span class="crumb--here">About</span>
+        </nav>
+        <nav aria-label="Popcorn pages" class="site-nav-pills">
+            <a class="nav-pill" href="popcorn.html">Popcorn</a>
+            <a class="nav-pill nav-pill--accent" href="aboutpopcorn.html">About</a>
+            <a class="nav-pill" href="popcorn-kernel.html">Operation map</a>
+            <a class="nav-pill" href="popcorn-source.html">Source</a>
+            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/popcorn" rel="noopener noreferrer" target="_blank">Repository</a>
+            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/Popcorn/blob/main/roadmap.md" rel="noopener noreferrer" target="_blank">Roadmap</a>
+        </nav>
+    </div>
+</header>
 
+<main class="about-main">
 <div class="container">
     <h1>About Popcorn</h1>
 
+    <div class="map-callout">
+        <p>Interactive hierarchy, boot chain, and Mermaid flow diagrams derived from the v0.5 tree—same names as <code>core/</code> and <code>pops/</code>. The <strong>source catalog</strong> lists every file with a connection graph.</p>
+        <div class="map-callout-links">
+            <a href="popcorn-kernel.html">Operation map</a>
+            <a href="popcorn-source.html">Source catalog</a>
+        </div>
+    </div>
+
     <div class="section">
         <h2>What is Popcorn?</h2>
-        <p>Popcorn is a lightweight, modular kernel framework designed to make operating system development more
-            accessible and intuitive. Built with a focus on simplicity and extensibility, it provides developers with a
-            solid foundation for exploring system programming and OS concepts. Currently in version 0.5, Popcorn features a modern console system and modular architecture that allows easy extension through "pop" modules.</p>
+        <p><strong>Target:</strong> x86-64 ELF linked at <code>0x100000</code> with a Multiboot2 header (<code>link.ld</code>, <code>kernel.asm</code> entry <code>start</code> &rarr; long mode &rarr; <code>kmain</code>). <strong>Runtime:</strong> ring-0 VGA text surface at <code>0xB8000</code>, PIC + IDT (timer <code>0x20</code>, keyboard <code>0x21</code>, syscall gate <code>0x80</code>), PIT-driven ticks, kmalloc path, scheduler skeleton with static task stacks, syscall table (~21 entries), and nine registered pops before the shell loop. <strong>Host loop:</strong> toolchain produces kernel + ISO; <code>qemu-system-x86_64</code> boots GRUB &rarr; your image. Version <strong>0.5</strong> is pre-1.0 and intentionally educational—not a production OS.</p>
     </div>
 
     <div class="section">
@@ -24,28 +54,39 @@
         <div class="features">
             <div class="feature-item">
                 <h3>Console System</h3>
-                <p>Complete VGA text mode abstraction layer with cursor management, color styling, screen scrolling, and status bar support.</p>
+                <p>VGA text-mode console with cursor management, color styling, scrolling, status regions, scrollback-oriented structures, command history, and tab completion&mdash;with ongoing hardening for input edge cases and consistent error reporting.</p>
             </div>
             <div class="feature-item">
                 <h3>Pop Modules</h3>
-                <p>Extend kernel functionality through modular "pops" that can be easily integrated into the system without modifying core code.</p>
+                <p>Extend kernel functionality through modular &ldquo;pops&rdquo; that register with the kernel and use shared console utilities for consistent behavior and less duplication.</p>
             </div>
             <div class="feature-item">
                 <h3>Utilities Framework</h3>
-                <p>Shared helper functions across modules to reduce code duplication and ensure consistent behavior.</p>
+                <p>Shared helpers across modules and refactors toward constants and consolidated utilities (0.5 includes a focused cleanup pass alongside feature work).</p>
             </div>
             <div class="feature-item">
                 <h3>Minimal Assembly</h3>
-                <p>Written primarily in C with only essential assembly code, making it more approachable for
-                    beginners.</p>
+                <p>Written primarily in C with only essential assembly (boot, IDT/ISR plumbing, context switch paths), keeping the project approachable while still teaching real low-level mechanics.</p>
             </div>
             <div class="feature-item">
-                <h3>WSL Support</h3>
-                <p>Full support for Windows Subsystem for Linux, making development accessible across platforms.</p>
+                <h3>Cross-platform dev (Linux / WSL / macOS)</h3>
+                <p><strong>WSL</strong> and native <strong>Linux</strong> remain first-class paths. For <strong>macOS</strong>, 0.5-era tooling expects a real ELF cross toolchain (for example Homebrew <code>x86_64-elf-gcc</code> / <code>x86_64-elf-ld</code>) plus ISO tooling (commonly <code>i686-elf-grub-mkrescue</code> for BIOS-bootable images under SeaBIOS/QEMU).</p>
             </div>
             <div class="feature-item">
                 <h3>Keyboard Input</h3>
-                <p>Interrupt-driven keyboard handling with proper IDT setup and backspace support.</p>
+                <p>Interrupt-driven keyboard handling with IDT setup, including fixes for edge cases like double-processing during interrupt handling.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Timers, scheduling &amp; syscalls (0.5)</h3>
+                <p>Interrupt-driven architecture work, timer interrupts, scheduler foundations, task switching milestones, and syscall interface expansion (including fork/wait/mmap/munmap/stat/ioctl style bring-up with error handling emphasis).</p>
+            </div>
+            <div class="feature-item">
+                <h3>Hardware introspection</h3>
+                <p>Extended memory map handling, CPUID-based CPU reporting, frequency detection, multiboot information persistence, and sysinfo-style surfacing through pops and kernel paths.</p>
+            </div>
+            <div class="feature-item">
+                <h3>ISO + QEMU workflow</h3>
+                <p>Kernel is linked into a bootable ISO and run under QEMU separately from compilation, with Python-oriented builder support (Fedora-oriented) and shell build helpers aligned with the project&rsquo;s build monitor tooling.</p>
             </div>
         </div>
     </div>
@@ -55,14 +96,11 @@
         <p>The core of Popcorn's extensibility lies in its Pop Module system. Each "pop" is a self-contained module that
             can register itself with the kernel and uses the console system for consistent behavior:</p>
         <div class="code-block">
-            <code>
-                typedef struct {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;const char* name;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Module
-                name<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;const char* message;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Display message<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;void (*pop_function)(unsigned int start_pos);&nbsp;&nbsp;// Module functionality<br>
-                } PopModule;
-            </code>
+            <pre><code>typedef struct {
+    const char* name;       /* module id */
+    const char* message;    /* banner / HUD text */
+    void (*pop_function)(unsigned int start_pos);
+} PopModule;</code></pre>
         </div>
         <p>All pop modules must save and restore console state (cursor position and color) to prevent interference with user input. The system maintains a registry of modules and executes them in registration order.</p>
     </div>
@@ -90,6 +128,22 @@
                 <h3>Shimjapii Pop</h3>
                 <p>Example pop module for developers, displaying in the bottom right corner.</p>
             </div>
+            <div class="feature-item">
+                <h3>Sysinfo Pop</h3>
+                <p>Surfaces hardware and boot information (memory map / CPU / frequency style details), complementing the 0.5 hardware introspection work.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Memory Pop</h3>
+                <p>Memory-oriented reporting and interaction aligned with the kernel&rsquo;s memory-management bring-up.</p>
+            </div>
+            <div class="feature-item">
+                <h3>CPU Pop</h3>
+                <p>CPU-oriented reporting built around CPUID-backed detection work in the 0.5 timeframe.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Dolphin Pop</h3>
+                <p>In-kernel text editor experience (&ldquo;Dolphin&rdquo;) with navigation improvements during 0.5 development.</p>
+            </div>
         </div>
     </div>
 
@@ -97,11 +151,12 @@
         <h2>Building and Running</h2>
         <p>Popcorn provides multiple build system options for different environments:</p>
         <ul style="list-style: none; margin-left: 1rem;">
-            <li>✦ Interactive build using build.sh (Unix/WSL recommended)</li>
-            <li>✦ PowerShell build script (build.ps1) for Windows users</li>
-            <li>✦ Simple build script (trymake.sh) for debugging</li>
-            <li>✦ QEMU system emulation support</li>
-            <li>✦ Customizable memory and core allocation</li>
+            <li>✦ Interactive build using <code>build.sh</code> (Unix / WSL / native Linux; macOS with cross toolchain)</li>
+            <li>✦ PowerShell build script (<code>build.ps1</code>) for Windows users</li>
+            <li>✦ Python build monitor / builder tooling (<code>buildmon.py</code>) used alongside shell workflows (0.5 aligned <code>build.sh</code> structure with this system)</li>
+            <li>✦ Optional macOS GUI launcher (<code>mac-build.py</code>) layered on the same build steps (WebView UI + modular backend)</li>
+            <li>✦ QEMU system emulation support (x86-64; CD/ISO boot)</li>
+            <li>✦ Customizable memory and core allocation (where exposed by your launcher / scripts)</li>
         </ul>
         <p><strong>Note:</strong> All build systems are provided AS-IS without warranties. Use at your own risk. Versions below v1.0 are considered trial versions.</p>
     </div>
@@ -111,10 +166,10 @@
         <p>To build and run Popcorn, you'll need:</p>
         <ul style="list-style: none; margin-left: 1rem;">
             <li>✦ NASM (Netwide Assembler)</li>
-            <li>✦ GCC (GNU Compiler Collection)</li>
-            <li>✦ LD (GNU Linker)</li>
-            <li>✦ QEMU for system emulation</li>
-            <li>✦ WSL (for Windows users, strongly recommended)</li>
+            <li>✦ A working C toolchain that produces a 64-bit ELF kernel (commonly <code>gcc</code> + GNU <code>ld</code> on Linux/WSL; on macOS use a cross compiler such as <code>x86_64-elf-gcc</code> + <code>x86_64-elf-ld</code>)</li>
+            <li>✦ QEMU for system emulation (<code>qemu-system-x86_64</code>)</li>
+            <li>✦ ISO creation tooling (for example <code>xorriso</code> / <code>mtools</code> plus a GRUB <code>mkrescue</code> tool appropriate to your platform; BIOS boot under QEMU often uses an <code>i686-elf-grub-mkrescue</code>-style workflow on macOS Homebrew)</li>
+            <li>✦ WSL or Linux strongly recommended for the historical Fedora-oriented Python builder path; macOS is supported with the cross toolchain + ISO tooling above</li>
         </ul>
         <br>
         <h2>Computer Prerequisites</h2>
@@ -126,52 +181,50 @@
             <li>✦ 1GB free space assuming WSL installed</li>
         </ul>
         <br>
-        <p>WSL is strongly recommended but this can run in Linux environments natively. It cannot run in Mac or Windows
-            environments natively. Windows 11 and WSL 2.0 are strongly recommended.</p>
+        <p>WSL is strongly recommended for Windows developers. Native Linux is fully viable. macOS is supported for development in 0.5 when using Homebrew-provided cross compilers and BIOS-capable ISO tooling; QEMU behavior may differ by build (for example accelerator availability). Windows 11 and WSL 2.0 remain the recommended Windows stack.</p>
     </div>
     <div class="section">
         <h2>Current Status & Limitations</h2>
-        <p>Popcorn is currently in version 0.5 and marked as unstable with all versions being pre-releases. The project includes:</p>
+        <p>Popcorn is currently in version <strong>0.5</strong> and marked as unstable with all versions being pre-releases. The project includes:</p>
         <ul style="list-style: none; margin-left: 1rem;">
-            <li>✦ Modern console system with VGA text mode management</li>
-            <li>✦ Modular pop system with 5 current modules</li>
-            <li>✦ Keyboard input handling with interrupt support</li>
-            <li>✦ Shared utilities framework</li>
+            <li>✦ Modern console system with VGA text mode management (including scrollback/history/autocomplete foundations)</li>
+            <li>✦ Modular pop system with the pops listed above</li>
+            <li>✦ Keyboard input handling with interrupt support (including real-world edge-case fixes)</li>
+            <li>✦ Shared utilities framework and refactors toward consistency</li>
+            <li>✦ Interrupt-driven bring-up, timers, scheduler foundations, and task switching milestones</li>
+            <li>✦ Expanded syscall work (fork/wait/mmap/munmap/stat/ioctl style interfaces) with integration-focused error handling</li>
+            <li>✦ Boot-time hardware introspection (memmap/CPUID/frequency/multiboot persistence)</li>
+            <li>✦ A working ISO &rarr; QEMU iteration loop for x86-64 (platform-specific toolchain caveats apply)</li>
         </ul>
-        <p><strong>Work in Progress:</strong> The project is actively being developed with plans for a working ISO file, more kernel functionality, and additional pop modules. Future versions will include more features and improvements to the kernel framework.</p>
+        <p><strong>Work in Progress:</strong> The project remains actively developed. Even with a working ISO/QEMU loop in 0.5, many OS facilities are still experimental: syscall semantics evolve, scheduling is still maturing, and platform packaging (Linux vs macOS vs Windows) continues to tighten.</p>
         <p><strong>Contributions:</strong> Special thanks to Swarnim A for the Intel book reference that made keyboard inputs possible for this kernel.</p>
     </div>
 </div>
+</main>
 
-
-<footer class="text-center py-8 text-gray-400">
-    <p>&copy; 2025 Knivier. All rights reserved, see license</p>
+<footer class="footer-popcorn">
+    <p>&copy; 2026 Knivier. Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener noreferrer" target="_blank">CC BY-NC-SA 4.0</a>.</p>
 </footer>
 <script>
-    // Intersection Observer for section animations
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.classList.add("visible");
             }
         });
-    }, {
-        threshold: 0.1
-    });
+    }, { threshold: 0.1 });
 
-    // Observe all sections
-    document.querySelectorAll('.section').forEach(section => {
-        observer.observe(section);
-    });
-    // Scroll event listener for back-button minimization
-    window.addEventListener('scroll', () => {
-        const backButton = document.querySelector('.back-button');
-        if (window.scrollY > 100) {
-            backButton.classList.add('minimized');
-        } else {
-            backButton.classList.remove('minimized');
-        }
-    });
+    document.querySelectorAll(".section").forEach((section) => observer.observe(section));
+
+    const shellEl = document.getElementById("site-shell");
+    window.addEventListener(
+        "scroll",
+        () => {
+            if (window.scrollY > 80) shellEl.classList.add("site-shell--compact");
+            else shellEl.classList.remove("site-shell--compact");
+        },
+        { passive: true }
+    );
 </script>
 </body>
 </html>

@@ -1,58 +1,29 @@
+@import url("popcorn-shared.css");
+
 :root {
-    --bg-dark: #0a0a0a;
-    --accent: #00ff9d;
-    --text: #e0e0e0;
-    --secondary: #666;
     --gradient: linear-gradient(135deg, rgba(0, 255, 157, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Courier New', monospace;
+body.about-popcorn-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-body {
-    background: var(--bg-dark);
-    color: var(--text);
-    line-height: 1.6;
-}
-
-.back-button {
-    position: fixed;
-    top: 2rem;
-    left: 2rem;
-    padding: 0.8rem 1.5rem;
-    background: transparent;
-    border: 2px solid var(--accent);
-    color: var(--accent);
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    z-index: 100;
-}
-
-.back-button:hover {
-    background: var(--accent);
-    color: var(--bg-dark);
-    transform: translateY(-2px);
-}
-
-.back-button.minimized {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-    border-width: 1px;
+.about-main {
+    flex: 1;
 }
 
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 6rem 2rem;
+    padding: 6.5rem 2rem 4rem;
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
     color: var(--accent);
     margin-bottom: 2rem;
     opacity: 0;
@@ -61,11 +32,11 @@ h1 {
 }
 
 .section {
-    margin: 4rem 0;
+    margin: 3rem 0;
     padding: 2rem;
     background: var(--gradient);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 255, 157, 0.1);
+    border-radius: 14px;
+    border: 1px solid rgba(0, 255, 157, 0.12);
     opacity: 0;
     transform: translateY(20px);
 }
@@ -76,20 +47,82 @@ h1 {
 
 h2 {
     color: var(--accent);
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 0.5rem;
 }
 
 p {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+    color: rgba(224, 224, 224, 0.88);
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+.map-callout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 255, 157, 0.25);
+    background: rgba(0, 255, 157, 0.06);
+    margin-bottom: 2rem;
+}
+
+.map-callout p {
+    margin: 0;
+    flex: 1;
+    min-width: 12rem;
+    font-size: 0.95rem;
+}
+
+.map-callout-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.map-callout-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: var(--accent);
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(0, 255, 157, 0.35);
+    background: rgba(0, 0, 0, 0.35);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.map-callout-links a:hover {
+    background: rgba(0, 255, 157, 0.12);
+    transform: translateY(-1px);
 }
 
 code {
+    font-size: 0.9em;
     background: rgba(0, 255, 157, 0.1);
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
+    padding: 0.15rem 0.4rem;
+    border-radius: 6px;
     color: var(--accent);
+    border: 1px solid rgba(0, 255, 157, 0.15);
 }
 
 .features {
@@ -101,22 +134,39 @@ code {
 
 .feature-item {
     padding: 1.5rem;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
     border: 1px solid rgba(0, 255, 157, 0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .feature-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    border-color: rgba(0, 255, 157, 0.22);
 }
 
 .code-block {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 1.5rem;
-    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
     margin: 1.5rem 0;
     overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.code-block pre {
+    margin: 0;
+}
+
+.code-block pre code {
+    display: block;
+    white-space: pre;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    background: none;
+    border: 0;
+    padding: 0;
+    color: rgba(200, 245, 220, 0.92);
 }
 
 @keyframes fadeInUp {
@@ -132,25 +182,10 @@ code {
 
 @media (max-width: 768px) {
     .container {
-        padding: 8rem 1.5rem 4rem;
+        padding: 6.25rem 1.5rem 3rem;
     }
 
     h1 {
-        font-size: 2.5rem;
-    }
-
-    .back-button {
-        top: 1rem;
-        left: 1rem;
-        transition: all 0.3s ease;
-    }
-
-    .back-button.minimized {
-        padding: 0.16rem 0.32rem;
-        font-size: 0.64rem;
-        border-width: 0.8px;
-        width: 0.8rem;
-        height: 1.6rem;
-        text-align: center;
+        font-size: 2rem;
     }
 }

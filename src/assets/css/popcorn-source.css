@@ -1,0 +1,498 @@
+@import url("popcorn-shared.css");
+
+body.source-catalog-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-dark);
+}
+
+.source-main {
+    flex: 1;
+    padding: 5.5rem 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.source-hero {
+    margin-bottom: 1.5rem;
+}
+
+.source-hero h1 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.source-hero .sub {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 42rem;
+    line-height: 1.6;
+}
+
+.source-hero-note {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+}
+
+.source-hero code,
+.rel-box code {
+    font-size: 0.88em;
+    padding: 0.1em 0.35em;
+    border-radius: 6px;
+    background: rgba(0, 255, 157, 0.1);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    color: var(--accent);
+}
+
+.source-hero .version-tag {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-family: "Fira Code", monospace;
+    font-size: 0.72rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 255, 157, 0.35);
+    color: var(--accent);
+    background: rgba(0, 255, 157, 0.08);
+}
+
+.source-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+    grid-template-rows: auto minmax(280px, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+    .source-workspace {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    .source-workspace > .src-explorer,
+    .source-workspace > .src-detail,
+    .source-workspace > .src-graph-wrap {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+.source-workspace > .src-explorer {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+}
+
+.source-workspace > .src-detail {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.source-workspace > .src-graph-wrap {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.src-explorer {
+    border-radius: 14px;
+    background: rgba(22, 22, 24, 0.75);
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 8rem);
+}
+
+@media (max-width: 1024px) {
+    .src-explorer {
+        max-height: 320px;
+    }
+}
+
+.src-explorer__head {
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+.src-explorer__scroll {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0.5rem 0.35rem 0.75rem;
+}
+
+.src-dir {
+    margin-bottom: 0.25rem;
+}
+
+.src-dir__title {
+    font-family: "Fira Code", monospace;
+    font-size: 0.7rem;
+    color: rgba(0, 255, 157, 0.65);
+    padding: 0.5rem 0.65rem 0.25rem;
+}
+
+.src-file {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: calc(100% - 8px);
+    margin: 2px 4px;
+    padding: 0.45rem 0.55rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(240, 250, 245, 0.95);
+    cursor: pointer;
+    text-align: left;
+    font-family: "Fira Code", monospace;
+    font-size: 0.78rem;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.src-file:hover {
+    background: rgba(0, 255, 157, 0.08);
+    border-color: rgba(0, 255, 157, 0.2);
+}
+
+.src-file.is-active {
+    background: rgba(0, 255, 157, 0.12);
+    border-color: rgba(0, 255, 157, 0.45);
+    transform: translateX(2px);
+}
+
+.src-file__ext {
+    flex-shrink: 0;
+    width: 1.65rem;
+    height: 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background: rgba(0, 255, 157, 0.15);
+    color: var(--accent);
+}
+
+.src-file__ext--asm {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fcd34d;
+}
+
+.src-detail {
+    border-radius: 14px;
+    background: rgba(22, 22, 24, 0.75);
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+}
+
+.src-detail__head {
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1rem;
+}
+
+.src-detail__path {
+    font-family: "Fira Code", monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.src-detail__ext {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.src-detail__body {
+    padding: 1rem 1.15rem 1.2rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.src-detail__role {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 0.65rem;
+}
+
+.src-detail__one {
+    font-size: 0.88rem;
+    color: rgba(200, 220, 210, 0.88);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+}
+
+.src-detail__list {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.82rem;
+    color: rgba(210, 225, 215, 0.85);
+    line-height: 1.55;
+}
+
+.src-detail__list li {
+    margin-bottom: 0.35rem;
+}
+
+.src-detail__exports {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.src-detail__exports span {
+    display: inline-block;
+    margin: 0.2rem 0.35rem 0 0;
+    padding: 0.2rem 0.45rem;
+    font-family: "Fira Code", monospace;
+    font-size: 0.68rem;
+    border-radius: 6px;
+    background: rgba(0, 255, 157, 0.1);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    color: var(--accent);
+}
+
+.src-detail__notes {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: rgba(251, 191, 36, 0.85);
+    font-style: italic;
+}
+
+.src-graph-wrap {
+    border-radius: 14px;
+    background: rgba(12, 14, 13, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+}
+
+.src-graph-wrap__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.src-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.src-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: rgba(200, 210, 205, 0.85);
+}
+
+.src-legend i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.src-legend i.k-calls {
+    background: #5ee0ad;
+}
+.src-legend i.k-uses {
+    background: rgba(148, 163, 184, 0.9);
+}
+.src-legend i.k-reg {
+    background: #a78bfa;
+}
+.src-legend i.k-irq {
+    background: #f472b6;
+}
+.src-legend i.k-data {
+    background: #38bdf8;
+}
+.src-legend i.k-entry {
+    background: #fbbf24;
+}
+
+#src-graph-root {
+    flex: 1;
+    min-height: 320px;
+}
+
+#src-graph-root svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.graph-edge {
+    fill: none;
+    stroke: rgba(0, 255, 157, 0.12);
+    stroke-width: 1.25;
+    transition: stroke 0.25s ease, stroke-width 0.25s ease, opacity 0.25s ease;
+}
+
+.graph-edge.is-related {
+    stroke: rgba(0, 255, 157, 0.55);
+    stroke-width: 2;
+}
+
+.graph-edge.is-dimmed {
+    opacity: 0.12;
+}
+
+.graph-node circle {
+    fill: rgba(30, 35, 33, 0.95);
+    stroke: rgba(0, 255, 157, 0.25);
+    stroke-width: 1.25;
+    transition: stroke 0.25s ease, fill 0.25s ease, transform 0.25s ease;
+}
+
+.graph-node.is-active circle {
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    fill: rgba(0, 255, 157, 0.12);
+}
+
+.graph-node.is-neighbor circle {
+    stroke: rgba(0, 255, 157, 0.55);
+}
+
+.graph-node text {
+    fill: rgba(230, 245, 238, 0.92);
+    font-family: "Fira Code", monospace;
+    font-size: 10px;
+    pointer-events: none;
+}
+
+.graph-node.is-dimmed circle {
+    opacity: 0.25;
+}
+
+.graph-node.is-dimmed text {
+    opacity: 0.35;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .src-file,
+    .graph-edge,
+    .graph-node circle {
+        transition: none;
+    }
+
+    .src-file.is-active {
+        transform: none;
+    }
+}
+
+.source-index {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.source-index h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 0.75rem;
+}
+
+.idx-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+}
+
+.idx-table th,
+.idx-table td {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.45rem 0.55rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.idx-table th {
+    background: rgba(0, 255, 157, 0.08);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.idx-table td:first-child {
+    font-family: "Fira Code", monospace;
+    color: rgba(200, 235, 215, 0.95);
+    white-space: nowrap;
+}
+
+.idx-table button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    padding: 0;
+}
+
+.idx-table button:hover {
+    color: var(--accent);
+}
+
+.rel-box {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rel-box h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.rel-box p {
+    font-size: 0.85rem;
+    color: rgba(210, 220, 215, 0.88);
+    line-height: 1.55;
+    margin: 0;
+}

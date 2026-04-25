@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Popcorn v0.5 source catalog: every file under src/core and src/pops — roles, links, and a live dependency graph. Data-driven for easy updates." name="description">
+    <meta content="Popcorn — Source catalog" property="og:title">
+    <meta content="IDE-style explorer + connection graph for kernel.c, init.c, pops, and asm entry." property="og:description">
+    <meta content="website" property="og:type">
+    <title>Popcorn — Source catalog (v0.5)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="src/assets/css/popcorn-source.css" rel="stylesheet">
+</head>
+<body class="source-catalog-page">
+<header class="site-shell" id="site-shell" role="banner">
+    <div class="site-shell__inner">
+        <nav aria-label="You are here" class="site-breadcrumb">
+            <a href="index.html">Portfolio</a>
+            <span class="crumb-sep">/</span>
+            <a href="popcorn.html">Popcorn</a>
+            <span class="crumb-sep">/</span>
+            <span class="crumb--here">Source catalog</span>
+        </nav>
+        <nav aria-label="Popcorn pages" class="site-nav-pills">
+            <a class="nav-pill" href="popcorn.html">Popcorn</a>
+            <a class="nav-pill" href="aboutpopcorn.html">About</a>
+            <a class="nav-pill" href="popcorn-kernel.html">Operation map</a>
+            <a class="nav-pill nav-pill--accent" href="popcorn-source.html">Source</a>
+            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/popcorn" rel="noopener noreferrer" target="_blank">Repository</a>
+            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/Popcorn/blob/main/roadmap.md" rel="noopener noreferrer" target="_blank">Roadmap</a>
+        </nav>
+    </div>
+</header>
+
+<main class="source-main">
+    <header class="source-hero">
+        <h1>Kernel source catalog</h1>
+        <p class="sub">Every C and assembly unit under <code class="font-mono">src/core</code> and <code class="font-mono">src/pops</code> (23 files for v0.5). Pick a file on the left—like an IDE sidebar—to read what it does; the graph highlights how it connects to neighbors. Headers under <code class="font-mono">src/includes/</code> are out of scope here.</p>
+        <p class="sub">This page is always a work in progress and isn't always up to date. As Popcorn continues to grow, keeping this udpated continues to be a challenge, but remains a priority as this is a project for people to learn.</p>
+        <span class="version-tag" id="catalog-version-tag">v0.5</span>
+        <!-- <p class="sub source-hero-note">To update this page when the tree changes, edit only <code class="font-mono">src/assets/data/popcorn-source-catalog.js</code> (file entries + <code class="font-mono">links</code>); layout and UI stay the same.</p> -->
+    </header>
+
+    <div class="source-workspace">
+        <aside class="src-explorer" aria-label="Source files">
+            <div class="src-explorer__head">Explorer</div>
+            <div class="src-explorer__scroll" id="src-explorer-list"></div>
+        </aside>
+
+        <section class="src-detail" id="src-detail-panel" aria-live="polite">
+            <div class="src-detail__head">
+                <span class="src-detail__path" id="src-detail-path">src/…</span>
+                <span class="src-detail__ext" id="src-detail-ext"></span>
+            </div>
+            <div class="src-detail__body" id="src-detail-body"></div>
+        </section>
+
+        <div class="src-graph-wrap">
+            <div class="src-graph-wrap__head">
+                <span>Connections</span>
+                <div class="src-legend" aria-hidden="true">
+                    <span><i class="k-entry"></i> entry</span>
+                    <span><i class="k-calls"></i> calls</span>
+                    <span><i class="k-uses"></i> uses</span>
+                    <span><i class="k-reg"></i> registers</span>
+                    <span><i class="k-irq"></i> IRQ path</span>
+                    <span><i class="k-data"></i> data</span>
+                </div>
+            </div>
+            <div id="src-graph-root"></div>
+        </div>
+    </div>
+
+    <div class="rel-box">
+        <h3>core/ vs pops/</h3>
+        <p><strong>core/</strong> is the kernel proper: entry, context switch, devices, time, memory, tasks, syscalls, boot UX, VGA, bootloader info, pop registry, and shared helpers. <strong>pops/</strong> are feature modules in the same binary: they register through <code class="font-mono">register_pop_module</code> and expose HUD hooks and larger APIs (especially the in-memory filesystem and Dolphin) that <code class="font-mono">kernel.c</code> reaches from the shell and input loop.</p>
+    </div>
+
+    <section class="source-index" aria-labelledby="idx-heading">
+        <h2 id="idx-heading">Quick index</h2>
+        <table class="idx-table">
+            <thead>
+            <tr>
+                <th>File</th>
+                <th>One-line summary</th>
+            </tr>
+            </thead>
+            <tbody id="src-index-tbody"></tbody>
+        </table>
+    </section>
+</main>
+
+<footer class="footer-popcorn">
+    <p>Catalog data is versioned in-repo. For boot order and runtime flow, see <a href="popcorn-kernel.html">Operation map</a>. &copy; 2026 Knivier.</p>
+</footer>
+
+<script src="src/assets/data/popcorn-source-catalog.js"></script>
+<script>
+    (function () {
+        var c = window.POPCORN_SOURCE_CATALOG;
+        if (c && c.meta && c.meta.version) {
+            var el = document.getElementById("catalog-version-tag");
+            if (el) el.textContent = "v" + c.meta.version + " · " + (c.files ? c.files.length : 0) + " files";
+        }
+    })();
+</script>
+<script defer src="src/assets/js/popcorn-source.js"></script>
+</body>
+</html>

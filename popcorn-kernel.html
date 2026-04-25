@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Popcorn v0.5 operation map: boot chain, init order, ring-0 subsystems, pops, Mermaid flows — source-aligned." name="description">
+    <meta content="Popcorn — Operation map" property="og:title">
+    <meta content="Interactive hierarchy + diagrams for the x86-64 Multiboot2 kernel." property="og:description">
+    <meta content="website" property="og:type">
+    <title>Popcorn — Operation map</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="src/assets/css/popcorn-kernel.css" rel="stylesheet">
+</head>
+<body class="kernel-map-page">
+<header class="site-shell" id="site-shell" role="banner">
+    <div class="site-shell__inner">
+        <nav aria-label="You are here" class="site-breadcrumb">
+            <a href="index.html">Portfolio</a>
+            <span class="crumb-sep">/</span>
+            <a href="popcorn.html">Popcorn</a>
+            <span class="crumb-sep">/</span>
+            <span class="crumb--here">Operation map</span>
+        </nav>
+        <nav aria-label="Popcorn pages" class="site-nav-pills">
+            <a class="nav-pill" href="popcorn.html">Popcorn</a>
+            <a class="nav-pill" href="aboutpopcorn.html">About</a>
+            <a class="nav-pill nav-pill--accent" href="popcorn-kernel.html">Operation map</a>
+            <a class="nav-pill" href="popcorn-source.html">Source</a>
+            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/popcorn" rel="noopener noreferrer" target="_blank">Repository</a>
+            <a class="nav-pill nav-pill--external" href="https://github.com/knivier/Popcorn/blob/main/roadmap.md" rel="noopener noreferrer" target="_blank">Roadmap</a>
+        </nav>
+    </div>
+</header>
+
+<main class="kernel-main">
+    <section class="kernel-hero">
+        <h1>Operation map</h1>
+        <p class="lead">How Popcorn boots and runs in the v0.5 tree: GRUB Multiboot2 loads the ELF at the link address, <code class="font-mono">start</code> enters long mode and calls <code class="font-mono">kmain</code>, <code class="font-mono">init_boot_screen</code> sequences subsystems and pops, then <code class="font-mono">init_transition_to_console</code> enables the IDT/PIC path and drops into the shell while IRQ0 still feeds the scheduler.</p>
+        <div class="spec-chips" aria-label="Constraints">
+            <span class="spec-chip">ELF64 @ 0x100000</span>
+            <span class="spec-chip">Multiboot2</span>
+            <span class="spec-chip">IDT 0x20 / 0x21 / 0x80</span>
+            <span class="spec-chip">PIT → scheduler_tick</span>
+            <span class="spec-chip">9 pops registered</span>
+            <span class="spec-chip">QEMU ISO boot</span>
+        </div>
+    </section>
+
+    <section aria-labelledby="viz-heading" class="viz-section">
+        <h2 class="sr-only" id="viz-heading">Interactive hierarchy</h2>
+        <div class="viz-grid">
+            <div class="glass-panel">
+                <div class="panel-header">
+                    <h2>Hierarchical map</h2>
+                    <p class="panel-sub">Expand branches (▸). Each node updates the inspector.</p>
+                </div>
+                <div class="tree-root" id="tree-root"></div>
+            </div>
+            <div class="glass-panel detail-panel" id="detail-panel">
+                <div class="detail-panel__head">
+                    <div class="detail-panel__title" id="detail-title">Popcorn</div>
+                </div>
+                <div class="detail-panel__body" id="detail-body">
+                    <p class="detail-panel__p">Loading…</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="diagrams-section" aria-labelledby="flow-heading">
+        <h2 id="flow-heading">Flow diagrams</h2>
+
+        <div class="diagram-card">
+            <h3>Interrupt delivery</h3>
+            <div class="mermaid-wrap">
+<pre class="mermaid">flowchart TD
+  PIT[PIT IRQ0] --> PIC1[PIC master]
+  KB[Keyboard IRQ1] --> PIC1
+  PIC1 --> CPU[CPU interrupt]
+  CPU --> IDT[IDT dispatch]
+  IDT --> T0[timer_handler asm]
+  IDT --> K0[keyboard_handler asm]
+  IDT --> S0[syscall_handler_asm]
+  T0 --> T1[timer_interrupt_handler C]
+  T1 --> TH["tick_handler: scheduler_tick"]
+  K0 --> K1[keyboard_handler_main C]
+  S0 --> SD[syscall_dispatch C]</pre>
+            </div>
+        </div>
+
+        <div class="diagram-card">
+            <h3>Lifecycle — host to shell</h3>
+            <div class="mermaid-wrap">
+<pre class="mermaid">flowchart TB
+  subgraph Host["Host (build and QEMU)"]
+    ISO[GRUB ISO] --> QEMU[QEMU -cdrom]
+  end
+  subgraph Guest["Guest (Popcorn kernel)"]
+    QEMU --> ENTRY["start: kernel.asm"]
+    ENTRY --> KM[kmain]
+    KM --> INIT[init_boot_screen]
+    INIT --> MEM[memory_init]
+    INIT --> TIM[timer_init]
+    INIT --> SCH[scheduler_init]
+    INIT --> SYS[syscall_init]
+    INIT --> POP[register_pop modules]
+    INIT --> GO[init_transition_to_console]
+    GO --> MB[multiboot2_parse]
+    GO --> IDT[idt_init + PIC]
+    GO --> KB[kb_init]
+    GO --> TE["timer_enable + tick to scheduler_tick"]
+    GO --> SH[Shell prompt loop]
+    IRQ0[PIT IRQ0] --> TICK[timer_interrupt_handler]
+    TICK --> ST[scheduler_tick]
+    IRQ1[KB IRQ1] --> KH[keyboard_handler_main]
+    INT80[int 0x80] --> SC[syscall_dispatch]
+    SH --> EX[execute_command]
+  end
+  Host --> Guest</pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="doc-section" aria-labelledby="reference-heading">
+        <h2 id="reference-heading">Reference sections</h2>
+
+        <details class="doc-block">
+            <summary>0 · Repository layout</summary>
+            <div class="doc-block__body">
+                <pre>Popcorn/
+├── src/
+│   ├── link.ld
+│   ├── core/
+│   ├── pops/
+│   ├── includes/
+│   └── build.sh / buildmon.py / mac-build*  (host)</pre>
+                <p>Only the linked ELF runs inside QEMU; Python and shell helpers are host tooling.</p>
+            </div>
+        </details>
+
+        <details class="doc-block">
+            <summary>1 · Boot chain (GRUB → start → kmain)</summary>
+            <div class="doc-block__body">
+                <pre>GRUB (guest)
+  └─ multiboot2 /boot/kernel
+       └─ loads ELF to link address
+            └─ jumps to symbol `start` in core/kernel.asm</pre>
+                <p><code>start</code> saves the Multiboot2 info pointer, builds identity-mapped tables, enables long mode, sets <code>rsp</code>, calls <code>kmain</code>. ASM exports connect IRQ and syscall gates to C.</p>
+            </div>
+        </details>
+
+        <details class="doc-block">
+            <summary>4 · init_boot_screen + transition</summary>
+            <div class="doc-block__body">
+                <pre>init_boot_screen
+  console_init → header → memory_init → timer_init
+  → scheduler_init → syscall_init
+  → register_pop_module ×9 → progress → wait Enter
+  → init_transition_to_console
+
+init_transition_to_console
+  multiboot2_parse → idt_init (PIC, masks, load_idt/sti)
+  → kb_init → timer_set_tick_handler(scheduler_tick)
+  → timer_enable → prompt + status bar</pre>
+                <p>Pop registration order: spinner, uptime, filesystem, sysinfo, memory, cpu, dolphin, halt, shimjapii.</p>
+            </div>
+        </details>
+
+        <details class="doc-block">
+            <summary>8 · Syscall surface (representative)</summary>
+            <div class="doc-block__body">
+                <pre>exit, read, write, open, close, seek, getpid,
+fork, exec, wait,
+malloc, free, mmap, munmap,
+gettime, sleep, yield,
+getcwd, chdir,
+stat, ioctl</pre>
+                <p><code>syscall_dispatch</code> uses the convention in <code>ctx->rax</code>; IDT vector <code>0x80</code> is installed as a user-accessible interrupt gate in <code>idt_init</code>.</p>
+            </div>
+        </details>
+
+        <details class="doc-block">
+            <summary>13 · Reading map</summary>
+            <div class="doc-block__body">
+                <table class="reading-table">
+                    <thead>
+                    <tr>
+                        <th>Concern</th>
+                        <th>Primary files</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Entry, long mode, ISR stubs</td>
+                        <td>core/kernel.asm</td>
+                    </tr>
+                    <tr>
+                        <td>Link address, sections</td>
+                        <td>link.ld</td>
+                    </tr>
+                    <tr>
+                        <td>Boot UI + ordered init</td>
+                        <td>core/init.c</td>
+                    </tr>
+                    <tr>
+                        <td>Shell + IDT/PIC + keyboard loop</td>
+                        <td>core/kernel.c</td>
+                    </tr>
+                    <tr>
+                        <td>Timer IRQ</td>
+                        <td>core/timer.c + asm stub</td>
+                    </tr>
+                    <tr>
+                        <td>Scheduler</td>
+                        <td>core/scheduler.c + context_switch.asm</td>
+                    </tr>
+                    <tr>
+                        <td>Syscalls</td>
+                        <td>core/syscall.c + asm stub</td>
+                    </tr>
+                    <tr>
+                        <td>Multiboot</td>
+                        <td>core/multiboot2.c, includes/multiboot2.h</td>
+                    </tr>
+                    <tr>
+                        <td>Pop registry</td>
+                        <td>core/pop_module.c, includes/pop_module.h</td>
+                    </tr>
+                    <tr>
+                        <td>Individual pops</td>
+                        <td>pops/*.c</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details class="doc-block">
+            <summary>14 · Caveats</summary>
+            <div class="doc-block__body">
+                <p>Educational kernel: syscall gate exists; real isolation depends on memory and task setup—verify in tree.</p>
+                <p>Shell polls the keyboard while timer IRQ runs scheduler logic; treat shared console state carefully.</p>
+                <p><code>execute_all_pops</code> is a batch helper; some commands invoke pops directly.</p>
+            </div>
+        </details>
+    </section>
+</main>
+
+<footer class="footer-popcorn">
+    <p>&copy; 2026 Knivier. Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener noreferrer" target="_blank">CC BY-NC-SA 4.0</a>. Diagrams mirror the in-repo v0.5-era structure.</p>
+</footer>
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script defer src="src/assets/js/popcorn-kernel.js"></script>
+</body>
+</html>
