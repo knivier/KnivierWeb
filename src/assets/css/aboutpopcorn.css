@@ -17,7 +17,7 @@ body.about-popcorn-page {
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 6.5rem 2rem 4rem;
+    padding: 1.5rem 2rem 4rem;
 }
 
 h1 {
@@ -182,7 +182,7 @@ code {
 
 @media (max-width: 768px) {
     .container {
-        padding: 6.25rem 1.5rem 3rem;
+        padding: 1rem 1.25rem 3rem;
     }
 
     h1 {

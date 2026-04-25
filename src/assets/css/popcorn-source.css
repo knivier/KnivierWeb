@@ -9,7 +9,7 @@ body.source-catalog-page {
 
 .source-main {
     flex: 1;
-    padding: 5.5rem 1rem 2rem;
+    padding: 1rem 1rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
@@ -106,7 +106,7 @@ body.source-catalog-page {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    max-height: calc(100vh - 8rem);
+    max-height: calc(100dvh - var(--site-shell-safe) - 4.5rem);
 }
 
 @media (max-width: 1024px) {

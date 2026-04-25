@@ -21,7 +21,8 @@ body.popcorn-landing {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5.5rem 0 3rem;
+    /* Top spacing: body already reserves --site-shell-safe for fixed header */
+    padding: 1.25rem 0 2.5rem;
 }
 
 .hero-canvas {
@@ -312,7 +313,8 @@ h1 {
 
 @media (max-width: 768px) {
     .hero {
-        padding-top: 6rem;
+        padding: 1rem 0 2rem;
+        min-height: min(100vh, 100dvh);
     }
 
     .terminal-top {

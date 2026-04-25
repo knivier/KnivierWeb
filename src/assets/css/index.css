@@ -490,6 +490,11 @@ body::before {
     transform: translateY(-100%);
 }
 
+/* Keep hero below fixed promo strip on mobile */
+#pre-production-banner:not(.hidden) ~ header[role="banner"] {
+    padding-top: clamp(2.75rem, 12vw, 3.75rem);
+}
+
 #close-banner {
     position: absolute;
     right: 20px;
