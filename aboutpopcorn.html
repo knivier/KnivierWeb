@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
-    <meta content="Popcorn 0.5 about: VGA console, pops, PIC/IDT, PIT, scheduler, syscalls, build matrix — aligned with the in-tree implementation." name="description">
+    <meta content="Popcorn 0.6 about: VGA console, VMM/PMM, IRQ keyboard queue, PIC/IDT, PIT, scheduler guardrails, syscalls, build matrix — aligned with the in-tree implementation." name="description">
     <meta content="About Popcorn Kernel" property="og:title">
     <meta content="Constraints-first overview of the x86-64 Multiboot2 kernel, pops, and host build loop." property="og:description">
     <meta content="website" property="og:type">
@@ -26,7 +26,7 @@
     <h1>About Popcorn</h1>
 
     <div class="map-callout">
-        <p>Interactive hierarchy, boot chain, and Mermaid flow diagrams derived from the v0.5 tree—same names as <code>core/</code> and <code>pops/</code>. The <strong>source catalog</strong> lists every file with a connection graph.</p>
+        <p>Interactive hierarchy, boot chain, and Mermaid flow diagrams derived from the v0.6 tree—same names as <code>core/</code> and <code>pops/</code>. The <strong>source catalog</strong> lists every file with a connection graph.</p>
         <div class="map-callout-links">
             <a data-popcorn-page-href="kernel" href="popcorn-kernel.html">Operation map</a>
             <a data-popcorn-page-href="source" href="popcorn-source.html">Source catalog</a>
@@ -35,7 +35,7 @@
 
     <div class="section">
         <h2>What is Popcorn?</h2>
-        <p><strong>Target:</strong> x86-64 ELF linked at <code>0x100000</code> with a Multiboot2 header (<code>link.ld</code>, <code>kernel.asm</code> entry <code>start</code> &rarr; long mode &rarr; <code>kmain</code>). <strong>Runtime:</strong> ring-0 VGA text surface at <code>0xB8000</code>, PIC + IDT (timer <code>0x20</code>, keyboard <code>0x21</code>, syscall gate <code>0x80</code>), PIT-driven ticks, kmalloc path, scheduler skeleton with static task stacks, syscall table (~21 entries), and nine registered pops before the shell loop. <strong>Host loop:</strong> toolchain produces kernel + ISO; <code>qemu-system-x86_64</code> boots GRUB &rarr; your image. Version <strong>0.5</strong> is pre-1.0 and intentionally educational—not a production OS.</p>
+        <p><strong>Target:</strong> x86-64 ELF linked at <code>0x100000</code> with a Multiboot2 header (<code>link.ld</code>, <code>kernel.asm</code> entry <code>start</code> &rarr; identity map &rarr; long mode &rarr; <code>kmain</code>). <strong>Runtime:</strong> ring-0 VGA at <code>0xB8000</code>, PIC + IDT (timer <code>0x20</code>, keyboard <code>0x21</code>, syscall <code>0x80</code>), <strong>VMM</strong> (boot 1&nbsp;GiB identity map, per-task PML4, CR3 on switch), <strong>PMM</strong> (4&nbsp;KiB frames + bitmap from Multiboot2 mmap), IRQ1 scancode queue consumed by the shell with <code>HLT</code>, PIT re-enabled at console handoff with scheduler bootstrap guards, static task stacks, ~21 syscalls, nine pops. <strong>Host loop:</strong> <code>src/build/</code> scripts and <code>popcorn_build/</code> produce kernel + ISO; QEMU boots GRUB &rarr; your image. Version <strong>0.6</strong> is pre-1.0 and educational—not a production OS.</p>
     </div>
 
     <div class="section">
@@ -59,15 +59,19 @@
             </div>
             <div class="feature-item">
                 <h3>Cross-platform dev (Linux / WSL / macOS)</h3>
-                <p><strong>WSL</strong> and native <strong>Linux</strong> remain first-class paths. For <strong>macOS</strong>, 0.5-era tooling expects a real ELF cross toolchain (for example Homebrew <code>x86_64-elf-gcc</code> / <code>x86_64-elf-ld</code>) plus ISO tooling (commonly <code>i686-elf-grub-mkrescue</code> for BIOS-bootable images under SeaBIOS/QEMU).</p>
+                <p><strong>Linux</strong> and <strong>WSL</strong> use <code>src/build/linux.sh</code> and the shared <code>popcorn_build/</code> Python package. <strong>macOS</strong> uses <code>src/build/macos.sh</code> or <code>gui-macos.py</code> with the same cross toolchain expectations (<code>x86_64-elf-gcc</code>, GRUB <code>mkrescue</code>, QEMU).</p>
             </div>
             <div class="feature-item">
-                <h3>Keyboard Input</h3>
-                <p>Interrupt-driven keyboard handling with IDT setup, including fixes for edge cases like double-processing during interrupt handling.</p>
+                <h3>Keyboard input (0.6)</h3>
+                <p>IRQ1 pushes scancodes into a ring queue; <code>kmain</code> and Dolphin dequeue asynchronously (with <code>HLT</code> when idle) instead of polling port <code>0x60</code> in the main loop—fixes input stalling after several shell commands when the PIT is active.</p>
             </div>
             <div class="feature-item">
-                <h3>Timers, scheduling &amp; syscalls (0.5)</h3>
-                <p>Interrupt-driven architecture work, timer interrupts, scheduler foundations, task switching milestones, and syscall interface expansion (including fork/wait/mmap/munmap/stat/ioctl style bring-up with error handling emphasis).</p>
+                <h3>Virtual &amp; physical memory (0.6)</h3>
+                <p><code>vmm.c</code> manages page tables; boot identity mapping covers the first gibibyte; PMM allocates 4&nbsp;KiB frames using Multiboot2 region types; per-task address spaces reload CR3 on context switch.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Timers, scheduling &amp; syscalls</h3>
+                <p>PIT-driven preemption with bootstrap guards (<code>bootstrap_on_kmain_stack</code>, first-tick skip, <code>context_looks_sane</code>); syscall table from 0.5 (fork/wait/mmap/munmap/stat/ioctl and related handlers) remains experimental.</p>
             </div>
             <div class="feature-item">
                 <h3>Hardware introspection</h3>
@@ -131,7 +135,7 @@
             </div>
             <div class="feature-item">
                 <h3>Dolphin Pop</h3>
-                <p>In-kernel text editor experience (&ldquo;Dolphin&rdquo;) with navigation improvements during 0.5 development.</p>
+                <p>In-kernel text editor; 0.6 reads keys from the shared IRQ queue like the shell.</p>
             </div>
         </div>
     </div>
@@ -140,10 +144,10 @@
         <h2>Building and Running</h2>
         <p>Popcorn provides multiple build system options for different environments:</p>
         <ul style="list-style: none; margin-left: 1rem;">
-            <li>✦ Interactive build using <code>build.sh</code> (Unix / WSL / native Linux; macOS with cross toolchain)</li>
-            <li>✦ PowerShell build script (<code>build.ps1</code>) for Windows users</li>
-            <li>✦ Python build monitor / builder tooling (<code>buildmon.py</code>) used alongside shell workflows (0.5 aligned <code>build.sh</code> structure with this system)</li>
-            <li>✦ Optional macOS GUI launcher (<code>mac-build.py</code>) layered on the same build steps (WebView UI + modular backend)</li>
+            <li>✦ <code>src/build/linux.sh</code> and <code>macos.sh</code> entry points (Unix / WSL / native Linux / macOS with cross toolchain)</li>
+            <li>✦ <code>popcorn_build/</code> Python package (toolchain, compile, ISO, QEMU runner)</li>
+            <li>✦ Optional macOS GUI (<code>src/build/gui-macos.py</code>) with local web UI under <code>popcorn_build/ui/</code></li>
+            <li>✦ Legacy <code>build.ps1</code> may exist for Windows; Linux/macOS paths above are the maintained 0.6 flow</li>
             <li>✦ QEMU system emulation support (x86-64; CD/ISO boot)</li>
             <li>✦ Customizable memory and core allocation (where exposed by your launcher / scripts)</li>
         </ul>
@@ -170,22 +174,20 @@
             <li>✦ 1GB free space assuming WSL installed</li>
         </ul>
         <br>
-        <p>WSL is strongly recommended for Windows developers. Native Linux is fully viable. macOS is supported for development in 0.5 when using Homebrew-provided cross compilers and BIOS-capable ISO tooling; QEMU behavior may differ by build (for example accelerator availability). Windows 11 and WSL 2.0 remain the recommended Windows stack.</p>
+        <p>WSL is strongly recommended for Windows developers. Native Linux is fully viable. macOS uses <code>src/build/macos.sh</code> or <code>gui-macos.py</code> with Homebrew cross compilers and GRUB ISO tooling; QEMU behavior may differ by host. Windows 11 and WSL 2.0 remain the recommended Windows stack.</p>
     </div>
     <div class="section">
         <h2>Current Status & Limitations</h2>
-        <p>Popcorn is currently in version <strong>0.5</strong> and marked as unstable with all versions being pre-releases. The project includes:</p>
+        <p>Popcorn is currently in version <strong>0.6</strong> (pre-release on branch <code>1.6</code>) and marked as unstable below v1.0. This release adds:</p>
         <ul style="list-style: none; margin-left: 1rem;">
-            <li>✦ Modern console system with VGA text mode management (including scrollback/history/autocomplete foundations)</li>
-            <li>✦ Modular pop system with the pops listed above</li>
-            <li>✦ Keyboard input handling with interrupt support (including real-world edge-case fixes)</li>
-            <li>✦ Shared utilities framework and refactors toward consistency</li>
-            <li>✦ Interrupt-driven bring-up, timers, scheduler foundations, and task switching milestones</li>
-            <li>✦ Expanded syscall work (fork/wait/mmap/munmap/stat/ioctl style interfaces) with integration-focused error handling</li>
-            <li>✦ Boot-time hardware introspection (memmap/CPUID/frequency/multiboot persistence)</li>
-            <li>✦ A working ISO &rarr; QEMU iteration loop for x86-64 (platform-specific toolchain caveats apply)</li>
+            <li>✦ Everything from 0.5: console, pops, ISO/QEMU loop, syscalls, hardware introspection</li>
+            <li>✦ VMM + PMM rewrite (identity boot map, frame bitmap, per-task PML4)</li>
+            <li>✦ IRQ keyboard queue + shell <code>HLT</code> wait path (no main-loop port polling)</li>
+            <li>✦ Timer re-enabled at console handoff with scheduler bootstrap guardrails</li>
+            <li>✦ Unified <code>src/build/</code> tooling (linux.sh, macos.sh, popcorn_build package)</li>
+            <li>✦ Scrollback fix on macOS QEMU builds</li>
         </ul>
-        <p><strong>Work in Progress:</strong> The project remains actively developed. Even with a working ISO/QEMU loop in 0.5, many OS facilities are still experimental: syscall semantics evolve, scheduling is still maturing, and platform packaging (Linux vs macOS vs Windows) continues to tighten.</p>
+        <p><strong>Work in Progress:</strong> User processes, full demand paging, and production-grade scheduling are still future work. Soak-test locally (boot &rarr; many shell commands &rarr; Dolphin) before treating 0.6 as demo-stable.</p>
         <p><strong>Contributions:</strong> Special thanks to Swarnim A for the Intel book reference that made keyboard inputs possible for this kernel.</p>
     </div>
 </div>

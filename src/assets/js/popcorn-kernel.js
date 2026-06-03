@@ -4,21 +4,21 @@
 (function () {
     const KERNEL_TREE = {
         id: "root",
-        label: "Popcorn v0.5 — hierarchical operation map",
+        label: "Popcorn v0.6 — hierarchical operation map",
         detail:
-            "Source-aligned overview: firmware/GRUB → Multiboot2 ELF at 0x100000 → kernel.asm:start → long mode → kmain. Below: host vs guest, boot, subsystems, init order, pops, and caveats.\n\nSelect any node to read the contract-style notes.",
+            "Source-aligned overview: firmware/GRUB → Multiboot2 ELF at 0x100000 → kernel.asm:start → 1 GiB identity map → long mode → kmain. 0.6 adds VMM/PMM, IRQ keyboard queue, and scheduler bootstrap guards before full PIT preemption.\n\nSelect any node to read the contract-style notes.",
         children: [
             {
                 id: "repo-roles",
                 label: "0 · Repository roles (kernel vs host)",
                 detail:
-                    "Popcorn/\n├── src/\n│   ├── link.ld              # ELF @ 0x100000, ENTRY(start), multiboot\n│   ├── core/                  # Kernel (C + asm)\n│   ├── pops/                  # Pop modules\n│   ├── includes/\n│   ├── build.sh / buildmon.py # Host automation\n│   └── mac-build*.py/sh       # macOS wrappers\n\nInside QEMU only the linked ELF matters. Shell/Python are host-side.",
+                    "Popcorn/\n├── src/\n│   ├── link.ld              # ELF @ 0x100000, ENTRY(start), multiboot\n│   ├── core/                  # Kernel (C + asm), includes vmm.c\n│   ├── pops/                  # Pop modules\n│   ├── includes/              # vmm.h, keyboard_queue.h, …\n│   └── build/\n│       ├── linux.sh / macos.sh\n│       └── popcorn_build/     # toolchain, ISO, QEMU\n\nInside QEMU only the linked ELF matters. Shell/Python are host-side.",
             },
             {
                 id: "boot",
                 label: "1 · Boot chain",
                 detail:
-                    "GRUB (guest)\n  └─ multiboot2 /boot/kernel\n       └─ load ELF at link address\n            └─ jump start (core/kernel.asm)\n\nlink.ld: OUTPUT_FORMAT(elf64-x86-64), ENTRY(start), .multiboot, PT_LOAD.\n\nkernel.asm: start (32-bit) → save multiboot2 pointer → page tables → EFER.LME → start64 → rsp = stack_top → call kmain. If kmain returns: cli; hlt loop.\n\nStubs: keyboard_handler, timer_handler, syscall_handler_asm → C; load_idt (lidt; sti); cpuid/rdtsc helpers.",
+                    "GRUB (guest)\n  └─ multiboot2 /boot/kernel\n       └─ load ELF at link address\n            └─ jump start (core/kernel.asm)\n\nkernel.asm: start → save multiboot2 pointer → 512×2 MiB identity map → EFER.LME → start64 → rsp → kmain.\n\nStubs: keyboard_handler, timer_handler, syscall_handler_asm, default_cpu_exception → C; load_idt (lidt; sti).",
                 children: [
                     {
                         id: "mb2-header",
@@ -32,57 +32,58 @@
                 id: "runtime",
                 label: "2 · Ring-0 runtime architecture",
                 detail:
-                    "┌─────────────────────────────────────────────┐\n│ Popcorn (ring 0)                             │\n├─────────────────────────────────────────────┤\n│ Console VGA 0xB8000 · shell + Dolphin       │\n│ Interrupts: PIC + IDT                       │\n│ PIT → timer → scheduler_tick                │\n│ Memory: kmalloc path, stats                 │\n│ Scheduler: queues, idle, context switch     │\n│ Syscalls: int 0x80 → dispatch               │\n│ Pop registry + shell execute_command        │\n└─────────────────────────────────────────────┘",
+                    "┌─────────────────────────────────────────────┐\n│ Popcorn (ring 0)                             │\n├─────────────────────────────────────────────┤\n│ Console VGA 0xB8000 · shell + Dolphin       │\n│ VMM: boot identity map, per-task PML4, CR3  │\n│ PMM: 4K frames, bitmap from Multiboot mmap  │\n│ IRQ1 → scancode queue → shell (HLT wait)    │\n│ PIT → timer → scheduler_tick (guarded)      │\n│ Syscalls: int 0x80 → dispatch               │\n│ Pop registry + execute_command              │\n└─────────────────────────────────────────────┘",
                 children: [
-                    { id: "console", label: "5 · Console / VGA", detail: "core/console.c + ConsoleState: 80×25×2 @ 0xB8000; cursor, colors, scroll, header, prompt, status bar. Used by init, shell, pops, syscalls." },
-                    { id: "irq", label: "Interrupt subsystem", detail: "PIC remap; IDT[0x20] timer, [0x21] keyboard, [0x80] syscall. IRQ0 → scheduler_tick (after boot wire-up); IRQ1 → keyboard_handler_main; int 0x80 → syscall_dispatch." },
-                    { id: "timer", label: "6 · Timer (PIT)", detail: "timer_init: ports 0x43/0x40. timer_interrupt_handler: ticks++, tick_handler (scheduler_tick), EOI 0x20. timer_enable/disable: mask IRQ0 @ PIC1 0x21." },
-                    { id: "mem", label: "Memory manager", detail: "memory_init + kmalloc/kfree; stats in boot UI, mem pop, commands." },
-                    { id: "sched", label: "7 · Scheduler", detail: "scheduler_init: 5 priority queues, idle PID 0. scheduler_tick from timer IRQ: boot skip, accounting, slice, periodic preemption (tick_counter ≥ 10). Static 32×16KiB stacks." },
-                    { id: "syscall", label: "8 · Syscalls", detail: "syscall_init registers ~21 handlers (exit, read, write, open, fork, mmap, …). syscall_dispatch: rax index, linear table, int64 return. IDT[0x80] type 0xEE user-accessible gate → syscall_handler_asm." },
-                    { id: "pops-reg", label: "Pop module registry", detail: "register_pop_module (order = render/exec). execute_all_pops exists; some shell paths call pops directly (e.g. hang → spinner + uptime)." },
-                    { id: "shell", label: "9 · Shell / execute_command", detail: "Built-ins, FS verbs, introspection (sysinfo, mem, cpu, timer, tasks, syscalls), mon …, dol … Dolphin routing. kmain loop: poll 0x64/0x60; if Dolphin active → dolphin_handle_key; else history + TAB completion." },
+                    { id: "console", label: "5 · Console / VGA", detail: "core/console.c + ConsoleState: 80×25×2 @ 0xB8000; cursor, colors, scroll, scrollback, header, prompt, status bar." },
+                    { id: "vmm", label: "5b · Virtual memory (VMM)", detail: "core/vmm.c: boot identity map helpers, alloc PML4, map 4K/2M, process address-space init, CR3 reload on task switch. Scheduler stores pml4_phys per task." },
+                    { id: "pmm", label: "5c · Physical memory (PMM)", detail: "core/memory.c: walks Multiboot2 mmap with region-type filter; bitmap marks 4K frames in first GiB; kmalloc-style pools remain for kernel structures." },
+                    { id: "irq", label: "Interrupt subsystem", detail: "PIC remap; IDT[0x20] timer, [0x21] keyboard, [0x80] syscall. IRQ0 → scheduler_tick (after console handoff, with bootstrap guards). IRQ1 → keyboard_handler_main → key_queue." },
+                    { id: "timer", label: "6 · Timer (PIT)", detail: "timer_init during boot screen; timer_enable at init_transition_to_console. timer_interrupt_handler: ticks++, tick_handler, EOI 0x20." },
+                    { id: "sched", label: "7 · Scheduler", detail: "scheduler_init: kernel PML4, idle PID 0, 5 priority queues. scheduler_tick: skip first tick; bootstrap_on_kmain_stack() blocks switch; context_looks_sane(); preempt every 10 ticks. Static 32×16KiB stacks." },
+                    { id: "syscall", label: "8 · Syscalls", detail: "syscall_init registers ~21 handlers. syscall_dispatch via int 0x80. Experimental fork/mmap paths from 0.5 remain." },
+                    { id: "pops-reg", label: "Pop module registry", detail: "register_pop_module ×9 during init_boot_screen. execute_all_pops batch helper; shell calls pops directly in places." },
+                    { id: "shell", label: "9 · Shell / execute_command", detail: "kmain loop: dequeue scancode from IRQ queue; HLT when empty; Dolphin uses same queue. Built-ins, FS verbs, sysinfo/mem/cpu, dol …" },
                 ],
             },
             {
                 id: "kmain",
                 label: "3 · kmain loop",
                 detail:
-                    "kmain (kernel.c)\n  init_boot_screen (init.c)\n  while (1)\n    poll keyboard ports\n    if dolphin_is_active → dolphin_handle_key\n    else line editing + execute_command on Enter\n\nNote: keyboard path polls; timing is still interrupt-driven via PIT once enabled.",
+                    "kmain (kernel.c)\n  init_boot_screen (init.c)\n  while (1)\n    read from key_queue (IRQ1 producer)\n    if empty → HLT (wake on IRQ1)\n    if dolphin_is_active → dolphin_handle_key\n    else line editing + execute_command on Enter\n\n0.6 does not poll 0x64/0x60 in the main loop.",
             },
             {
                 id: "init",
                 label: "4 · init_boot_screen → transition",
                 detail:
-                    "init_boot_screen:\n  console_init → init_draw_header → init_show_memory_info (memory_init)\n  → timer_init → scheduler_init → syscall_init\n  → register_pop_module ×9 → progress bar → init_wait_for_enter\n  → init_transition_to_console\n\ninit_transition_to_console:\n  console_clear, multiboot2_parse, idt_init (PIC, mask, load_idt/sti)\n  → kb_init (unmask IRQ1) → timer_set_tick_handler(scheduler_tick)\n  → timer_enable (unmask IRQ0) → draw prompt + status bar.\n\nPop order: spinner, uptime, filesystem, sysinfo, memory, cpu, dolphin, halt, shimjapii.",
+                    "init_boot_screen:\n  multiboot2_parse early → idt_init\n  console_init → header → memory_init (PMM+VMM)\n  → timer_init → scheduler_init → syscall_init\n  → register_pop_module ×9 → progress → wait Enter/auto\n  → init_transition_to_console\n\ninit_transition_to_console:\n  clear → kb_init (IRQ1) → timer_set_tick_handler(scheduler_tick)\n  → timer_enable → prompt + status bar.\n\nNote: multiboot2_parse also runs at boot screen start; IDT before tasks with IF=1.",
             },
             {
                 id: "pops-files",
                 label: "10 · pops/*.c (linked ring-0)",
                 detail:
-                    "pops/: spinner_pop, uptime_pop, filesystem_pop, sysinfo_pop, memory_pop, cpu_pop, dolphin_pop, halt_pop, shimjapii_pop.\n\nPops are not separate address spaces—they are linked into the kernel.",
+                    "pops/: spinner, uptime, filesystem, sysinfo, memory, cpu, dolphin, halt, shimjapii.\n\nDolphin 0.6: shared keyboard queue. Pops are linked into the kernel binary.",
             },
             {
                 id: "mb2-parse",
                 label: "11 · multiboot2_parse",
-                detail: "Walks tags from multiboot2_info_ptr: bootloader name, cmdline, mem info, mmap → totals. Consumers: sysinfo, boot messaging.",
+                detail: "Walks tags from multiboot2_info_ptr: bootloader, cmdline, meminfo, mmap → PMM region filtering and sysinfo.",
             },
             {
                 id: "host-build",
                 label: "12 · Host → QEMU",
-                detail: "Toolchain → ELF + ISO. qemu-system-x86_64 -cdrom … → GRUB → multiboot2 → kernel. Not in-guest; completes the story.",
+                detail: "src/build/linux.sh or macos.sh → ELF + ISO via popcorn_build → qemu-system-x86_64 -cdrom popcorn.iso.",
             },
             {
                 id: "reading",
                 label: "13 · Reading map",
                 detail:
-                    "Entry/long mode/ISR stubs → core/kernel.asm\nLink/sections → link.ld\nBoot UI + ordered init → core/init.c\nShell + IDT/PIC + keyboard loop → core/kernel.c\nTimer → core/timer.c + asm stub\nScheduler → core/syscall.c + asm\nMultiboot → multiboot2.c\nPop registry → pop_module.c\nIndividual pops → pops/*.c",
+                    "Entry/paging/ISR → core/kernel.asm\nLink → link.ld\nBoot UI + init → core/init.c\nShell + key queue + IDT → core/kernel.c\nVMM → core/vmm.c\nPMM/heap → core/memory.c\nTimer → core/timer.c\nScheduler → core/scheduler.c + context_switch.asm\nSyscalls → core/syscall.c\nMultiboot → multiboot2.c\nPops → pops/*.c",
             },
             {
                 id: "caveats",
                 label: "14 · Caveats",
                 detail:
-                    "Educational security model: user-accessible syscall gate exists; isolation depends on scheduler/memory setup—read sources.\nPolling + IRQ concurrency: shell polls keyboard while timer IRQ runs scheduler; check locking assumptions.\nexecute_all_pops: batch helper; not every feature uses it.",
+                    "0.6 pre-release: soak-test keyboard + timer on your QEMU/host.\nPer-task PML4 exists; user isolation and demand paging are not complete.\nKeep cli windows in context switch short for keyboard latency.\nexecute_all_pops: batch helper; not every path uses it.",
             },
         ],
     };

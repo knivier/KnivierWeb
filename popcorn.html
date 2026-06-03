@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
-    <meta content="Popcorn 0.5 — a small learn-by-reading OS kernel for 64-bit PCs: boot it in QEMU, use the text console, and explore how startup and scheduling work." name="description">
+    <meta content="Popcorn 0.6 — a small learn-by-reading OS kernel for 64-bit PCs: boot it in QEMU, use the text console, and explore paging, input, and scheduling." name="description">
     <meta content="Popcorn Kernel" property="og:title">
     <meta content="A small learn-by-reading OS kernel: boot in QEMU, use the text console, then dive into the operation map for full technical detail." property="og:description">
     <meta content="website" property="og:type">
@@ -34,17 +34,18 @@
         <div class="hero-lead">
             <div class="hero-title-row">
                 <h1>Popcorn</h1>
-                <span class="version-pill">v0.5 · pre-1.0</span>
+                <span class="version-pill">v0.6</span>
             </div>
             <div class="spec-chips" aria-label="What this project is">
                 <span class="spec-chip">64-bit PC (x86-64)</span>
                 <span class="spec-chip">Boots from a GRUB disk image</span>
                 <span class="spec-chip">Mostly C, a little assembly</span>
                 <span class="spec-chip">Classic text-mode screen</span>
-                <span class="spec-chip">Timers, keyboard, multitasking</span>
+                <span class="spec-chip">VMM + PMM, IRQ keyboard queue</span>
+                <span class="spec-chip">Timers &amp; preemptive scheduling</span>
                 <span class="spec-chip">Runs in QEMU</span>
             </div>
-            <p>Popcorn is a <strong>learning kernel</strong>: a small operating-system core you can boot in an emulator, read line by line, and change without fighting a huge codebase. When it starts, it prepares memory, a system clock, and basic multitasking, then opens a simple <strong>text console</strong> where you type commands—while a background clock keeps ticking so the kernel can switch between tasks.</p>
+            <p>Popcorn is a <strong>learning kernel</strong>: a small operating-system core you can boot in an emulator, read line by line, and change without fighting a huge codebase. Version <strong>0.6</strong> adds real <strong>virtual memory</strong> (boot identity map plus per-task page tables), a <strong>physical frame allocator</strong> driven by the Multiboot2 memory map, and an <strong>IRQ keyboard queue</strong> so the shell stays responsive under timer preemption. After init, you get a simple <strong>text console</strong> while the PIT still feeds the scheduler—with guardrails so boot does not context-switch too early.</p>
             <p class="hero-lead-more">If you already know OS terms, see the <a data-popcorn-page-href="kernel" href="popcorn-kernel.html">operation map</a> for boot flow and interrupts, or the <a data-popcorn-page-href="source" href="popcorn-source.html">source catalog</a> for every <code class="font-mono">core/</code> and <code class="font-mono">pops/</code> file and how they link.</p>
         </div>
 
@@ -83,19 +84,19 @@
         { kind: "shell", cmd: "sysinfo" },
         { kind: "out", text: "boot: Multiboot2 tags  |  loader: from mmap/cmdline tags  |  RAM totals from memory map walk (see multiboot2.c)" },
         { kind: "shell", cmd: "uname -a" },
-        { kind: "out", text: "Popcorn 0.5 x86_64 ring0  VGA 80x25  PIT+PIC  int0x80 syscall gate  pops=9" },
+        { kind: "out", text: "Popcorn 0.6 x86_64 ring0  VGA 80x25  VMM+PMM  PIT+PIC  IRQ key queue  pops=9" },
         { kind: "shell", cmd: "timer" },
-        { kind: "out", text: "PIT IRQ0 -> timer_interrupt_handler -> tick_handler -> scheduler_tick (post-boot wire-up)" },
+        { kind: "out", text: "PIT IRQ0 -> timer_interrupt_handler -> scheduler_tick (enabled after console handoff; bootstrap guards on early ticks)" },
     ];
 
     const buildSequence = [
-        { kind: "build", cmd: "./build.sh" },
-        { kind: "out", text: "host: produces 64-bit ELF kernel + ISO layout (xorriso / grub-mkrescue toolchain-dependent)" },
-        { kind: "out", text: "… link.ld: ENTRY(start)  LOAD @ 0x100000  .multiboot + PT_LOAD …" },
-        { kind: "build", cmd: "qemu-system-x86_64 -cdrom build/popcorn.iso -m 512M" },
-        { kind: "out", text: "guest: GRUB -> multiboot2 -> jump to kernel.asm:start -> long mode -> kmain()" },
-        { kind: "build", cmd: "python3 buildmon.py   # optional Fedora-oriented monitor" },
-        { kind: "out", text: "host-only: not executed inside the guest; only the linked ELF matters in QEMU." },
+        { kind: "build", cmd: "cd src && ./build/linux.sh" },
+        { kind: "out", text: "host: 64-bit ELF + ISO (xorriso / grub-mkrescue; see popcorn_build/ package)" },
+        { kind: "out", text: "… link.ld: ENTRY(start)  identity map + kernel sections @ 0x100000 …" },
+        { kind: "build", cmd: "qemu-system-x86_64 -cdrom popcorn.iso -m 512M" },
+        { kind: "out", text: "guest: GRUB -> multiboot2 -> kernel.asm:start -> long mode + paging -> kmain()" },
+        { kind: "build", cmd: "cd src/build && python3 gui-macos.py   # macOS GUI wrapper" },
+        { kind: "out", text: "host-only: builders live under src/build/; only the linked ELF runs in QEMU." },
     ];
 
     const terminalEl = document.getElementById("terminal-panel");

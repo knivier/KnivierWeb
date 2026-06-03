@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             
             if (typingElement && window.innerWidth > 768 && !prefersReducedMotion) {
-                typingElement.style.animation = 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite';
+                typingElement.style.animation = 'typing 3.5s steps(7, end), blink-caret 0.75s step-end infinite';
             }
         }, 500);
 

@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
-    <meta content="Popcorn v0.5 source catalog: every file under src/core and src/pops — roles, links, and a live dependency graph. Data-driven for easy updates." name="description">
+    <meta content="Popcorn v0.6 source catalog: every file under src/core and src/pops — roles, links, and a live dependency graph. Data-driven for easy updates." name="description">
     <meta content="Popcorn — Source catalog" property="og:title">
     <meta content="IDE-style explorer + connection graph for kernel.c, init.c, pops, and asm entry." property="og:description">
     <meta content="website" property="og:type">
-    <title>Popcorn — Source catalog (v0.5)</title>
+    <title>Popcorn — Source catalog (v0.6)</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="src/assets/css/popcorn-source.css" rel="stylesheet">
     <script defer src="src/assets/data/popcorn-site-config.js"></script>
@@ -24,9 +24,9 @@
 <main class="source-main">
     <header class="source-hero">
         <h1>Kernel source catalog</h1>
-        <p class="sub">Every C and assembly unit under <code class="font-mono">src/core</code> and <code class="font-mono">src/pops</code> (23 files for v0.5). Pick a file on the left—like an IDE sidebar—to read what it does; the graph highlights how it connects to neighbors. Headers under <code class="font-mono">src/includes/</code> are out of scope here.</p>
-        <p class="sub">This page is always a work in progress and isn't always up to date. As Popcorn continues to grow, keeping this udpated continues to be a challenge, but remains a priority as this is a project for people to learn.</p>
-        <span class="version-tag" id="catalog-version-tag">v0.5</span>
+        <p class="sub">Every C and assembly unit under <code class="font-mono">src/core</code> and <code class="font-mono">src/pops</code> (23 files for v0.6, including <code class="font-mono">vmm.c</code>). Pick a file on the left—like an IDE sidebar—to read what it does; the graph highlights how it connects to neighbors. Headers under <code class="font-mono">src/includes/</code> (e.g. <code class="font-mono">keyboard_queue.h</code>, <code class="font-mono">vmm.h</code>) are described inline where relevant.</p>
+        <p class="sub">This page tracks the <strong>0.6</strong> tree (VMM, PMM rewrite, IRQ keyboard queue, scheduler guardrails). As Popcorn grows, edit <code class="font-mono">popcorn-source-catalog.js</code> to stay aligned.</p>
+        <span class="version-tag" id="catalog-version-tag">v0.6</span>
         <!-- <p class="sub source-hero-note">To update this page when the tree changes, edit only <code class="font-mono">src/assets/data/popcorn-source-catalog.js</code> (file entries + <code class="font-mono">links</code>); layout and UI stay the same.</p> -->
     </header>
 
@@ -62,7 +62,7 @@
 
     <div class="rel-box">
         <h3>core/ vs pops/</h3>
-        <p><strong>core/</strong> is the kernel proper: entry, context switch, devices, time, memory, tasks, syscalls, boot UX, VGA, bootloader info, pop registry, and shared helpers. <strong>pops/</strong> are feature modules in the same binary: they register through <code class="font-mono">register_pop_module</code> and expose HUD hooks and larger APIs (especially the in-memory filesystem and Dolphin) that <code class="font-mono">kernel.c</code> reaches from the shell and input loop.</p>
+        <p><strong>core/</strong> is the kernel proper: entry, paging (<code class="font-mono">vmm.c</code>), physical frames (<code class="font-mono">memory.c</code>), context switch, devices, time, tasks, syscalls, boot UX, VGA, bootloader info, pop registry, and helpers. <strong>pops/</strong> are feature modules in the same binary: they register through <code class="font-mono">register_pop_module</code> and expose HUD hooks and larger APIs that <code class="font-mono">kernel.c</code> reaches from the shell and the IRQ key queue.</p>
     </div>
 
     <section class="source-index" aria-labelledby="idx-heading">

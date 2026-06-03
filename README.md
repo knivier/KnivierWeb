@@ -34,7 +34,7 @@ Well...
 - Main Page: This is index.html and is the "root" for all my projects to stem out to.
 - Activerse: This is for my 2D java game engine: Activerseinfo is the main "activerse" page, followed by actvisions
   which is a version log site
-- Popcorn: Kernel microsite (`popcorn.html`, `aboutpopcorn.html`, `popcorn-kernel.html`, `popcorn-source.html`). **Update paths and version in one place:** `src/assets/data/popcorn-site-config.js` (nav, breadcrumbs, GitHub links). The script `src/assets/js/popcorn-shell.js` fills the shared header on each page from that config. Inline links that use `data-popcorn-page-href="kernel"` (etc.) are rewritten to match `pages.*`. Source-file catalog data stays in `src/assets/data/popcorn-source-catalog.js`. Keep `meta.version` there in sync with `POPCORN_SITE.version`. The portfolio **index.html** banner/timeline links to Popcorn are separate—change those if you rename files.
+- Popcorn: Kernel microsite (`popcorn.html`, `aboutpopcorn.html`, `popcorn-kernel.html`, `popcorn-source.html`). **Current doc version: 0.6.** Update paths and version in one place: `src/assets/data/popcorn-site-config.js` (nav, breadcrumbs, GitHub links). The script `src/assets/js/popcorn-shell.js` fills the shared header on each page from that config. Source-file catalog: `src/assets/data/popcorn-source-catalog.js` — keep `meta.version` in sync with `POPCORN_SITE.version`. The portfolio **index.html** banner links to Popcorn are separate—change those when releasing.
 - Troll Game: This is on trollgameinfo.html and may be taken down and moved to a different website; troll game has been
   discontinued
 - Count down: This is for my schools holidays that are upcoming
