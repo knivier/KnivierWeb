@@ -65,12 +65,15 @@ html, body {
     padding: 0;
     overflow-x: hidden;
     width: 100%;
+    background-color: var(--background);
 }
 
 html {
     font-size: 16px;
     scroll-padding-top: 3.5rem;
     scroll-padding-bottom: var(--island-safe-bottom);
+    color-scheme: dark;
+    overscroll-behavior-y: none;
 }
 
 body {
@@ -463,47 +466,116 @@ body::before {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: white;
-    text-align: center;
-    padding: 12px 0;
+    right: 0;
     z-index: 1000;
-    transition: all 0.4s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
+    padding: 0.45rem 1rem;
+    padding-top: max(0.45rem, env(safe-area-inset-top));
+    background: rgba(10, 12, 18, 0.82);
+    backdrop-filter: var(--blur-glass-heavy);
+    -webkit-backdrop-filter: var(--blur-glass-heavy);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.promo-banner__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding-right: 2.25rem;
+}
+
+.promo-banner__badge {
+    flex-shrink: 0;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-pill);
+    background: var(--primary-container);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    color: var(--primary-light);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+}
+
+.promo-banner__text {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.45;
+    text-align: center;
+}
+
+#pre-production-banner a {
+    color: var(--primary-light);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 0.15rem;
+    transition: color var(--transition-fast);
+}
+
+#pre-production-banner a:hover {
+    color: #a5b4fc;
+    text-decoration: underline;
 }
 
 #pre-production-banner.hidden {
     transform: translateY(-100%);
 }
 
-/* Keep hero below fixed promo strip on mobile */
+/* Keep hero below fixed promo strip */
 #pre-production-banner:not(.hidden) ~ header[role="banner"] {
-    padding-top: clamp(2.75rem, 12vw, 3.75rem);
+    padding-top: clamp(2.5rem, 10vw, 3.25rem);
 }
 
 #close-banner {
     position: absolute;
-    right: 20px;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    width: 24px;
-    height: 24px;
+    width: 1.65rem;
+    height: 1.65rem;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    font-size: 18px;
-    font-weight: bold;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #close-banner:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-50%) scale(1.1);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--glass-border-strong);
+    color: var(--text-primary);
+    transform: translateY(-50%) scale(1.05);
+}
+
+#close-banner:focus {
+    outline: none;
+}
+
+#close-banner:focus-visible {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 2px;
 }
 
 /* Dynamic Island Navigation */
@@ -694,6 +766,14 @@ header nav[aria-label="Main navigation"] a.glass:hover {
     .dynamic-island__track {
         gap: 0.15rem;
     }
+
+    .promo-banner__text {
+        font-size: 0.75rem;
+    }
+
+    .promo-banner__inner {
+        padding-right: 2rem;
+    }
     
     /* Improve button spacing */
     nav[aria-label="Main navigation"] {
@@ -812,7 +892,7 @@ a:focus:not(.dynamic-island__item), button:focus, [tabindex]:focus {
 
 /* Ensure minimum touch targets on mobile */
 @media (max-width: 768px) {
-    a:not(.dynamic-island__item), button, [role="button"], input, select, textarea {
+    a:not(.dynamic-island__item), button:not(#close-banner), [role="button"], input, select, textarea {
         min-height: 44px;
         min-width: 44px;
         display: inline-flex;
@@ -831,12 +911,4 @@ a:focus:not(.dynamic-island__item), button:focus, [tabindex]:focus {
         min-height: 48px;
         min-width: 48px;
     }
-}
-
-#close-banner {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
 }
