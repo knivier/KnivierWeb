@@ -9,10 +9,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="src/assets/css/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="src/images/pfp.png" rel="icon" type="image/png">
-    <!-- Add to <head> -->
-<meta name="description" content="Knivier (Agniva) - High school Computer Engineering enthusiast specializing in embedded systems, OS development, and low-level programming.">
-<meta name="keywords" content="Computer Engineering, Embedded Systems, OS Development, Java, Rust, C Programming">
+    <meta name="description" content="Knivier (Agniva) - High school Computer Engineering enthusiast specializing in embedded systems, OS development, and low-level programming.">
 <meta name="author" content="Agniva (Knivier)">
 
 <!-- Open Graph for social sharing -->
@@ -36,17 +35,17 @@
 }
 </script>
 </head>
-
-<!-- Skip Navigation for Accessibility -->
-<a href="#main-content" class="skip-nav">Skip to main content</a>
+<body>
 
 <div id="pre-production-banner" role="banner" aria-live="polite">
     <div class="promo-banner__inner">
-        <span class="promo-banner__badge">New</span>
-        <p class="promo-banner__text">
-            Popcorn 0.6 is out - VMM, keyboard queue, and safer scheduling.
-            <a href="popcorn.html">Learn more</a>
-        </p>
+        <div class="promo-banner__content">
+            <span class="promo-banner__badge">New</span>
+            <p class="promo-banner__text">
+                Popcorn 0.6 is out — VMM, keyboard queue, and safer scheduling.
+                <a href="popcorn.html">Learn more</a>
+            </p>
+        </div>
         <button id="close-banner" aria-label="Close banner" type="button">&times;</button>
     </div>
 </div>
@@ -435,20 +434,6 @@
 </nav>
 
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 <script defer src="src/assets/js/index.js"></script>
-
-<!-- Performance Monitoring -->
-<script>
-if ('PerformanceObserver' in window) {
-  new PerformanceObserver((list) => {
-    for (const entry of list.getEntries()) {
-      if (entry.entryType === 'largest-contentful-paint') {
-        console.log('LCP:', entry.startTime + 'ms');
-      }
-    }
-  }).observe({ entryTypes: ['largest-contentful-paint'] });
-}
-</script>
 </body>
 </html>

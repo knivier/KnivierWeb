@@ -1,21 +1,12 @@
-// Global error handling
-window.addEventListener('error', (e) => {
-    console.warn('Portfolio error:', e.error);
-});
-
-window.addEventListener('unhandledrejection', (e) => {
-    console.warn('Unhandled promise rejection:', e.reason);
-});
-
 // Particle.js Configuration with error handling
 try {
     particlesJS('particles-js', {
         particles: {
-            number: {value: 140, density: {enable: true, value_area: 900}},
-            color: {value: ['#6366F1', '#F59E0B', '#8B5CF6']},
-            shape: {type: 'circle'},
-            opacity: {value: 0.6, random: true, anim: {enable: true, speed: 1, opacity_min: 0.1}},
-            size: {value: 3, random: true, anim: {enable: true, speed: 2, size_min: 0.3}},
+            number: { value: 120, density: { enable: true, value_area: 900 } },
+            color: { value: ['#6366F1', '#F59E0B', '#8B5CF6'] },
+            shape: { type: 'circle' },
+            opacity: { value: 0.6, random: true, anim: { enable: false } },
+            size: { value: 3, random: true, anim: { enable: false } },
             line_linked: {
                 enable: true,
                 distance: 150,
@@ -30,33 +21,27 @@ try {
                 random: true,
                 straight: false,
                 out_mode: 'out',
-                bounce: false,
+                bounce: false
             }
         },
         interactivity: {
             detect_on: 'canvas',
             events: {
-                onhover: {enable: true, mode: 'grab'},
-                onclick: {enable: true, mode: 'push'},
+                onhover: { enable: false },
+                onclick: { enable: false },
                 resize: true
-            },
-            modes: {
-                grab: {distance: 200, line_linked: {opacity: 0.8}},
-                push: {particles_nb: 4}
             }
         },
         retina_detect: true
     });
 } catch (error) {
     console.warn('Particles.js failed to load:', error);
-    // Fallback: hide particles container
     const particlesContainer = document.getElementById('particles-js');
     if (particlesContainer) {
         particlesContainer.style.display = 'none';
     }
 }
 
-// Enhanced Scroll Animations
 const observerOptions = {
     threshold: 0.15,
     rootMargin: '0px 0px -100px 0px'
@@ -64,40 +49,32 @@ const observerOptions = {
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            
-            // Trigger counter animations for stats
-            if (entry.target.querySelector('.counter')) {
-                animateCounters(entry.target);
-            }
-            
-            // Trigger stagger animations
-            if (entry.target.querySelector('.stagger-animation')) {
-                triggerStaggerAnimation(entry.target);
-            }
+        if (!entry.isIntersecting) return;
+
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+
+        if (entry.target.querySelector('.counter')) {
+            animateCounters(entry.target);
+        }
+
+        if (entry.target.querySelector('.stagger-animation')) {
+            triggerStaggerAnimation(entry.target);
         }
     });
 }, observerOptions);
 
-// Counter Animation Function
 function animateCounters(container) {
     const counters = container.querySelectorAll('.counter');
     counters.forEach(counter => {
-        // Check if counter has already been animated
-        if (counter.dataset.animated === 'true') {
-            return;
-        }
-        
-        // Mark as animated to prevent re-animation
+        if (counter.dataset.animated === 'true') return;
+
         counter.dataset.animated = 'true';
-        
-        const target = parseInt(counter.getAttribute('data-target'));
+
+        const target = parseInt(counter.getAttribute('data-target'), 10);
         const increment = target / 50;
         let current = 0;
-        
+
         const updateCounter = () => {
             if (current < target) {
                 current += increment;
@@ -107,12 +84,11 @@ function animateCounters(container) {
                 counter.textContent = target + '+';
             }
         };
-        
-        setTimeout(updateCounter, Math.random() * 500);
+
+        requestAnimationFrame(updateCounter);
     });
 }
 
-// Stagger Animation Trigger
 function triggerStaggerAnimation(container) {
     const elements = container.querySelectorAll('.stagger-animation > *');
     elements.forEach((element, index) => {
@@ -123,7 +99,6 @@ function triggerStaggerAnimation(container) {
     });
 }
 
-// Initialize section observers
 document.querySelectorAll('section').forEach(section => {
     if (!section.classList.contains('fade-in-up')) {
         section.style.opacity = '0';
@@ -133,26 +108,22 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
-// Enhanced 3D Card Effect
 document.querySelectorAll('.card-3d').forEach(card => {
     card.addEventListener('mouseenter', () => {
         card.style.transition = 'none';
     });
-    
+
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-
         const rotateX = (y - centerY) / 15;
         const rotateY = (centerX - x) / 15;
 
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-        
-        // Add subtle glow effect
+
         const intensity = Math.min(Math.abs(rotateX) + Math.abs(rotateY), 20) / 20;
         card.style.boxShadow = `0 ${10 + intensity * 20}px ${30 + intensity * 20}px rgba(99, 102, 241, ${0.1 + intensity * 0.2})`;
     });
@@ -182,11 +153,9 @@ function initTypingAnimation() {
     let lastStep = performance.now();
 
     function step(now) {
-        if (now - lastStep >= msPerChar) {
-            if (charIndex < fullText.length) {
-                typingElement.textContent += fullText[charIndex++];
-                lastStep = now;
-            }
+        if (now - lastStep >= msPerChar && charIndex < fullText.length) {
+            typingElement.textContent += fullText[charIndex++];
+            lastStep = now;
         }
 
         if (charIndex < fullText.length) {
@@ -220,6 +189,7 @@ function initDynamicIsland() {
     function setActive(item, fromSpy = false) {
         if (!item) return;
         if (fromSpy && userNavLock) return;
+
         items.forEach((el) => {
             el.classList.remove('is-active');
             el.removeAttribute('aria-current');
@@ -289,15 +259,14 @@ function initDynamicIsland() {
     window.addEventListener('resize', () => moveIndicator(activeItem));
 }
 
-// Enhanced DOM Ready Functions
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', () => {
     try {
         const banner = document.getElementById('pre-production-banner');
         const closeBtn = document.getElementById('close-banner');
+        const isDesktopBanner = window.matchMedia('(min-width: 769px)').matches;
 
         if (banner && closeBtn) {
-            // Enhanced banner close with smooth animation and accessibility
-            closeBtn.addEventListener('click', function () {
+            closeBtn.addEventListener('click', () => {
                 banner.classList.add('hidden');
                 banner.setAttribute('aria-hidden', 'true');
                 setTimeout(() => {
@@ -305,8 +274,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 }, 400);
             });
 
-            // Keyboard support for banner close
-            closeBtn.addEventListener('keydown', function(e) {
+            closeBtn.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     closeBtn.click();
@@ -314,87 +282,65 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
         }
 
-        // Smart banner hide/show on scroll with performance optimization
-        let lastScrollTop = 0;
-        let scrollTimeout;
-        let ticking = false;
-        
-        function updateBannerOnScroll() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollDifference = Math.abs(scrollTop - lastScrollTop);
-            
-            if (scrollDifference > 10 && banner) {
-                if (scrollTop > lastScrollTop && scrollTop > 100) {
-                    banner.style.transform = 'translateY(-100%)';
-                } else {
-                    banner.style.transform = 'translateY(0)';
-                }
-                lastScrollTop = scrollTop;
-            }
-            ticking = false;
-        }
-        
-        window.addEventListener('scroll', function () {
-            if (!ticking) {
-                requestAnimationFrame(updateBannerOnScroll);
-                ticking = true;
-            }
-        });
+        if (banner && isDesktopBanner) {
+            let lastScrollTop = 0;
+            let ticking = false;
 
-        // Enhanced smooth scrolling for anchor links
+            function updateBannerOnScroll() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollDifference = Math.abs(scrollTop - lastScrollTop);
+
+                if (scrollDifference > 10) {
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        banner.style.transform = 'translateY(-100%)';
+                    } else {
+                        banner.style.transform = 'translateY(0)';
+                    }
+                    lastScrollTop = scrollTop;
+                }
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(updateBannerOnScroll);
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
+
         document.querySelectorAll('a[href^="#"]:not(.dynamic-island__item)').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const target = document.querySelector(targetId);
-                if (target) {
-                    // Add focus for keyboard users
-                    target.setAttribute('tabindex', '-1');
-                    target.focus();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // Remove tabindex after focus
-                    setTimeout(() => {
-                        target.removeAttribute('tabindex');
-                    }, 1000);
-                }
-            });
-        });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (!target) return;
 
-        // Enhanced hover effects with performance optimization
-        const interactiveElements = document.querySelectorAll('.glass, .project-card, .stat-card');
-        interactiveElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                element.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                target.setAttribute('tabindex', '-1');
+                target.focus();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => target.removeAttribute('tabindex'), 1000);
             });
         });
 
         initTypingAnimation();
         initDynamicIsland();
 
-        // Comprehensive accessibility and performance optimization
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        
+
         function handleReducedMotion(mediaQuery) {
-            if (mediaQuery.matches) {
-                document.documentElement.style.setProperty('--transition-fast', '0.001s');
-                document.documentElement.style.setProperty('--transition-normal', '0.001s');
-                document.documentElement.style.setProperty('--transition-slow', '0.001s');
-                
-                // Disable particle animations
-                const particlesContainer = document.getElementById('particles-js');
-                if (particlesContainer) {
-                    particlesContainer.style.display = 'none';
-                }
+            if (!mediaQuery.matches) return;
+
+            document.documentElement.style.setProperty('--transition-fast', '0.001s');
+            document.documentElement.style.setProperty('--transition-normal', '0.001s');
+
+            const particlesContainer = document.getElementById('particles-js');
+            if (particlesContainer) {
+                particlesContainer.style.display = 'none';
             }
         }
-        
-        prefersReducedMotion.addListener(handleReducedMotion);
-        handleReducedMotion(prefersReducedMotion);
 
+        prefersReducedMotion.addEventListener('change', handleReducedMotion);
+        handleReducedMotion(prefersReducedMotion);
     } catch (error) {
         console.warn('Error during DOM initialization:', error);
     }
