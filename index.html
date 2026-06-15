@@ -7,7 +7,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="src/assets/css/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="src/images/pfp.png" rel="icon" type="image/png">
     <!-- Add to <head> -->
 <meta name="description" content="Knivier (Agniva) - High school Computer Engineering enthusiast specializing in embedded systems, OS development, and low-level programming.">
@@ -43,8 +42,8 @@
     Popcorn 0.6 is out: VMM, keyboard queue, and safer scheduling. <a href="popcorn.html">Click here!</a> 
     <button id="close-banner" aria-label="Close banner" type="button">&times;</button>
 </div>
-<div class="absolute inset-0 z-0" id="particles-js" aria-hidden="true"></div>
-<header class="min-h-screen flex items-center justify-center relative overflow-hidden z-10" role="banner">
+<div id="particles-js" aria-hidden="true"></div>
+<header class="min-h-screen flex items-center justify-center relative overflow-hidden z-10" id="home" role="banner">
     <div class="float-element text-center z-10">
         <h1 class="text-7xl font-bold mb-6 typing-text" id="main-title">Knivier</h1>
         <p class="text-2xl text-gray-300 mb-8 fade-in-up" role="doc-subtitle">Computer Engineering // Embedded Systems // OS Development</p>
@@ -400,6 +399,32 @@
 <footer class="text-center py-6 text-gray-400">
     <p>&copy; 2026 Knivier. All rights reserved under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-NC-SA 4.0 license</a>, prohibiting commercial use without permission.</p>
 </footer>
+
+<nav class="dynamic-island" id="dynamic-island" aria-label="Site navigation">
+    <div class="dynamic-island__track">
+        <span class="dynamic-island__indicator" aria-hidden="true"></span>
+        <a href="#home" class="dynamic-island__item is-active" data-section="home" aria-current="page">
+            <i class="fas fa-house" aria-hidden="true"></i>
+            <span>Home</span>
+        </a>
+        <a href="#about" class="dynamic-island__item" data-section="about">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            <span>About</span>
+        </a>
+        <a href="#projects" class="dynamic-island__item" data-section="projects">
+            <i class="fas fa-code" aria-hidden="true"></i>
+            <span>Projects</span>
+        </a>
+        <a href="#timeline" class="dynamic-island__item" data-section="timeline">
+            <i class="fas fa-clock-rotate-left" aria-hidden="true"></i>
+            <span>Timeline</span>
+        </a>
+        <a href="#contact" class="dynamic-island__item" data-section="contact">
+            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+            <span>Contact</span>
+        </a>
+    </div>
+</nav>
 
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
