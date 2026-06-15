@@ -174,6 +174,39 @@ window.addEventListener('scroll', () => {
     }
 });
 
+function initTypingAnimation() {
+    const typingElement = document.querySelector('.typing-text');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!typingElement || window.innerWidth <= 768 || prefersReducedMotion) {
+        return;
+    }
+
+    const fullText = typingElement.textContent.trim() || 'Knivier';
+    const msPerChar = 72;
+
+    typingElement.textContent = '';
+    typingElement.classList.add('typing-animate');
+
+    let charIndex = 0;
+    let lastStep = performance.now();
+
+    function step(now) {
+        if (now - lastStep >= msPerChar) {
+            if (charIndex < fullText.length) {
+                typingElement.textContent += fullText[charIndex++];
+                lastStep = now;
+            }
+        }
+
+        if (charIndex < fullText.length) {
+            requestAnimationFrame(step);
+        }
+    }
+
+    requestAnimationFrame(step);
+}
+
 // Enhanced DOM Ready Functions
 document.addEventListener('DOMContentLoaded', async function () {
     try {
@@ -257,15 +290,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
         });
 
-        // Initialize typing animation with better detection
-        setTimeout(() => {
-            const typingElement = document.querySelector('.typing-text');
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            
-            if (typingElement && window.innerWidth > 768 && !prefersReducedMotion) {
-                typingElement.style.animation = 'typing 3.5s steps(7, end), blink-caret 0.75s step-end infinite';
-            }
-        }, 500);
+        initTypingAnimation();
 
         // Comprehensive accessibility and performance optimization
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');

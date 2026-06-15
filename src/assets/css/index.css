@@ -117,24 +117,20 @@ body::before {
     }
 }
 
-/* inline-block + width in ch so the caret stays flush after the name (100% was full container width) */
 .typing-text {
     display: inline-block;
-    overflow: hidden;
     border-right: 3px solid var(--primary);
     white-space: nowrap;
     vertical-align: bottom;
-    animation: typing 3.5s steps(7, end), blink-caret 0.75s step-end infinite;
 }
 
-@keyframes typing {
-    from { width: 0; }
-    to { width: 7ch; }
+.typing-text.typing-animate {
+    animation: blink-caret 0.55s step-end infinite;
 }
 
 @keyframes blink-caret {
-    from, to { border-color: transparent; }
-    50% { border-color: var(--primary); }
+    from, to { border-color: var(--primary); }
+    50% { border-color: transparent; }
 }
 
 .fade-in-up {
@@ -261,63 +257,6 @@ body::before {
 
 .card-3d:hover {
     transform: rotateY(10deg) rotateX(5deg);
-}
-
-/* Code Editor Section */
-.code-editor {
-    background: linear-gradient(145deg, #1a1a1a, #0d1117);
-    border-radius: 12px;
-    padding: 1.5rem;
-    font-family: 'Fira Code', monospace;
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    position: relative;
-    overflow: hidden;
-}
-
-.code-editor::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: linear-gradient(90deg, #ff5f56, #ffbd2e, #27ca3f);
-    border-radius: 12px 12px 0 0;
-}
-
-.code-editor::after {
-    content: '● ● ●';
-    position: absolute;
-    top: 12px;
-    left: 16px;
-    color: #333;
-    font-size: 12px;
-    letter-spacing: 4px;
-}
-
-.code-line {
-    display: flex;
-    gap: 1rem;
-    padding: 0.35rem 0;
-    margin-top: 40px;
-    transition: background 0.2s ease;
-}
-
-.code-line:hover {
-    background: rgba(99, 102, 241, 0.1);
-    border-radius: 4px;
-}
-
-.line-number {
-    color: var(--text-muted);
-    min-width: 2rem;
-    text-align: right;
-    user-select: none;
-}
-
-.code .text-primary {
-    color: var(--primary-light);
 }
 
 /* Stats Grid */
