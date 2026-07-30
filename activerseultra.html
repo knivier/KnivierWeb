@@ -129,6 +129,29 @@
             line-height: 1.65;
         }
 
+        .teaser-strip {
+            margin-top: 1.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.6rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid rgba(176, 155, 255, 0.22);
+            background: rgba(8, 10, 20, 0.72);
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        #dev-days {
+            font-variant-numeric: tabular-nums;
+        }
+
         .pulse-line {
             margin-top: 1.3rem;
             width: min(420px, 75vw);
@@ -143,6 +166,10 @@
             display: grid;
             gap: 1rem;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        .grid.narrow {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         }
 
         .card {
@@ -236,6 +263,14 @@
             pointer-events: none;
         }
 
+        .teaser-lock {
+            color: #c7d3ff;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            margin-bottom: 0.5rem;
+        }
+
         .reveal {
             opacity: 0;
             transform: translateY(18px);
@@ -319,110 +354,56 @@
         <a class="back-link reveal" href="activerseinfo.html">← Back to Activerse info</a>
 
         <section class="hero reveal">
-            <p class="kicker"><span class="ping"></span>Teaser signal only</p>
+            <p class="kicker"><span class="ping"></span>Teaser</p>
             <h1>Activerse Ultra v1.0.0</h1>
-            <p class="sub">Minimal custom 3D Java game engine with an Actor based workflow. Subclass <code>Actor</code>, override <code>act()</code>, call <code>Activerse.start(world)</code>.</p>
+            <p class="sub">A separate project is on the way. </p>
+            <div class="teaser-strip">
+                <span class="chip"><span class="ping"></span><span id="dev-days">Day 1 in development</span></span>
+                <span class="chip">3 Dimensionality</span>
+                <span class="chip">Ultra refined debugging</span>
+                <span class="chip">Keeps old architecture & language</span>
+            </div>
             <div class="pulse-line"></div>
         </section>
 
-        <section class="grid">
+        <section class="grid narrow">
             <article class="card reveal">
-                <h2>External dependency</h2>
-                <p>LWJGL only, using GLFW and OpenGL.</p>
+                <h2>What is it?</h2>
+                <p>Activerse but with 3 dimensions instead of two, with a familar codebase and familiar development practices.</p>
             </article>
 
             <article class="card reveal">
-                <h2>Run snapshot</h2>
-                <div class="mono">./run.sh
-
-mvn -q compile exec:exec</div>
+                <h2>Preview status</h2>
+                <p>Teaser only. No launch instructions, package list, or implementation notes here.</p>
             </article>
 
             <article class="card reveal">
-                <h2>Core launch flow</h2>
-                <div class="mono">class MyActor extends Actor {
-    @Override
-    public void act() {
-        // behavior loop
-    }
-}
-
-Activerse.start(world);</div>
+                <h2>What to expect</h2>
+                <p>Powerful features that remain accessible to use, just in 3 dimensions.</p>
             </article>
 
             <article class="card reveal">
-                <h2>Requirements</h2>
+                <h2>Release Date</h2>
+                <p>Activerse Ultra has just started development. An initial launch will be available in a couple months.</p>
+            </article>
+
+            <article class="card reveal">
+                <h2>What's being retained?</h2>
+                <p>Your detailed debugging setup, advanced logging capabilities, clear and UTD documentation, and stability; all on day 1 of launch.</p>
+            </article>
+
+            <article class="card reveal">
+                <h2>Coming next</h2>
                 <ul>
-                    <li>JDK 17+</li>
-                    <li>Maven 3.9+</li>
-                    <li>macOS: <code>-XstartOnFirstThread</code> required</li>
+                    <li>A cleaner reveal page</li>
+                    <li>Launch when open source and public</li>
                 </ul>
             </article>
 
-            <article class="card reveal" style="grid-column: 1 / -1;">
-                <h2>Packages</h2>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Package</th>
-                                <th>Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ActiverseEngine</td>
-                                <td>Activerse, World, Actor, Camera, Input, GameLoop, FirstPersonController, Collision, MemoryTracker, LogViewer</td>
-                            </tr>
-                            <tr>
-                                <td>ActiverseRender</td>
-                                <td>Window, Renderer, Shader, Mesh, Texture, ChunkMesher, Hud</td>
-                            </tr>
-                            <tr>
-                                <td>ActiverseUtils</td>
-                                <td>Math (Vec3, Mat4), EngineLog, helpers</td>
-                            </tr>
-                            <tr>
-                                <td>Demo</td>
-                                <td>SandboxWorld, Block, BlockGrid</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </article>
-
-            <article class="card reveal">
-                <h2>Feature pulse</h2>
-                <ul>
-                    <li>Procedural block texture atlas</li>
-                    <li>Chunk mesh with face culling</li>
-                    <li>HUD with crosshair, FPS, memory, GC, and logs</li>
-                    <li>EngineLog files driven by Activerse.properties</li>
-                </ul>
-            </article>
-
-            <article class="card reveal">
-                <h2>Control hints</h2>
-                <ul>
-                    <li>W A S D move</li>
-                    <li>Mouse look</li>
-                    <li>Shift sprint, Space jump</li>
-                    <li>LMB or Q break, RMB or E place</li>
-                </ul>
-            </article>
-
-            <article class="card reveal">
-                <h2>Locked details</h2>
-                <ul>
-                    <li class="redacted">render pipeline expansion details</li>
-                    <li class="redacted">world generation internals</li>
-                    <li class="redacted">tooling and debug overlays</li>
-                    <li class="redacted">launch window and full roadmap</li>
-                </ul>
-            </article>
+           
         </section>
 
-        <p class="footer-note reveal">More will be revealed when Activerse Ultra is ready.</p>
+        <p class="footer-note reveal">More will be revealed when Activerse Ultra is ready. Development is currently closed source.</p>
     </main>
 
     <script>
@@ -473,8 +454,22 @@ Activerse.start(world);</div>
 
         document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
 
+        function updateDevelopmentDays() {
+            const startDate = new Date(2026, 6, 30);
+            const today = new Date();
+            const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+            const currentDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const daysInDevelopment = Math.max(1, Math.floor((currentDay - startDay) / 86400000) + 1);
+            const counter = document.getElementById("dev-days");
+
+            if (counter) {
+                counter.textContent = `Day ${daysInDevelopment} in development`;
+            }
+        }
+
         window.addEventListener("resize", resize);
         resize();
+        updateDevelopmentDays();
         draw();
     </script>
 </body>
