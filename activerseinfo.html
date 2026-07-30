@@ -90,6 +90,16 @@
             </div>
         </section>
 
+        <a href="activerseultra.html" class="ultra-teaser-banner glass-surface-elevated card-animate" aria-label="Open Activerse Ultra teaser">
+            <div class="ultra-teaser-glow"></div>
+            <div class="ultra-teaser-content">
+                <p class="ultra-teaser-kicker">Incoming</p>
+                <h2>Activerse Ultra v1.0.0</h2>
+                <p class="ultra-teaser-copy">A separate 3D project is coming online. Enter the teaser signal and preview the mood before launch.</p>
+                <span class="ultra-teaser-cta">Open teaser <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </a>
+
         <!-- Scroll Indicator -->
         <div class="scroll-indicator">
             <div class="scroll-arrow"></div>
@@ -310,7 +320,7 @@
         });
 
         // Add ripple effect to interactive elements
-        document.querySelectorAll('.nav-link, .content-card').forEach(element => {
+        document.querySelectorAll('.nav-link, .content-card, .ultra-teaser-banner').forEach(element => {
             element.addEventListener('click', function(e) {
                 const ripple = document.createElement('span');
                 const rect = this.getBoundingClientRect();
@@ -333,11 +343,10 @@
 
         // ========== WebGL Shader Effects ==========
         const canvas = document.getElementById('shader-canvas');
-        if (!canvas) return;
-        
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        
-        if (gl) {
+        if (canvas) {
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+            if (gl) {
             // Vertex shader source
             const vertexShaderSource = `
                 attribute vec2 a_position;
@@ -476,6 +485,7 @@
         } else {
             // Fallback: hide canvas if WebGL not supported
             canvas.style.display = 'none';
+        }
         }
 
         // ========== Cursor Trail Effect ==========
