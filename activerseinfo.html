@@ -9,8 +9,8 @@
     <title>Activerse by Knivier</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="src/assets/css/activerse.css?v=1.4.0" rel="stylesheet">
-    <link href="src/images/activerse-logo.png?v=1.4.0" rel="icon" type="image/png">
+    <link href="src/assets/css/activerse.css?v=1.4.2" rel="stylesheet">
+    <link href="src/images/activerse-logo.png?v=1.4.2" rel="icon" type="image/png">
 </head>
 
 <body>
@@ -32,7 +32,7 @@
         <div class="nav-container">
             <div class="nav-timer glass-surface-elevated">
                 <span class="nav-timer-text">
-                    <span id="timer">v1.4.1 completed!</span>
+                    <span id="timer">v1.4.2 released!</span>
                 </span>
             </div>
             <div class="nav-links">
@@ -40,7 +40,7 @@
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
-                <a href="https://github.com/knivier/Activerse/releases/tag/v1.4.0" target="_blank" class="nav-link">
+                <a href="https://github.com/knivier/Activerse/releases/tag/v1.4.2" target="_blank" class="nav-link">
                     <i class="fas fa-download"></i>
                     <span>Download</span>
                 </a>
@@ -68,7 +68,7 @@
                     <div class="logo-container">
                         <div class="logo-glow"></div>
                         <div class="logo glass-surface-elevated">
-                            <img alt="Activerse Logo" class="logo-image" src="src/images/activerse-logo.png?v=1.4.0">
+                            <img alt="Activerse Logo" class="logo-image" src="src/images/activerse-logo.png?v=1.4.2">
                         </div>
                     </div>
                     <h1 class="hero-title">
@@ -116,86 +116,78 @@
             <div class="content-card glass-surface-elevated card-animate">
                 <div class="card-header">
                     <i class="fas fa-rocket"></i>
-                    <h2>Latest Version: v1.4.1</h2>
+                    <h2>Latest Version: v1.4.2</h2>
                 </div>
                 <div class="card-content">
-                    <p class="tagline version-tagline">Overhauls</p>
-                    <p class="changelog-intro">With over 23000 lines of code changed and so many more utils for your heart to enjoy.    </p>
+                    <p class="tagline version-tagline">Timing, Interpolation &amp; Runtime Hardening</p>
+                    <p class="changelog-intro">v1.4.2 unifies the simulation clock, interpolates rendering between ticks, and hardens asset loading for both filesystem and classpath (jar) packaging.</p>
                     
                     <div class="changelog">
                         <div class="changelog-section">
-                            <h3 class="changelog-section-title">Core Systems</h3>
+                            <h3 class="changelog-section-title">Game Loop &amp; Rendering</h3>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>World Switching Fixes:</strong> Resolved issues in world transition flow for more reliable switching across scenes and runtime states.</span>
+                                <span><strong>Unified Internal Clock:</strong> Update and render now share one monotonic schedule; the render loop samples the main clock instead of drifting on a separate timer.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Shaper Utility Integration:</strong> Added support for using shapes in place of images through Shaper utilities.</span>
+                                <span><strong>Tick Interpolation:</strong> Actors snapshot state each tick; paint uses <code>getRenderX/Y/Direction</code> with world render alpha for smooth motion between fixed updates.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Universal Error Handling System:</strong> Introduced a unified error handling pipeline for consistent reporting and safer runtime behavior.</span>
+                                <span><strong>Spiral-of-Death Protection:</strong> Missed ticks are skipped rather than burst-processed, preventing hitch cascades under load.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Camera System for Infinite Worlds:</strong> Added camera handling designed for large and effectively infinite world traversal.</span>
-                            </div>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Particle System:</strong> Implemented a particle system for richer visual effects and reusable emitter workflows.</span>
+                                <span><strong>Camera Interpolation:</strong> Camera offsets interpolate with render alpha, including interpolated visibility and world-to-screen helpers.</span>
                             </div>
                         </div>
 
                         <div class="changelog-section">
-                            <h3 class="changelog-section-title">Utilities</h3>
+                            <h3 class="changelog-section-title">Performance &amp; Assets</h3>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Integrated Math Utils:</strong> Added shared math helpers for common engine and gameplay calculations.</span>
+                                <span><strong>BufferedImage Collision Cache:</strong> Pixel-perfect collision conversions are soft-cached via WeakHashMap to cut repeated image churn.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Config Puller:</strong> Created a config puller utility to centralize configuration loading and retrieval.</span>
+                                <span><strong>Reusable Lighting Buffer:</strong> Dynamic lighting redraws into a reused off-screen buffer sized to the world.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>ColourUtils Added:</strong> Added color utility helpers for transformation, formatting, and color-related operations.</span>
+                                <span><strong>ResourcePaths:</strong> Images and sounds resolve from the filesystem or classpath, so packaged <code>java -jar</code> games load assets correctly.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Vector Calculations:</strong> Expanded vector calculation support with additional reusable vector math helpers.</span>
-                            </div>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Memory Updates:</strong> Implemented memupdates and memory volatility updates for improved runtime memory behavior.</span>
+                                <span><strong>Safer Image Loading:</strong> MediaTracker uses a shared Canvas peer instead of temporary Frames; deprecated finalize cleanup removed from sound.</span>
                             </div>
                         </div>
 
                         <div class="changelog-section">
-                            <h3 class="changelog-section-title">UI & Input</h3>
+                            <h3 class="changelog-section-title">Input, Utils &amp; Lifecycle</h3>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>UIBar Added:</strong> Added UIBar and moved it into Utils for cleaner organization and easier reuse.</span>
+                                <span><strong>Keyboard Helpers:</strong> Added <code>isKeyDown</code>, letter helpers, edge detection (<code>justPressed</code>/<code>justReleased</code>), and alphanumeric text input helpers.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Universal Text Bar System:</strong> Added a unified text bar system for consistent text UI behavior.</span>
+                                <span><strong>World Switch Reliability:</strong> GameLoop starts after the world is on the EDT; setWorld setup is EDT-safe with cleaner teardown.</span>
                             </div>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Mouse and Keyboard Handling Enhancements:</strong> Added component reference support in ActiverseMouseInfo for accurate mouse positioning, implemented shift key tracking in KeyboardInfo, and updated World to use the new shift key state management.</span>
+                                <span><strong>New Utils:</strong> <code>PanelPainter</code>, <code>TextRenderUtils</code>, expanded <code>ErrorLogger</code> / <code>DaemonExecutors</code> / <code>DelayScheduler</code> APIs.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>JDK Compatibility:</strong> Removed deprecated patterns and tightened concurrency around config and mouse component references.</span>
                             </div>
                         </div>
 
                         <div class="changelog-section">
-                            <h3 class="changelog-section-title">Stability & Docs</h3>
+                            <h3 class="changelog-section-title">Docs</h3>
                             <div class="changelog-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Stability Changes:</strong> Applied general stability improvements across the engine and supporting systems.</span>
-                            </div>
-                            <div class="changelog-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Documentation Updates:</strong> Updated documentation across the entire system to reflect the latest architecture and APIs.</span>
+                                <span><strong>API Docs Regenerated:</strong> Full JavaDoc tree republished under <a href="https://knivier.com/Activerse/">/Activerse/</a> for v1.4.2.</span>
                             </div>
                         </div>
                     </div>
@@ -206,7 +198,7 @@
             <div class="content-card full-span glass-surface-elevated card-animate">
                 <div class="card-header">
                     <i class="fas fa-video"></i>
-                    <h2>Activerse - v1.4.0&1 Features Video</h2>
+                    <h2>Activerse - v1.4 Series Features Video</h2>
                 </div>
                 <div class="card-content">
                     <div class="video-wrapper glass-surface">
@@ -214,7 +206,7 @@
                                 allowfullscreen
                                 frameborder="0"
                                 loading="lazy"
-                                title="Activerse v1.4.0&1 Features Video"
+                                title="Activerse v1.4 Series Features Video"
                                 src="https://www.youtube.com/embed/nBTVTVYTgto"
                                 width="100%"
                                 height="100%"></iframe>

@@ -24,6 +24,49 @@ function goBackHome() {
 
 function getChangelogText(versionId) {
     const changelogs = {
+        'v1.4.2': `
+        <h2>v1.4.2 - Timing, Interpolation &amp; Runtime Hardening</h2>
+        <p>July 30, 2026</p>
+        <p><strong>Unified clock sync, render interpolation, asset path resolution, and performance caches</strong></p>
+
+        <h3>Game Loop &amp; Rendering</h3>
+        <ul>
+            <li><strong>Unified Internal Clock:</strong> Update and render share one monotonic schedule; the render loop samples the main clock instead of running on an independent timer.</li>
+            <li><strong>System-Time Sync:</strong> Tick scheduling is epoch-based so timing drift cannot accumulate across long sessions.</li>
+            <li><strong>Spiral-of-Death Protection:</strong> Missed ticks are skipped rather than burst-processed under heavy load.</li>
+            <li><strong>Actor State Snapshots:</strong> Each tick snapshots prior position/direction so paint can interpolate between simulation states.</li>
+            <li><strong>Render Helpers:</strong> Added <code>getRenderX()</code>, <code>getRenderY()</code>, <code>getRenderPreciseX/Y()</code>, <code>getRenderDirection()</code>, and <code>getRenderBoundingBox()</code>.</li>
+            <li><strong>World Render Alpha:</strong> <code>World.getRenderAlpha()</code> / <code>setRenderAlpha()</code> drive smooth visuals while logic still uses integer simulation coords.</li>
+            <li><strong>Camera Interpolation:</strong> Interpolated offsets, visibility checks, and <code>worldToScreenInterpolated()</code> for camera-aware drawing.</li>
+        </ul>
+
+        <h3>Performance &amp; Assets</h3>
+        <ul>
+            <li><strong>BufferedImage Collision Cache:</strong> Soft-referenced WeakHashMap cache for Image→BufferedImage conversion in pixel-perfect collision.</li>
+            <li><strong>Reusable Lighting Buffer:</strong> Dynamic lighting composites through a reused off-screen buffer matched to world size.</li>
+            <li><strong>ResourcePaths Utility:</strong> Resolves paths from filesystem first, then classpath — works for IDE runs and <code>java -jar</code> packaging.</li>
+            <li><strong>ActiverseImage / ActiverseSound:</strong> Load through ResourcePaths; MediaTracker uses a shared Canvas peer; sound streams close safely; deprecated <code>finalize()</code> removed.</li>
+        </ul>
+
+        <h3>Input, Lifecycle &amp; Utilities</h3>
+        <ul>
+            <li><strong>KeyboardInfo Helpers:</strong> <code>isKeyDown(char)</code>, <code>isLetterDown</code>, multi-key checks, <code>justPressed</code>/<code>justReleased</code>, alphanumeric append/sync helpers for text entry UIs.</li>
+            <li><strong>World Switching:</strong> GameLoop starts after the world is attached on the EDT; <code>setWorld</code> teardown/setup is EDT-safe and clearer.</li>
+            <li><strong>ConfigPuller:</strong> Synchronized property loading.</li>
+            <li><strong>ActiverseMouseInfo:</strong> Volatile component reference for safer cross-thread reads.</li>
+            <li><strong>New / Expanded Utils:</strong> <code>PanelPainter</code>, <code>TextRenderUtils</code>, expanded <code>ErrorLogger</code>, <code>DaemonExecutors</code>, and <code>DelayScheduler</code>.</li>
+            <li><strong>JDK Compatibility:</strong> Deprecated API cleanup and concurrency hardening throughout the engine.</li>
+        </ul>
+
+        <h3>Documentation</h3>
+        <ul>
+            <li><strong>JavaDoc:</strong> Regenerated and published at <a href="https://knivier.com/Activerse/">knivier.com/Activerse/</a> for v1.4.2.</li>
+            <li><strong>Version Metadata:</strong> Instance window and class <code>@version</code> tags updated to 1.4.2.</li>
+        </ul>
+
+        <p>This version is backwards compatible with the v1.4.* series. Prefer the new render helpers for drawing; simulation code should continue using <code>getX()</code>/<code>getY()</code>.</p>
+        <p>Full Changelog: <a href="https://github.com/knivier/Activerse/compare/1.4.1...v1.4.2">1.4.1...v1.4.2</a></p>
+        `,
         'v1.4.1': `
         <h2>v1.4.1 - Systems and Stability Update</h2>
         <p>March 27, 2026</p>

@@ -32,8 +32,8 @@ How is this site categorized?
 Well...
 
 - Main Page: This is index.html and is the "root" for all my projects to stem out to.
-- Activerse: This is for my 2D java game engine: Activerseinfo is the main "activerse" page, followed by actvisions
-  which is a version log site
+- Activerse: 2D Java game engine pages — `activerseinfo.html` (home), `actversions.html` (version log),
+  `ActiWiki/` (wiki), and `Activerse/` (published JavaDoc API). Current release: **v1.4.2**.
 - Popcorn: Kernel microsite (`popcorn.html`, `aboutpopcorn.html`, `popcorn-kernel.html`, `popcorn-source.html`). **Current doc version: 0.6.** Update paths and version in one place: `src/assets/data/popcorn-site-config.js` (nav, breadcrumbs, GitHub links). The script `src/assets/js/popcorn-shell.js` fills the shared header on each page from that config. Source-file catalog: `src/assets/data/popcorn-source-catalog.js` - keep `meta.version` in sync with `POPCORN_SITE.version`. The portfolio **index.html** banner links to Popcorn are separate-change those when releasing.
 - Troll Game: This is on trollgameinfo.html and may be taken down and moved to a different website; troll game has been
   discontinued

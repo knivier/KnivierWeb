@@ -144,9 +144,16 @@ window.SITE_MAP = {
         {
             title: "Version log",
             href: "actversions.html",
-            description: "Release and version history for Activerse.",
+            description: "Release and version history for Activerse (latest: v1.4.2).",
             category: "activerse",
             tags: ["changelog", "versions"]
+        },
+        {
+            title: "API documentation (JavaDoc)",
+            href: "Activerse/index.html",
+            description: "Published ActiverseEngine and ActiverseUtils API docs for v1.4.2.",
+            category: "activerse",
+            tags: ["javadoc", "api", "docs"]
         },
         {
             title: "ActiWiki home",
