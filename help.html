@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Site map &amp; help — Knivier</title>
+    <meta name="theme-color" content="#0a0c12">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Site map for knivier.com - searchable directory of portfolio pages, Popcorn, Activerse, and project links.">
+    <title>Site map - Knivier</title>
+    <link rel="canonical" href="https://knivier.com/help.html">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/assets/css/help.css">
+    <link href="src/images/pfp.png" rel="icon" type="image/png">
 </head>
 <body>
-    <div class="floating-elements">
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-    </div>
-
     <nav class="site-nav-help" aria-label="Primary">
         <div class="site-nav-help__inner">
             <a href="index.html">Home</a>
             <span class="nav-sep" aria-hidden="true"></span>
             <a href="index.html#about">About</a>
-            <a href="index.html#coding-journey">Coding</a>
             <a href="index.html#stats">Stats</a>
             <a href="index.html#skills">Skills</a>
             <a href="index.html#projects">Projects</a>
@@ -26,330 +25,27 @@
             <a href="index.html#contact">Contact</a>
             <span class="nav-sep" aria-hidden="true"></span>
             <span class="nav-current" aria-current="page">Site map</span>
-            <button type="button" class="nav-back" onclick="goBack()">← Back</button>
+            <button type="button" class="nav-back" onclick="goBack()">Back</button>
         </div>
     </nav>
 
-    <div class="container">
-        <div class="hero">
+    <main class="container">
+        <header class="hero">
             <h1>Site map</h1>
-            <p>Every page on this portfolio, plus quick jumps into the home page. Use search or the sticky nav above.</p>
-
-            <div class="search-bar">
-                <label class="sr-only" for="searchInput">Filter pages</label>
-                <input type="text" class="search-input" placeholder="Filter by name or description…" id="searchInput" autocomplete="off">
+            <p>Search every page and link on this site. Press <kbd>/</kbd> to focus search, <kbd>Esc</kbd> to clear.</p>
+            <div class="search-shell">
+                <label class="sr-only" for="searchInput">Search pages</label>
+                <input type="search" class="search-input" id="searchInput" placeholder="Search by name, tag, path, or description" autocomplete="off" spellcheck="false">
+                <p class="search-meta" id="search-meta" aria-live="polite"></p>
             </div>
-        </div>
+        </header>
 
-        <div class="navigation-grid">
-            <div class="nav-section" data-category="main">
-                <div class="section-header">
-                    <div class="section-icon">🏠</div>
-                    <div class="section-title">Home &amp; this site</div>
-                </div>
-                <div class="section-description">
-                    Main landing, sections on one long page, and this directory of links.
-                </div>
-                <ul class="page-list">
-                    <li class="page-item">
-                        <a href="index.html" class="page-link">Home (portfolio)</a>
-                        <div class="page-description">Hero, about, coding journey, stats, skills, featured projects, timeline, contact, and social links.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="help.html" class="page-link">Site map / help</a>
-                        <div class="page-description">You are here — structured links to the whole site.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="index.html#about" class="page-link">About me</a>
-                        <div class="page-description">Jump to the About section on the home page.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="index.html#projects" class="page-link">Featured projects</a>
-                        <div class="page-description">Cards for Activerse, Popcorn, Stressor, Fenrirwatch, Pal Bot, and more.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="index.html#timeline" class="page-link">Project timeline</a>
-                        <div class="page-description">Chronological highlights with links to repos and external sites.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="index.html#contact" class="page-link">Contact &amp; social</a>
-                        <div class="page-description">Email, Discord handle, Reddit, GitHub, X, YouTube.</div>
-                    </li>
-                </ul>
-            </div>
+        <div class="navigation-grid" id="navigation-grid"></div>
+        <p class="search-empty glass" id="search-empty" hidden>No matches. Try another keyword, or clear the search.</p>
+        <p class="help-hint">Add new pages in <code>src/assets/data/site-map-catalog.js</code>. Sitemap-only pages appear automatically under &ldquo;Also on this site.&rdquo;</p>
+    </main>
 
-            <div class="nav-section" data-category="popcorn">
-                <div class="section-header">
-                    <div class="section-icon">🍿</div>
-                    <div class="section-title">Popcorn kernel</div>
-                </div>
-                <div class="section-description">
-                    Learn-by-reading x86-64 kernel microsite — currently documenting <strong>v0.6</strong> (<code style="color:#c4b5fd">src/core</code> + <code style="color:#c4b5fd">vmm.c</code>).
-                </div>
-                <ul class="page-list">
-                    <li class="page-item">
-                        <a href="popcorn.html" class="page-link">Popcorn home</a>
-                        <div class="page-description">Landing, spec chips, and demo terminal (shell / build tabs).</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="aboutpopcorn.html" class="page-link">About Popcorn</a>
-                        <div class="page-description">What it is, features, pops, build requirements, status.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="popcorn-kernel.html" class="page-link">Operation map</a>
-                        <div class="page-description">Boot chain, init order, interactive tree, and Mermaid diagrams.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="popcorn-source.html" class="page-link">Source catalog</a>
-                        <div class="page-description">Every <code style="color:#c4b5fd">core/</code> and <code style="color:#c4b5fd">pops/</code> file and dependency graph (data-driven).</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://github.com/knivier/Popcorn" class="page-link" target="_blank" rel="noopener noreferrer">Popcorn on GitHub</a>
-                        <div class="page-description">Source repository and roadmap.</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="nav-section" data-category="activerse">
-                <div class="section-header">
-                    <div class="section-icon">🌟</div>
-                    <div class="section-title">Activerse</div>
-                </div>
-                <div class="section-description">
-                    2D Java game engine — marketing site, version log, and wiki chapters.
-                </div>
-                <ul class="page-list">
-                    <li class="page-item">
-                        <a href="activerseinfo.html" class="page-link">Activerse home</a>
-                        <div class="page-description">Main product / engine overview page.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="actversions.html" class="page-link">Version log</a>
-                        <div class="page-description">Release and version history for Activerse.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="ActiWiki/wiki.html" class="page-link">ActiWiki home</a>
-                        <div class="page-description">Wiki table of contents and hub.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="ActiWiki/chapter1.html" class="page-link">Wiki — Chapter 1</a>
-                        <div class="page-description">First wiki chapter.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="ActiWiki/chapter2.html" class="page-link">Wiki — Chapter 2</a>
-                        <div class="page-description">Second wiki chapter.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="ActiWiki/chapter3.html" class="page-link">Wiki — Chapter 3</a>
-                        <div class="page-description">Third wiki chapter.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="ActiWiki/chapterX.html" class="page-link">Wiki — Chapter X</a>
-                        <div class="page-description">Extra / extended wiki chapter.</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="nav-section" data-category="tools">
-                <div class="section-header">
-                    <div class="section-icon">📅</div>
-                    <div class="section-title">Other on-site pages</div>
-                </div>
-                <div class="section-description">
-                    Standalone utilities hosted in this repo.
-                </div>
-                <ul class="page-list">
-                    <li class="page-item">
-                        <a href="countdown.html" class="page-link">School countdown</a>
-                        <div class="page-description">Holiday / break countdown page.</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="nav-section" data-category="github">
-                <div class="section-header">
-                    <div class="section-icon">🔗</div>
-                    <div class="section-title">GitHub &amp; external</div>
-                </div>
-                <div class="section-description">
-                    Repos and sites linked from the home timeline and footer (open in a new tab).
-                </div>
-                <ul class="page-list">
-                    <li class="page-item">
-                        <a href="https://github.com/knivier" class="page-link" target="_blank" rel="noopener noreferrer">GitHub — knivier</a>
-                        <div class="page-description">Main profile; most projects live here.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://github.com/knivier/Kinera" class="page-link" target="_blank" rel="noopener noreferrer">Kinera</a>
-                        <div class="page-description">Form grading / CV project (Spartahack 11).</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://github.com/knivinstitute/fenrirwatch" class="page-link" target="_blank" rel="noopener noreferrer">Fenrirwatch</a>
-                        <div class="page-description">Windows security / auditing tool (Rust).</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://github.com/knivinstitute/Stressor" class="page-link" target="_blank" rel="noopener noreferrer">Stressor</a>
-                        <div class="page-description">Windows stress-testing tool (Rust).</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://github.com/knivier/SkyCell" class="page-link" target="_blank" rel="noopener noreferrer">SkyCell</a>
-                        <div class="page-description">Disaster-relief communications (Apex Hackathon).</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://github.com/knivier/WizViz" class="page-link" target="_blank" rel="noopener noreferrer">WizViz</a>
-                        <div class="page-description">Computer-vision wizard game (Spartahack X).</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://github.com/knivier/DockyMe" class="page-link" target="_blank" rel="noopener noreferrer">DockyMe</a>
-                        <div class="page-description">USB device logging utility.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://pihicompsci.org" class="page-link" target="_blank" rel="noopener noreferrer">PiHi CompSci</a>
-                        <div class="page-description">High school coding club site.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://github.com/knivier/trollgame" class="page-link" target="_blank" rel="noopener noreferrer">Troll Game</a>
-                        <div class="page-description">Text adventure (discontinued).</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://github.com/knivier/PalBot" class="page-link" target="_blank" rel="noopener noreferrer">Pal Bot</a>
-                        <div class="page-description">Discord bot template.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://eduspire.pages.dev/" class="page-link" target="_blank" rel="noopener noreferrer">EduSpire</a>
-                        <div class="page-description">Spartahack 8 project (hosted on Pages).</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://www.reddit.com/user/_NessJL/" class="page-link" target="_blank" rel="noopener noreferrer">Reddit</a>
-                        <div class="page-description">From the contact section on the home page.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://www.x.com/atomickniv" class="page-link" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-                        <div class="page-description">Social link from the home page.</div>
-                    </li>
-                    <li class="page-item">
-                        <a href="https://www.youtube.com/@Knivier" class="page-link" target="_blank" rel="noopener noreferrer">YouTube</a>
-                        <div class="page-description">Channel link from the home page.</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const searchInput = document.getElementById('searchInput');
-        const navSections = document.querySelectorAll('.nav-section');
-        const pageItems = document.querySelectorAll('.page-item');
-
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-
-            if (searchTerm === '') {
-                navSections.forEach(section => {
-                    section.style.display = 'block';
-                    section.style.opacity = '1';
-                });
-                pageItems.forEach(item => {
-                    item.style.display = 'block';
-                    item.style.background = '';
-                });
-                return;
-            }
-
-            navSections.forEach(section => {
-                let hasMatch = false;
-                const sectionTitle = section.querySelector('.section-title').textContent.toLowerCase();
-                const sectionDesc = section.querySelector('.section-description').textContent.toLowerCase();
-
-                if (sectionTitle.includes(searchTerm) || sectionDesc.includes(searchTerm)) {
-                    hasMatch = true;
-                }
-
-                const items = section.querySelectorAll('.page-item');
-                items.forEach(item => {
-                    const pageLink = item.querySelector('.page-link').textContent.toLowerCase();
-                    const pageDesc = item.querySelector('.page-description').textContent.toLowerCase();
-
-                    if (pageLink.includes(searchTerm) || pageDesc.includes(searchTerm)) {
-                        hasMatch = true;
-                        item.style.display = 'block';
-                        item.style.background = 'rgba(139, 92, 246, 0.3)';
-                        setTimeout(() => {
-                            item.style.background = 'rgba(26, 26, 46, 0.6)';
-                        }, 2000);
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-
-                if (hasMatch) {
-                    section.style.display = 'block';
-                    section.style.opacity = '1';
-                    if (sectionTitle.includes(searchTerm) || sectionDesc.includes(searchTerm)) {
-                        section.style.background = 'rgba(139, 92, 246, 0.2)';
-                        setTimeout(() => {
-                            section.style.background = 'rgba(15, 15, 35, 0.8)';
-                        }, 2000);
-                    }
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-        });
-
-        document.querySelectorAll('.page-link').forEach(link => {
-            link.addEventListener('click', function() {
-                const href = this.getAttribute('href') || '';
-                if (href.startsWith('#')) {
-                    return;
-                }
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 150);
-            });
-        });
-
-        document.querySelectorAll('.nav-section').forEach(section => {
-            section.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-
-            section.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        function goBack() {
-            if (document.referrer && document.referrer.includes(window.location.hostname)) {
-                window.history.back();
-            } else {
-                window.location.href = 'index.html';
-            }
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                searchInput.value = '';
-                searchInput.dispatchEvent(new Event('input'));
-                searchInput.blur();
-            }
-            if (e.key === '/' && document.activeElement !== searchInput) {
-                e.preventDefault();
-                searchInput.focus();
-            }
-        });
-
-        window.addEventListener('load', function() {
-            document.body.style.opacity = '1';
-            const sections = document.querySelectorAll('.nav-section');
-            sections.forEach((section, index) => {
-                setTimeout(() => {
-                    section.style.opacity = '1';
-                    section.style.transform = 'translateY(0)';
-                }, index * 80);
-            });
-        });
-    </script>
+    <script src="src/assets/data/site-map-catalog.js"></script>
+    <script src="src/assets/js/help.js"></script>
 </body>
 </html>

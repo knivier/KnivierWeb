@@ -1,5 +1,5 @@
 /**
- * Popcorn microsite — single place to change URLs, version, and external links.
+ * Popcorn microsite - single place to change URLs, version, and external links.
  * Edit this file when renaming pages or bumping the highlighted version string.
  *
  * data-popcorn-page on #site-shell must be one of: landing | about | kernel | source

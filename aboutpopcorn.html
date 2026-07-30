@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
-    <meta content="Popcorn 0.6 about: VGA console, VMM/PMM, IRQ keyboard queue, PIC/IDT, PIT, scheduler guardrails, syscalls, build matrix — aligned with the in-tree implementation." name="description">
+    <meta content="Popcorn 0.6 about: VGA console, VMM/PMM, IRQ keyboard queue, PIC/IDT, PIT, scheduler guardrails, syscalls, build matrix - aligned with the in-tree implementation." name="description">
     <meta content="About Popcorn Kernel" property="og:title">
     <meta content="Constraints-first overview of the x86-64 Multiboot2 kernel, pops, and host build loop." property="og:description">
     <meta content="website" property="og:type">
@@ -26,7 +26,7 @@
     <h1>About Popcorn</h1>
 
     <div class="map-callout">
-        <p>Interactive hierarchy, boot chain, and Mermaid flow diagrams derived from the v0.6 tree—same names as <code>core/</code> and <code>pops/</code>. The <strong>source catalog</strong> lists every file with a connection graph.</p>
+        <p>Interactive hierarchy, boot chain, and Mermaid flow diagrams derived from the v0.6 tree-same names as <code>core/</code> and <code>pops/</code>. The <strong>source catalog</strong> lists every file with a connection graph.</p>
         <div class="map-callout-links">
             <a data-popcorn-page-href="kernel" href="popcorn-kernel.html">Operation map</a>
             <a data-popcorn-page-href="source" href="popcorn-source.html">Source catalog</a>
@@ -35,7 +35,7 @@
 
     <div class="section">
         <h2>What is Popcorn?</h2>
-        <p><strong>Target:</strong> x86-64 ELF linked at <code>0x100000</code> with a Multiboot2 header (<code>link.ld</code>, <code>kernel.asm</code> entry <code>start</code> &rarr; identity map &rarr; long mode &rarr; <code>kmain</code>). <strong>Runtime:</strong> ring-0 VGA at <code>0xB8000</code>, PIC + IDT (timer <code>0x20</code>, keyboard <code>0x21</code>, syscall <code>0x80</code>), <strong>VMM</strong> (boot 1&nbsp;GiB identity map, per-task PML4, CR3 on switch), <strong>PMM</strong> (4&nbsp;KiB frames + bitmap from Multiboot2 mmap), IRQ1 scancode queue consumed by the shell with <code>HLT</code>, PIT re-enabled at console handoff with scheduler bootstrap guards, static task stacks, ~21 syscalls, nine pops. <strong>Host loop:</strong> <code>src/build/</code> scripts and <code>popcorn_build/</code> produce kernel + ISO; QEMU boots GRUB &rarr; your image. Version <strong>0.6</strong> is pre-1.0 and educational—not a production OS.</p>
+        <p><strong>Target:</strong> x86-64 ELF linked at <code>0x100000</code> with a Multiboot2 header (<code>link.ld</code>, <code>kernel.asm</code> entry <code>start</code> &rarr; identity map &rarr; long mode &rarr; <code>kmain</code>). <strong>Runtime:</strong> ring-0 VGA at <code>0xB8000</code>, PIC + IDT (timer <code>0x20</code>, keyboard <code>0x21</code>, syscall <code>0x80</code>), <strong>VMM</strong> (boot 1&nbsp;GiB identity map, per-task PML4, CR3 on switch), <strong>PMM</strong> (4&nbsp;KiB frames + bitmap from Multiboot2 mmap), IRQ1 scancode queue consumed by the shell with <code>HLT</code>, PIT re-enabled at console handoff with scheduler bootstrap guards, static task stacks, ~21 syscalls, nine pops. <strong>Host loop:</strong> <code>src/build/</code> scripts and <code>popcorn_build/</code> produce kernel + ISO; QEMU boots GRUB &rarr; your image. Version <strong>0.6</strong> is pre-1.0 and educational-not a production OS.</p>
     </div>
 
     <div class="section">
@@ -63,7 +63,7 @@
             </div>
             <div class="feature-item">
                 <h3>Keyboard input (0.6)</h3>
-                <p>IRQ1 pushes scancodes into a ring queue; <code>kmain</code> and Dolphin dequeue asynchronously (with <code>HLT</code> when idle) instead of polling port <code>0x60</code> in the main loop—fixes input stalling after several shell commands when the PIT is active.</p>
+                <p>IRQ1 pushes scancodes into a ring queue; <code>kmain</code> and Dolphin dequeue asynchronously (with <code>HLT</code> when idle) instead of polling port <code>0x60</code> in the main loop-fixes input stalling after several shell commands when the PIT is active.</p>
             </div>
             <div class="feature-item">
                 <h3>Virtual &amp; physical memory (0.6)</h3>

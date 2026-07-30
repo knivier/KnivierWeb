@@ -1,5 +1,5 @@
 /**
- * Popcorn kernel source catalog — single source of truth for the “Source” explorer UI.
+ * Popcorn kernel source catalog - single source of truth for the “Source” explorer UI.
  * Bump `meta.version` and edit `files` / `links` when the tree changes; HTML/JS only render this data.
  */
 window.POPCORN_SOURCE_CATALOG = {
@@ -16,7 +16,7 @@ window.POPCORN_SOURCE_CATALOG = {
             name: "kernel.asm",
             ext: "asm",
             role: "True kernel entry and lowest-level platform glue.",
-            oneLine: "Multiboot2 entry, 1 GiB identity map, long mode, ISRs, load_idt, port I/O — bridge from GRUB to C.",
+            oneLine: "Multiboot2 entry, 1 GiB identity map, long mode, ISRs, load_idt, port I/O - bridge from GRUB to C.",
             bullets: [
                 "Embeds Multiboot2 header; saves multiboot2_info_ptr from the bootloader register path.",
                 "512 × 2 MiB huge pages: VA==PA identity map for the first gibibyte before kmain.",
@@ -31,12 +31,12 @@ window.POPCORN_SOURCE_CATALOG = {
             name: "kernel.c",
             ext: "c",
             role: "Largest “kernel services” module: interrupts, devices, shell, orchestration around pops.",
-            oneLine: "IDT/PIC, IRQ1 key queue, interactive shell, kmain loop — interrupt plumbing + kernel REPL.",
+            oneLine: "IDT/PIC, IRQ1 key queue, interactive shell, kmain loop - interrupt plumbing + kernel REPL.",
             bullets: [
                 "Global VGA pointer, current_loc, ConsoleState shared with pops.",
                 "idt_init: 64-bit IDT for timer 0x20, keyboard 0x21, syscall 0x80; PIC remap; load_idt.",
                 "keyboard_handler_main (IRQ1) pushes scancodes into key_queue; kb_init unmasks IRQ1.",
-                "kmain: init_boot_screen then dequeue loop with HLT when empty — history, tab completion, Dolphin.",
+                "kmain: init_boot_screen then dequeue loop with HLT when empty - history, tab completion, Dolphin.",
                 "Includes keyboard_queue.h (SPSC ring, capacity 256).",
             ],
         },
@@ -70,7 +70,7 @@ window.POPCORN_SOURCE_CATALOG = {
             name: "timer.c",
             ext: "c",
             role: "Programmable Interval Timer (PIT) driver and tick accounting.",
-            oneLine: "Programs PIT Hz, timer_interrupt_handler, EOI, IRQ0 mask — scheduler heartbeat hooks here.",
+            oneLine: "Programs PIT Hz, timer_interrupt_handler, EOI, IRQ0 mask - scheduler heartbeat hooks here.",
             bullets: [
                 "timer_init from PIT_FREQUENCY; timer_enable/disable on PIC 0x21.",
                 "timer_get_ticks, uptime ms, delay_ms (busy-wait + pause), tick↔ms helpers.",
@@ -82,7 +82,7 @@ window.POPCORN_SOURCE_CATALOG = {
             name: "scheduler.c",
             ext: "c",
             role: "Preemptive multitasking skeleton: tasks, priorities, idle, timer integration.",
-            oneLine: "Queues, slices, bootstrap guards, CR3 on switch — calls context_switch.asm.",
+            oneLine: "Queues, slices, bootstrap guards, CR3 on switch - calls context_switch.asm.",
             bullets: [
                 "scheduler_init: records kernel PML4 via vmm_get_cr3; idle PID 0; per-task address_space.pml4_phys.",
                 "bootstrap_on_kmain_stack() and idle_cpu_has_run prevent early switch off kmain stack.",
@@ -109,7 +109,7 @@ window.POPCORN_SOURCE_CATALOG = {
             name: "vmm.c",
             ext: "c",
             role: "Virtual memory: page tables, identity boot map helpers, per-process spaces.",
-            oneLine: "PML4 alloc, 2M/4K map helpers, vmm_init_process_address_space, CR3 get/set — kernel must stay mapped on every switch.",
+            oneLine: "PML4 alloc, 2M/4K map helpers, vmm_init_process_address_space, CR3 get/set - kernel must stay mapped on every switch.",
             bullets: [
                 "Boot relies on kernel.asm identity map; VMM extends with per-task PML4.",
                 "vmm_map_kernel_region / vmm_map_4k; 4K overlays may require 2M PDE split (see vmm.h).",
@@ -136,7 +136,7 @@ window.POPCORN_SOURCE_CATALOG = {
             role: "Consumes multiboot2_info_ptr left by kernel.asm; fills SystemInfo.",
             oneLine: "Walks tags (bootloader name, cmdline, meminfo, mmap) with safe fallbacks.",
             bullets: [
-                "Getters for total memory, strings — used by sysinfo, memory_pop, boot messaging.",
+                "Getters for total memory, strings - used by sysinfo, memory_pop, boot messaging.",
             ],
         },
         {
@@ -156,7 +156,7 @@ window.POPCORN_SOURCE_CATALOG = {
             name: "utils.c",
             ext: "c",
             role: "Freestanding-friendly libc-style helpers.",
-            oneLine: "memset, strcmp/strncmp, strcpy, int_to_str, util_delay — used across console, parsers, pops.",
+            oneLine: "memset, strcmp/strncmp, strcpy, int_to_str, util_delay - used across console, parsers, pops.",
             bullets: [],
         },
         {
@@ -165,7 +165,7 @@ window.POPCORN_SOURCE_CATALOG = {
             name: "context_switch.asm",
             ext: "asm",
             role: "x86-64 context switching matching CPUContext layout from C.",
-            oneLine: "context_save / context_restore (iretq frame) / context_switch_to_task — mechanical layer under scheduler.c.",
+            oneLine: "context_save / context_restore (iretq frame) / context_switch_to_task - mechanical layer under scheduler.c.",
             bullets: [
                 "cli around GPR save; restores segments and jumps via iretq into task bootstrap path.",
             ],
@@ -176,7 +176,7 @@ window.POPCORN_SOURCE_CATALOG = {
             name: "idt.asm",
             ext: "asm",
             role: "NASM stub / historical split.",
-            oneLine: "Effectively empty object; real load_idt lives in kernel.asm — treat as stub unless build changes.",
+            oneLine: "Effectively empty object; real load_idt lives in kernel.asm - treat as stub unless build changes.",
             bullets: [],
             notes: ["Practical note: linker resolves load_idt from kernel.asm, not idt.asm."],
         },
@@ -247,7 +247,7 @@ window.POPCORN_SOURCE_CATALOG = {
             oneLine: "dolphin_handle_key from kmain when active; reads scancodes via shared IRQ queue (0.6).",
             bullets: [
                 "EditorState, open/save/close, render, insert/normal mode; .txt convention.",
-                "No separate keyboard polling — same queue as the shell.",
+                "No separate keyboard polling - same queue as the shell.",
             ],
             exports: ["dolphin_module"],
         },
@@ -266,7 +266,7 @@ window.POPCORN_SOURCE_CATALOG = {
             name: "shimjapii_pop.c",
             ext: "c",
             role: "Demo / easter-egg status line.",
-            oneLine: "shimjapii_module — bottom-right “Shimjapii popped!!!!”.",
+            oneLine: "shimjapii_module - bottom-right “Shimjapii popped!!!!”.",
             exports: ["shimjapii_module"],
         },
     ],

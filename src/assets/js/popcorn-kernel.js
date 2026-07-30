@@ -4,7 +4,7 @@
 (function () {
     const KERNEL_TREE = {
         id: "root",
-        label: "Popcorn v0.6 — hierarchical operation map",
+        label: "Popcorn v0.6 - hierarchical operation map",
         detail:
             "Source-aligned overview: firmware/GRUB → Multiboot2 ELF at 0x100000 → kernel.asm:start → 1 GiB identity map → long mode → kmain. 0.6 adds VMM/PMM, IRQ keyboard queue, and scheduler bootstrap guards before full PIT preemption.\n\nSelect any node to read the contract-style notes.",
         children: [

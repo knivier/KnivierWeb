@@ -119,7 +119,7 @@ body::before {
     z-index: 0;
 }
 
-/* Fogged glass surfaces — opaque frost, not clear acrylic */
+/* Fogged glass surfaces - opaque frost, not clear acrylic */
 .glass {
     background: var(--glass-fog);
     backdrop-filter: var(--blur-glass-heavy);
@@ -666,7 +666,7 @@ body::before {
     color: var(--text-primary);
 }
 
-/* Hero CTA pills — fogged glass buttons */
+/* Hero CTA pills - fogged glass buttons */
 header nav[aria-label="Main navigation"] a.glass {
     background: var(--glass-fog);
     backdrop-filter: var(--blur-glass-heavy);
