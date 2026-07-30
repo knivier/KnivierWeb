@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found</title>
+    <script>
+        (function () {
+            var path = window.location.pathname.replace(/\/+$/, '').toLowerCase();
+            if (path === '/activerse') {
+                window.location.replace('/activerse.html');
+                return;
+            }
+        })();
+    </script>
+</head>
+<body>
+    <p>Page not found.</p>
+</body>
+</html>

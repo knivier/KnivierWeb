@@ -136,7 +136,7 @@ window.SITE_MAP = {
         // Activerse
         {
             title: "Activerse home",
-            href: "activerseinfo.html",
+            href: "activerse.html",
             description: "Main product / engine overview page.",
             category: "activerse",
             tags: ["java", "game engine"]
