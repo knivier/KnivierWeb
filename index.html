@@ -11,11 +11,14 @@
     <meta name="author" content="Agniva Ganguly (Knivier)">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://knivier.com/">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="src/assets/css/index.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="src/assets/css/index.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="src/images/pfp.png" rel="icon" type="image/png">
+    <link rel="apple-touch-icon" href="https://knivier.com/src/images/pfp.png">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -26,12 +29,17 @@
     <meta property="og:description" content="University of Michigan student targeting a Computer Engineering BSE at the College of Engineering. Portfolio of Agniva Ganguly (Knivier) - embedded systems and OS development.">
     <meta property="og:image" content="https://knivier.com/src/images/pfp.png">
     <meta property="og:image:alt" content="Portrait of Agniva Ganguly (Knivier)">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="192">
+    <meta property="og:image:height" content="192">
 
-    <!-- Twitter Cards (sharing format only) -->
-    <meta name="twitter:card" content="summary_large_image">
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://knivier.com/">
     <meta name="twitter:title" content="Agniva Ganguly (Knivier) | Computer Engineering - Ann Arbor">
     <meta name="twitter:description" content="University of Michigan College of Engineering - targeting Computer Engineering BSE. Embedded systems, OS development, and low-level programming.">
     <meta name="twitter:image" content="https://knivier.com/src/images/pfp.png">
+    <meta name="twitter:image:alt" content="Portrait of Agniva Ganguly (Knivier)">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -101,56 +109,55 @@
     </div>
 </div>
 <div id="particles-js" aria-hidden="true"></div>
-<header class="min-h-screen flex items-center justify-center relative overflow-hidden z-10" id="home" role="banner">
-    <div class="text-center z-10">
-        <h1 class="text-7xl font-bold mb-6 typing-text" id="main-title">Knivier</h1>
-        <p class="text-xl text-gray-400 mb-3 fade-in-up" role="doc-subtitle">Agniva Ganguly · University of Michigan</p>
-        <p class="text-2xl text-gray-300 mb-8 fade-in-up" style="animation-delay: 0.15s">Targeting Computer Engineering BSE · College of Engineering</p>
-        <nav aria-label="Main navigation" class="flex gap-4 justify-center flex-wrap">
-            <a class="glass px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 animate-slide-in focus:outline-none focus:ring-3 focus:ring-accent"
+<header class="hero" id="home" role="banner">
+    <div class="hero__inner">
+        <h1 class="hero__title typing-text" id="main-title">Knivier</h1>
+        <p class="hero__subtitle fade-in-up" role="doc-subtitle">Agniva Ganguly · University of Michigan</p>
+        <p class="hero__tagline fade-in-up" style="animation-delay: 0.15s">Targeting Computer Engineering BSE · College of Engineering</p>
+        <nav aria-label="Main navigation" class="hero__nav">
+            <a class="glass hero-cta animate-slide-in"
                href="https://github.com/knivier" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile (opens in new tab)">My
                 GitHub</a>
-            <a class="glass px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 animate-slide-in focus:outline-none focus:ring-3 focus:ring-accent"
+            <a class="glass hero-cta animate-slide-in"
                href="#contact" style="animation-delay: 0.1s" aria-label="Go to contact section">Contact
                 Me</a>
-            <a class="glass px-8 py-3 rounded-full hover:bg-accent hover:text-gray-900 transition-all duration-300 hover:scale-105 bg-primary text-white animate-slide-in focus:outline-none focus:ring-3 focus:ring-accent"
+            <a class="glass hero-cta hero-cta--filled animate-slide-in"
                href="help.html" style="animation-delay: 0.2s" aria-label="Go to help page">
                 Site Map</a>
         </nav>
     </div>
 </header>
 
-<main class="container mx-auto px-6" id="main-content" role="main">
+<main class="container" id="main-content" role="main">
 
-    <!-- About Me Section -->
-    <section class="py-20 fade-in-up" id="about" aria-labelledby="about-heading">
-        <h2 class="text-4xl font-bold mb-12 text-center" id="about-heading">About Me</h2>
-        <div class="max-w-4xl mx-auto">
-            <div class="glass p-8 rounded-2xl mb-8 hover-lift">
-                <div class="flex flex-col lg:flex-row items-center gap-8">
-                    <div class="lg:w-1/3">
-                        <div class="w-48 h-48 mx-auto rounded-full overflow-hidden border-4 border-primary hover:scale-105 transition-transform duration-300" role="img" aria-label="Portrait of Agniva Ganguly (Knivier)">
-                            <img src="src/images/pfp.png" alt="Agniva Ganguly (Knivier), University of Michigan student targeting Computer Engineering BSE at the College of Engineering" class="w-full h-full object-cover" loading="eager" width="192" height="192">
+    <section class="section fade-in-up" id="about" aria-labelledby="about-heading">
+        <h2 class="section-title" id="about-heading">About Me</h2>
+        <div class="about-wrap">
+            <div class="glass about-panel hover-lift">
+                <div class="about-card">
+                    <div class="about-card__photo">
+                        <div class="portrait" role="img" aria-label="Portrait of Agniva Ganguly (Knivier)">
+                            <img src="src/images/pfp.png" alt="Agniva Ganguly (Knivier), University of Michigan student targeting Computer Engineering BSE at the College of Engineering" loading="eager" width="192" height="192">
                         </div>
                     </div>
-                    <div class="lg:w-2/3">
-                        <h3 class="text-2xl font-bold mb-4 text-primary">Hi, I'm Agniva Ganguly (Knivier)!</h3>
-                        <p class="text-lg mb-4 leading-relaxed">
-                           I'm a University of Michigan student in Ann Arbor, targeting a <span class="text-accent font-semibold">Computer Engineering BSE</span> at the College of Engineering. Online I go by Knivier. I've always been drawn to how computers work from the ground up - hardware, software, and everything in between.
+                    <div class="about-card__body">
+                        <h3 class="about-card__name">Hi, I'm Agniva Ganguly (Knivier)!</h3>
+                        <p class="prose">
+                           I'm a University of Michigan student in Ann Arbor, targeting a <span class="accent">Computer Engineering BSE</span> at the College of Engineering. Online I go by Knivier. I've always been drawn to how computers work from the ground up - hardware, software, and everything in between.
                         </p>
-                        <p class="text-lg mb-6 leading-relaxed">
-                            Day to day I dig into <span class="text-accent font-semibold">Java / Rust / C</span>,
-                            <span class="text-accent font-semibold">embedded systems</span>, and
-                            <span class="text-accent font-semibold">OS development</span>.
+                        <p class="prose prose--spaced">
+                            Day to day I dig into <span class="accent">Java / Rust / C</span>,
+                            <span class="accent">embedded systems</span>, and
+                            <span class="accent">OS development</span>.
                             When I'm not coding, you'll find me playing tennis, Minecraft, or hiking.
                         </p>
-                        <p class="text-lg mb-6 leading-relaxed">
+                        <p class="prose prose--spaced">
                            Note: Not all of my projects are on here or GitHub - some university and research work stays private. Feel free to reach out if you'd like to hear more about what I do.
                         </p>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="px-4 py-2 rounded-full bg-primary/20 text-primary border border-primary/30">UMich CoE</span>
-                            <span class="px-4 py-2 rounded-full bg-accent/20 text-accent border border-accent/30">Computer Engineering</span>
-                            <span class="px-4 py-2 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">Embedded &amp; OS</span>
+                        <div class="chip-row">
+                            <span class="chip chip--primary">UMich CoE</span>
+                            <span class="chip chip--accent">Computer Engineering</span>
+                            <span class="chip chip--violet">Embedded &amp; OS</span>
                         </div>
                     </div>
                 </div>
@@ -158,46 +165,44 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="py-20" id="stats" aria-labelledby="stats-heading">
-        <h2 class="text-4xl font-bold mb-12 text-center" id="stats-heading">Quick Stats</h2>
+    <section class="section" id="stats" aria-labelledby="stats-heading">
+        <h2 class="section-title" id="stats-heading">Quick Stats</h2>
         <div class="stats-grid stagger-animation">
             <div class="stat-card glass hover-lift">
-                <h3 class="text-5xl font-bold mb-2 text-primary counter" data-target="6">0</h3>
+                <h3 class="stat-value stat-value--primary counter" data-target="6">0</h3>
                 <p>Years of Web Design</p>
             </div>
             <div class="stat-card glass hover-lift">
-                <h3 class="text-5xl font-bold mb-2 text-accent counter" data-target="3">0</h3>
+                <h3 class="stat-value stat-value--accent counter" data-target="3">0</h3>
                 <p>Years of Java</p>
             </div>
             <div class="stat-card glass hover-lift">
-                <h3 class="text-5xl font-bold mb-2 text-purple-400 counter" data-target="4">0</h3>
+                <h3 class="stat-value stat-value--violet counter" data-target="4">0</h3>
                 <p title="4 Years of Windows, 2 Year of Linux">Years of CLI Experience</p>
             </div>
             <div class="stat-card glass hover-lift">
-                <h3 class="text-5xl font-bold mb-2 text-green-400 counter" data-target="15">0</h3>
-                <p title="">Projects Completed</p>
+                <h3 class="stat-value stat-value--green counter" data-target="15">0</h3>
+                <p>Projects Completed</p>
             </div>
         </div>
     </section>
 
-    <!-- Skill Tree -->
-    <section class="py-20" id="skills" aria-labelledby="skills-heading">
-        <h2 class="text-4xl font-bold mb-12 text-center" id="skills-heading">Skill Tree</h2>
+    <section class="section" id="skills" aria-labelledby="skills-heading">
+        <h2 class="section-title" id="skills-heading">Skill Tree</h2>
         <div class="skill-tree">
             <div class="skill-branch">
                 <div class="skill-node">
-                    <h3 class="text-xl font-bold">Web Development</h3>
-                    <div class="mt-4 space-y-2">
-                        <div class="flex justify-between">
+                    <h3>Web Development</h3>
+                    <div class="skill-list">
+                        <div class="skill-row">
                             <span>HTML/CSS</span>
                             <span>Proficient</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="skill-row">
                             <span>JavaScript</span>
                             <span>Learning</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="skill-row">
                             <span>Deployment</span>
                             <span>Learning</span>
                         </div>
@@ -206,17 +211,17 @@
             </div>
             <div class="skill-branch">
                 <div class="skill-node">
-                    <h3 class="text-xl font-bold">Heavy Backend Languages</h3>
-                    <div class="mt-4 space-y-2">
-                        <div class="flex justify-between">
+                    <h3>Heavy Backend Languages</h3>
+                    <div class="skill-list">
+                        <div class="skill-row">
                             <span>Java</span>
                             <span>Proficient (3+ Years)</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="skill-row">
                             <span>Rust</span>
                             <span>Learning (~1 Year)</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="skill-row">
                             <span>C</span>
                             <span>Learning (~1 Year)</span>
                         </div>
@@ -225,18 +230,17 @@
             </div>
             <div class="skill-branch">
                 <div class="skill-node">
-                    <h3 class="text-xl font-bold">Python</h3>
-                    <div class="mt-4 space-y-2">
-                        <div class="flex justify-between">
+                    <h3>Python</h3>
+                    <div class="skill-list">
+                        <div class="skill-row">
                             <span>General Python</span>
                             <span>Proficient (~4 Years)</span>
                         </div>
-                        <div class="flex justify-between">
-                            
+                        <div class="skill-row">
                             <span>Data Analysis</span>
                             <span>Intermediate (~1 Year)</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="skill-row">
                             <span>Computer Vision</span>
                             <span>Learning (~1 Year)</span>
                         </div>
@@ -245,17 +249,17 @@
             </div>
             <div class="skill-branch">
                 <div class="skill-node">
-                    <h3 class="text-xl font-bold">Platform Experience</h3>
-                    <div class="mt-4 space-y-2">
-                        <div class="flex justify-between">
+                    <h3>Platform Experience</h3>
+                    <div class="skill-list">
+                        <div class="skill-row">
                             <span>GitHub & Git VCS</span>
                             <span>Intermediate (3+ Years)</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="skill-row">
                             <span>Windows 10/11</span>
                             <span>Proficient (4+ Years)</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="skill-row">
                             <span>Fedora</span>
                             <span>Learning (~1 Year)</span>
                         </div>
@@ -265,157 +269,130 @@
         </div>
     </section>
 
-    <!-- Project Showcase -->
-    <section class="py-20" id="projects" aria-labelledby="projects-heading">
-        <h2 class="text-4xl font-bold mb-12 text-center" id="projects-heading">Featured Personal Projects</h2>
+    <section class="section" id="projects" aria-labelledby="projects-heading">
+        <h2 class="section-title" id="projects-heading">Featured Personal Projects</h2>
         <div class="project-showcase stagger-animation">
             <div class="project-card glass hover-lift">
-                <h3 class="text-2xl font-bold mb-4">Activerse</h3>
-                <p class="mb-4">A Java-based game engine meant to help people create games by simplifying the GUI
+                <h3>Activerse</h3>
+                <p>A Java-based game engine meant to help people create games by simplifying the GUI
                     experience.</p>
-                <div class="flex gap-3 flex-wrap">
-                    <span class="px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">Java</span>
-                    <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 border border-green-500/30">GUI</span>
-                    <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">Game Development</span>
+                <div class="chip-row">
+                    <span class="chip chip--primary">Java</span>
+                    <span class="chip chip--green">GUI</span>
+                    <span class="chip chip--violet">Game Development</span>
                 </div>
             </div>
             <div class="project-card glass hover-lift">
-                <h3 class="text-2xl font-bold mb-4">Popcorn</h3>
-                <p class="mb-4">A simple yet intuitive kernel framework for operating system development.</p>
-                <div class="flex gap-3 flex-wrap">
-                    <span class="px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">C</span>
-                    <span class="px-3 py-1 rounded-full bg-red-500/20 text-red-400 border border-red-500/30">Assembly</span>
-                    <span class="px-3 py-1 rounded-full bg-accent/20 text-accent border border-accent/30">OS Development</span>
+                <h3>Popcorn</h3>
+                <p>A simple yet intuitive kernel framework for operating system development.</p>
+                <div class="chip-row">
+                    <span class="chip chip--primary">C</span>
+                    <span class="chip chip--red">Assembly</span>
+                    <span class="chip chip--accent">OS Development</span>
                 </div>
             </div>
             <div class="project-card glass hover-lift">
-                <h3 class="text-2xl font-bold mb-4">Stressor</h3>
-                <p class="mb-4">A stress-testing tool for Windows 10/11 with easy deployment for end-users.</p>
-                <div class="flex gap-3 flex-wrap">
-                    <span class="px-3 py-1 rounded-full bg-primary/20 text-primary border border-indigo-500/30">Rust</span>
-                    <span class="px-3 py-1 rounded-full bg-red-500/20 text-red-400 border border-blue-500/30">End-User Deployable</span>
-                    <span class="px-3 py-1 rounded-full bg-accent/20 text-accent border border-accent/30">OS Development</span>
+                <h3>Stressor</h3>
+                <p>A stress-testing tool for Windows 10/11 with easy deployment for end-users.</p>
+                <div class="chip-row">
+                    <span class="chip chip--primary">Rust</span>
+                    <span class="chip chip--red">End-User Deployable</span>
+                    <span class="chip chip--accent">OS Development</span>
                 </div>
             </div>
-
             <div class="project-card glass hover-lift">
-                <h3 class="text-2xl font-bold mb-4">Fenrirwatch</h3>
-                <p class="mb-4">A security-focused tool built in Rust for Windows 10/11 that monitors and audits all system activity, with easy deployment for end-users.</p>
-                <div class="flex gap-3 flex-wrap">
-                    <span class="px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">Rust</span>
-                    <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 border border-green-500/30">GUI</span>
-                    <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">Game Development</span>
+                <h3>Fenrirwatch</h3>
+                <p>A security-focused tool built in Rust for Windows 10/11 that monitors and audits all system activity, with easy deployment for end-users.</p>
+                <div class="chip-row">
+                    <span class="chip chip--primary">Rust</span>
+                    <span class="chip chip--green">GUI</span>
+                    <span class="chip chip--violet">Security</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Project Timeline -->
-    <section class="py-20" id="timeline" aria-labelledby="timeline-heading">
-        <h2 class="text-4xl font-bold mb-12 text-center" id="timeline-heading">Project Timeline</h2>
+    <section class="section" id="timeline" aria-labelledby="timeline-heading">
+        <h2 class="section-title" id="timeline-heading">Project Timeline</h2>
         <div class="timeline">
-            
-             <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivier/Kinera"
-                                                      target="_blank" title="Visit Stressor now!">Kinera</a>
-                </h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://github.com/knivier/Kinera" target="_blank" title="Visit Kinera now!">Kinera</a></h3>
                 <p>Spartahack 11 project which uses computer vision and an integrated AI to grade your form.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivinstitute/fenrirwatch"
-                                                      target="_blank" title="Visit Stressor now!">Fenrirwatch</a>
-                </h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://github.com/knivinstitute/fenrirwatch" target="_blank" title="Visit Fenrirwatch now!">Fenrirwatch</a></h3>
                 <p>A security-focused tool for Windows 10/11 that monitors and audits all system activity, with easy deployment for end-users.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivinstitute/Stressor"
-                                                      target="_blank" title="Visit Stressor now!">Stressor</a>
-                </h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://github.com/knivinstitute/Stressor" target="_blank" title="Visit Stressor now!">Stressor</a></h3>
                 <p>A stress-testing tool for Windows 10/11 with easy deployment for end-users.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivier/SkyCell"
-                                                      target="_blank" title="Visit the Skycell project now!">SkyCell</a>
-                </h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://github.com/knivier/SkyCell" target="_blank" title="Visit the Skycell project now!">SkyCell</a></h3>
                 <p>A disaster-relief communications-based project which won first place at the Apex Hackathon in Boston!</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivier/WizViz"
-                                                      target="_blank" title="Visit WizViz now!">WizViz</a>
-                </h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://github.com/knivier/WizViz" target="_blank" title="Visit WizViz now!">WizViz</a></h3>
                 <p>Winner of Spartahack X's best game; a computer-vision based wizard game using Mediapipe, OpenCV and
                     PyGame. </p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="popcorn.html"
-                                                      title="Visit Popcorn Kernel Framework now!">Popcorn Kernel
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="popcorn.html" title="Visit Popcorn Kernel Framework now!">Popcorn Kernel
                     Framework</a></h3>
                 <p>A simple yet intuitive kernel framework for operating system development.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300"
-                                                      href="https://github.com/knivier/DockyMe" title="Visit DockyMe now!">DockyMe</a>
-                </h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://github.com/knivier/DockyMe" title="Visit DockyMe now!">DockyMe</a></h3>
                 <p>A small, scripted, and easily-runnable app that logs all USB devices connected to your system.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300"
-                                                      href="https://pihicompsci.org"
-                                                      title="Visit PiHi CompSci Website now!">PiHi CompSci Website</a>
-                </h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://pihicompsci.org" title="Visit PiHi CompSci Website now!">PiHi CompSci Website</a></h3>
                 <p>My high school coding club's website that I remade from scratch.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="activerse.html"
-                                                      title="Visit Activerse now!">Activerse</a></h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="activerse.html" title="Visit Activerse now!">Activerse</a></h3>
                 <p>A Java-based game engine for simplified GUI development; my latest project.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2">My Website</h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3>My Website</h3>
                 <p>A complex HTML website meant to tie everything together; worked on always.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300"
-                                                      href="https://github.com/knivier/trollgame"
-                                                      title="Visit Troll Game now!">Troll Game</a></h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://github.com/knivier/trollgame" title="Visit Troll Game now!">Troll Game</a></h3>
                 <p>Text-based adventure with dynamic gameplay; discontinued mid-2024.</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://github.com/knivier/PalBot"
-                                                      target="_blank" title="Visit Pal Bot now!">Pal
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://github.com/knivier/PalBot" target="_blank" title="Visit Pal Bot now!">Pal
                     Bot</a></h3>
                 <p>Customizable Discord bot template</p>
             </div>
-            <div class="timeline-item glass p-6 card-3d hover-lift">
-                <h3 class="text-xl font-bold mb-2"><a class="underline hover:text-primary transition-colors duration-300" href="https://eduspire.pages.dev/"
-                                                      target="_blank" title="Visit EduSpire now!">EduSpire</a>
-                </h3>
+            <div class="timeline-item glass card-3d hover-lift">
+                <h3><a href="https://eduspire.pages.dev/" target="_blank" title="Visit EduSpire now!">EduSpire</a></h3>
                 <p>Spartahack 8 project which was a better D2L. </p>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="pt-20 pb-10" id="contact" aria-labelledby="contact-heading">
-        <h2 class="text-4xl font-bold mb-12 text-center" id="contact-heading">Let's Connect</h2>
-        <div class="glass p-8 max-w-2xl mx-auto">
-            <div class="text-center mb-8">
-                <p class="text-xl">Find me on Discord as "knivier" or reach out via email:</p>
-                <p class="text-primary text-xl mt-2">agnivag.16@gmail.com</p>
-                <p class="text-xl">Or you can just connect with me!</p>
+    <section class="section section--contact" id="contact" aria-labelledby="contact-heading">
+        <h2 class="section-title" id="contact-heading">Let's Connect</h2>
+        <div class="glass contact-panel">
+            <div class="contact-panel__intro">
+                <p>Find me on Discord as "knivier" or reach out via email:</p>
+                <p class="contact-email"><a href="mailto:agnivag.16@gmail.com">agnivag.16@gmail.com</a></p>
+                <p>Or you can just connect with me!</p>
             </div>
-            <nav aria-label="Social media links" class="flex justify-center gap-8">
-                <a class="social-link hover:text-primary transition-colors focus:outline-none focus:ring-3 focus:ring-accent" 
-                   href="https://github.com/knivier" target="_blank" rel="noopener noreferrer" 
+            <nav aria-label="Social media links" class="social-links">
+                <a class="social-link"
+                   href="https://github.com/knivier" target="_blank" rel="noopener noreferrer"
                    aria-label="Visit my GitHub profile (opens in new tab)">
-                    <i class="fab fa-github text-3xl" aria-hidden="true"></i>
+                    <i class="fab fa-github" aria-hidden="true"></i>
                 </a>
-                <a class="social-link hover:text-primary transition-colors focus:outline-none focus:ring-3 focus:ring-accent" 
-                   href="https://www.youtube.com/@Knivier" target="_blank" rel="noopener noreferrer" 
+                <a class="social-link"
+                   href="https://www.youtube.com/@Knivier" target="_blank" rel="noopener noreferrer"
                    aria-label="Visit my YouTube channel (opens in new tab)">
-                    <i class="fab fa-youtube text-3xl" aria-hidden="true"></i>
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
                 </a>
-            </nav></div>
+            </nav>
         </div>
     </section>
 </main>
@@ -423,7 +400,7 @@
         data-id="knivier" data-message="Support my work" data-name="BMC-Widget"
         data-position="Right" data-x_margin="18" data-y_margin="18"
         src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"></script>
-<footer class="text-center py-6 text-gray-400">
+<footer>
     <p>&copy; 2026 Knivier. All rights reserved under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-NC-SA 4.0 license</a>, prohibiting commercial use without permission.</p>
 </footer>
 

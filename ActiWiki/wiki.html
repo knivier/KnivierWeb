@@ -1,198 +1,34 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+    <meta name="theme-color" content="#1C1B1F">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Activerse wiki chapter 0: what the Java 2D game engine is, how to get started, and how to contribute.">
     <title>Activerse Wiki - Chapter 0</title>
+    <link rel="canonical" href="https://knivier.com/ActiWiki/wiki.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="wiki-styling.css" rel="stylesheet">
     <link href="cp-actilogo.png" rel="icon" type="image/png"/>
-    <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #121212;
-            color: #ddd;
-            line-height: 1.6;
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar nav */
-        nav {
-            position: sticky;
-            top: 0;
-            background: #1f1f1f;
-            width: 240px;
-            height: 100vh;
-            padding: 2rem 1rem;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-        }
-
-        nav h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #82c7ff;
-            text-align: center;
-            letter-spacing: 2px;
-            user-select: none;
-        }
-
-        nav a {
-            color: #aaa;
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
-            padding: 0.5rem 0.8rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            display: block;
-            user-select: none;
-        }
-
-        nav a:hover, nav a.active {
-            background: #82c7ff;
-            color: #121212;
-            box-shadow: 0 0 8px #82c7ff;
-        }
-
-        /* Main content */
-        main {
-            flex: 1;
-            padding: 3rem 4rem;
-            overflow-y: auto;
-            max-width: 900px;
-        }
-
-        main h1 {
-            font-size: 2.6rem;
-            margin-bottom: 1.2rem;
-            color: #82c7ff;
-            text-shadow: 0 0 10px #82c7ffaa;
-        }
-
-        main h2 {
-            font-size: 1.9rem;
-            margin-top: 2.8rem;
-            margin-bottom: 1rem;
-            color: #a1d1ff;
-            border-bottom: 2px solid #82c7ff55;
-            padding-bottom: 0.3rem;
-        }
-
-        main p {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: #ddd;
-        }
-
-        /* Animations */
-        main > * {
-            opacity: 0;
-            transform: translateY(15px);
-            animation: fadeInUp 0.8s forwards;
-        }
-
-        main > *:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        main > *:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        main > *:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        main > *:nth-child(4) {
-            animation-delay: 0.8s;
-        }
-
-        main > *:nth-child(5) {
-            animation-delay: 1.0s;
-        }
-
-        main > *:nth-child(6) {
-            animation-delay: 1.2s;
-        }
-
-        main > *:nth-child(7) {
-            animation-delay: 1.4s;
-        }
-
-        main > *:nth-child(8) {
-            animation-delay: 1.6s;
-        }
-
-        main > *:nth-child(9) {
-            animation-delay: 1.8s;
-        }
-
-        main > *:nth-child(10) {
-            animation-delay: 2.0s;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-
-            nav {
-                width: 100%;
-                height: auto;
-                flex-direction: row;
-                justify-content: space-around;
-                padding: 1rem;
-                box-shadow: none;
-            }
-
-            nav h2 {
-                display: none;
-            }
-
-            nav a {
-                margin-bottom: 0;
-                font-size: 1rem;
-                padding: 0.4rem 0.6rem;
-            }
-
-            main {
-                padding: 2rem 1.5rem;
-                max-width: 100%;
-            }
-        }
-    </style>
 </head>
 <body>
 
 <nav>
-    <h2>Activerse Wiki</h2>
-    <a class="active" href="wiki.html">Chapter 0</a>
-    <a href="chapter1.html">Chapter 1</a>
-    <a href="chapter2.html">Chapter 2</a>
-    <a href="chapter3.html">Chapter 3</a>
-    <a href="..\activerseinfo.html">Home</a>
-    <!-- <a href="chapter4">Chapter 4</a>
-    <a href="chapter5">Chapter 5</a> -->
+    <div class="logo">Activerse Wiki</div>
+    <div class="nav-links">
+        <a class="active" href="wiki.html">Chapter 0</a>
+        <a href="chapter1.html">Chapter 1</a>
+        <a href="chapter2.html">Chapter 2</a>
+        <a href="chapter3.html">Chapter 3</a>
+        <a href="../activerse.html">Home</a>
+    </div>
 </nav>
 
 <main>
+
     <section id="chapter0">
         <h1>Chapter 0: Welcome to the Wiki!</h1>
 
@@ -266,7 +102,7 @@
             This guide is mainly AI paraphrased and generated, but fact checked and is the best guide for those that
             want to delve deeply into the mechanics of the game and how it works.
             <a href="https://github.com/user-attachments/files/16165118/Research.Notes.for.v1.1.2.Optimizations.pdf"
-               style="color:#82c7ff; text-decoration: underline;" target="_blank">ActiverseInsiderv1.pdf</a>
+               target="_blank" rel="noopener noreferrer">ActiverseInsiderv1.pdf</a>
         </p>
         <p>
             An entirely different resource could be you seeing what the engine is truly capable of.
@@ -288,8 +124,8 @@
         <p>
             To avoid massive bugs and overall headaches, always make sure to update Activerse to the latest version via
             GitHub version releases. The current release is <strong>v1.4.2</strong>
-            (<a href="https://github.com/knivier/Activerse/releases/tag/v1.4.2" style="color:#82c7ff; text-decoration: underline;" target="_blank">download on GitHub</a>;
-            API docs are at <a href="../Activerse/index.html" style="color:#82c7ff; text-decoration: underline;">/Activerse/</a>.
+            (<a href="https://github.com/knivier/Activerse/releases/tag/v1.4.2" target="_blank" rel="noopener noreferrer">download on GitHub</a>;
+            API docs are at <a href="../Activerse/index.html">/Activerse/</a>.
             If you're on a version that isn't backward compatible with the next version, updating your code is always
             better than missing out on bug fixes,
             new features and possible security vulnerability fixes.
@@ -310,41 +146,6 @@
         </p>
     </section>
 </main>
-
-<script>
-    // Highlight active nav link based on scroll position
-    const sections = document.querySelectorAll('main section');
-    const navLinks = document.querySelectorAll('nav a');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 80;
-            if (pageYOffset >= sectionTop) {
-                current = section.getAttribute('id');
-            }
-        });
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').substring(1) === current) {
-                link.classList.add('active');
-            }
-        });
-    });
-
-    // Smooth scroll behavior for nav links
-    navLinks.forEach(link => {
-        link.addEventListener('click', e => {
-            const href = link.getAttribute('href');
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                const targetId = href.substring(1);
-                document.getElementById(targetId).scrollIntoView({behavior: 'smooth'});
-            }
-            // else, let the browser navigate to the other page
-        });
-    });
-</script>
 
 </body>
 </html>

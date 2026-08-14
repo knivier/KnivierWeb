@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta name="theme-color" content="#1C1B1F">
+    <meta name="color-scheme" content="dark">
     <title>ActiWiki - Chapter 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="wiki-styling.css" rel="stylesheet">
     <link href="cp-actilogo.png" rel="icon" type="image/png"/>
 </head>
@@ -16,8 +21,7 @@
         <a class="active" href="chapter1.html">Chapter 1</a>
         <a href="chapter2.html">Chapter 2</a>
         <a href="chapter3.html">Chapter 3</a>
-        <!-- <a href="chapter4.html">Chapter 4</a>
-        <a href="chapter5.html">Chapter 5</a> -->
+        <a href="../activerse.html">Home</a>
     </div>
 </nav>
 <!-- Main Content -->
@@ -67,7 +71,7 @@
 
     <h3>Demo Code</h3>
     <p>Check out the code below to see how we're combining all of this.</p>
-    <pre style="background:#222; padding:1rem; border-radius:8px; overflow-x:auto; color:#61dafb;">
+    <pre class="code-block">
 <code>
 import ActiverseEngine.*; //required to retrieve packages from main files
 public class Player extends Actor {
@@ -114,7 +118,7 @@ public class Player extends Actor {
         We'll use MyWorld in this scenario. First, create the subclass. Next, create the constructor and make sure it
         matches (or match) to the Main.java code.
     </p>
-    <pre style="background:#222; padding:1rem; border-radius:8px; overflow-x:auto; color:#61dafb;">
+    <pre class="code-block">
 <code>
 import ActiverseEngine.*;
 public static void main(String[] args) {
@@ -131,7 +135,7 @@ public static void main(String[] args) {
         You can create a new Background image via <code>setBackgroundImage()</code>, and finally add your desired actor
         object using <code>addObject(actor, locationX, locationY);</code>.
     </p>
-    <pre style="background:#222; padding:1rem; border-radius:8px; overflow-x:auto; color:#61dafb;">
+    <pre class="code-block">
 <code>
 import ActiverseEngine.*;
 public class MyWorld extends World {  // Making a subclass of World named MyWorld
