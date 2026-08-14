@@ -20,7 +20,6 @@
     --blur-glass-heavy: saturate(180%) blur(40px);
     --island-height: 3.25rem;
     --island-safe-bottom: calc(var(--island-height) + 1.75rem + env(safe-area-inset-bottom, 0px));
-    --promo-banner-offset: 3rem;
 
     --border-radius-md: 16px;
     --border-radius-xl: 28px;
@@ -141,19 +140,6 @@ body::before {
 
 
 /* Animation Classes */
-.float-element {
-    animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
-}
-
 .typing-text {
     display: inline-block;
     border-right: 3px solid var(--primary);
@@ -447,124 +433,105 @@ body::before {
     display: none;
 }
 
-#pre-production-banner {
+html.site-notice-dismissed #site-notice {
+    display: none;
+}
+
+html:not(.site-notice-dismissed) body {
+    overflow: hidden;
+}
+
+.site-notice {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    padding: 0.5rem 0.75rem;
-    padding-top: max(0.5rem, env(safe-area-inset-top));
-    background: rgba(10, 12, 18, 0.82);
-    backdrop-filter: var(--blur-glass-heavy);
-    -webkit-backdrop-filter: var(--blur-glass-heavy);
-    border-bottom: 1px solid var(--glass-border);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
-}
-
-.promo-banner__inner {
+    inset: 0;
+    z-index: 10000;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 0.75rem;
-    max-width: 52rem;
-    margin: 0 auto;
+    padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem 1.25rem;
+    pointer-events: none;
 }
 
-.promo-banner__content {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    flex: 1;
-    min-width: 0;
-    justify-content: center;
+.site-notice__backdrop {
+    position: absolute;
+    inset: 0;
+    pointer-events: auto;
+    background: rgba(6, 8, 13, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
-.promo-banner__badge {
-    flex-shrink: 0;
-    padding: 0.2rem 0.55rem;
-    border-radius: var(--radius-pill);
-    background: var(--primary-container);
-    border: 1px solid rgba(99, 102, 241, 0.35);
-    color: var(--primary-light);
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    line-height: 1.4;
+.site-notice__card {
+    position: relative;
+    pointer-events: auto;
+    width: min(32rem, 100%);
+    margin-top: clamp(4rem, 14vh, 8rem);
+    padding: 1.75rem 1.75rem 1.5rem;
+    border-radius: 1.25rem;
+    background: rgba(22, 26, 36, 0.82);
+    backdrop-filter: saturate(160%) blur(24px);
+    -webkit-backdrop-filter: saturate(160%) blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-.promo-banner__text {
-    margin: 0;
-    color: var(--text-secondary);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    line-height: 1.4;
-    text-align: left;
+.site-notice__card h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
 }
 
-#pre-production-banner a {
-    color: var(--primary-light);
-    font-weight: 600;
-    text-decoration: none;
-    white-space: nowrap;
-    margin-left: 0.25rem;
-    transition: color var(--transition-fast);
-}
-
-#pre-production-banner a:hover {
-    color: #a5b4fc;
-    text-decoration: underline;
-}
-
-#pre-production-banner.hidden {
-    transform: translateY(-100%);
-}
-
-/* Keep hero below fixed promo strip */
-#pre-production-banner:not(.hidden) ~ header[role="banner"] {
-    padding-top: var(--promo-banner-offset);
-}
-
-#close-banner {
-    flex-shrink: 0;
-    cursor: pointer;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    border: 1px solid var(--glass-border);
-    background: rgba(255, 255, 255, 0.06);
+.site-notice__card p {
+    margin: 0 0 1.25rem;
     color: var(--text-muted);
-    display: flex;
+    font-size: 0.9375rem;
+    font-weight: 450;
+    line-height: 1.6;
+}
+
+.site-notice__btn {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition:
-        background var(--transition-fast),
-        color var(--transition-fast),
-        border-color var(--transition-fast),
-        transform var(--transition-fast);
-    font-size: 1.125rem;
-    font-weight: 400;
-    line-height: 1;
-    padding: 0;
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.7rem 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-pill);
+    background: rgba(99, 102, 241, 0.9);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition-fast);
     -webkit-tap-highlight-color: transparent;
 }
 
-#close-banner:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: var(--glass-border-strong);
-    color: var(--text-primary);
-    transform: scale(1.05);
+.site-notice__btn:hover {
+    background: rgba(129, 140, 248, 0.95);
 }
 
-#close-banner:focus {
+.site-notice__btn:active {
+    background: rgba(79, 70, 229, 0.95);
+}
+
+.site-notice__btn:focus {
     outline: none;
 }
 
-#close-banner:focus-visible {
+.site-notice__btn:focus-visible {
     outline: 2px solid var(--primary-light);
-    outline-offset: 2px;
+    outline-offset: 3px;
+}
+
+.site-notice.is-leaving {
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 /* Dynamic Island Navigation */
@@ -759,14 +726,18 @@ header nav[aria-label="Main navigation"] a.glass:hover {
         gap: 0.15rem;
     }
 
-    :root {
-        --promo-banner-offset: 0;
+    .site-notice {
+        align-items: center;
+        padding: 1rem;
+        padding-top: max(1rem, env(safe-area-inset-top));
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
     }
 
-    #pre-production-banner {
-        display: none !important;
+    .site-notice__card {
+        margin-top: 0;
+        padding: 1.4rem 1.25rem 1.25rem;
     }
-    
+
     /* Improve button spacing */
     nav[aria-label="Main navigation"] {
         gap: 0.75rem;
@@ -777,7 +748,7 @@ header nav[aria-label="Main navigation"] a.glass:hover {
         font-size: 0.9rem;
     }
 
-    a:not(.dynamic-island__item), button:not(#close-banner), [role="button"], input, select, textarea {
+    a:not(.dynamic-island__item), button:not(#site-notice-dismiss), [role="button"], input, select, textarea {
         min-height: 44px;
         min-width: 44px;
         display: inline-flex;

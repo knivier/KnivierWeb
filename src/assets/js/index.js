@@ -261,52 +261,35 @@ function initDynamicIsland() {
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        const banner = document.getElementById('pre-production-banner');
-        const closeBtn = document.getElementById('close-banner');
-        const isDesktopBanner = window.matchMedia('(min-width: 769px)').matches;
+        const notice = document.getElementById('site-notice');
+        const dismissBtn = document.getElementById('site-notice-dismiss');
 
-        if (banner && closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                banner.classList.add('hidden');
-                banner.setAttribute('aria-hidden', 'true');
-                setTimeout(() => {
-                    banner.style.display = 'none';
-                }, 400);
+        if (notice && dismissBtn) {
+            dismissBtn.focus();
+
+            const dismissNotice = () => {
+                if (notice.classList.contains('is-leaving')) return;
+                notice.classList.add('is-leaving');
+                notice.setAttribute('aria-hidden', 'true');
+                let finished = false;
+                const finish = () => {
+                    if (finished) return;
+                    finished = true;
+                    notice.style.display = 'none';
+                    document.documentElement.classList.add('site-notice-dismissed');
+                };
+                setTimeout(finish, 220);
+            };
+
+            dismissBtn.addEventListener('click', dismissNotice);
+            notice.querySelectorAll('[data-site-notice-dismiss]').forEach((el) => {
+                el.addEventListener('click', dismissNotice);
             });
-
-            closeBtn.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    closeBtn.click();
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !notice.classList.contains('is-leaving')) {
+                    dismissNotice();
                 }
             });
-        }
-
-        if (banner && isDesktopBanner) {
-            let lastScrollTop = 0;
-            let ticking = false;
-
-            function updateBannerOnScroll() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const scrollDifference = Math.abs(scrollTop - lastScrollTop);
-
-                if (scrollDifference > 10) {
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        banner.style.transform = 'translateY(-100%)';
-                    } else {
-                        banner.style.transform = 'translateY(0)';
-                    }
-                    lastScrollTop = scrollTop;
-                }
-                ticking = false;
-            }
-
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    requestAnimationFrame(updateBannerOnScroll);
-                    ticking = true;
-                }
-            }, { passive: true });
         }
 
         document.querySelectorAll('a[href^="#"]:not(.dynamic-island__item)').forEach(anchor => {
