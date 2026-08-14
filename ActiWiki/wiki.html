@@ -5,14 +5,14 @@
     <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
     <meta name="theme-color" content="#1C1B1F">
     <meta name="color-scheme" content="dark">
-    <meta name="description" content="Activerse wiki chapter 0: what the Java 2D game engine is, how to get started, and how to contribute.">
+    <meta name="description" content="Activerse wiki chapter 0: v1.4.2 overview, project layout, how to run Main.java, and where to go next.">
     <title>Activerse Wiki - Chapter 0</title>
     <link rel="canonical" href="https://knivier.com/ActiWiki/wiki.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="wiki-styling.css" rel="stylesheet">
-    <link href="cp-actilogo.png" rel="icon" type="image/png"/>
+    <link href="../src/images/activerse-logo.png" rel="icon" type="image/png"/>
 </head>
 <body>
 
@@ -23,127 +23,128 @@
         <a href="chapter1.html">Chapter 1</a>
         <a href="chapter2.html">Chapter 2</a>
         <a href="chapter3.html">Chapter 3</a>
+        <a href="chapter4.html">Chapter 4</a>
+        <a href="chapter5.html">Chapter 5</a>
+        <a href="chapterX.html">Chapter X</a>
         <a href="../activerse.html">Home</a>
     </div>
 </nav>
 
 <main>
-
     <section id="chapter0">
-        <h1>Chapter 0: Welcome to the Wiki!</h1>
-
-        <h2>Basic Information</h2>
-        <h3>What is Activerse?</h3>
+        <h1>Chapter 0: Welcome</h1>
         <p>
-            Activerse is a hybrid Java game library and engine that started as a simple library but is evolving into a
-            highly customizable and continuously evolving engine.
-            In Activerse, actors are objects within your game world that inherit methods from the main Actor class. You
-            can manipulate and interact with these actors using methods provided by the World, Actor, and Activerse
-            class.
-            The purpose of Activerse isn't to be the best game engine or API, its goal is to provide the utmost
-            customizable APIs so you can modify the engine or your code to your liking.
-            The TLDR: We give you the tools, but you can modify those tools and build whatever you want.
-            If you aren't that advanced with Java, the basic tools given to you are all you need to make a capable
-            beginners game!
+            This wiki matches <strong>Activerse v1.4.2</strong>, the current public engine. The window title is
+            <code>Activerse Instance v1.4.2</code>. Tutorials here describe the source tree in the Activerse project:
+            two packages, a properties file, and a <code>Main</code> class you run to start a world.
         </p>
 
-        <h3>How Easy is it to Create Things?</h3>
+        <h2>What Activerse is</h2>
         <p>
-            The ease of creating in Activerse depends on your project's complexity. While Activerse shares similarities
-            with the Greenfoot game maker,
-            it diverges significantly with advanced built-in methods and categorization.
-            For simpler tasks, Activerse is beginner-friendly but can get tedious fast.
-            However, creating more complex simulations or games requires a deeper understanding of programming concepts.
-            If you're interested in diving into the game engine's inner workings, it's a journey beyond beginner
-            programming.
-            For students in high school, we recommend having taken AP-CSA or a similar course that delves into Java.
+            Activerse is a Java 2D game, simulation, and physics engine. You subclass <code>Actor</code> and
+            <code>World</code>, then start the instance with <code>Activerse.start(yourWorld)</code>. The engine
+            supplies movement, collision, images, sound, a camera helper, config loading, and a growing utils package.
+            You can stay on the public API or edit the engine itself.
+        </p>
+        <p>
+            It is closer to a customizable library than a boxed editor. Simple games are straightforward; larger
+            simulations need more Java. AP Computer Science A or equivalent is a solid baseline.
         </p>
 
-        <h3>Is Activerse the Best Engine?</h3>
+        <h2>How to run it</h2>
+        <ol>
+            <li>Download the latest source from
+                <a href="https://github.com/knivier/Activerse/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a>
+                (v1.4.2).</li>
+            <li>Open the project in IntelliJ, Eclipse, VS Code, or BlueJ.</li>
+            <li>Always run <code>Main.java</code>. In the current template, <code>Activerse.start(...)</code> is
+                commented out until you pass your world.</li>
+            <li>Engine settings live in <code>Activerse.properties</code> (capital A), loaded from the classpath.</li>
+        </ol>
+        <pre class="code-block"><code>import ActiverseEngine.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Activerse.start(new MyWorld());
+    }
+}</code></pre>
+        <div class="note">
+            <p>
+                In the shipped <code>Activerse.properties</code>, <code>show_debug=true</code>. A Debug button appears
+                on the world. Logging is off (<code>logging=false</code>) and the target frame rate is 60.
+                See <a href="chapter2.html">Chapter 2</a>.
+            </p>
+        </div>
+
+        <h2>Project layout (v1.4.2)</h2>
+        <table class="wiki-table">
+            <thead>
+            <tr>
+                <th>Path</th>
+                <th>Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>Main.java</code></td>
+                <td>Entry point. Call <code>Activerse.start(new YourWorld())</code>.</td>
+            </tr>
+            <tr>
+                <td><code>Activerse.properties</code></td>
+                <td>Engine keys: <code>fps</code>, <code>show_debug</code>, <code>logging</code>, <code>dynamicLighting</code>.</td>
+            </tr>
+            <tr>
+                <td><code>ActiverseEngine/</code></td>
+                <td>Core: <code>Activerse</code>, <code>World</code>, <code>Actor</code>, images, sound, input, camera, config.</td>
+            </tr>
+            <tr>
+                <td><code>ActiverseUtils/</code></td>
+                <td>Helpers: paths, physics, UI, particles, world save/load, ACEHS logging, and more.</td>
+            </tr>
+            </tbody>
+        </table>
         <p>
-            Activerse isn't positioned as the leading library or game engine by any means.
-            Its goal is to offer a simpler, highly customizable editor for users.
-            While similar projects exist, Activerse sets itself apart through its more unique and customizable codebase.
-            The purpose of Activerse isn't just to create a good game, it's also to help others understand how to tweak
-            certain aspects of code to get a better result.
+            Import the engine with <code>import ActiverseEngine.*;</code>. Pull utils explicitly when you need them,
+            for example <code>import ActiverseUtils.ResourcePaths;</code>.
         </p>
 
-        <h3>Does Activerse have AI-generated content?</h3>
+        <h2>Wiki map</h2>
+        <p>Beginner path (in this order):</p>
+        <ul>
+            <li><a href="chapter1.html">Chapter 1</a> — player, world, and starting the instance</li>
+            <li><a href="chapter4.html">Chapter 4</a> — images, WAV sound, and where files live</li>
+            <li><a href="chapter5.html">Chapter 5</a> — other actors, collision, and a score</li>
+        </ul>
+        <p>When you need them:</p>
+        <ul>
+            <li><a href="chapter2.html">Chapter 2</a> — properties, debug overlay, and <code>logs.log</code></li>
+            <li><a href="chapter3.html">Chapter 3</a> — ACEHS error codes</li>
+            <li><a href="chapterX.html">Chapter X</a> — camera, interpolation, config, utils</li>
+        </ul>
         <p>
-            In Activerse, AI is primarily used for comments, change-logs, and occasionally as a tool for inspiration or
-            troubleshooting.
-            However, the core mechanics and implementation are predominantly the result of human creativity and effort,
-            therefore most of the game has been coded by me (Knivier).
+            JavaDoc for the public API is at
+            <a href="../Activerse/index.html">/Activerse/</a>.
+            Site home is <a href="../activerse.html">knivier.com/activerse.html</a>.
         </p>
 
-        <h3>How can I Contribute?</h3>
+        <h2>License and contributing</h2>
         <p>
-            I'd absolutely love contributions to my work, and there are many ways to do so in this project.
-            The best way to help create projects is to fork this repository and create your own game (of course,
-            following license guidelines and citing code).
-            Helping grow the games built on the engine is the best way to contribute.
-            Alternatively, if you find bugs, or want to have features added, use the GitHub "issue" feature for this
-            project and explain what you want to see.
-            Finally, if you wish to financially support this project, you can fund under the Activerse "sponsor" section
-            (contained via funding.yml).
+            Activerse is licensed
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>:
+            attribution, non-commercial, share-alike. Fork the repo and build a game, or open a GitHub issue for bugs
+            and features. Financial support, if offered, is through the repository funding file.
+        </p>
+        <p>
+            The engine still moves. Check release notes before you upgrade; backward compatibility is not guaranteed.
+            Prefer the latest release over an old snapshot.
         </p>
 
-        <h3>How can I get started?</h3>
-        <p>
-            To get started, all you need to do is follow the Wiki tutorials!
-            You've made it through Chapter 0 which is this home page!
-            Go onto the next section and good luck coding!
-        </p>
-
-        <h3>I want more resources!</h3>
-        <p>
-            For more deeply informational resources, below is the Activerse Developers Insider Release 1, attributed
-            with v1.0.8-delta.
-            This guide is mainly AI paraphrased and generated, but fact checked and is the best guide for those that
-            want to delve deeply into the mechanics of the game and how it works.
-            <a href="https://github.com/user-attachments/files/16165118/Research.Notes.for.v1.1.2.Optimizations.pdf"
-               target="_blank" rel="noopener noreferrer">ActiverseInsiderv1.pdf</a>
-        </p>
-        <p>
-            An entirely different resource could be you seeing what the engine is truly capable of.
-            Games are always being created and tested under the engine.
-            As of v1.3.3, example games are released in the main section.
-            More example games are always being released to show you the true capability of Activerse.
-        </p>
-
-        <h3>Please Remember:</h3>
-        <p>
-            The code is always updating!<br/>
-            It will never be the utmost perfect code for a game engine and/or library, so always open up an issue via
-            GitHub if you ever see one.
-            The code is constantly updating, and backward compatibility may be impacted as a result.
-            Always check release version notes regarding backward compatibility issues.
-        </p>
-
-        <h3>Always update Activerse to the latest version</h3>
-        <p>
-            To avoid massive bugs and overall headaches, always make sure to update Activerse to the latest version via
-            GitHub version releases. The current release is <strong>v1.4.2</strong>
-            (<a href="https://github.com/knivier/Activerse/releases/tag/v1.4.2" target="_blank" rel="noopener noreferrer">download on GitHub</a>;
-            API docs are at <a href="../Activerse/index.html">/Activerse/</a>.
-            If you're on a version that isn't backward compatible with the next version, updating your code is always
-            better than missing out on bug fixes,
-            new features and possible security vulnerability fixes.
-        </p>
-
-        <h3>Use an IDE that works for you!</h3>
-        <p>
-            An extremely advanced IDE like IntelliJ can be a hassle for beginners.
-            Similarly, Visual Studio Code can be cumbersome to those who are much more advanced with code.
-            We recommend starting out with BlueJ to visualize the code hierarchy, but moving up once you're comfortable!
-            This project is primarily composed on IntelliJ, however sub projects are generally coded in VS Code.
-        </p>
-
-        <h3>You're always able to post suggestions</h3>
-        <p>
-            Via GitHub, you can open up an issue for something you want to see!
-            Always be detailed in the issue area, and make sure to have high quality advice!
-        </p>
+        <h2>Extra reading</h2>
+        <ul>
+            <li><a href="../Activerse%20Developers%20Insider%20Release%202.pdf" target="_blank" rel="noopener noreferrer">Developers Insider Release 2 (PDF)</a> — architecture brief for v1.4.2 (monotonic clock, interpolation, package map, version lineage)</li>
+            <li><a href="https://github.com/user-attachments/files/16165118/Research.Notes.for.v1.1.2.Optimizations.pdf" target="_blank" rel="noopener noreferrer">Developers Insider Release 1 / v1.1.2 profiling notes</a> (historical)</li>
+            <li>Example games shipped with the engine around v1.3.3 live in an Examples folder in that tree. Open those as their own project so you do not mix engine copies.</li>
+        </ul>
     </section>
 </main>
 

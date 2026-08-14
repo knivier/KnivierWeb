@@ -12,6 +12,16 @@
     letter-spacing: -0.02em;
 }
 
+#header .insider-link {
+    margin: 0.6rem 0 0.85rem;
+    font-size: 0.95rem;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+#header .insider-link a {
+    color: var(--md-sys-color-primary);
+}
+
 .page-body {
     background: var(--glass-bg-elevated);
     backdrop-filter: var(--glass-blur);

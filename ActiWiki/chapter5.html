@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+    <meta name="theme-color" content="#1C1B1F">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Activerse wiki chapter 5: add other actors, detect collision, and remove objects in v1.4.2.">
+    <title>Activerse Wiki - Chapter 5</title>
+    <link rel="canonical" href="https://knivier.com/ActiWiki/chapter5.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="wiki-styling.css" rel="stylesheet">
+    <link href="../src/images/activerse-logo.png" rel="icon" type="image/png"/>
+</head>
+<body>
+<nav>
+    <div class="logo">Activerse Wiki</div>
+    <div class="nav-links">
+        <a href="wiki.html">Chapter 0</a>
+        <a href="chapter1.html">Chapter 1</a>
+        <a href="chapter2.html">Chapter 2</a>
+        <a href="chapter3.html">Chapter 3</a>
+        <a href="chapter4.html">Chapter 4</a>
+        <a class="active" href="chapter5.html">Chapter 5</a>
+        <a href="chapterX.html">Chapter X</a>
+        <a href="../activerse.html">Home</a>
+    </div>
+</nav>
+<main>
+    <h1>Chapter 5: Other actors and collision</h1>
+    <p>
+        A game needs more than one object. Add a second <code>Actor</code>, place it with <code>addObject</code>,
+        then ask the player whether it is touching something.
+    </p>
+
+    <h2>A collectible</h2>
+    <p>
+        Coins, walls, and enemies are all subclasses of <code>Actor</code>. If the object never needs per-tick
+        logic, override <code>isTickInert()</code> so the world skips <code>act()</code> (cheaper when you have
+        many tiles). Decorative scenery can also use <code>setStatic(true)</code> so it stays off the debug list.
+    </p>
+    <pre class="code-block"><code>import ActiverseEngine.*;
+
+public class Coin extends Actor {
+    public Coin() {
+        setImage(new ActiverseImage("assets/images/coin.png"));
+    }
+
+    @Override
+    public void act() {
+        // no per-tick behavior
+    }
+
+    @Override
+    public boolean isTickInert() {
+        return true;
+    }
+}</code></pre>
+    <pre class="code-block"><code>public class MyWorld extends World {
+    public MyWorld() {
+        super(400, 400, 1);
+        addObject(new Player(), 100, 100);
+        addObject(new Coin(), 200, 180);
+        addObject(new Coin(), 280, 90);
+    }
+}</code></pre>
+
+    <h2>Detecting a hit</h2>
+    <p>
+        Two methods beginners actually use:
+    </p>
+    <ul>
+        <li><code>intersects(other)</code> — bounding-box overlap with one actor you already have a reference to</li>
+        <li><code>getOneIntersectingObject()</code> — first other actor whose <em>pixels</em> overlap this one
+            (via <code>CollisionManager</code>). Returns <code>null</code> if nothing hits</li>
+    </ul>
+    <p>
+        Pixel-perfect checks need loaded images. If an image is still missing, collision falls back to boxes.
+        <code>move()</code> already refuses to walk off the world edge; you do not need extra bounds code for that.
+    </p>
+    <pre class="code-block"><code>@Override
+public void act() {
+    movementViaKey();
+
+    Actor hit = getOneIntersectingObject();
+    if (hit instanceof Coin) {
+        playPickup();
+        getWorld().removeObject(hit);
+    }
+}</code></pre>
+    <p>
+        <code>removeObject</code> takes the actor out of the world. After that, do not keep using the removed
+        reference. <code>getWorld()</code> is null-safe to call from <code>act()</code> only while the actor is
+        still in a world — call it before you remove <em>yourself</em>.
+    </p>
+
+    <h2>instanceof is the filter</h2>
+    <p>
+        <code>getOneIntersectingObject()</code> returns any overlapping actor, including other players or walls.
+        Check the type (or a field you add) before you treat it as a coin. For several overlapping objects in one
+        tick, the method returns the first match; if you need all of them, loop <code>getWorld().getActors()</code>
+        and test <code>intersects</code> yourself.
+    </p>
+    <pre class="code-block"><code>for (Actor other : getWorld().getActors()) {
+    if (other != this &amp;&amp; other instanceof Coin &amp;&amp; intersects(other)) {
+        getWorld().removeObject(other);
+        break;
+    }
+}</code></pre>
+
+    <h2>Showing a score</h2>
+    <p>
+        <code>World.showText(x, y, "Score: 3")</code> draws a string each frame. Keep a counter on the world or
+        the player and update the text when a coin disappears.
+    </p>
+    <pre class="code-block"><code>private int score = 0;
+
+public void addScore(int amount) {
+    score += amount;
+    showText(10, 20, "Score: " + score);
+}</code></pre>
+    <p>
+        Call <code>((MyWorld) getWorld()).addScore(1)</code> from the player when a coin is collected, or keep the
+        counter on the player and have the world read it. Either is fine for a first game.
+    </p>
+
+    <h2>What to do next</h2>
+    <ul>
+        <li>Something looks wrong on screen — <a href="chapter2.html">Chapter 2</a> (debug overlay)</li>
+        <li>A red ACEHS line in the terminal — <a href="chapter3.html">Chapter 3</a></li>
+        <li>Scrolling worlds, interpolation, camera, inventory — <a href="chapterX.html">Chapter X</a></li>
+    </ul>
+</main>
+</body>
+</html>

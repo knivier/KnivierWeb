@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+    <meta name="theme-color" content="#1C1B1F">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Activerse wiki chapter 4: load images and WAV sounds with ResourcePaths in v1.4.2.">
+    <title>Activerse Wiki - Chapter 4</title>
+    <link rel="canonical" href="https://knivier.com/ActiWiki/chapter4.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="wiki-styling.css" rel="stylesheet">
+    <link href="../src/images/activerse-logo.png" rel="icon" type="image/png"/>
+</head>
+<body>
+<nav>
+    <div class="logo">Activerse Wiki</div>
+    <div class="nav-links">
+        <a href="wiki.html">Chapter 0</a>
+        <a href="chapter1.html">Chapter 1</a>
+        <a href="chapter2.html">Chapter 2</a>
+        <a href="chapter3.html">Chapter 3</a>
+        <a class="active" href="chapter4.html">Chapter 4</a>
+        <a href="chapter5.html">Chapter 5</a>
+        <a href="chapterX.html">Chapter X</a>
+        <a href="../activerse.html">Home</a>
+    </div>
+</nav>
+<main>
+    <h1>Chapter 4: Images and sound</h1>
+    <p>
+        After <a href="chapter1.html">Chapter 1</a> you have a player that moves. This chapter is how you give it a
+        picture and a sound without stalling the game loop.
+    </p>
+
+    <h2>Where files go</h2>
+    <p>
+        <code>ActiverseImage</code> and <code>ActiverseSound</code> both go through <code>ResourcePaths</code>:
+        an existing file on disk first, then a classpath resource (so a packaged jar still works). Use a relative
+        path and keep the same folder layout in your IDE and in the jar.
+    </p>
+    <pre class="code-block"><code>your-project/
+  Main.java
+  MyWorld.java
+  Player.java
+  assets/
+    images/
+      player.png
+      world.png
+      coin.png
+    sounds/
+      pickup.wav</code></pre>
+    <p>
+        Load with paths like <code>"assets/images/player.png"</code>. Putting files next to your <code>.java</code>
+        sources also works if that is the working directory; a dedicated <code>assets</code> folder is easier to keep
+        straight.
+    </p>
+    <div class="note">
+        <p>
+            A bad image path usually prints ACEHS <code>2A.IN</code> (<a href="chapter3.html">Chapter 3</a>).
+            The debug overlay marks missing images as MIA (<a href="chapter2.html">Chapter 2</a>).
+        </p>
+    </div>
+
+    <h2>Images</h2>
+    <p>
+        Supported types include png, jpg, gif, and bmp. Size the file to the actor (a 32×32 character should use a
+        32×32 image). Set it once in the constructor, not every tick:
+    </p>
+    <pre class="code-block"><code>public Player() {
+    setImage(new ActiverseImage("assets/images/player.png"));
+}</code></pre>
+    <p>
+        Worlds use <code>setBackgroundImage("assets/images/world.png")</code>. Backgrounds are optional; without one
+        you get the panel’s default fill.
+    </p>
+    <p>
+        Do not call <code>setImage</code> every <code>act()</code> unless you are actually changing frames. Reloading
+        the same file sixty times a second will hitch.
+    </p>
+
+    <h2>Sound</h2>
+    <p>
+        <code>ActiverseSound</code> loads <strong>WAV</strong> files. Construct the clip once, register it on the
+        world with <code>addSound</code> (so debug and shutdown can see it), then play from a condition — never from
+        the top of <code>act()</code> with no guard.
+    </p>
+    <pre class="code-block"><code>import ActiverseEngine.*;
+
+public class Player extends Actor {
+    private ActiverseSound pickup;
+
+    public Player() {
+        setImage(new ActiverseImage("assets/images/player.png"));
+    }
+
+    public void setPickupSound(ActiverseSound sound) {
+        pickup = sound;
+    }
+
+    public void playPickup() {
+        if (pickup != null &amp;&amp; !pickup.isPlaying()) {
+            pickup.play();
+        }
+    }
+
+    @Override
+    public void act() {
+        if (KeyboardInfo.isLetterDown('w')) {
+            move(5);
+        }
+    }
+}</code></pre>
+    <pre class="code-block"><code>public class MyWorld extends World {
+    public MyWorld() {
+        super(400, 400, 1);
+        setBackgroundImage("assets/images/world.png");
+
+        Player player = new Player();
+        addObject(player, 100, 100);
+
+        ActiverseSound pickup = new ActiverseSound("assets/sounds/pickup.wav");
+        addSound(pickup);
+        player.setPickupSound(pickup);
+    }
+}</code></pre>
+    <p>
+        Useful methods: <code>play()</code>, <code>stop()</code>, <code>loop()</code>, <code>loop(int count)</code>,
+        <code>pause()</code> / <code>resume()</code>, <code>setVolume(float)</code> (0 to 1),
+        <code>isPlaying()</code>. Check <code>isPlaying()</code> (or a key edge with
+        <code>KeyboardInfo.justPressed</code>) so a held key does not restart the clip every tick.
+    </p>
+
+    <h2>Optional: mouse</h2>
+    <p>
+        Keyboard movement from Chapter 1 is enough for a first game. If you want clicks, call
+        <code>ActiverseMouseInfo.createInstance(this)</code> in the world constructor (the world is a panel), then
+        poll <code>isLeftClick()</code> / <code>isRightClick()</code> and
+        <code>getMouseLocationOnComponent()</code> from <code>act()</code>.
+    </p>
+    <p>
+        Next: <a href="chapter5.html">Chapter 5</a> — other actors and collision.
+    </p>
+</main>
+</body>
+</html>

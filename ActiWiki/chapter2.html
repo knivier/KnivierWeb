@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
     <meta name="theme-color" content="#1C1B1F">
     <meta name="color-scheme" content="dark">
+    <meta name="description" content="Activerse wiki chapter 2: Activerse.properties, the debug overlay, and logs.log in v1.4.2.">
     <title>Activerse Wiki - Chapter 2</title>
+    <link rel="canonical" href="https://knivier.com/ActiWiki/chapter2.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link href="cp-actilogo.png" rel="icon" type="image/png"/>
     <link href="wiki-styling.css" rel="stylesheet">
+    <link href="../src/images/activerse-logo.png" rel="icon" type="image/png"/>
 </head>
 <body>
-<!-- Navbar -->
 <nav>
     <div class="logo">Activerse Wiki</div>
     <div class="nav-links">
@@ -21,131 +22,115 @@
         <a href="chapter1.html">Chapter 1</a>
         <a class="active" href="chapter2.html">Chapter 2</a>
         <a href="chapter3.html">Chapter 3</a>
+        <a href="chapter4.html">Chapter 4</a>
+        <a href="chapter5.html">Chapter 5</a>
+        <a href="chapterX.html">Chapter X</a>
         <a href="../activerse.html">Home</a>
     </div>
 </nav>
-<!-- Main Content -->
 <main>
-    <h1>Chapter 2: Debugging</h1>
-    <h2>Built in Debugging!</h2>
-    <h3>Debug Information</h3>
-    <p>
-        The easiest way to debug in Activerse is by enabling the debug button in <code>activerse.properties</code> (by
-        default it should be disabled.
-        Once this is enabled, whenever you start a new instance of Activerse (by running Main as seen in Chapter 1),
-        a "debug" button will appear.
-    </p>
+    <h1>Chapter 2: Config and debugging</h1>
 
-    <div class="image-container">
-        <img alt="Debug button in Activerse" src="debug-button.png"/>
-        <div class="caption">Figure 1: The debug button in Activerse.</div>
+    <h2>Activerse.properties</h2>
+    <p>
+        Engine settings are loaded by <code>ConfigPuller</code> from <code>Activerse.properties</code> on the
+        classpath (capital A). The file in the v1.4.2 tree looks like this:
+    </p>
+    <pre class="code-block"><code>logging=false
+fps=60
+show_debug=true
+dynamicLighting=false</code></pre>
+    <table class="wiki-table">
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Default in repo</th>
+            <th>What it does</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>show_debug</code></td>
+            <td><code>true</code></td>
+            <td>Adds a Debug button on the world. If the file is missing, the code default is also true.</td>
+        </tr>
+        <tr>
+            <td><code>fps</code></td>
+            <td><code>60</code></td>
+            <td>Target frames per second for the game loop.</td>
+        </tr>
+        <tr>
+            <td><code>logging</code></td>
+            <td><code>false</code></td>
+            <td>When true, writes a performance line to <code>logs.log</code> once per second.</td>
+        </tr>
+        <tr>
+            <td><code>dynamicLighting</code></td>
+            <td><code>false</code></td>
+            <td>Optional lighting pass. <code>dynamic_lighting</code> is accepted as an alias.</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="note">
+        <p>
+            Those four keys are engine-only. <code>ConfigPuller</code> never reads them from
+            <code>settings.ini</code>. Game-specific keys (typically <code>game.*</code>) can live in
+            <code>settings.ini</code> via <code>IniUtils</code>.
+        </p>
     </div>
 
+    <h2>Debug overlay</h2>
     <p>
-        When you click this button, the following information should show up:
+        With <code>show_debug=true</code>, a Debug button sits on the world. Click it to toggle an overlay. The
+        overlay is not a compiler: syntax errors still fail at compile time, and uncaught exceptions still print
+        to the terminal (often as ACEHS lines — <a href="chapter3.html">Chapter 3</a>).
     </p>
+    <p>When enabled, the overlay draws:</p>
     <ul>
-        <li>Current FPS w/target FPS</li>
-        <li>Memory Per Second (MPS or in v1.1.0, MUPS)</li>
-        <li>Any <i>non-static</i> actors w/collision state &amp; location</li>
-        <li>Loaded images</li>
-        <li>Current playing sounds</li>
-        <li>Current keys pressed</li>
+        <li>Current FPS</li>
+        <li>Tick count since the world started</li>
+        <li>MPS (memory change per second, megabytes)</li>
+        <li>Each <em>non-static</em> actor: pixel position and whether it currently collides</li>
+        <li>Loaded image filenames (duplicates show a count; missing classpath files are marked MIA)</li>
+        <li>Sounds that are playing</li>
+        <li>Keys currently down (via <code>KeyboardInfo</code>)</li>
     </ul>
     <p>
-        You can use this information to debug anything in the program that may be causing issues. The debug menu will
-        not show error messages if you have syntax errors; these should be caught at compile time or run time (depending
-        on the error) and will display on the terminal you run the program in.
+        Since v1.4.0, actors with <code>isStatic()</code> true (tiles, scenery) are omitted so the list stays
+        usable. You can also override <code>isTickInert()</code> to skip <code>act()</code> on actors that have
+        no per-tick logic.
     </p>
-    <div class="image-container">
-        <img alt="Debug information in Activerse" src="debug-info.png"/>
-        <div class="caption">Figure 2: Debug information displayed in Activerse.</div>
-    </div>
-
-    <h2>Using different debug information</h2>
-
-    <h3>Using FPS</h3>
     <p>
-        If you have many objects loaded into the screen, lots of audio playing, loops or other situations where you
-        think frames may be dropping, you can check the current FPS in-game via the debug menu.
-        You can see my FPS is low because I have hundreds of images loaded in.
+        An End button is always present; it calls <code>Activerse.shutdownApplication()</code>.
     </p>
 
-    <h3>Using MPS</h3>
+    <h3>Reading the numbers</h3>
     <p>
-        Introduced in v1.1, MPS or Memory Per Second shows you the state of RAM being used every second in megabytes. If
-        you wish, via the <code>activerse.properties</code> file, you may enable the logging feature which will write
-        the MPS with the time before it.
+        <strong>FPS</strong> drops when too many images, sounds, or actors update every tick. Match it against
+        the <code>fps</code> target in properties.
     </p>
     <p>
-        You may see negative numbers sometimes in MPS and this is due to the JVM automatic garbage collector, helping
-        manage your memory.
+        <strong>MPS</strong> is the change in used RAM over the last second. Negative values usually mean the JVM
+        garbage collector ran. Pair FPS and MPS when you suspect a leak or an allocation spike.
     </p>
     <p>
-        Your MPS can be used with FPS to diagnose memory leaks in the program, unstable or inefficient code, and other
-        things related.
-    </p>
-
-    <h3>Using loaded Actors w/Collision States</h3>
-    <p>
-        You can check if your actor has indeed loaded into the world via the loaded actor information, which shows the
-        actor's location (pixel-wise) and if they are colliding with another actor or not. This can be useful in game
-        sense when your actors may not be performing the actions you wish.
+        <strong>Actors</strong> confirm an object actually entered the world and whether collision is firing.
+        <strong>Images / sounds</strong> confirm files resolved. <strong>Keys</strong> is mainly for input
+        debugging; if a key never appears here, the listener is not seeing it (focus is often on a Swing button
+        instead of the world).
     </p>
 
-    <h3>Using loaded images &amp; video</h3>
+    <h2>logs.log</h2>
     <p>
-        This information is really only useful when you don't see your image or hear your audio and want to make sure
-        the file has been loaded in and playing.
-        If you have multiple of the same image loaded, it will shown [imagename].png x [number of times loaded].
+        Set <code>logging=true</code> in <code>Activerse.properties</code>. Each new run starts a session header,
+        then one line per second from <code>MemoryTracker</code>:
     </p>
-    <p><em>Note: As of v1.4.0, static Actors (ex World tiles) are no longer shown on the debug menu to prevent
-        overfilling of the debug menu. </em></p>
-
-    <h3>Using current keys pressed</h3>
+    <pre class="code-block"><code>New Log Session @ yyyy-MM-dd HH:mm:ss
+(n) | (HH:mm:ss) | MPS: x MB/s | Heap: x MB | Non-Heap: x MB | GC Time: x ms | FPS: x targeting y | Sys Time (ms) | Interval (ticks)</code></pre>
     <p>
-        This information is only useful if you're tinkering with the <code>KeyboardInfo.java</code> class inside the
-        ActiverseEngine package (not recommended). If you're pressing a key and it's not being detected, something has
-        gone wrong inside that class.
-    </p>
-
-    <h2>Logging</h2>
-    <h3>How can I enable logging?</h3>
-    <p>
-        Your logging file should look like this by default.
-    </p>
-    <div class="image-container">
-        <img alt="Default activerse.properties file" src="properties.png"/>
-        <div class="caption">Figure 2: Default activerse.properties file.</div>
-    </div>
-    <p>
-        To enable logging, just change the <code>false</code> value beside logging to <code>true</code>.
-    </p>
-
-    <h3>What information is displayed?</h3>
-    <p>
-        When you start, <code>logs.log</code> should look like this (v1.3.x Logging Reform):
-    </p>
-    <div class="image-container">
-        <img alt="Sample logs.log output" src="ex-logs.png"/>
-        <div class="caption">Figure 3: Sample logs.log output.</div>
-    </div>
-    <p>
-        Lot's of information is logged for your convinience. As shown above, during each new log session, the session
-        info will be denoted followed by the actual logs. The format is as shown below:
-    </p>
-    <pre class="code-block">
-(LOG ENTRIES IN SESSION) | (TIME HH/MM/SS) | MPS (x MB/s) | Heap: (x MB) | Non-Heap: (x MB) | GC Time: (x ms) | FPS: (x) targeting (y) | Sys Time (x long) | Interval (x)
-    </pre>
-    <p>
-        The information shown here is calculated the same way as the debug menu, but is logged to a file for your
-        convinience. We also have a lot more information here
-        that cannot be found in debug menu; however, the logs do NOT show loaded images, sounds, or actor collision
-        states.
-    </p>
-    <p>It is NOT recommended for you to share your logs file with people you don't know.
-        While Activerse doesn't log any sensitive information, there are plans for Activerse to log system-specific
-        information in the future.
+        Logs include heap, non-heap, GC time, and tick interval. They do <em>not</em> include actor collisions,
+        image lists, or sounds. Do not share log files casually; they can include machine timing and memory
+        figures even though Activerse does not currently dump personal data.
     </p>
 </main>
 </body>

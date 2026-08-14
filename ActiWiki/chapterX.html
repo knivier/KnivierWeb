@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
     <meta name="theme-color" content="#1C1B1F">
     <meta name="color-scheme" content="dark">
+    <meta name="description" content="Activerse wiki chapter X: v1.4.2 APIs — Camera, ConfigPuller, ResourcePaths, interpolation, and utils.">
     <title>Activerse Wiki - Chapter X</title>
+    <link rel="canonical" href="https://knivier.com/ActiWiki/chapterX.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link href="cp-actilogo.png" rel="icon" type="image/png"/>
     <link href="wiki-styling.css" rel="stylesheet">
+    <link href="../src/images/activerse-logo.png" rel="icon" type="image/png"/>
 </head>
 <body>
-<!-- Navbar -->
 <nav>
     <div class="logo">Activerse Wiki</div>
     <div class="nav-links">
@@ -21,45 +22,121 @@
         <a href="chapter1.html">Chapter 1</a>
         <a href="chapter2.html">Chapter 2</a>
         <a href="chapter3.html">Chapter 3</a>
+        <a href="chapter4.html">Chapter 4</a>
+        <a href="chapter5.html">Chapter 5</a>
         <a class="active" href="chapterX.html">Chapter X</a>
         <a href="../activerse.html">Home</a>
     </div>
 </nav>
 
-<!-- Main Content -->
 <main>
-    <!-- This is the basic layout for all wiki pages, other devs are welcome to submit PRs with more UTD features -->
-    <h1>Chapter X: Title Here</h1>
+    <h1>Chapter X: v1.4.2 toolkit</h1>
+    <p>
+        Chapter 1 covers Actor / World / Main. This chapter is the rest of the public surface that shipped with
+        v1.4.2: a unified clock, interpolated drawing, classpath assets, camera, config, and the utils package.
+    </p>
 
-    <p>Intro paragraph for this chapter goes here. This section should hook the reader and give a quick overview of what
-        they will learn.</p>
+    <h2>Simulation vs render</h2>
+    <p>
+        <code>GameLoop</code> updates on a fixed tick and sets a render alpha on the world between ticks.
+        Gameplay code should keep using <code>getX()</code> / <code>getY()</code>. If you override
+        <code>paint</code>, draw with the interpolated helpers so motion stays smooth:
+    </p>
+    <ul>
+        <li><code>Actor.getRenderX()</code> / <code>getRenderY()</code></li>
+        <li><code>getRenderPreciseX()</code> / <code>getRenderPreciseY()</code> for sub-pixel</li>
+        <li><code>getRenderDirection()</code></li>
+        <li><code>World.getRenderAlpha()</code> if you blend something yourself</li>
+    </ul>
+    <p>
+        Missed ticks are absorbed in the loop so a hitch does not spiral. Target FPS still comes from
+        <code>Activerse.properties</code>.
+    </p>
 
-    <h2>Section Heading 1</h2>
-    <p>Detailed explanation or tutorial content here. You can add as many paragraphs as you want.</p>
+    <h2>ResourcePaths</h2>
+    <p>
+        Images and sounds resolve through <code>ActiverseUtils.ResourcePaths</code>: existing filesystem path
+        first, otherwise a classpath URL (so <code>java -jar</code> still finds assets). Prefer relative keys such
+        as <code>assets/images/player.png</code> and keep the same layout on disk and in the jar.
+    </p>
+    <pre class="code-block"><code>setImage(new ActiverseImage("assets/images/player.png"));
+ActiverseSound step = new ActiverseSound("assets/sounds/step.wav");</code></pre>
 
-    <div class="image-container">
-        <img alt="Descriptive alt text" src="path/to/image.png"/>
-        <div class="caption">Figure 1: Caption describing the image.</div>
-    </div>
+    <h2>Camera</h2>
+    <p>
+        <code>ActiverseEngine.Camera</code> is a viewport helper for scrolling worlds. <code>World</code> does not
+        construct one for you; create it, call <code>update()</code> each tick, and convert coordinates when you
+        paint or handle clicks.
+    </p>
+    <pre class="code-block"><code>Camera cam = new Camera(800, 600, 0.1f);
+cam.setWorldBounds(worldWidth, worldHeight);
+cam.setTarget(player);
+cam.update();
+double alpha = getRenderAlpha();
+int screenX = cam.worldToScreenInterpolated(player.getX(), player.getY(), alpha).x;</code></pre>
+    <ul>
+        <li><code>setTarget(Actor)</code> — keep the actor centered</li>
+        <li><code>setClampToWorldBounds(false)</code> — allow effectively infinite maps</li>
+        <li><code>zoomIn()</code> / <code>zoomOut()</code> / <code>setZoom(double)</code> — zoom is clamped about 0.6–1.4</li>
+        <li><code>isVisible(...)</code> — skip drawing off-screen actors</li>
+        <li><code>getInterpolatedOffsetX/Y(alpha)</code> — match the render clock</li>
+    </ul>
 
-    <h2>Section Heading 2</h2>
-    <p>More content with explanations, code snippets, or examples.</p>
+    <h2>ConfigPuller</h2>
+    <p>
+        <code>ConfigPuller.getBoolean</code>, <code>getInt</code>, <code>getString</code> read engine keys only
+        from <code>Activerse.properties</code>. Other keys may fall through to <code>settings.ini</code>. The
+        settings menu can persist engine toggles back to disk with <code>saveEngineSettings</code> (writes
+        <code>src/Activerse.properties</code> when a <code>src</code> folder exists, otherwise the working
+        directory copy).
+    </p>
 
-    <!-- Example styled code block -->
-    <pre class="code-block">
-<code>
-// Sample Java code snippet
-public class Actor {
-    public void act() {
-        System.out.println("Actor is acting!");
-    }
-}
-</code>
-    </pre>
+    <h2>KeyboardInfo extras</h2>
+    <ul>
+        <li><code>isKeyDown(int)</code> / <code>isKeyDown(char)</code> / <code>isKeyDown("shift")</code></li>
+        <li><code>isLetterDown(char)</code> — case-insensitive letters</li>
+        <li><code>isAnyKeyDown(...)</code></li>
+        <li><code>justPressed(keyDown, wasDown)</code> / <code>justReleased(...)</code> — you store the previous sample</li>
+        <li><code>appendAlphaNumeric(current, keyWasDown, allowSpace)</code> — typed names, then
+            <code>syncAlphaNumericState</code> when entering a field so held keys do not dump characters</li>
+    </ul>
 
-    <h2>Final Notes</h2>
-    <p>Summarize the chapter and provide next steps or links to resources.</p>
+    <h2>Actor extras</h2>
+    <ul>
+        <li><code>setStatic(true)</code> — no debug-list spam; treat as scenery</li>
+        <li><code>isTickInert()</code> — override to return true so <code>World</code> skips <code>act()</code></li>
+        <li><code>enableInventory()</code>, <code>addItem</code> / <code>removeItem</code>, <code>setInventorySize</code></li>
+        <li>Velocity: <code>getVelocityX/Y</code>, <code>setVelocityX/Y</code></li>
+    </ul>
 
+    <h2>ActiverseUtils map</h2>
+    <table class="wiki-table">
+        <thead>
+        <tr>
+            <th>Class</th>
+            <th>Use</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td><code>Physics</code>, <code>ActorVector</code>, <code>MathUtils</code></td><td>Motion, vectors, clamps, distance</td></tr>
+        <tr><td><code>PerlinNoise</code>, <code>WorldGeneration</code></td><td>Procedural terrain</td></tr>
+        <tr><td><code>WorldManager</code>, <code>WorldKeys</code></td><td>Save/load under a <code>Worlds/</code> folder</td></tr>
+        <tr><td><code>ParticleSystem</code></td><td>Simple particle actors</td></tr>
+        <tr><td><code>Shaper</code>, <code>TextLabel</code>, <code>UIBar</code>, <code>PanelPainter</code>, <code>TextRenderUtils</code></td><td>HUD and shapes</td></tr>
+        <tr><td><code>ImageUtils</code>, <code>ColorUtils</code></td><td>Image size and color helpers</td></tr>
+        <tr><td><code>FileUtils</code>, <code>JsonUtils</code>, <code>IniUtils</code></td><td>Files and config formats</td></tr>
+        <tr><td><code>Timer</code>, <code>DelayScheduler</code>, <code>DaemonExecutors</code></td><td>Timing and background work</td></tr>
+        <tr><td><code>ErrorLogger</code></td><td>ACEHS formatting — <a href="chapter3.html">Chapter 3</a></td></tr>
+        </tbody>
+    </table>
+    <p>
+        Full method lists are in the generated JavaDoc at
+        <a href="../Activerse/index.html">/Activerse/</a>.
+        For the architecture write-up (clock, interpolation, lineage from v1.0), see
+        <a href="../Activerse%20Developers%20Insider%20Release%202.pdf" target="_blank" rel="noopener noreferrer">Developers Insider Release 2 (PDF)</a>.
+        Return to <a href="wiki.html">Chapter 0</a> or the
+        <a href="../activerse.html">Activerse home page</a>.
+    </p>
 </main>
 </body>
 </html>

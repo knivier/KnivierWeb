@@ -61,6 +61,7 @@ function getChangelogText(versionId) {
         <h3>Documentation</h3>
         <ul>
             <li><strong>JavaDoc:</strong> Regenerated and published at <a href="https://knivier.com/Activerse/">knivier.com/Activerse/</a> for v1.4.2.</li>
+            <li><strong>Developers Insider Release 2:</strong> Architecture brief covering the monotonic clock, interpolation, package map, and version lineage — <a href="Activerse%20Developers%20Insider%20Release%202.pdf" target="_blank" rel="noopener noreferrer">PDF</a>.</li>
             <li><strong>Version Metadata:</strong> Instance window and class <code>@version</code> tags updated to 1.4.2.</li>
         </ul>
 

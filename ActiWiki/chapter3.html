@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
     <meta name="theme-color" content="#1C1B1F">
     <meta name="color-scheme" content="dark">
+    <meta name="description" content="Activerse wiki chapter 3: ACEHS error codes for ActiverseEngine and ActiverseUtils in v1.4.2.">
     <title>Activerse Wiki - Chapter 3</title>
+    <link rel="canonical" href="https://knivier.com/ActiWiki/chapter3.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link href="cp-actilogo.png" rel="icon" type="image/png"/>
     <link href="wiki-styling.css" rel="stylesheet">
+    <link href="../src/images/activerse-logo.png" rel="icon" type="image/png"/>
 </head>
 <body>
-<!-- Navbar -->
 <nav>
     <div class="logo">Activerse Wiki</div>
     <div class="nav-links">
@@ -21,128 +22,152 @@
         <a href="chapter1.html">Chapter 1</a>
         <a href="chapter2.html">Chapter 2</a>
         <a class="active" href="chapter3.html">Chapter 3</a>
+        <a href="chapter4.html">Chapter 4</a>
+        <a href="chapter5.html">Chapter 5</a>
+        <a href="chapterX.html">Chapter X</a>
         <a href="../activerse.html">Home</a>
     </div>
 </nav>
 
-<!-- Main Content -->
 <main>
-    <h1>Chapter 3: Error Handling in Activerse</h1>
-
+    <h1>Chapter 3: ACEHS</h1>
     <p>
-        In this chapter, you'll learn how Activerse handles errors, the different types of errors in Java, and how the
-        Activerse Concurrent Error Handling System (ACEHS) works to make debugging easier and more efficient.
+        Activerse reports many runtime problems through the <strong>Activerse Concurrent Error Handling System
+        (ACEHS)</strong>. Messages are built by <code>ActiverseUtils.ErrorLogger</code> and printed while the
+        session can keep running. Fatal start-up failures still stop the instance.
     </p>
 
-    <h2>The Basics of Errors</h2>
-    <p>
-        Let's first review the different types of errors in Java:
-    </p>
+    <h2>Java errors vs ACEHS</h2>
     <ul>
-        <li>
-            <strong>Compilation Error</strong><br>
-            <em>When:</em> During compilation.<br>
-            <em>What:</em> Code doesn't follow syntax rules of the programming language (e.g., missing semicolon,
-            undefined variables). This can also be called syntax erroring.<br>
-            <em>Fix:</em> Correct the syntax as indicated by the compiler's error messages.
-        </li>
-        <li>
-            <strong>Runtime Error</strong><br>
-            <em>When:</em> During program execution.<br>
-            <em>What:</em> Code crashes due to invalid operations (e.g., division by zero, file not found).<br>
-            <em>Fix:</em> Debug and handle exceptions or invalid inputs.
-        </li>
-        <li>
-            <strong>Logic Error</strong><br>
-            <em>When:</em> Code runs successfully but produces incorrect results.<br>
-            <em>What:</em> Algorithm or logic flaw (e.g., wrong formula, incorrect loop condition).<br>
-            <em>Fix:</em> Analyze and revise the code logic to meet the desired outcome.
-        </li>
+        <li><strong>Compile / syntax</strong> — missing semicolons, unknown types. Fix from the compiler; ACEHS
+            does not run yet.</li>
+        <li><strong>Runtime</strong> — invalid paths, null images after load, inventory mistakes. ACEHS often
+            reports these without a full crash.</li>
+        <li><strong>Logic</strong> — the game runs but does the wrong thing. Use the debug overlay
+            (<a href="chapter2.html">Chapter 2</a>) and your own checks.</li>
     </ul>
 
-    <h2>How does Activerse handle errors?</h2>
+    <h2>Message format</h2>
+    <p><code>ErrorLogger.format</code> produces:</p>
+    <pre class="code-block"><code>FILE.TYPE:(LN: methodSignature - ACEHS Error thrown; message)
+FILE.TYPE-CONNTO-OTHER.TYPE:(LN: methodSignature - ACEHS Error thrown; message)</code></pre>
+    <table class="wiki-table">
+        <thead>
+        <tr>
+            <th>Token</th>
+            <th>Meaning</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>IN</code></td>
+            <td>Input / load problem (bad path, missing file, invalid property).</td>
+        </tr>
+        <tr>
+            <td><code>OUT</code></td>
+            <td>Output / state problem (null image at draw time, full inventory).</td>
+        </tr>
+        <tr>
+            <td><code>IO</code></td>
+            <td>Broader I/O or environment failure (windowing, properties missing).</td>
+        </tr>
+        <tr>
+            <td><code>LN</code></td>
+            <td>Location: the method name passed into the logger, not a source line number.</td>
+        </tr>
+        <tr>
+            <td><code>CONNTO</code></td>
+            <td>A second file/type that is implicated (for example Actor drawing through ActiverseImage).</td>
+        </tr>
+        <tr>
+            <td><code>DEV</code></td>
+            <td>Reserved for “this should not happen” engine faults.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>File codes — ActiverseEngine (A)</h2>
+    <table class="wiki-table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Class</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td><code>1A</code></td><td><code>Activerse.java</code></td></tr>
+        <tr><td><code>2A</code></td><td><code>ActiverseImage.java</code></td></tr>
+        <tr><td><code>3A</code></td><td><code>ActiverseMouseInfo.java</code></td></tr>
+        <tr><td><code>4A</code></td><td><code>ActiverseSound.java</code></td></tr>
+        <tr><td><code>5A</code></td><td><code>Actor.java</code></td></tr>
+        <tr><td><code>6A</code></td><td><code>CollisionManager.java</code></td></tr>
+        <tr><td><code>7A</code></td><td><code>GameLoop.java</code></td></tr>
+        <tr><td><code>8A</code></td><td><code>KeyboardInfo.java</code></td></tr>
+        <tr><td><code>9A</code></td><td><code>MemoryTracker.java</code></td></tr>
+        <tr><td><code>10A</code></td><td><code>World.java</code></td></tr>
+        <tr><td><code>11A</code></td><td><code>Item.java</code></td></tr>
+        <tr><td><code>12A</code></td><td><code>Camera.java</code></td></tr>
+        <tr><td><code>13A</code></td><td><code>ConfigPuller.java</code></td></tr>
+        <tr><td><code>PROP</code></td><td><code>Activerse.properties</code> (via ConfigPuller)</td></tr>
+        </tbody>
+    </table>
     <p>
-        Activerse uses its custom error handling protocol to report what's happening. This is more efficient than
-        classic Java stack traces because it can help localize errors and prevent the code from crashing on a simple
-        error. This error protocol is known as <strong>ACEHS</strong>.
+        Live reports already use <code>1A</code>, <code>2A</code>, <code>4A</code>, <code>5A</code>,
+        <code>9A</code>, <code>10A</code>, and <code>PROP</code>. The rest are the wiki map for those classes
+        when you extend the engine.
     </p>
 
-    <h3>ACEHS: Activerse Concurrent Error Handling System</h3>
-    <p>
-        The ultimate goal of ACEHS is:
-    </p>
-    <ul>
-        <li>To catch identified or unidentified exceptions</li>
-        <li>To report those exceptions while the session is still active</li>
-        <li>To allow buildups of the ACEHS implementation</li>
-    </ul>
+    <h2>File codes — ActiverseUtils (B)</h2>
+    <table class="wiki-table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Class</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td><code>1B</code></td><td><code>ActorVector.java</code></td></tr>
+        <tr><td><code>2B</code></td><td><code>FileUtils.java</code></td></tr>
+        <tr><td><code>3B</code></td><td><code>PerlinNoise.java</code></td></tr>
+        <tr><td><code>4B</code></td><td><code>Physics.java</code></td></tr>
+        <tr><td><code>5B</code></td><td><code>Timer.java</code></td></tr>
+        <tr><td><code>6B</code></td><td><code>WorldGeneration.java</code></td></tr>
+        <tr><td><code>7B</code></td><td><code>ResourcePaths.java</code></td></tr>
+        <tr><td><code>8B</code></td><td><code>ErrorLogger.java</code></td></tr>
+        <tr><td><code>9B</code></td><td><code>DelayScheduler.java</code></td></tr>
+        <tr><td><code>10B</code></td><td><code>DaemonExecutors.java</code></td></tr>
+        <tr><td><code>11B</code></td><td><code>PanelPainter.java</code></td></tr>
+        <tr><td><code>12B</code></td><td><code>TextRenderUtils.java</code></td></tr>
+        <tr><td><code>13B</code> / <code>WM</code></td><td><code>WorldManager.java</code> (runtime reports use <code>WM</code>)</td></tr>
+        <tr><td><code>14B</code></td><td><code>WorldKeys.java</code></td></tr>
+        <tr><td><code>15B</code></td><td><code>Shaper.java</code></td></tr>
+        <tr><td><code>16B</code></td><td><code>TextLabel.java</code></td></tr>
+        <tr><td><code>17B</code></td><td><code>UIBar.java</code></td></tr>
+        <tr><td><code>18B</code></td><td><code>ParticleSystem.java</code></td></tr>
+        <tr><td><code>19B</code></td><td><code>MathUtils.java</code></td></tr>
+        <tr><td><code>20B</code></td><td><code>ImageUtils.java</code></td></tr>
+        <tr><td><code>21B</code></td><td><code>ColorUtils.java</code></td></tr>
+        <tr><td><code>22B</code></td><td><code>JsonUtils.java</code></td></tr>
+        <tr><td><code>23B</code></td><td><code>IniUtils.java</code></td></tr>
+        </tbody>
+    </table>
 
-    <h4>Denotations</h4>
+    <h2>Worked example</h2>
+    <pre class="code-block"><code>10A.IN-CONNTO-2A.OUT:(LN: drawDebugInfo() - ACEHS Error thrown; an image file is missing from the classpath: player.png. Please ensure the image exists in the resources directory.)</code></pre>
     <p>
-        <strong>File name extensions (A: Engine, B: Utils):</strong>
-    </p>
-    <ul>
-        <li>1A - Activerse.java</li>
-        <li>2A - ActiverseImage.java</li>
-        <li>3A - ActiverseMouseInfo.java</li>
-        <li>4A - ActiverseSound.java</li>
-        <li>5A - Actor.java</li>
-        <li>6A - CollisionManager.java</li>
-        <li>7A - GameLoop.java</li>
-        <li>8A - KeyBoardInfo.java</li>
-        <li>9A - MemoryTracker.java</li>
-        <li>10A - World.java</li>
-        <li>11A - Item.java</li>
-        <li>1B - ActorVector.java</li>
-        <li>2B - FileUtils.java</li>
-        <li>3B - PerlinNoise.java</li>
-        <li>4B - Physics.java</li>
-        <li>5B - Timer.java</li>
-        <li>6B - WorldGeneration.java</li>
-        <li>PROP.IN.OUT.IO - Activerse.properties error</li>
-    </ul>
-    <p>
-        <strong>Keywords that may be helpful:</strong>
-    </p>
-    <ul>
-        <li><strong>IO</strong> - A central breakdown; typically a result of multiple errors caught by ACEHS that cause
-            an IO error
-        </li>
-        <li><strong>IN</strong> - An input breakdown</li>
-        <li><strong>OUT</strong> - An output breakdown</li>
-        <li><strong>LN</strong> - Error line reporting</li>
-        <li><strong>DEV</strong> - Contact Dev's; this is not a good error</li>
-        <li><strong>CONNTO</strong> - A connecting line of code that connects class to class and may cause errors in
-            each
-        </li>
-    </ul>
-
-    <h2>Example Error</h2>
-    <p>
-        Let's take an error (without the provided stack trace) and debug it:
-    </p>
-    <pre class="code-block">
-<code>
-5A.OUT-CONNTO-2A.OUT:(LN: paint(Graphics g) - ACEHS Error thrown; image is null. Please check the image path and try again.
-</code>
-    </pre>
-    <p>
-        This error comes from the <code>Actor.java</code> engine class inside the <code>paint()</code> method. The most
-        important part is seeing the error message before anything else. ACEHS is reporting the image has been
-        identified as null (blank, unpresent, etc) and is asking us to check the image path once again. Make sure you
-        check the image paths and use reference paths as well.
+        Read the human message first: the image is not on the classpath. <code>10A.IN</code> means
+        <code>World</code> failed to find an input. <code>CONNTO-2A.OUT</code> points at
+        <code>ActiverseImage</code>. <code>LN: drawDebugInfo()</code> is the method that reported it.
     </p>
     <p>
-        <strong>5A.OUT</strong> shows the error is coming from the class 5A (Actor), but this error may correlate with
-        the class (<strong>CONNTO</strong>) 2A (ActiverseImage.java). If you've already debugged via the method above,
-        the next thing is to check these files and debug properly. <strong>LN:</strong> points to the method (<code>paint()</code>)
-        where the error was reported.
+        Another common pattern from inventory:
+        <code>5A.OUT-CONNTO-2A.OUT:(LN: addItem(Item item) - ACEHS Error thrown; inventory is full.)</code>
+        Call <code>enableInventory()</code> before adding items, and keep the list under the max size.
     </p>
-
-    <h2>Final Notes</h2>
     <p>
-        ACEHS helps you quickly identify and resolve errors in Activerse projects. Always read the error message, check
-        the referenced files and methods, and use the denotations to trace the source of the problem.
+        Missing properties load as:
+        <code>PROP.IN.OUT.IO:(LN: loadProperties() - ACEHS Error thrown; Activerse.properties not found. Using defaults.)</code>
+        The engine continues with built-in defaults.
     </p>
 </main>
 </body>

@@ -35,8 +35,8 @@ nav a {
     color: var(--md-sys-color-on-surface-variant);
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.82rem;
+    padding: 0.35rem 0.65rem;
     border-radius: var(--radius-sm);
     transition: background var(--transition-fast), color var(--transition-fast);
 }
@@ -87,8 +87,50 @@ li {
     color: var(--md-sys-color-on-surface-variant);
 }
 
-ul {
+ul,
+ol {
     padding-left: 1.25rem;
+}
+
+.note {
+    margin: 1.25rem 0;
+    padding: 0.85rem 1rem;
+    background: var(--glass-bg-elevated);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.note p {
+    margin: 0;
+}
+
+table.wiki-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+}
+
+table.wiki-table th,
+table.wiki-table td {
+    text-align: left;
+    padding: 0.45rem 0.6rem;
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--md-sys-color-on-surface-variant);
+    vertical-align: top;
+}
+
+table.wiki-table th {
+    color: var(--md-sys-color-primary);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+table.wiki-table code {
+    white-space: nowrap;
 }
 
 code {

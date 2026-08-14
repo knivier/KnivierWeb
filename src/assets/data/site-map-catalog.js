@@ -158,35 +158,56 @@ window.SITE_MAP = {
         {
             title: "ActiWiki home",
             href: "ActiWiki/wiki.html",
-            description: "Wiki table of contents and hub.",
+            description: "Chapter 0: v1.4.2 overview, layout, and how to run Main.java.",
             category: "activerse",
             tags: ["wiki"]
         },
         {
+            title: "Developers Insider Release 2",
+            href: "Activerse%20Developers%20Insider%20Release%202.pdf",
+            description: "v1.4.2 architecture brief (PDF): monotonic clock, interpolation, packages, version lineage.",
+            category: "activerse",
+            tags: ["wiki", "docs", "insider"]
+        },
+        {
             title: "Wiki - Chapter 1",
             href: "ActiWiki/chapter1.html",
-            description: "First wiki chapter.",
+            description: "Create a Player, a World, and start it from Main.",
             category: "activerse",
             tags: ["wiki", "chapter"]
         },
         {
             title: "Wiki - Chapter 2",
             href: "ActiWiki/chapter2.html",
-            description: "Second wiki chapter.",
+            description: "Activerse.properties, debug overlay, and logs.log.",
             category: "activerse",
             tags: ["wiki", "chapter"]
         },
         {
             title: "Wiki - Chapter 3",
             href: "ActiWiki/chapter3.html",
-            description: "Third wiki chapter.",
+            description: "ACEHS error codes for Engine and Utils.",
+            category: "activerse",
+            tags: ["wiki", "chapter"]
+        },
+        {
+            title: "Wiki - Chapter 4",
+            href: "ActiWiki/chapter4.html",
+            description: "Images, WAV sound, and where asset files live.",
+            category: "activerse",
+            tags: ["wiki", "chapter"]
+        },
+        {
+            title: "Wiki - Chapter 5",
+            href: "ActiWiki/chapter5.html",
+            description: "Other actors, collision, collecting items, and a score.",
             category: "activerse",
             tags: ["wiki", "chapter"]
         },
         {
             title: "Wiki - Chapter X",
             href: "ActiWiki/chapterX.html",
-            description: "Extra / extended wiki chapter.",
+            description: "v1.4.2 toolkit: Camera, interpolation, ResourcePaths, utils.",
             category: "activerse",
             tags: ["wiki", "chapter"]
         },

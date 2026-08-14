@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="src/assets/css/activerse.css?v=1.4.2-compact" rel="stylesheet">
+    <link href="src/assets/css/activerse.css?v=1.4.2-nav-icons" rel="stylesheet">
     <link href="src/images/activerse-logo.png?v=1.4.2" rel="icon" type="image/png">
 </head>
 
@@ -33,30 +33,25 @@
     <!-- Glassmorphic Navigation -->
     <nav class="nav glass-surface" role="navigation">
         <div class="nav-container">
-            <div class="nav-timer glass-surface-elevated">
-                <span class="nav-timer-text">
-                    <span id="timer">v1.4.2 released!</span>
-                </span>
-            </div>
             <div class="nav-links">
-                <a href="index.html" class="nav-link">
-                    <i class="fas fa-home"></i>
+                <a href="index.html" class="nav-link" aria-label="Home" title="Home">
+                    <i class="fas fa-home" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
-                <a href="https://github.com/knivier/Activerse/releases/tag/1.4.2" target="_blank" class="nav-link">
-                    <i class="fas fa-download"></i>
+                <a href="https://github.com/knivier/Activerse/releases/tag/1.4.2" target="_blank" class="nav-link" aria-label="Download" title="Download">
+                    <i class="fas fa-download" aria-hidden="true"></i>
                     <span>Download</span>
                 </a>
-                <a href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html" class="nav-link">
-                    <i class="fas fa-file-code"></i>
+                <a href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html" class="nav-link" aria-label="Docs" title="Docs">
+                    <i class="fas fa-file-code" aria-hidden="true"></i>
                     <span>Docs</span>
                 </a>
-                <a href="actversions.html" class="nav-link">
-                    <i class="fas fa-history"></i>
+                <a href="actversions.html" class="nav-link" aria-label="Versions" title="Versions">
+                    <i class="fas fa-history" aria-hidden="true"></i>
                     <span>Versions</span>
                 </a>
-                <a href="ActiWiki/wiki.html" target="_blank" class="nav-link">
-                    <i class="fas fa-book"></i>
+                <a href="ActiWiki/wiki.html" target="_blank" class="nav-link" aria-label="Wiki" title="Wiki">
+                    <i class="fas fa-book" aria-hidden="true"></i>
                     <span>Wiki</span>
                 </a>
             </div>
@@ -96,7 +91,7 @@
                 <div class="card-content">
                     <p>Activerse is a Java 2D game framework for physics, graphics, and sound. Modular APIs let you customize the engine as much as the game.</p>
                     <p class="highlight-text">A tool made by developers, for the developer.</p>
-                    <p>As of v1.4, logic utilities ship with the engine so you can stay on game design instead of third-party glue.</p>
+                    <p>v1.4.2 ships ActiverseEngine plus ActiverseUtils. Start from the <a href="ActiWiki/wiki.html">wiki</a>, or read <a href="Activerse%20Developers%20Insider%20Release%202.pdf" target="_blank" rel="noopener noreferrer">Developers Insider Release 2</a> (PDF) for the clock, interpolation, and architecture.</p>
                 </div>
             </div>
 
@@ -127,7 +122,7 @@
                             <span><strong>Keyboard helpers</strong> for edge detection and text input.</span>
                         </div>
                     </div>
-                    <p class="changelog-more"><a href="actversions.html">Full changelog</a></p>
+                    <p class="changelog-more"><a href="actversions.html">Full changelog</a> · <a href="Activerse%20Developers%20Insider%20Release%202.pdf" target="_blank" rel="noopener noreferrer">Insider Release 2 (PDF)</a></p>
                 </div>
             </div>
 
