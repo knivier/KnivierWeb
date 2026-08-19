@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
-    <meta name="theme-color" content="#1C1B1F">
-    <meta name="color-scheme" content="dark">
-    <meta name="description" content="Activerse 1.4.2 — a Java 2D game engine by Knivier. Physics, graphics, sound, and a customizable actor/world API.">
-    <link rel="canonical" href="https://knivier.com/activerse.html">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="canonical" href="activerse.html">
     <title>Activerse by Knivier</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="src/assets/css/activerse.css?v=1.4.2-nav-icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="src/assets/css/activerse.css?v=1.4.2.1" rel="stylesheet">
     <link href="src/images/activerse-logo.png?v=1.4.2" rel="icon" type="image/png">
 </head>
 
@@ -33,101 +31,198 @@
     <!-- Glassmorphic Navigation -->
     <nav class="nav glass-surface" role="navigation">
         <div class="nav-container">
+            <div class="nav-timer glass-surface-elevated">
+                <span class="nav-timer-text">
+                    <span id="timer">v1.4.2 released!</span>
+                </span>
+            </div>
             <div class="nav-links">
-                <a href="index.html" class="nav-link" aria-label="Home" title="Home">
-                    <i class="fas fa-home" aria-hidden="true"></i>
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
-                <a href="https://github.com/knivier/Activerse/releases/tag/1.4.2" target="_blank" class="nav-link" aria-label="Download" title="Download">
-                    <i class="fas fa-download" aria-hidden="true"></i>
+                <a href="https://github.com/knivier/Activerse/releases/tag/1.4.2" target="_blank" class="nav-link">
+                    <i class="fas fa-download"></i>
                     <span>Download</span>
                 </a>
-                <a href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html" class="nav-link" aria-label="Docs" title="Docs">
-                    <i class="fas fa-file-code" aria-hidden="true"></i>
+                <a href="https://knivier.com/Activerse/ActiverseEngine/package-summary.html" class="nav-link">
+                    <i class="fas fa-file-code"></i>
                     <span>Docs</span>
                 </a>
-                <a href="actversions.html" class="nav-link" aria-label="Versions" title="Versions">
-                    <i class="fas fa-history" aria-hidden="true"></i>
+                <a href="actversions.html" class="nav-link">
+                    <i class="fas fa-history"></i>
                     <span>Versions</span>
                 </a>
-                <a href="ActiWiki/wiki.html" target="_blank" class="nav-link" aria-label="Wiki" title="Wiki">
-                    <i class="fas fa-book" aria-hidden="true"></i>
+                <a href="ActiWiki/wiki.html" target="_blank" class="nav-link">
+                    <i class="fas fa-book"></i>
                     <span>Wiki</span>
+                </a>
+                <a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
                 </a>
             </div>
         </div>
     </nav>
 
     <div class="container">
+        <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
-                <div class="logo-container">
-                    <div class="logo-glow"></div>
-                    <div class="logo glass-surface-elevated">
-                        <img alt="Activerse Logo" class="logo-image" src="src/images/activerse-logo.png?v=1.4.2">
+                <div class="logo-section">
+                    <div class="logo-container">
+                        <div class="logo-glow"></div>
+                        <div class="logo glass-surface-elevated">
+                            <img alt="Activerse Logo" class="logo-image" src="src/images/activerse-logo.png?v=1.4.2">
+                        </div>
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="title-gradient">Activerse</span>
+                    </h1>
+                    <h2 class="hero-subtitle animated-title">by Knivier</h2>
+                    <p class="tagline">Create what you want, how you want, with all the modification you want.</p>
+                </div>
+                <div class="hero-card glass-surface-elevated">
+                    <div class="card-header">
+                        <i class="fas fa-balance-scale"></i>
+                        <h2>Licensing</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Activerse © 2026 by Knivier / Agniva is licensed under <strong>CC BY-NC-SA 4.0</strong>.</p>
+                        <p class="mt-2">When sharing your code, you must abide under the same (CC BY-NC-SA 4.0) license.</p>
                     </div>
                 </div>
-                <h1 class="hero-title"><span class="title-gradient">Activerse</span></h1>
-                <p class="hero-subtitle">Java 2D game engine by Knivier</p>
-                <p class="tagline">Create what you want, how you want, with the modification you want.</p>
-                <p class="hero-license">Licensed <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>. Share-alike, non-commercial.</p>
             </div>
         </section>
 
-        <a href="activerseultra.html" class="ultra-teaser-banner glass-surface" aria-label="Open Activerse Ultra teaser">
-            <span class="ultra-teaser-kicker">Incoming</span>
-            <span class="ultra-teaser-title">Activerse Ultra v1.0.0</span>
-            <span class="ultra-teaser-copy">A 3D direction with a familiar Java codebase.</span>
-            <span class="ultra-teaser-cta">Teaser <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        <a href="activerseultra.html" class="ultra-teaser-banner glass-surface-elevated card-animate" aria-label="Open Activerse Ultra teaser">
+            <div class="ultra-teaser-glow"></div>
+            <div class="ultra-teaser-content">
+                <p class="ultra-teaser-kicker">Incoming</p>
+                <h2>Activerse Ultra v1.0.0</h2>
+                <p class="ultra-teaser-copy">Activerse is being reimagined, with a new direction and enhanced yet familiar features.</p>
+                <span class="ultra-teaser-cta">Teaser <i class="fas fa-arrow-right"></i></span>
+            </div>
         </a>
 
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+            <div class="scroll-text">Scroll</div>
+        </div>
+
+        <!-- Content Grid -->
         <div class="content-grid">
             <!-- What is Activerse Card -->
-            <div class="content-card glass-surface-elevated">
+            <div class="content-card glass-surface-elevated card-animate">
                 <div class="card-header">
                     <i class="fas fa-gamepad"></i>
                     <h2>What is Activerse?</h2>
                 </div>
                 <div class="card-content">
-                    <p>Activerse is a Java 2D game framework for physics, graphics, and sound. Modular APIs let you customize the engine as much as the game.</p>
-                    <p class="highlight-text">A tool made by developers, for the developer.</p>
-                    <p>v1.4.2 ships ActiverseEngine plus ActiverseUtils. Start from the <a href="ActiWiki/wiki.html">wiki</a>, or read <a href="Activerse%20Developers%20Insider%20Release%202.pdf" target="_blank" rel="noopener noreferrer">Developers Insider Release 2</a> (PDF) for the clock, interpolation, and architecture.</p>
+                    <p>Activerse is a powerful and versatile game framework designed to empower developers and creators to bring their imaginative worlds to life. It streamlines the 2D game development process, offering seamless integration of physics, graphics, and sound.</p>
+                    <p class="mt-3">Whether you're a seasoned developer or a novice, Activerse provides the tools and flexibility to create complex, interactive experiences. Its modular architecture allows for easy customization and scalability, making it suitable for a wide range of game genres.</p>
+                    <p class="mt-3 highlight-text">Activerse is a tool made by developers, for the developer.</p>
+                    <p class="mt-3">Activerse now provides you not just with game tools, but also logic tools as of the v1.4.* series. We want you to focus entirely on your game design; we understand the struggle of dealing with 3rd party libraries and so we took the liberty of dealing with that ourselves. Now, you can focus on your game design and let Activerse handle the rest.</p>
                 </div>
             </div>
 
             <!-- Latest Version Card -->
-            <div class="content-card glass-surface-elevated">
+            <div class="content-card glass-surface-elevated card-animate">
                 <div class="card-header">
                     <i class="fas fa-rocket"></i>
                     <h2>Latest Version: v1.4.2</h2>
                 </div>
                 <div class="card-content">
-                    <p class="version-tagline">Timing, interpolation, and runtime hardening</p>
-                    <p class="changelog-intro">v1.4.2 unifies the simulation clock, interpolates rendering between ticks, and loads assets from filesystem or classpath.</p>
+                    <p class="tagline version-tagline">Timing, Interpolation &amp; Runtime Hardening</p>
+                    <p class="changelog-intro">v1.4.2 unifies the simulation clock, interpolates rendering between ticks, and hardens asset loading for both filesystem and classpath (jar) packaging.</p>
+                    
                     <div class="changelog">
-                        <div class="changelog-item">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            <span><strong>Unified clock</strong> for update and render, with missed-tick protection.</span>
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">Game Loop &amp; Rendering</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Unified Internal Clock:</strong> Update and render now share one monotonic schedule; the render loop samples the main clock instead of drifting on a separate timer.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Tick Interpolation:</strong> Actors snapshot state each tick; paint uses <code>getRenderX/Y/Direction</code> with world render alpha for smooth motion between fixed updates.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Spiral-of-Death Protection:</strong> Missed ticks are skipped rather than burst-processed, preventing hitch cascades under load.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Camera Interpolation:</strong> Camera offsets interpolate with render alpha, including interpolated visibility and world-to-screen helpers.</span>
+                            </div>
                         </div>
-                        <div class="changelog-item">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            <span><strong>Tick interpolation</strong> for actors and camera between fixed updates.</span>
+
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">Performance &amp; Assets</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>BufferedImage Collision Cache:</strong> Pixel-perfect collision conversions are soft-cached via WeakHashMap to cut repeated image churn.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Reusable Lighting Buffer:</strong> Dynamic lighting redraws into a reused off-screen buffer sized to the world.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>ResourcePaths:</strong> Images and sounds resolve from the filesystem or classpath, so packaged <code>java -jar</code> games load assets correctly.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Safer Image Loading:</strong> MediaTracker uses a shared Canvas peer instead of temporary Frames; deprecated finalize cleanup removed from sound.</span>
+                            </div>
                         </div>
-                        <div class="changelog-item">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            <span><strong>ResourcePaths</strong> so packaged jars resolve images and sounds.</span>
+
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">Input, Utils &amp; Lifecycle</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Keyboard Helpers:</strong> Added <code>isKeyDown</code>, letter helpers, edge detection (<code>justPressed</code>/<code>justReleased</code>), and alphanumeric text input helpers.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>World Switch Reliability:</strong> GameLoop starts after the world is on the EDT; setWorld setup is EDT-safe with cleaner teardown.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>New Utils:</strong> <code>PanelPainter</code>, <code>TextRenderUtils</code>, expanded <code>ErrorLogger</code> / <code>DaemonExecutors</code> / <code>DelayScheduler</code> APIs.</span>
+                            </div>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>JDK Compatibility:</strong> Removed deprecated patterns and tightened concurrency around config and mouse component references.</span>
+                            </div>
                         </div>
-                        <div class="changelog-item">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            <span><strong>Keyboard helpers</strong> for edge detection and text input.</span>
+
+                        <div class="changelog-section">
+                            <h3 class="changelog-section-title">Docs</h3>
+                            <div class="changelog-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>API Docs Regenerated:</strong> Full JavaDoc tree republished under <a href="https://knivier.com/Activerse/">/Activerse/</a> for v1.4.2.</span>
+                            </div>
                         </div>
                     </div>
-                    <p class="changelog-more"><a href="actversions.html">Full changelog</a> · <a href="Activerse%20Developers%20Insider%20Release%202.pdf" target="_blank" rel="noopener noreferrer">Insider Release 2 (PDF)</a></p>
+                </div>
+            </div>
+
+            <!-- Contact / bugs -->
+            <div class="content-card full-span glass-surface-elevated card-animate" id="contact" aria-labelledby="activerse-contact-heading">
+                <div class="card-header">
+                    <i class="fas fa-bug"></i>
+                    <h2 id="activerse-contact-heading">Report bugs</h2>
+                </div>
+                <div class="card-content">
+                    <p>Report all bugs across Knivier branded services, products, or programs to <a class="contact-mail" href="mailto:bugs@knivier.com">bugs@knivier.com</a>.</p>
+                    <p class="contact-caution" role="note">Use this address for bug reports only. Mail is sorted by priority matching, so sending the wrong kind of request can delay a reply. For help or other information, see the <a href="index.html#contact">contact section on the main site</a>.</p>
                 </div>
             </div>
 
             <!-- Video Card -->
-            <div class="content-card full-span glass-surface-elevated">
+            <div class="content-card full-span glass-surface-elevated card-animate">
                 <div class="card-header">
                     <i class="fas fa-video"></i>
                     <h2>Activerse - v1.4 Series Features Video</h2>
@@ -162,11 +257,108 @@
                     <img alt="" class="license-badge" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1">
                 </a>
                 · Profiled with <a href="https://www.ej-technologies.com/jprofiler" rel="nofollow noopener noreferrer" target="_blank">JProfiler, a Java Profiler</a>
+                · <a href="tos-ssp.html">SSP</a>
             </p>
         </div>
     </footer>
 
     <script>
+        // Smooth scrolling
+        const anchors = document.querySelectorAll('a[href^="#"]');
+        if (anchors.length > 0) {
+            anchors.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Intersection Observer for card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card-animate').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(card);
+        });
+
+        // Logo hover animation
+        const logo = document.querySelector('.logo-image');
+        if (logo) {
+            logo.addEventListener('mouseenter', () => {
+                logo.style.transform = 'rotate(360deg) scale(1.1)';
+            });
+            logo.addEventListener('mouseleave', () => {
+                logo.style.transform = 'rotate(0deg) scale(1)';
+            });
+        }
+
+        // Scroll indicator fade
+        window.addEventListener('scroll', () => {
+            const indicator = document.querySelector('.scroll-indicator');
+            if (window.scrollY > 100) {
+                indicator.style.opacity = '0';
+                indicator.style.pointerEvents = 'none';
+            } else {
+                indicator.style.opacity = '1';
+                indicator.style.pointerEvents = 'auto';
+            }
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+            }
+        });
+
+        // Add ripple effect to interactive elements
+        document.querySelectorAll('.nav-link, .content-card, .ultra-teaser-banner').forEach(element => {
+            element.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
         // ========== WebGL Shader Effects ==========
         const canvas = document.getElementById('shader-canvas');
         if (canvas) {

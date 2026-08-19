@@ -11,6 +11,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://knivier.com/tos-ssp.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://knivier.com/popcorn.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

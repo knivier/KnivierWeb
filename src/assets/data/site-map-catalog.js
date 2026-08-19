@@ -53,6 +53,13 @@ window.SITE_MAP = {
             tags: ["sitemap", "help", "navigation"]
         },
         {
+            title: "SSP - Seamless Standard Promise",
+            href: "tos-ssp.html",
+            description: "Terms of Software/Services: as-is software, open-source liability, data protection, licensing, and closed-source rules.",
+            category: "home",
+            tags: ["legal", "tos", "ssp", "terms", "license", "privacy"]
+        },
+        {
             title: "About me",
             href: "index.html#about",
             description: "Jump to About - University of Michigan, Computer Engineering BSE.",
@@ -90,18 +97,25 @@ window.SITE_MAP = {
         {
             title: "Contact",
             href: "index.html#contact",
-            description: "Email, Discord handle, GitHub, and YouTube.",
+            description: "Official Knivier emails (bugs@, help@, enquiry@, legal@), Discord handle, GitHub, YouTube, and SSP terms.",
             category: "home",
-            tags: ["contact", "email", "discord"]
+            tags: ["contact", "email", "discord", "bugs", "help", "enquiry", "legal"]
         },
 
         // Popcorn
         {
             title: "Popcorn home",
             href: "popcorn.html",
-            description: "Landing, spec chips, and demo terminal (shell / build tabs).",
+            description: "Landing, spec chips, demo terminal (shell / build tabs), and bug reports.",
             category: "popcorn",
-            tags: ["kernel", "os", "qemu"]
+            tags: ["kernel", "os", "qemu", "bugs", "contact"]
+        },
+        {
+            title: "Popcorn - report bugs",
+            href: "popcorn.html#contact",
+            description: "Report Popcorn and other Knivier-branded bugs to bugs@knivier.com.",
+            category: "popcorn",
+            tags: ["contact", "bugs", "email"]
         },
         {
             title: "About Popcorn",
@@ -140,6 +154,13 @@ window.SITE_MAP = {
             description: "Main product / engine overview page.",
             category: "activerse",
             tags: ["java", "game engine"]
+        },
+        {
+            title: "Activerse - report bugs",
+            href: "activerse.html#contact",
+            description: "Report Activerse and other Knivier-branded bugs to bugs@knivier.com.",
+            category: "activerse",
+            tags: ["contact", "bugs", "email"]
         },
         {
             title: "Version log",

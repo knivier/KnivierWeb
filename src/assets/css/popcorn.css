@@ -311,6 +311,67 @@ h1 {
     }
 }
 
+.popcorn-contact {
+    position: relative;
+    z-index: 2;
+    width: 92%;
+    max-width: 1100px;
+    margin: 0 auto 2.5rem;
+    padding: 0 1.25rem;
+}
+
+.popcorn-contact__panel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: var(--radius-panel);
+    padding: 1.5rem 1.35rem;
+}
+
+.popcorn-contact h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.65rem;
+}
+
+.popcorn-contact p {
+    color: var(--text);
+    margin-bottom: 0.85rem;
+}
+
+.popcorn-contact .contact-mail {
+    color: var(--accent);
+    font-weight: 600;
+    font-family: "Fira Code", ui-monospace, monospace;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.popcorn-contact .contact-mail:hover {
+    text-decoration: underline;
+}
+
+.popcorn-contact .contact-caution {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    background: rgba(0, 255, 157, 0.06);
+    border: 1px solid rgba(0, 255, 157, 0.28);
+    border-radius: 10px;
+}
+
+.popcorn-contact .contact-caution a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.popcorn-contact .contact-caution a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .hero {
         padding: 1rem 0 2rem;
