@@ -2,414 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1C1B1F">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Activerse Ultra v1.0.0 teaser — a 3D successor to the Activerse Java game engine, currently in development.">
     <title>Activerse Ultra Teaser</title>
-    <style>
-        :root {
-            --bg: #05050d;
-            --bg-soft: #0d1120;
-            --ink: #e8e7ff;
-            --muted: #a8b0d6;
-            --line: rgba(176, 155, 255, 0.28);
-            --glow: #9c7cff;
-            --glow-hot: #5ef5ff;
-            --card: rgba(13, 17, 32, 0.76);
-            --accent: linear-gradient(120deg, #9c7cff 0%, #5ef5ff 100%);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-            background: radial-gradient(circle at 10% -20%, #171134 0%, var(--bg) 52%, #020208 100%);
-            color: var(--ink);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        a {
-            color: inherit;
-        }
-
-        #starfield {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-        }
-
-        .scanlines {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            background-image: linear-gradient(
-                rgba(255, 255, 255, 0.03) 1px,
-                transparent 1px
-            );
-            background-size: 100% 3px;
-            opacity: 0.35;
-            mix-blend-mode: screen;
-            animation: scan-drift 7s linear infinite;
-        }
-
-        .container {
-            width: min(1100px, 92vw);
-            margin: 0 auto;
-            padding: 2rem 0 4rem;
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            padding: 0.55rem 0.9rem;
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            text-decoration: none;
-            color: var(--muted);
-            background: rgba(8, 10, 20, 0.75);
-            transition: transform 220ms ease, border-color 220ms ease, color 220ms ease;
-        }
-
-        .back-link:hover {
-            transform: translateY(-2px);
-            border-color: rgba(176, 155, 255, 0.7);
-            color: var(--ink);
-        }
-
-        .hero {
-            position: relative;
-            border: 1px solid var(--line);
-            border-radius: 24px;
-            padding: clamp(1.7rem, 4vw, 3rem);
-            background: linear-gradient(145deg, rgba(12, 14, 30, 0.86), rgba(6, 8, 18, 0.82));
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 20px 60px rgba(0, 0, 0, 0.52);
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: -20%;
-            background: conic-gradient(from 30deg, rgba(156, 124, 255, 0.3), rgba(94, 245, 255, 0.15), rgba(156, 124, 255, 0.3));
-            filter: blur(42px);
-            animation: spin 14s linear infinite;
-        }
-
-        .hero > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .kicker {
-            color: var(--muted);
-            letter-spacing: 0.24em;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            margin-bottom: 0.8rem;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 4rem);
-            line-height: 1.08;
-            margin-bottom: 0.7rem;
-            text-shadow: 0 0 20px rgba(156, 124, 255, 0.45);
-            animation: jitter 6s infinite;
-        }
-
-        .sub {
-            font-size: clamp(1rem, 2.4vw, 1.3rem);
-            color: var(--muted);
-            max-width: 68ch;
-            line-height: 1.65;
-        }
-
-        .teaser-strip {
-            margin-top: 1.2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-        }
-
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            padding: 0.6rem 0.85rem;
-            border-radius: 999px;
-            border: 1px solid rgba(176, 155, 255, 0.22);
-            background: rgba(8, 10, 20, 0.72);
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        #dev-days {
-            font-variant-numeric: tabular-nums;
-        }
-
-        .pulse-line {
-            margin-top: 1.3rem;
-            width: min(420px, 75vw);
-            height: 2px;
-            background: var(--accent);
-            box-shadow: 0 0 20px rgba(94, 245, 255, 0.5);
-            animation: line-breathe 2.3s ease-in-out infinite;
-        }
-
-        .grid {
-            margin-top: 2rem;
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        }
-
-        .grid.narrow {
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        }
-
-        .card {
-            position: relative;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: var(--card);
-            backdrop-filter: blur(10px);
-            padding: 1rem 1.1rem;
-            transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
-            overflow: hidden;
-        }
-
-        .card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(125deg, rgba(156, 124, 255, 0.08), rgba(94, 245, 255, 0.04));
-            opacity: 0;
-            transition: opacity 280ms ease;
-            pointer-events: none;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(176, 155, 255, 0.6);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-        }
-
-        .card:hover::after {
-            opacity: 1;
-        }
-
-        .card h2 {
-            font-size: 1rem;
-            margin-bottom: 0.55rem;
-            color: #d8cbff;
-        }
-
-        .card p,
-        .card li {
-            color: var(--muted);
-            line-height: 1.5;
-            font-size: 0.96rem;
-        }
-
-        .card ul {
-            list-style: none;
-            display: grid;
-            gap: 0.45rem;
-        }
-
-        .mono {
-            font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
-            font-size: 0.9rem;
-            color: #d7f8ff;
-            background: rgba(8, 15, 30, 0.82);
-            border: 1px solid rgba(94, 245, 255, 0.18);
-            border-radius: 12px;
-            padding: 0.9rem;
-            white-space: pre-wrap;
-        }
-
-        .table-wrap {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 0.2rem;
-            min-width: 460px;
-        }
-
-        th, td {
-            border-bottom: 1px solid rgba(176, 155, 255, 0.16);
-            text-align: left;
-            padding: 0.65rem 0.4rem;
-            color: var(--muted);
-            font-size: 0.94rem;
-        }
-
-        th {
-            color: #dcd1ff;
-            font-weight: 650;
-        }
-
-        .redacted {
-            filter: blur(2.8px);
-            user-select: none;
-            pointer-events: none;
-        }
-
-        .teaser-lock {
-            color: #c7d3ff;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-size: 0.78rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(18px);
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 520ms ease, transform 520ms ease;
-        }
-
-        .footer-note {
-            margin-top: 1.5rem;
-            color: #9fb2cb;
-            font-size: 0.9rem;
-            text-align: center;
-            opacity: 0.9;
-        }
-
-        .footer-note a {
-            color: #c7ddff;
-            text-decoration: none;
-        }
-
-        .footer-note a:hover {
-            text-decoration: underline;
-        }
-
-        .ping {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #5ef5ff;
-            margin-right: 0.45rem;
-            box-shadow: 0 0 0 rgba(94, 245, 255, 0.6);
-            animation: ping 1.6s infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes jitter {
-            0%, 100% { transform: translateX(0); }
-            1% { transform: translateX(1px); }
-            2% { transform: translateX(-1px); }
-            20% { transform: translateX(0); }
-            21% { transform: translateX(-1px); }
-            22% { transform: translateX(1px); }
-            23% { transform: translateX(0); }
-        }
-
-        @keyframes line-breathe {
-            0%, 100% { transform: scaleX(1); opacity: 0.65; }
-            50% { transform: scaleX(1.03); opacity: 1; }
-        }
-
-        @keyframes scan-drift {
-            from { transform: translateY(0); }
-            to { transform: translateY(3px); }
-        }
-
-        @keyframes ping {
-            0% {
-                box-shadow: 0 0 0 0 rgba(94, 245, 255, 0.6);
-            }
-            70% {
-                box-shadow: 0 0 0 14px rgba(94, 245, 255, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(94, 245, 255, 0);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
+    <link rel="canonical" href="https://knivier.com/activerseultra.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="src/assets/css/activerse-ultra.css" rel="stylesheet">
+    <link href="src/images/activerse-logo.png" rel="icon" type="image/png">
 </head>
-<body>
+<body class="activerse-subpage">
     <canvas id="starfield"></canvas>
     <div class="scanlines"></div>
 
-    <main class="container">
-        <a class="back-link reveal" href="activerse.html">← Back to Activerse info</a>
+    <nav class="nav glass-surface" role="navigation">
+        <div class="nav-container">
+            <div class="nav-timer glass-surface-elevated">
+                <span class="nav-timer-text">Ultra teaser</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link" aria-label="Portfolio" title="Portfolio"><i class="fas fa-home" aria-hidden="true"></i><span>Portfolio</span></a>
+                <a href="activerse.html" class="nav-link" aria-label="Activerse" title="Activerse"><i class="fas fa-gamepad" aria-hidden="true"></i><span>Activerse</span></a>
+                <a href="activerseultra.html" class="nav-link is-active" aria-label="Ultra" title="Ultra"><i class="fas fa-cube" aria-hidden="true"></i><span>Ultra</span></a>
+                <a href="actversions.html" class="nav-link" aria-label="Versions" title="Versions"><i class="fas fa-history" aria-hidden="true"></i><span>Versions</span></a>
+                <a href="ActiWiki/wiki.html" class="nav-link" aria-label="Wiki" title="Wiki"><i class="fas fa-book" aria-hidden="true"></i><span>Wiki</span></a>
+            </div>
+        </div>
+    </nav>
 
-        <section class="hero reveal">
+    <main class="ultra-main">
+        <a class="back-link reveal" href="activerse.html">Back to Activerse</a>
+
+        <section class="ultra-hero reveal">
             <p class="kicker"><span class="ping"></span>Teaser</p>
             <h1>Activerse Ultra v1.0.0</h1>
-            <p class="sub">A separate project is on the way. </p>
+            <p class="sub">A separate project is on the way.</p>
             <div class="teaser-strip">
                 <span class="chip"><span class="ping"></span><span id="dev-days">Day 1 in development</span></span>
                 <span class="chip">3 Dimensionality</span>
                 <span class="chip">Ultra refined debugging</span>
-                <span class="chip">Keeps old architecture & language</span>
+                <span class="chip">Keeps old architecture &amp; language</span>
             </div>
             <div class="pulse-line"></div>
         </section>
 
-        <section class="grid narrow">
-            <article class="card reveal">
+        <section class="grid">
+            <article class="card glass-surface-elevated reveal">
                 <h2>What is it?</h2>
-                <p>Activerse but with 3 dimensions instead of two, with a familar codebase and familiar development practices.</p>
+                <p>Activerse but with 3 dimensions instead of two, with a familiar codebase and familiar development practices.</p>
             </article>
-
-            <article class="card reveal">
+            <article class="card glass-surface-elevated reveal">
                 <h2>Preview status</h2>
                 <p>Teaser only. No launch instructions, package list, or implementation notes here.</p>
             </article>
-
-            <article class="card reveal">
+            <article class="card glass-surface-elevated reveal">
                 <h2>What to expect</h2>
                 <p>Powerful features that remain accessible to use, just in 3 dimensions.</p>
             </article>
-
-            <article class="card reveal">
+            <article class="card glass-surface-elevated reveal">
                 <h2>Release Date</h2>
                 <p>Activerse Ultra has just started development. An initial launch will be available in a couple months.</p>
             </article>
-
-            <article class="card reveal">
+            <article class="card glass-surface-elevated reveal">
                 <h2>What's being retained?</h2>
                 <p>Your detailed debugging setup, advanced logging capabilities, clear and UTD documentation, and stability; all on day 1 of launch.</p>
             </article>
-
-            <article class="card reveal">
+            <article class="card glass-surface-elevated reveal">
                 <h2>Coming next</h2>
                 <ul>
                     <li>A cleaner reveal page</li>
                     <li>Launch when open source and public</li>
                 </ul>
             </article>
-
-           
         </section>
 
         <p class="footer-note reveal">More will be revealed when Activerse Ultra is ready. Development is currently closed source. · <a href="tos-ssp.html">SSP - Terms of Software/Services</a></p>
@@ -427,7 +95,7 @@
             h = window.innerHeight;
             canvas.width = w;
             canvas.height = h;
-            stars = Array.from({ length: Math.max(120, Math.floor((w * h) / 14000)) }, () => ({
+            stars = Array.from({ length: Math.max(80, Math.floor((w * h) / 18000)) }, () => ({
                 x: Math.random() * w,
                 y: Math.random() * h,
                 z: Math.random() * 1.3 + 0.4,
@@ -443,8 +111,8 @@
                     s.y = -2;
                     s.x = Math.random() * w;
                 }
-                const alpha = Math.min(1, 0.25 + s.z * 0.5);
-                ctx.fillStyle = `rgba(190, 220, 255, ${alpha})`;
+                const alpha = Math.min(1, 0.2 + s.z * 0.45);
+                ctx.fillStyle = `rgba(208, 188, 255, ${alpha})`;
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
                 ctx.fill();
@@ -470,7 +138,6 @@
             const currentDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             const daysInDevelopment = Math.max(1, Math.floor((currentDay - startDay) / 86400000) + 1);
             const counter = document.getElementById("dev-days");
-
             if (counter) {
                 counter.textContent = `Day ${daysInDevelopment} in development`;
             }

@@ -142,6 +142,15 @@
     text-align: center;
 }
 
+.footer-note a {
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+}
+
+.footer-note a:hover {
+    text-decoration: underline;
+}
+
 .ping {
     display: inline-block;
     width: 8px;
